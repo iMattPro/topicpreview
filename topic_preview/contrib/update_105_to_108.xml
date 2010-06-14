@@ -109,9 +109,19 @@
 		<open src="search.php">
 			<edit>
 				<find><![CDATA[			// BEGIN Topic Preview Mod
-			if ($config['topic_preview_limit'])]]></find>
+			if ($config['topic_preview_limit'])
+			{
+				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
+            	$sql_select .= ', p.post_text AS first_post_preview_text';
+			}
+			// END Topic Preview Mod]]></find>
 				<action type="replace-with"><![CDATA[			// BEGIN Topic Preview Mod
-			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])]]></action>
+			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+			{
+				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
+				$sql_select .= ', p.post_text AS first_post_preview_text';
+			}
+			// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[				// BEGIN Topic Preview Mod

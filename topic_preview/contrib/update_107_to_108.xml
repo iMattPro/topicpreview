@@ -106,6 +106,10 @@
 		</copy>
 		<open src="search.php">
 			<edit>
+				<find><![CDATA[            	$sql_select .= ', p.post_text AS first_post_preview_text';]]></find>
+				<action type="replace-with"><![CDATA[				$sql_select .= ', p.post_text AS first_post_preview_text';]]></action>
+			</edit>
+			<edit>
 				<find><![CDATA[					include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);]]></find>
 				<action type="replace-with"><![CDATA[					if(!function_exists('trim_topic_preview'))
 					{

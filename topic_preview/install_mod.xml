@@ -7,12 +7,14 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.]]></description>
-		<author-notes lang="en"><![CDATA[Note, this mod was inspired by a similar mod by RMcGirr83.]]></author-notes>
+		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.
+
+		Note: this MOD was inspired by a similar MOD by RMcGirr83.]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
 			</author>
 		</author-group>
 		<mod-version>1.0.8</mod-version>
@@ -120,7 +122,7 @@
 			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 			{
 				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-            	$sql_select .= ', p.post_text AS first_post_preview_text';
+				$sql_select .= ', p.post_text AS first_post_preview_text';
 			}
 			// END Topic Preview Mod
 ]]></action>
