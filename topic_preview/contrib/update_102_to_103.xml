@@ -7,8 +7,7 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.]]></description>
-		<author-notes lang="en"><![CDATA[Note, this mod was inspired by a similar mod by RMcGirr83's, and includes one function originally authored by him.]]></author-notes>
+		<description lang="en"><![CDATA[Update from version 1.0.2 to 1.0.3]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -55,15 +54,21 @@
 		</history>
 	</header>
 	<action-group>
-		<sql><![CDATA[INSERT INTO phpbb_config (config_name, config_value) VALUES ('topic_preview_limit','150')]]></sql>
+		<sql><![CDATA[UPDATE phpbb_config SET config_name = 'topic_preview_limit' WHERE config_name = 'title_hover_limit']]></sql>
 		<copy>
 			<file from="root/language/en/mods/topic_preview.php" to="language/en/mods/topic_preview.php"/>
 			<file from="root/includes/topic_preview.php" to="includes/topic_preview.php"/>
 		</copy>
 		<open src="search.php">
 			<edit>
-				<find><![CDATA[if ($config['load_anon_lastread'] || ($user->data['is_registered'] && !$config['load_db_lastread']))]]></find>
-				<action type="before-add"><![CDATA[			// BEGIN Topic Preview Mod
+				<find><![CDATA[			// BEGIN Topic Title Hover Text Mod
+			if ($config['title_hover_limit'])
+			{
+				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
+            	$sql_select .= ', p.post_text AS first_post_text_hover';
+			}
+			// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[			// BEGIN Topic Preview Mod
 			if ($config['topic_preview_limit'])
 			{
 				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
@@ -72,9 +77,22 @@
 			// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[				$tpl_ary = array(
-					'TOPIC_AUTHOR'				=>]]></find>
-				<action type="before-add"><![CDATA[				// BEGIN Topic Preview Mod
+				<find><![CDATA[				// BEGIN Topic Title Hover Text Mod
+				if (!empty($row['first_post_text_hover']))
+				{
+					// strip bbcode
+					include($phpbb_root_path . 'includes/topic_title_hover_text.' . $phpEx);			
+					$first_post_text_hover = bbcode_strip($row['first_post_text_hover']);
+					if (utf8_strlen($first_post_text_hover) >= $config['title_hover_limit'])
+					{
+						$first_post_text_hover = (utf8_strlen($first_post_text_hover) > $config['title_hover_limit']) ? utf8_substr($first_post_text_hover, 0, $config['title_hover_limit']) : $first_post_text_hover;
+						// use last space before the character limit as the break-point, if one exists
+						$new_char_limit = utf8_strrpos($first_post_text_hover, ' ') != false ? utf8_strrpos($first_post_text_hover, ' ') : $config['title_hover_limit'];
+						$first_post_text_hover = utf8_substr($first_post_text_hover, 0, $new_char_limit) . '...';
+					}
+				}
+				// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[				// BEGIN Topic Preview Mod
 				if (!empty($row['first_post_preview_text']))
 				{
 					// strip bbcode
@@ -91,16 +109,24 @@
 				// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
-				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
+				<find><![CDATA[					// BEGIN Topic Title Hover Text Mod
+					'TOPIC_TITLE_HOVER'		=> (isset($first_post_text_hover)) ? censor_text($first_post_text_hover) : '',
+					// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[					// BEGIN Topic Preview Mod
 					'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
 					// END Topic Preview Mod]]></action>
 			</edit>
 		</open>
 		<open src="viewforum.php">
 			<edit>
-				<find><![CDATA[if ($forum_data['forum_type'] == FORUM_POST)]]></find>
-				<action type="before-add"><![CDATA[// BEGIN Topic Preview Mod
+				<find><![CDATA[// BEGIN Topic Title Hover Text Mod
+if ($config['title_hover_limit'])
+{
+	$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
+	$sql_array['SELECT'] .= ', pt.post_text AS first_post_text_hover';
+}
+// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[// BEGIN Topic Preview Mod
 if ($config['topic_preview_limit'])
 {
 	$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
@@ -109,10 +135,25 @@ if ($config['topic_preview_limit'])
 // END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[	$sql = 'SELECT *
-		FROM ' . TOPICS_TABLE . '
-		WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
-	$result = $db->sql_query($sql);
+				<find><![CDATA[	// BEGIN Topic Title Hover Text MOD
+	if ($config['title_hover_limit'])
+	{
+		$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
+		$sql_select =  ', p.post_text AS first_post_text_hover';
+
+		$sql = 'SELECT t.* ' . $sql_select . '
+			FROM ' . TOPICS_TABLE . ' t
+			' . $sql_join . 'WHERE ' . $db->sql_in_set(' t.topic_id', array_keys($shadow_topic_list));
+		$result = $db->sql_query($sql);
+	}
+	else
+	{
+		$sql = 'SELECT *
+			FROM ' . TOPICS_TABLE . '
+			WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
+		$result = $db->sql_query($sql);
+	}
+	// END Topic Title Hover Text MOD
 ]]></find>
 				<action type="replace-with"><![CDATA[	// BEGIN Topic Preview Mod
 	if ($config['topic_preview_limit'])
@@ -136,8 +177,22 @@ if ($config['topic_preview_limit'])
 ]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[// Send vars to template]]></find>
-				<action type="before-add"><![CDATA[		// BEGIN Topic Preview Mod
+				<find><![CDATA[		// BEGIN Topic Title Hover Text Mod
+		if (!empty($row['first_post_text_hover']) && $auth->acl_get('f_read', $forum_id))
+		{
+			// strip all bbcode
+			include($phpbb_root_path . 'includes/topic_title_hover_text.' . $phpEx);
+			$first_post_text_hover = bbcode_strip($row['first_post_text_hover']);
+			if (utf8_strlen($first_post_text_hover) >= $config['title_hover_limit'])
+			{
+				$first_post_text_hover = (utf8_strlen($first_post_text_hover) > $config['title_hover_limit']) ? utf8_substr($first_post_text_hover, 0, $config['title_hover_limit']) : $first_post_text_hover;
+				// use last space before the character limit as the break-point, if one exists
+				$new_char_limit = utf8_strrpos($first_post_text_hover, ' ') != false ? utf8_strrpos($first_post_text_hover, ' ') : $config['title_hover_limit'];
+				$first_post_text_hover = utf8_substr($first_post_text_hover, 0, $new_char_limit) . '...';
+			}
+		}
+		// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
 		if (!empty($row['first_post_preview_text']) && $auth->acl_get('f_read', $forum_id))
 		{
 			// strip all bbcode
@@ -154,82 +209,64 @@ if ($config['topic_preview_limit'])
 		// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
-				<action type="after-add"><![CDATA[			// BEGIN Topic Preview Mod
+				<find><![CDATA[			// BEGIN Topic Title Hover Text Mod
+			'TOPIC_TITLE_HOVER'		=> (isset($first_post_text_hover)) ? censor_text($first_post_text_hover) : '',
+			// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[			// BEGIN Topic Preview Mod
 			'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
 			// END Topic Preview Mod]]></action>
 			</edit>
 		</open>
 		<open src="includes/acp/acp_board.php">
 			<edit>
-				<find><![CDATA[$user->add_lang('acp/board');]]></find>
-				<action type="after-add"><![CDATA[ 		// BEGIN Topic Preview Mod
+				<find><![CDATA[ 		// BEGIN Topic Title Hover Text Mod
+		$user->add_lang('mods/topic_title_hover_text');
+		// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[ 		// BEGIN Topic Preview Mod
 		$user->add_lang('mods/topic_preview');
 		// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA['load_cpf_viewtopic'	=> array('lang' => 'LOAD_CPF_VIEWTOPIC',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></find>
-				<action type="after-add"><![CDATA[						// BEGIN Topic Preview Mod
+				<find><![CDATA[						// BEGIN Topic Title Hover Text Mod
+						'title_hover_limit'		=> array('lang' => 'TOPIC_TITLES_HOVER','validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
+						// END Topic Title Hover Text Mod]]></find>
+				<action type="replace-with"><![CDATA[						// BEGIN Topic Preview Mod
 						'topic_preview_limit'		=> array('lang' => 'TOPIC_PREVIEW','validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
 						// END Topic Preview Mod]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/search_results.html">
 			<edit>
-				<find><![CDATA[<dt <!-- IF searchresults.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF -->>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[background-repeat: no-repeat;"<!-- ENDIF -->]]></inline-find>
-					<inline-action type="after-add"><![CDATA[ <!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ELSE --> title="{searchresults.TOPIC_FOLDER_IMG_ALT}"<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[<!-- IF searchresults.TOPIC_TITLE_HOVER --> title="{searchresults.TOPIC_TITLE_HOVER}"]]></find>
+				<action type="replace-with"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/viewforum_body.html">
 			<edit>
-				<find><![CDATA[<dt<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}"><!-- IF topicrow.S_UNREAD_TOPIC --><a href="{topicrow.U_NEWEST_POST}">{NEWEST_POST_IMG}</a> <!-- ENDIF --><a href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[background-repeat: no-repeat;"<!-- ENDIF --> ]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE --> ]]></inline-action>
-				</inline-edit>
-				<inline-edit>
-					<inline-find><![CDATA[title="{topicrow.TOPIC_FOLDER_IMG_ALT}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[<!-- IF topicrow.TOPIC_TITLE_HOVER --> title="{topicrow.TOPIC_TITLE_HOVER}"]]></find>
+				<action type="replace-with"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> title="{topicrow.TOPIC_PREVIEW_TEXT}"]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/search_results.html">
 			<edit>
-				<find><![CDATA[{searchresults.ATTACH_ICON_IMG} <a href="{searchresults.U_VIEW_TOPIC}" class="topictitle"]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[class="topictitle"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[<!-- IF searchresults.TOPIC_TITLE_HOVER --> title="{searchresults.TOPIC_TITLE_HOVER}"]]></find>
+				<action type="replace-with"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/viewforum_body.html">
 			<edit>
-				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[<b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a ]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->]]></inline-action>
-				</inline-edit>
-				<inline-edit>
-					<inline-find><![CDATA["{L_POSTED}: {topicrow.FIRST_POST_TIME}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[<!-- IF topicrow.TOPIC_TITLE_HOVER -->title="{topicrow.TOPIC_TITLE_HOVER}"]]></find>
+				<action type="replace-with"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[<b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a ]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->]]></inline-action>
-				</inline-edit>
-				<inline-edit>
-					<inline-find><![CDATA["{L_POSTED}: {topicrow.FIRST_POST_TIME}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[<!-- IF topicrow.TOPIC_TITLE_HOVER -->title="{topicrow.TOPIC_TITLE_HOVER}"]]></find>
+				<action type="replace-with"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"]]></action>
 			</edit>
 		</open>
-		<diy-instructions lang="en"><![CDATA[ACP Configuration settings can be found under "Board Features" in the "General" tab.
+		<diy-instructions lang="en"><![CDATA[You should delete the old files:
+language/en/mods/topic_title_hover_text.php
+includes/topic_title_hover_text.php
+
 Be sure to purge your cache and style templates too for the mod changes to take effect.]]></diy-instructions>
 	</action-group>
 </mod>
