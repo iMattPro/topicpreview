@@ -15,7 +15,7 @@
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.1</mod-version>
+		<mod-version>1.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -35,6 +35,13 @@
 				<changelog lang="en">
 					<change><![CDATA[Fixed language file variable names]]></change>
 					<change><![CDATA[Cleaned up old/unnecessary code in install file]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-04</date>
+				<rev-version>1.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Smileys are now displayed in the tooltip as text :)]]></change>
 				</changelog>
 			</entry>
 		</history>
