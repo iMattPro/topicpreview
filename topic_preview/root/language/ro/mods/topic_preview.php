@@ -1,13 +1,14 @@
 <?php
 /**
 *
-* topic_preview [English]
+* topic_preview [Română]
 *
 * @package language
 * @version $Id: topic_preview.php, 6 2010-04-13 00:49:11GMT VSE $
 * @copyright (c) 2010 Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
+* @traducere: Baros http://www.stoarcecreierul.ro/
 */
 
 /**
@@ -36,15 +37,15 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-    'TOPIC_PREVIEW'			=> 'Length of Topic Preview Text',
-    'TOPIC_PREVIEW_EXPLAIN'	=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
-    'CHARS'   				=> 'Characters',
-	'DISPLAY_TOPIC_PREVIEW' => 'Display topic previews',	
-    'TOPIC_PREVIEW_STRIP'			=> 'BBcodes to hide in Topic Preview',
-    'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'List BBcodes with content you want removed from the preview (spoiler and hidden text BBcodes, for example). Separate multiple BBcodes using the | character, for example: spoiler|hide|code',
+    'TOPIC_PREVIEW'			=> 'Lungimea textului subiectelor previzualizate',
+    'TOPIC_PREVIEW_EXPLAIN'	=> 'Va arăta o parte din textul primului subiect într-un tooltip în timp ce eşti cu mausul deasupra titlului subiectului. Introdu numărul de caractere ce vor fi afişate în tooltip (valoarea implicită este 150). Setarea acestei valori la 0 scoate din funcţiune această particularitate.',
+    'CHARS'   				=> 'Caractere',
+	'DISPLAY_TOPIC_PREVIEW' => 'Afişează previzualizările subiectelor',	
+    'TOPIC_PREVIEW_STRIP'			=> 'Coduri BB de ascuns în previzualizarea subiectelor',
+    'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Afişează codurile BB cu conţinutul pe care-l doreşti înlăturat din previzualizare (spoileri şi texte cod BB ascunse, spre exemplu). Separă codurile BB multiple folosind caracterul |, de exemplu: spoiler|ascunde|cod',
 
 	// Installation language vars (UMIL)
-	'TP_MOD'	=> 'Topic Preview',
+	'TP_MOD'		=> 'Previzualizare Subiecte',
 ));
 
 ?>

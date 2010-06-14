@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* topic_preview [English]
+* topic_preview [Spanish]
 *
 * @package language
 * @version $Id: topic_preview.php, 6 2010-04-13 00:49:11GMT VSE $
@@ -36,12 +36,12 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-    'TOPIC_PREVIEW'			=> 'Length of Topic Preview Text',
-    'TOPIC_PREVIEW_EXPLAIN'	=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
-    'CHARS'   				=> 'Characters',
-	'DISPLAY_TOPIC_PREVIEW' => 'Display topic previews',	
-    'TOPIC_PREVIEW_STRIP'			=> 'BBcodes to hide in Topic Preview',
-    'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'List BBcodes with content you want removed from the preview (spoiler and hidden text BBcodes, for example). Separate multiple BBcodes using the | character, for example: spoiler|hide|code',
+    'TOPIC_PREVIEW'			=> 'Longitud del texto de Topic Preview',
+    'TOPIC_PREVIEW_EXPLAIN'	=> 'Mostrará el primer texto de un tema en una descripción emergente mientras el ratón está sobre el título del tema. Introduce el número de caracteres que se mostrarán en la descripción (por defecto es 150). Ajustando el valor a 0 desactiva esta función.',
+    'CHARS'   				=> 'Caracteres',
+	'DISPLAY_TOPIC_PREVIEW' => 'Mostrar previsualización del tema',	
+    'TOPIC_PREVIEW_STRIP'			=> 'BBcodes a ocultar en Topic Preview',
+    'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista de BBcodes con contenido que desea eliminar de la vista previa (BBcodes spoiler y texto oculto, por ejemplo). Separar múltiples BBcodes usando el caracter |, por ejemplo: spoiler|hide|code',
 
 	// Installation language vars (UMIL)
 	'TP_MOD'	=> 'Topic Preview',

@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB3
-* @version $Id: topic_preview.php, 10 2010/3/03 14:15:42 VSE Exp $
+* @version $Id: topic_preview.php, 11 2010/4/03 23:13:42 VSE Exp $
 * @copyright (c) Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -29,13 +29,15 @@ function bbcode_strip($text)
 	static $RegEx = array();
 	$bbcode_strip = empty($config['topic_preview_strip_bbcodes']) ? 'flash' : 'flash|' . trim($config['topic_preview_strip_bbcodes']);
 	$text = smiley_text($text, true); // Save the smileys - show them as text :)
-	$text = str_replace(' ... ', '', $text); // remove ' ... ' from shortened urls so they can be stripped too 
 	if (empty($RegEx))
 	{
-		$RegEx = array('#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
+		$RegEx = array(
+			'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Strip magic URLs			
+			'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
 			'#\[(' . $bbcode_strip . ')[^\[\]]+\].*\[/(' . $bbcode_strip . ')[^\[\]]+\]#Usi', // bbcode to strip
 			'#\[/?[^\[\]]+\]#mi', // Strip all bbcode tags
-			'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Strip out URLs
+			'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Strip remaining URLs
+			'#"#', // Possible quotes from older board conversions
 			'#[\s]+#' // Multiple spaces
 		);
 	}

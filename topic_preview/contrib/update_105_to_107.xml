@@ -7,8 +7,7 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.]]></description>
-		<author-notes lang="en"><![CDATA[Note, this mod was inspired by a similar mod by RMcGirr83.]]></author-notes>
+		<description lang="en"><![CDATA[Update from version 1.0.5 to 1.0.7]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -18,7 +17,7 @@
 		<mod-version>1.0.7</mod-version>
 		<installation>
 			<level>easy</level>
-			<time>600</time>
+			<time>300</time>
 			<target-version>3.0.7-PL1</target-version>
 		</installation>
 		<history>
@@ -91,124 +90,89 @@
 				</changelog>
 			</entry>
 		</history>
-		<link-group>
-			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2</link>
-			<link type="uninstall" href="contrib/uninstall.xml" lang="en">Uninstall Topic Preview</link>
-			<link type="contrib" href="contrib/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
-		</link-group>
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/language/en/mods/topic_preview.php" to="language/en/mods/topic_preview.php"/>
 			<file from="root/includes/topic_preview.php" to="includes/topic_preview.php"/>
+			<file from="root/language/en/mods/topic_preview.php" to="language/en/mods/topic_preview.php"/>
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>
 		<open src="search.php">
 			<edit>
-				<find><![CDATA[if ($config['load_anon_lastread'] || ($user->data['is_registered'] && !$config['load_db_lastread']))]]></find>
-				<action type="before-add"><![CDATA[			// BEGIN Topic Preview Mod
-			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
-			{
-				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-            	$sql_select .= ', p.post_text AS first_post_preview_text';
-			}
-			// END Topic Preview Mod
-]]></action>
+				<find><![CDATA[			// BEGIN Topic Preview Mod
+			if ($config['topic_preview_limit'])]]></find>
+				<action type="replace-with"><![CDATA[			// BEGIN Topic Preview Mod
+			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[				$tpl_ary = array(
-					'TOPIC_AUTHOR'				=>]]></find>
-				<action type="before-add"><![CDATA[				// BEGIN Topic Preview Mod
+				<find><![CDATA[				// BEGIN Topic Preview Mod
+				if (!empty($row['first_post_preview_text']))
+				{
+					// strip bbcode
+					include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);			
+					$first_post_preview_text = bbcode_strip($row['first_post_preview_text']);
+					if (utf8_strlen($first_post_preview_text) >= $config['topic_preview_limit'])
+					{
+						$first_post_preview_text = (utf8_strlen($first_post_preview_text) > $config['topic_preview_limit']) ? utf8_substr($first_post_preview_text, 0, $config['topic_preview_limit']) : $first_post_preview_text;
+						// use last space before the character limit as the break-point, if one exists
+						$new_char_limit = utf8_strrpos($first_post_preview_text, ' ') != false ? utf8_strrpos($first_post_preview_text, ' ') : $config['topic_preview_limit'];
+						$first_post_preview_text = utf8_substr($first_post_preview_text, 0, $new_char_limit) . '...';
+					}
+				}
+				// END Topic Preview Mod]]></find>
+				<action type="replace-with"><![CDATA[				// BEGIN Topic Preview Mod
 				if (!empty($row['first_post_preview_text']))
 				{
 					include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 					$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
 				}
-				// END Topic Preview Mod
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
-				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
-					'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-					// END Topic Preview Mod
-]]></action>
+				// END Topic Preview Mod]]></action>
 			</edit>
 		</open>
 		<open src="viewforum.php">
 			<edit>
-				<find><![CDATA[if ($forum_data['forum_type'] == FORUM_POST)]]></find>
-				<action type="before-add"><![CDATA[// BEGIN Topic Preview Mod
-if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
-{
-	$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
-	$sql_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';
-}
-// END Topic Preview Mod
-]]></action>
+				<find><![CDATA[// BEGIN Topic Preview Mod
+if ($config['topic_preview_limit'])]]></find>
+				<action type="replace-with"><![CDATA[// BEGIN Topic Preview Mod
+if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[	$sql = 'SELECT *
-		FROM ' . TOPICS_TABLE . '
-		WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
-	$result = $db->sql_query($sql);
-]]></find>
+				<find><![CDATA[	// BEGIN Topic Preview Mod
+	if ($config['topic_preview_limit'])]]></find>
 				<action type="replace-with"><![CDATA[	// BEGIN Topic Preview Mod
-	if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
-	{
-		$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-		$sql_select =  ', p.post_text AS first_post_preview_text';
-
-		$sql = 'SELECT t.* ' . $sql_select . '
-			FROM ' . TOPICS_TABLE . ' t
-			' . $sql_join . 'WHERE ' . $db->sql_in_set(' t.topic_id', array_keys($shadow_topic_list));
-		$result = $db->sql_query($sql);
-	}
-	else
-	{
-		$sql = 'SELECT *
-			FROM ' . TOPICS_TABLE . '
-			WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
-		$result = $db->sql_query($sql);
-	}
-	// END Topic Preview Mod
-]]></action>
+	if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[// Send vars to template]]></find>
-				<action type="before-add"><![CDATA[		// BEGIN Topic Preview Mod
+				<find><![CDATA[		// BEGIN Topic Preview Mod
+		if (!empty($row['first_post_preview_text']) && $auth->acl_get('f_read', $forum_id))
+		{
+			// strip all bbcode
+			include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+			$first_post_preview_text = bbcode_strip($row['first_post_preview_text']);
+			if (utf8_strlen($first_post_preview_text) >= $config['topic_preview_limit'])
+			{
+				$first_post_preview_text = (utf8_strlen($first_post_preview_text) > $config['topic_preview_limit']) ? utf8_substr($first_post_preview_text, 0, $config['topic_preview_limit']) : $first_post_preview_text;
+				// use last space before the character limit as the break-point, if one exists
+				$new_char_limit = utf8_strrpos($first_post_preview_text, ' ') != false ? utf8_strrpos($first_post_preview_text, ' ') : $config['topic_preview_limit'];
+				$first_post_preview_text = utf8_substr($first_post_preview_text, 0, $new_char_limit) . '...';
+			}
+		}
+		// END Topic Preview Mod]]></find>
+				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
 		if (!empty($row['first_post_preview_text']) && $auth->acl_get('f_read', $forum_id))
 		{
 			include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 			$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
 		}
-		// END Topic Preview Mod
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
-				<action type="after-add"><![CDATA[			// BEGIN Topic Preview Mod
-			'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-			// END Topic Preview Mod
-]]></action>
+		// END Topic Preview Mod]]></action>
 			</edit>
 		</open>
 		<open src="includes/acp/acp_board.php">
 			<edit>
-				<find><![CDATA[$user->add_lang('acp/board');]]></find>
-				<action type="after-add"><![CDATA[ 		// BEGIN Topic Preview Mod
-		$user->add_lang('mods/topic_preview');
-		// END Topic Preview Mod
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['load_cpf_viewtopic'	=> array('lang' => 'LOAD_CPF_VIEWTOPIC',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></find>
-				<action type="after-add"><![CDATA[						// BEGIN Topic Preview Mod
-						'topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
-						'topic_preview_strip_bbcodes'	=> array('lang' => 'TOPIC_PREVIEW_STRIP',	'validate' => 'string',	'type' => 'text:30:255', 'explain' => true),
-						// END Topic Preview Mod
-]]></action>
+				<find><![CDATA[						'topic_preview_limit'		=> array('lang' => 'TOPIC_PREVIEW','validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),]]></find>
+				<action type="replace-with"><![CDATA[						'topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
+						'topic_preview_strip_bbcodes'	=> array('lang' => 'TOPIC_PREVIEW_STRIP',	'validate' => 'string',	'type' => 'text:30:255', 'explain' => true),]]></action>
 			</edit>
 		</open>
 		<open src="includes/ucp/ucp_prefs.php">
@@ -244,10 +208,10 @@ if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 		</open>
 		<open src="styles/prosilver/template/search_results.html">
 			<edit>
-				<find><![CDATA[<dt <!-- IF searchresults.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF -->>]]></find>
+				<find><![CDATA[background-repeat: no-repeat;"<!-- ENDIF --> <!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ELSE --> title="{searchresults.TOPIC_FOLDER_IMG_ALT}"<!-- ENDIF -->>]]></find>
 				<inline-edit>
-					<inline-find><![CDATA[background-repeat: no-repeat;"<!-- ENDIF -->]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
+					<inline-find><![CDATA[ <!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ELSE --> title="{searchresults.TOPIC_FOLDER_IMG_ALT}"<!-- ENDIF -->]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
 		</open>
@@ -268,10 +232,38 @@ if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 		</open>
 		<open src="styles/prosilver/template/viewforum_body.html">
 			<edit>
-				<find><![CDATA[<dt<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}">]]></find>
+				<find><![CDATA[background-repeat: no-repeat;"<!-- ENDIF --> <!-- IF topicrow.TOPIC_PREVIEW_TEXT --> title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}"<!-- ENDIF -->>]]></find>
 				<inline-edit>
-					<inline-find><![CDATA[title="{topicrow.TOPIC_FOLDER_IMG_ALT}"]]></inline-find>
+					<inline-find><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}"<!-- ENDIF -->]]></inline-find>
 					<inline-action type="replace-with"><![CDATA[title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/ucp_prefs_view.html">
+			<edit>
+				<find><![CDATA[<tr>
+	<td colspan="2" class="spacer"></td>]]></find>
+				<action type="before-add"><![CDATA[<!-- IF S_TOPIC_PREVIEW -->
+<tr>
+	<td class="row1" width="50%"><b class="genmed">{L_DISPLAY_TOPIC_PREVIEW}:</b></td>
+	<td class="row2"><input type="radio" class="radio" name="topic_preview" value="1"<!-- IF S_DISPLAY_TOPIC_PREVIEW --> checked="checked"<!-- ENDIF --> /><span class="gen">{L_YES}</span>&nbsp; &nbsp;<input type="radio" class="radio" name="topic_preview" value="0"<!-- IF not S_DISPLAY_TOPIC_PREVIEW --> checked="checked"<!-- ENDIF --> /><span class="gen">{L_NO}</span></td>
+</tr>
+<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/viewforum_body.html">
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a <!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->title="{L_POSTED}: {topicrow.FIRST_POST_TIME}"<!-- ENDIF --> href="{topicrow.U_VIEW_TOPIC}"class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<a <!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->title="{L_POSTED}: {topicrow.FIRST_POST_TIME}"<!-- ENDIF --> href="{topicrow.U_VIEW_TOPIC}"class="topictitle">]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[<a title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {topicrow.FIRST_POST_TIME}<!-- ENDIF -->" href="{topicrow.U_VIEW_TOPIC}"class="topictitle">]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a <!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->title="{L_POSTED}: {topicrow.FIRST_POST_TIME}"<!-- ENDIF --> href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<a <!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->title="{L_POSTED}: {topicrow.FIRST_POST_TIME}"<!-- ENDIF --> href="{topicrow.U_VIEW_TOPIC}" class="topictitle">]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[<a title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {topicrow.FIRST_POST_TIME}<!-- ENDIF -->" href="{topicrow.U_VIEW_TOPIC}" class="topictitle">]]></inline-action>
 				</inline-edit>
 			</edit>
 		</open>
