@@ -15,7 +15,7 @@
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.3</mod-version>
+		<mod-version>1.0.4</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -50,6 +50,13 @@
 				<changelog lang="en">
 					<change><![CDATA[Changed Mod name to Topic Preview]]></change>
 					<change><![CDATA[Now we also remove URLs from the tooltip preview (why waste space with raw URLs?)]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-08</date>
+				<rev-version>1.0.4</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed URL removal to include https, ftp, mailto and phpBB shortened URLs]]></change>
 				</changelog>
 			</entry>
 		</history>

@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB3
-* @version $Id: topic_preview.php, 6 2010/2/08 11:30:42 VSE Exp $
+* @version $Id: topic_preview.php, 7 2010/2/09 13:22:42 VSE Exp $
 * @copyright (c) Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -29,12 +29,13 @@ if(!function_exists('bbcode_strip'))
 		static $bbcode_strip = 'flash';
 		// Save the smileys - show them as text :)
 		$text = smiley_text($text, true);
+		$text = str_replace(' ... ', '', $text); // remove ' ... ' from shortened urls so they can be stripped too 
 		if (empty($RegEx))
 		{
 			$RegEx = array('#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
 				'#\[(' . $bbcode_strip . ')[^\[\]]+\].*\[/(' . $bbcode_strip . ')[^\[\]]+\]#Usi', // bbcode to strip
 				'#\[/?[^\[\]]+\]#mi', // Strip all bbcode tags
-				'#http(:|\&\#58;)\/\/[^\s]+#i', // Strip out URLs
+				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Strip out URLs
 				'#[\s]+#' // Multiple spaces
 			);
 		}
