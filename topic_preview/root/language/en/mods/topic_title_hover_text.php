@@ -4,7 +4,7 @@
 * topic_title_hover_text [English]
 *
 * @package language
-* @version $Id: topic_title_hover_text.php, v 1.0.0 2010/1/31 21:54:52 VSE Exp $
+* @version $Id: topic_title_hover_text.php, 2 2010/2/2 11:03:30 VSE Exp $
 * @copyright (c) 2010 Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -36,8 +36,8 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-    'TOPIC_TITLE_HOVER_TEXT'	=> 'Display first post text while mouseover title',
-    'TOPIC_TITLE_HOVER_EXPLAIN'	=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
+    'TOPIC_TITLES_HOVER'		=> 'Display first post text while mouseover title',
+    'TOPIC_TITLES_HOVER_EXPLAIN'=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
     'CHARS'   					=> 'Characters',
 ));
 

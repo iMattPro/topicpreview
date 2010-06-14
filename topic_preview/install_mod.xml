@@ -15,12 +15,29 @@
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.0</mod-version>
+		<mod-version>1.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
 			<target-version>3.0.6</target-version>
 		</installation>
+		<history>
+			<entry>
+				<date>2010-01-31</date>
+				<rev-version>1.0.0</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[First beta version]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-02</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed language file variable names]]></change>
+					<change><![CDATA[Cleaned up old/unnecessary code in install file]]></change>
+				</changelog>
+			</entry>
+		</history>
 	</header>
 	<action-group>
 		<sql><![CDATA[INSERT INTO phpbb_config (config_name, config_value) VALUES ('title_hover_limit','150')]]></sql>
@@ -34,7 +51,6 @@
 				<action type="before-add"><![CDATA[			// BEGIN Topic Title Hover Text Mod
 			if ($config['title_hover_limit'])
 			{
-				include($phpbb_root_path . 'includes/topic_title_hover_text.' . $phpEx);
 				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
             	$sql_select .= ', p.post_text AS first_post_text_hover';
 			}
@@ -48,16 +64,13 @@
 				{
 					// strip bbcode
 					include($phpbb_root_path . 'includes/topic_title_hover_text.' . $phpEx);			
-					if(!empty($row['first_post_text_hover']))
+					$first_post_text_hover = bbcode_strip($row['first_post_text_hover']);
+					if (utf8_strlen($first_post_text_hover) >= $config['title_hover_limit'])
 					{
-						$first_post_text_hover = bbcode_strip($row['first_post_text_hover']);
-						if (utf8_strlen($first_post_text_hover) >= $config['title_hover_limit'])
-						{
-							$first_post_text_hover = (utf8_strlen($first_post_text_hover) > $config['title_hover_limit'] + 3) ? utf8_substr($first_post_text_hover, 0, $config['title_hover_limit']) : $first_post_text_hover;
-							// use last space before the character limit as the break-point, if one exists
-							$new_char_limit = utf8_strrpos($first_post_text_hover, ' ') != false ? utf8_strrpos($first_post_text_hover, ' ') : $config['title_hover_limit'];
-							$first_post_text_hover = utf8_substr($first_post_text_hover, 0, $new_char_limit) . '...';
-						}
+						$first_post_text_hover = (utf8_strlen($first_post_text_hover) > $config['title_hover_limit']) ? utf8_substr($first_post_text_hover, 0, $config['title_hover_limit']) : $first_post_text_hover;
+						// use last space before the character limit as the break-point, if one exists
+						$new_char_limit = utf8_strrpos($first_post_text_hover, ' ') != false ? utf8_strrpos($first_post_text_hover, ' ') : $config['title_hover_limit'];
+						$first_post_text_hover = utf8_substr($first_post_text_hover, 0, $new_char_limit) . '...';
 					}
 				}
 				// END Topic Title Hover Text Mod]]></action>
@@ -65,7 +78,7 @@
 			<edit>
 				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
 				<action type="after-add"><![CDATA[					// BEGIN Topic Title Hover Text Mod
-					'TOPIC_TITLE_HOVER'	=> (isset($first_post_text_hover)) ? censor_text($first_post_text_hover) : '',
+					'TOPIC_TITLE_HOVER'		=> (isset($first_post_text_hover)) ? censor_text($first_post_text_hover) : '',
 					// END Topic Title Hover Text Mod]]></action>
 			</edit>
 		</open>
@@ -75,7 +88,6 @@
 				<action type="before-add"><![CDATA[// BEGIN Topic Title Hover Text Mod
 if ($config['title_hover_limit'])
 {
-	include($phpbb_root_path . 'includes/topic_title_hover_text.' . $phpEx);
 	$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
 	$sql_array['SELECT'] .= ', pt.post_text AS first_post_text_hover';
 }
@@ -90,10 +102,8 @@ if ($config['title_hover_limit'])
 				<action type="replace-with"><![CDATA[	// BEGIN Topic Title Hover Text MOD
 	if ($config['title_hover_limit'])
 	{
-		include($phpbb_root_path . 'includes/topic_title_hover_text.' . $phpEx);
-		$sql_join = $sql_select = '';
-		$sql_join .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-		$sql_select .=  ', p.post_text AS first_post_text_hover';
+		$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
+		$sql_select =  ', p.post_text AS first_post_text_hover';
 
 		$sql = 'SELECT t.* ' . $sql_select . '
 			FROM ' . TOPICS_TABLE . ' t
@@ -117,16 +127,13 @@ if ($config['title_hover_limit'])
 		{
 			// strip all bbcode
 			include($phpbb_root_path . 'includes/topic_title_hover_text.' . $phpEx);
-			if(!empty($row['first_post_text_hover']))
+			$first_post_text_hover = bbcode_strip($row['first_post_text_hover']);
+			if (utf8_strlen($first_post_text_hover) >= $config['title_hover_limit'])
 			{
-				$first_post_text_hover = bbcode_strip($row['first_post_text_hover']);
-				if (utf8_strlen($first_post_text_hover) >= $config['title_hover_limit'])
-				{
-					$first_post_text_hover = (utf8_strlen($first_post_text_hover) > $config['title_hover_limit'] + 3) ? utf8_substr($first_post_text_hover, 0, $config['title_hover_limit']) : $first_post_text_hover;
-					// use last space before the character limit as the break-point, if one exists
-					$new_char_limit = utf8_strrpos($first_post_text_hover, ' ') != false ? utf8_strrpos($first_post_text_hover, ' ') : $config['title_hover_limit'];
-					$first_post_text_hover = utf8_substr($first_post_text_hover, 0, $new_char_limit) . '...';
-				}
+				$first_post_text_hover = (utf8_strlen($first_post_text_hover) > $config['title_hover_limit']) ? utf8_substr($first_post_text_hover, 0, $config['title_hover_limit']) : $first_post_text_hover;
+				// use last space before the character limit as the break-point, if one exists
+				$new_char_limit = utf8_strrpos($first_post_text_hover, ' ') != false ? utf8_strrpos($first_post_text_hover, ' ') : $config['title_hover_limit'];
+				$first_post_text_hover = utf8_substr($first_post_text_hover, 0, $new_char_limit) . '...';
 			}
 		}
 		// END Topic Title Hover Text Mod]]></action>
@@ -134,7 +141,7 @@ if ($config['title_hover_limit'])
 			<edit>
 				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
 				<action type="after-add"><![CDATA[			// BEGIN Topic Title Hover Text Mod
-			'TOPIC_TITLE_HOVER'	=> (isset($first_post_text_hover)) ? censor_text($first_post_text_hover) : '',
+			'TOPIC_TITLE_HOVER'		=> (isset($first_post_text_hover)) ? censor_text($first_post_text_hover) : '',
 			// END Topic Title Hover Text Mod]]></action>
 			</edit>
 		</open>
@@ -148,7 +155,7 @@ if ($config['title_hover_limit'])
 			<edit>
 				<find><![CDATA['load_cpf_viewtopic'	=> array('lang' => 'LOAD_CPF_VIEWTOPIC',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></find>
 				<action type="after-add"><![CDATA[						// BEGIN Topic Title Hover Text Mod
-						'title_hover_limit'		=> array('lang' => 'TOPIC_TITLE_HOVER_TEXT','validate' => 'int', 'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
+						'title_hover_limit'		=> array('lang' => 'TOPIC_TITLES_HOVER','validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
 						// END Topic Title Hover Text Mod]]></action>
 			</edit>
 		</open>
@@ -207,6 +214,7 @@ if ($config['title_hover_limit'])
 				</inline-edit>
 			</edit>
 		</open>
-		<diy-instructions lang="en"><![CDATA[ACP Configuration settings can be found under "Board Features" in the "General" tab.]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[ACP Configuration settings can be found under "Board Features" in the "General" tab.
+Be sure to purge your cache and style templates too for the mod changes to take effect.]]></diy-instructions>
 	</action-group>
 </mod>
