@@ -7,20 +7,28 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Update from version 1.0.6 to 1.0.7]]></description>
+		<description lang="en"><![CDATA[Update from version 1.0.6 to 1.0.8]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.7</mod-version>
+		<mod-version>1.0.8</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
 			<target-version>3.0.7-PL1</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2010-05-04</date>
+				<rev-version>1.0.8</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Minor speed improvement (suggested by MOD team)]]></change>
+					<change><![CDATA[Optional add-on: Topic Preview integration for Board3 Portal instructions]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2010-03-28</date>
 				<rev-version>1.0.7</rev-version>
@@ -98,6 +106,24 @@
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>
+		<open src="search.php">
+			<edit>
+				<find><![CDATA[					include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);]]></find>
+				<action type="replace-with"><![CDATA[					if(!function_exists('trim_topic_preview'))
+					{
+						include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+					}]]></action>
+			</edit>
+		</open>
+		<open src="viewforum.php">
+			<edit>
+				<find><![CDATA[			include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);]]></find>
+				<action type="replace-with"><![CDATA[			if(!function_exists('trim_topic_preview'))
+			{
+				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+			}]]></action>
+			</edit>
+		</open>
 		<open src="styles/prosilver/template/ucp_prefs_view.html">
 			<edit>
 				<find><![CDATA[				<dt><label for="text_hover1">{L_DISPLAY_TOPIC_PREVIEW}:</label></dt>]]></find>

@@ -7,14 +7,14 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Update from version 1.0.5 to 1.0.6]]></description>
+		<description lang="en"><![CDATA[Update from version 1.0.5 to 1.0.8]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.6</mod-version>
+		<mod-version>1.0.8</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -22,7 +22,27 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2010-03-01</date>
+				<date>2010-05-04</date>
+				<rev-version>1.0.8</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Minor speed improvement (suggested by MOD team)]]></change>
+					<change><![CDATA[Optional add-on: Topic Preview integration for Board3 Portal instructions]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-03-28</date>
+				<rev-version>1.0.7</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Now all "Magic URLs" are properly stripped from Topic Preview]]></change>
+					<change><![CDATA[Optional add-on: Topic Preview BBcode tag will allow users to use a [topicpreview] BBcode so anything inside the [topicpreview][/topicpreview] tags will be used as the Topic Preview]]></change>
+					<change><![CDATA[Spanish language translation added (thank you Ahri89)]]></change>
+					<change><![CDATA[Romanian language translation added (thank you StoarceCreierul)]]></change>
+					<change><![CDATA[Upgraded UMIL package to 1.0.2]]></change>
+					<change><![CDATA[Minor fixes]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-03-03</date>
 				<rev-version>1.0.6</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Added an option to UCP for users to disable Topic Preview]]></change>
@@ -112,7 +132,10 @@
 				<action type="replace-with"><![CDATA[				// BEGIN Topic Preview Mod
 				if (!empty($row['first_post_preview_text']))
 				{
-					include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+					if(!function_exists('trim_topic_preview'))
+					{
+						include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+					}
 					$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
 				}
 				// END Topic Preview Mod]]></action>
@@ -150,7 +173,10 @@ if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])]]></act
 				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
 		if (!empty($row['first_post_preview_text']) && $auth->acl_get('f_read', $forum_id))
 		{
-			include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+			if(!function_exists('trim_topic_preview'))
+			{
+				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+			}
 			$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
 		}
 		// END Topic Preview Mod]]></action>
@@ -208,7 +234,7 @@ if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])]]></act
 				<find><![CDATA[		<hr />]]></find>
 				<action type="before-add"><![CDATA[ 		<!-- IF S_TOPIC_PREVIEW -->
 			<dl>
-				<dt><label for="text_hover1">{L_DISPLAY_TOPIC_PREVIEW}:</label></dt>
+				<dt><label for="topic_preview1">{L_DISPLAY_TOPIC_PREVIEW}:</label></dt>
 				<dd>
 					<label for="topic_preview1"><input type="radio" name="topic_preview" id="topic_preview1" value="1"<!-- IF S_DISPLAY_TOPIC_PREVIEW --> checked="checked"<!-- ENDIF --> /> {L_YES}</label> 
 					<label for="topic_preview0"><input type="radio" name="topic_preview" id="topic_preview0" value="0"<!-- IF not S_DISPLAY_TOPIC_PREVIEW --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
