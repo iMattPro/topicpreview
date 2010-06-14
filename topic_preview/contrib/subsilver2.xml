@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.3.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Topic Preview]]></title>
+		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.]]></description>
+		<author-notes lang="en"><![CDATA[Note, this mod was inspired by a similar mod by RMcGirr83's, and includes one function originally authored by him.]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Matt Friedman]]></realname>
+				<username><![CDATA[VSE]]></username>
+			</author>
+		</author-group>
+		<mod-version>1.0.5</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>300</time>
+			<target-version>3.0.6</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2010-02-19</date>
+				<rev-version>1.0.5</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[subsilver2 edits placed in a seperate MODX file]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-08</date>
+				<rev-version>1.0.4</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed URL removal to include https, ftp, mailto and phpBB shortened URLs]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-07</date>
+				<rev-version>1.0.3</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Changed Mod name to Topic Preview]]></change>
+					<change><![CDATA[Now we also remove URLs from the tooltip preview (why waste space with raw URLs?)]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-04</date>
+				<rev-version>1.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Smileys are now displayed in the tooltip as text :)]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-02</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed language file variable names]]></change>
+					<change><![CDATA[Cleaned up old/unnecessary code in install file]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-01-31</date>
+				<rev-version>1.0.0</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[First beta version]]></change>
+				</changelog>
+			</entry>
+		</history>
+		<link-group>
+			<link type="parent" href="../install_mod.xml" lang="en">Main Install Instructions</link>
+		</link-group>
+	</header>
+	<action-group>
+		<open src="styles/subsilver2/template/search_results.html">
+			<edit>
+				<find><![CDATA[{searchresults.ATTACH_ICON_IMG} <a href="{searchresults.U_VIEW_TOPIC}" class="topictitle"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[class="topictitle"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/viewforum_body.html">
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a ]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->]]></inline-action>
+				</inline-edit>
+				<inline-edit>
+					<inline-find><![CDATA["{L_POSTED}: {topicrow.FIRST_POST_TIME}"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a ]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->]]></inline-action>
+				</inline-edit>
+				<inline-edit>
+					<inline-find><![CDATA["{L_POSTED}: {topicrow.FIRST_POST_TIME}"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[ACP Configuration settings can be found under "Board Features" in the "General" tab.
+Be sure to purge your cache and style templates too for the mod changes to take effect.]]></diy-instructions>
+	</action-group>
+</mod>

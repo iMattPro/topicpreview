@@ -15,7 +15,7 @@
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.4</mod-version>
+		<mod-version>1.0.5</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -23,25 +23,17 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2010-01-31</date>
-				<rev-version>1.0.0</rev-version>
+				<date>2010-02-19</date>
+				<rev-version>1.0.5</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[First beta version]]></change>
+					<change><![CDATA[subsilver2 edits placed in a seperate MODX file]]></change>
 				</changelog>
 			</entry>
 			<entry>
-				<date>2010-02-02</date>
-				<rev-version>1.0.1</rev-version>
+				<date>2010-02-08</date>
+				<rev-version>1.0.4</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Fixed language file variable names]]></change>
-					<change><![CDATA[Cleaned up old/unnecessary code in install file]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-02-04</date>
-				<rev-version>1.0.2</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Smileys are now displayed in the tooltip as text :)]]></change>
+					<change><![CDATA[Fixed URL removal to include https, ftp, mailto and phpBB shortened URLs]]></change>
 				</changelog>
 			</entry>
 			<entry>
@@ -53,13 +45,31 @@
 				</changelog>
 			</entry>
 			<entry>
-				<date>2010-02-08</date>
-				<rev-version>1.0.4</rev-version>
+				<date>2010-02-04</date>
+				<rev-version>1.0.2</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Fixed URL removal to include https, ftp, mailto and phpBB shortened URLs]]></change>
+					<change><![CDATA[Smileys are now displayed in the tooltip as text :)]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-02-02</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed language file variable names]]></change>
+					<change><![CDATA[Cleaned up old/unnecessary code in install file]]></change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2010-01-31</date>
+				<rev-version>1.0.0</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[First beta version]]></change>
 				</changelog>
 			</entry>
 		</history>
+		<link-group>
+			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2</link>
+		</link-group>
 	</header>
 	<action-group>
 		<sql><![CDATA[INSERT INTO phpbb_config (config_name, config_value) VALUES ('topic_preview_limit','150')]]></sql>
@@ -199,39 +209,6 @@ if ($config['topic_preview_limit'])
 				</inline-edit>
 				<inline-edit>
 					<inline-find><![CDATA[title="{topicrow.TOPIC_FOLDER_IMG_ALT}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
-			</edit>
-		</open>
-		<open src="styles/subsilver2/template/search_results.html">
-			<edit>
-				<find><![CDATA[{searchresults.ATTACH_ICON_IMG} <a href="{searchresults.U_VIEW_TOPIC}" class="topictitle"]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[class="topictitle"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
-			</edit>
-		</open>
-		<open src="styles/subsilver2/template/viewforum_body.html">
-			<edit>
-				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[<b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a ]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->]]></inline-action>
-				</inline-edit>
-				<inline-edit>
-					<inline-find><![CDATA["{L_POSTED}: {topicrow.FIRST_POST_TIME}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
-			</edit>
-			<edit>
-				<find><![CDATA[{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[<b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a ]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->title="{topicrow.TOPIC_PREVIEW_TEXT}"<!-- ELSE -->]]></inline-action>
-				</inline-edit>
-				<inline-edit>
-					<inline-find><![CDATA["{L_POSTED}: {topicrow.FIRST_POST_TIME}"]]></inline-find>
 					<inline-action type="after-add"><![CDATA[<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
