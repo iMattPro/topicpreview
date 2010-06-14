@@ -4,7 +4,7 @@
 * topic_preview [English]
 *
 * @package language
-* @version $Id: topic_preview.php, 3 2010/2/07 16:54:30 VSE Exp $
+* @version $Id: topic_preview.php, 5 2010/3/03 16:29:30 VSE Exp $
 * @copyright (c) 2010 Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -39,6 +39,13 @@ $lang = array_merge($lang, array(
     'TOPIC_PREVIEW'			=> 'Length of Topic Preview Text',
     'TOPIC_PREVIEW_EXPLAIN'	=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
     'CHARS'   				=> 'Characters',
+	'DISPLAY_TOPIC_PREVIEW' => 'Display topic previews',	
+    'TOPIC_PREVIEW_STRIP'			=> 'BBcodes to hide in Topic Preview',
+    'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'List BBcodes with content you want removed from the preview (spoiler and hidden text BBcodes, for example). Separate multiple BBcodes using the | character, for example: spoiler|hide|code',
+
+	// Installation language vars (UMIL)
+	'INSTALL_TP_MOD'		=> 'Install Topic Preview',
+	'INSTALL_TP_SUCCESS'	=> 'Topic Preview has been successfully installed.<br /><br />You can adjust its settings in the ACP under Board Features.',
 ));
 
 ?>
