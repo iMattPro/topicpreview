@@ -43,10 +43,10 @@ if (empty($lang) || !is_array($lang))
 */
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'			=> 'Lengte van de topic voorbeeld tekst',
-	'TOPIC_PREVIEW_EXPLAIN'		=> 'Er zal een voorbeeld van het topic worden weergegeven zolang de muis boven de titel van het onderwerp gehouden wordt. Geef hier aan hoeveel tekens er voor het voorbeeld gebruikt dienen te worden (standaard 150). Door deze waarde op 0 te zetten wordt deze functie uitgezet',
-	'CHARS'   			=> 'Tekens',
-	'DISPLAY_TOPIC_PREVIEW' 	=> 'Laat het topic voorbeeld zien',
-	'TOPIC_PREVIEW_STRIP'		=> 'BBCodes die niet gebruikt worden in het voorbeeld',	
+	'TOPIC_PREVIEW_EXPLAIN'	=> 'Er zal een voorbeeld van het topic worden weergegeven zolang de muis boven de titel van het onderwerp gehouden wordt. Geef hier aan hoeveel tekens er voor het voorbeeld gebruikt dienen te worden (standaard 150). Door deze waarde op 0 te zetten wordt deze functie uitgezet',
+	'CHARS'   				=> 'Tekens',
+	'DISPLAY_TOPIC_PREVIEW' => 'Laat het topic voorbeeld zien',
+	'TOPIC_PREVIEW_STRIP'			=> 'BBCodes die niet gebruikt worden in het voorbeeld',	
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Geef hier aan welde BBCodes je wilt verwijderen van het voorbeeld (bijvoorbeeld spoiler and verborgen text BBCodes). BBCodes worden gescheiden door het "|" teken, bijvoorbeeld: spoiler|hide|code',
 
 	// Installation language vars (UMIL)
