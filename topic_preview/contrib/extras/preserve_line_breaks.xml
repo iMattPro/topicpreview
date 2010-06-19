@@ -6,8 +6,9 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - BBcode Add-On]]></title>
-		<description lang="en"><![CDATA[This add-on will allow you to use a [topicpreview] BBcode so users can define what part of their post they want to show in the Topic Preview - anything inside the [topicpreview][/topicpreview] tags will be used as the Topic Preview.]]></description>
+		<title lang="en"><![CDATA[Topic Preview - Preserve Line Breaks]]></title>
+		<description lang="en"><![CDATA[This add-on will allow newlines/carriage returns from the post to be preserved in the Topic Preview tooltip.
+Thanks to phpBB member doum-ti-di-li-doom for submitting this trick.]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -17,7 +18,7 @@
 		<mod-version>1.0.8</mod-version>
 		<installation>
 			<level>easy</level>
-			<time>120</time>
+			<time>60</time>
 			<target-version>3.0.7-PL1</target-version>
 		</installation>
 		<link-group>
@@ -27,21 +28,9 @@
 	<action-group>
 		<open src="includes/topic_preview.php">
 			<edit>
-				<find><![CDATA[function bbcode_strip($text)
-{
-	global $config;
-]]></find>
-				<action type="after-add"><![CDATA[	preg_match('#\[(topicpreview)[^\[\]]+\].*\[/(topicpreview)[^\[\]]+\]#Usi', $text, $matches);
-	if (@$matches)
-	{
-		$text = $matches[0];
-	}]]></action>
+				<find><![CDATA[	if (empty($RegEx))]]></find>
+				<action type="before-add"><![CDATA[	$text = str_replace("\n", '&#13;&#10;', $text); // Preserve line breaks]]></action>
 			</edit>
 		</open>
-		<diy-instructions lang="en"><![CDATA[Create the following custom BBcode in the ACP
-
-BBcode usage: [topicpreview]{TEXT}[/topicpreview]
-HTML replacement: <span>{TEXT}</span>
-Help line: [topicpreview]Type preview text here[/topicpreview]]]></diy-instructions>
 	</action-group>
 </mod>

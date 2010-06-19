@@ -6,7 +6,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview]]></title>
+		<title lang="en"><![CDATA[Topic Preview - Update 1.0.6 to 1.0.8]]></title>
 		<description lang="en"><![CDATA[Update from version 1.0.6 to 1.0.8]]></description>
 		<author-group>
 			<author>
@@ -99,6 +99,9 @@
 			</entry>
 		</history>
 	</header>
+		<link-group>
+			<link type="parent" href="../install_mod.xml" lang="en">Main Install Instructions</link>
+		</link-group>
 	<action-group>
 		<copy>
 			<file from="root/includes/topic_preview.php" to="includes/topic_preview.php"/>
