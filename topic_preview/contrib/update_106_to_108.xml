@@ -98,10 +98,10 @@
 				</changelog>
 			</entry>
 		</history>
-	</header>
 		<link-group>
 			<link type="parent" href="../install_mod.xml" lang="en">Main Install Instructions</link>
 		</link-group>
+	</header>
 	<action-group>
 		<copy>
 			<file from="root/includes/topic_preview.php" to="includes/topic_preview.php"/>
