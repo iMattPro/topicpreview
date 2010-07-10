@@ -6,98 +6,20 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - Update 1.0.5 to 1.0.8]]></title>
-		<description lang="en"><![CDATA[Update from version 1.0.5 to 1.0.8]]></description>
+		<title lang="en"><![CDATA[Topic Preview - Update 1.0.5 to 1.0.9]]></title>
+		<description lang="en"><![CDATA[Update from version 1.0.5 to 1.0.9]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.8</mod-version>
+		<mod-version>1.0.9</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
 			<target-version>3.0.7-PL1</target-version>
 		</installation>
-		<history>
-			<entry>
-				<date>2010-05-04</date>
-				<rev-version>1.0.8</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Minor speed improvement (suggested by MOD team)]]></change>
-					<change><![CDATA[Optional add-on: Topic Preview integration for Board3 Portal instructions]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-03-28</date>
-				<rev-version>1.0.7</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Now all "Magic URLs" are properly stripped from Topic Preview]]></change>
-					<change><![CDATA[Optional add-on: Topic Preview BBcode tag will allow users to use a [topicpreview] BBcode so anything inside the [topicpreview][/topicpreview] tags will be used as the Topic Preview]]></change>
-					<change><![CDATA[Spanish language translation added (thank you Ahri89)]]></change>
-					<change><![CDATA[Romanian language translation added (thank you StoarceCreierul)]]></change>
-					<change><![CDATA[Upgraded UMIL package to 1.0.2]]></change>
-					<change><![CDATA[Minor fixes]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-03-03</date>
-				<rev-version>1.0.6</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Added an option to UCP for users to disable Topic Preview]]></change>
-					<change><![CDATA[Added an ACP option to define BBcodes whose content you want removed from Topic Preview. This is good for spoiler or hidden text BBcodes, Youtube BBcodes, or if you find any other BBcodes causing undesirable effects in the Topic Preview]]></change>
-					<change><![CDATA[Optimized Topic Preview functions allowing for less modified code in the core phpBB files]]></change>
-					<change><![CDATA[Cleaned up the style edits too!]]></change>
-					<change><![CDATA[We now use UMIL and an install file to perform the SQL changes during installation]]></change>
-					<change><![CDATA[Updated install instructions to ModX 1.2.5]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-02-19</date>
-				<rev-version>1.0.5</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[subsilver2 edits placed in a seperate MODX file]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-02-08</date>
-				<rev-version>1.0.4</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Fixed URL removal to include https, ftp, mailto and phpBB shortened URLs]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-02-07</date>
-				<rev-version>1.0.3</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Changed Mod name to Topic Preview]]></change>
-					<change><![CDATA[Now we also remove URLs from the tooltip preview (why waste space with raw URLs?)]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-02-04</date>
-				<rev-version>1.0.2</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Smileys are now displayed in the tooltip as text :)]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-02-02</date>
-				<rev-version>1.0.1</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[Fixed language file variable names]]></change>
-					<change><![CDATA[Cleaned up old/unnecessary code in install file]]></change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-01-31</date>
-				<rev-version>1.0.0</rev-version>
-				<changelog lang="en">
-					<change><![CDATA[First beta version]]></change>
-				</changelog>
-			</entry>
-		</history>
 		<link-group>
 			<link type="parent" href="../install_mod.xml" lang="en">Main Install Instructions</link>
 		</link-group>

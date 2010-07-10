@@ -17,7 +17,7 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.8</mod-version>
+		<mod-version>1.0.9</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -25,11 +25,21 @@
 		</installation>
 		<history>
 			<entry>
+				<date>2010-07-10</date>
+				<rev-version>1.0.9</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Added German and Italian language packs]]></change>
+					<change><![CDATA[Added non-English language pack install insturctions]]></change>
+					<change><![CDATA[Optional add-on: Preserve Line-Breaks in Topic Previews]]></change>
+				</changelog>
+			</entry>
+			<entry>
 				<date>2010-05-04</date>
 				<rev-version>1.0.8</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Minor speed improvement (suggested by MOD team)]]></change>
 					<change><![CDATA[Optional add-on: Topic Preview integration for Board3 Portal instructions]]></change>
+					<change><![CDATA[Note: This version was not released to the public]]></change>
 				</changelog>
 			</entry>
 			<entry>
@@ -103,13 +113,18 @@
 		</history>
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2</link>
-			<link type="uninstall" href="contrib/extras/uninstall_v108.xml" lang="en">Uninstall Topic Preview</link>
+			<link type="language" href="contrib/languages/nl.xml" lang="en">Dutch Language Pack</link>
+			<link type="language" href="contrib/languages/de.xml" lang="en">German Language Pack</link>
+			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
+			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
+			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
 			<link type="contrib" href="contrib/extras/Board3_Portal_integration.xml" lang="en">Add-On : Topic Preview for Board3 Portal</link>
 			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Topic Preview Preserve Line Breaks</link>
-			<link type="contrib" href="contrib/update_105_to_108.xml" lang="en">Upgrade : Topic Preview 1.0.5 to 1.0.8</link>
-			<link type="contrib" href="contrib/update_106_to_108.xml" lang="en">Upgrade : Topic Preview 1.0.6 to 1.0.8</link>
-			<link type="contrib" href="contrib/update_107_to_108.xml" lang="en">Upgrade : Topic Preview 1.0.7 to 1.0.8</link>
+			<link type="contrib" href="contrib/update_105_to_109.xml" lang="en">Upgrade : Topic Preview 1.0.5 to 1.0.9</link>
+			<link type="contrib" href="contrib/update_106_to_109.xml" lang="en">Upgrade : Topic Preview 1.0.6 to 1.0.9</link>
+			<link type="contrib" href="contrib/update_107_to_109.xml" lang="en">Upgrade : Topic Preview 1.0.7 to 1.0.9</link>
+			<link type="uninstall" href="contrib/extras/uninstall_v109.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
 	<action-group>
