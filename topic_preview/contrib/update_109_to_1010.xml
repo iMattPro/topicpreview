@@ -6,12 +6,12 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview]]></title>
+		<title lang="en"><![CDATA[Topic Preview - Update 1.0.9 to 1.0.10]]></title>
+		<description lang="en"><![CDATA[Update from version 1.0.9 to 1.0.10]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
-				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
 			</author>
 		</author-group>
 		<mod-version>1.0.10</mod-version>
@@ -21,12 +21,15 @@
 			<target-version>3.0.7-PL1</target-version>
 		</installation>
 		<link-group>
-			<link type="parent" href="../../install_mod.xml" lang="en">Main Install Instructions</link>
+			<link type="parent" href="../install_mod.xml" lang="en">Main Install Instructions</link>
 		</link-group>
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/language/es/mods/topic_preview.php" to="language/es/mods/topic_preview.php"/>
+			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
+			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>
+		<php-installer><![CDATA[install_topic_preview.php]]></php-installer>
+		<diy-instructions lang="en"><![CDATA[Point your browser to yourforum/install_topic_preview.php to complete installation.]]></diy-instructions>
 	</action-group>
 </mod>

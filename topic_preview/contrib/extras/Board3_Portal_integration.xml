@@ -12,7 +12,7 @@
 These instructions are for use with Board3 Portal v 1.0.5
 
 You must already have installed:
-Topic Preview 1.0.9 http://www.phpbb.com/customise/db/mod/topic_preview/
+Topic Preview 1.0.10 http://www.phpbb.com/customise/db/mod/topic_preview/
 Board3 Portal 1.0.5 http://board3.de/]]></description>
 		<author-group>
 			<author>
@@ -20,7 +20,7 @@ Board3 Portal 1.0.5 http://board3.de/]]></description>
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.9</mod-version>
+		<mod-version>1.0.10</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>180</time>

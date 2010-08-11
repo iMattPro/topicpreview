@@ -2,7 +2,7 @@
 /**
 *
 * @package acp
-* @version $Id: topic_preview_check_version.php 2 7/10/10 10:30 AM VSE $
+* @version $Id: topic_preview_check_version.php 3 8/10/10 10:34 PM VSE $
 * @copyright (c) 2007 StarTrekGuide
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -25,7 +25,7 @@ class topic_preview_check_version
 			'author'	=> 'VSE',
 			'title'		=> 'Topic Preview',
 			'tag'		=> 'topic_preview',
-			'version'	=> '1.0.9',
+			'version'	=> '1.0.10',
 			'file'		=> array('vse.heliohost.org', 'software', 'mods.xml'),
 		);
 	}

@@ -6,15 +6,15 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - Update 1.0.7 to 1.0.9]]></title>
-		<description lang="en"><![CDATA[Update from version 1.0.7 to 1.0.9]]></description>
+		<title lang="en"><![CDATA[Topic Preview - Update 1.0.7 to 1.0.10]]></title>
+		<description lang="en"><![CDATA[Update from version 1.0.7 to 1.0.10]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.9</mod-version>
+		<mod-version>1.0.10</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>

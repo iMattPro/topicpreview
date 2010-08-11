@@ -17,7 +17,7 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.9</mod-version>
+		<mod-version>1.0.10</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
