@@ -21,7 +21,7 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.7-PL1</target-version>
+			<target-version>3.0.8</target-version>
 		</installation>
 		<link-group>
 			<link type="parent" href="../../install_mod.xml" lang="en">Main Install Instructions</link>
