@@ -25,11 +25,11 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2010-08-10</date>
+				<date>2010-12-21</date>
 				<rev-version>1.0.10</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Added Add-On : Topic Preview for NV Recent Topics]]></change>
-					<change><![CDATA[Upgraded UMIL package to 1.0.3]]></change>
+					<change><![CDATA[Upgraded UMIL package to 1.0.4]]></change>
 				</changelog>
 			</entry>
 			<entry>
