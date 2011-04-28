@@ -25,9 +25,10 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2010-12-21</date>
+				<date>2011-04-27</date>
 				<rev-version>1.0.10</rev-version>
 				<changelog lang="en">
+					<change><![CDATA[Added Add-On : jQuery Tip Tip Style]]></change>
 					<change><![CDATA[Added Add-On : Topic Preview for NV Recent Topics]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.4]]></change>
 				</changelog>
@@ -126,6 +127,7 @@
 			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
+			<link type="contrib" href="contrib/extras/tipTip_add_on.xml" lang="en">Add-On : jQuery Tip Tip Style Add-On</link>
 			<link type="contrib" href="contrib/extras/Board3_Portal_integration.xml" lang="en">Add-On : Topic Preview for Board3 Portal</link>
 			<link type="contrib" href="contrib/extras/nv_recent_topics_integration.xml" lang="en">Add-On : Topic Preview for NV Recent Topics</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
