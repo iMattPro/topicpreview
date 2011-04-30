@@ -39,6 +39,7 @@
 	box-shadow: 0 0 3px #555;
 	-webkit-box-shadow: 0 0 3px #555;
 	-moz-box-shadow: 0 0 3px #555;
+	word-wrap: break-word; /* Added by VSE to prevent long words extending past tiptip edges */
 }
 
 #tiptip_arrow, #tiptip_arrow_inner {
