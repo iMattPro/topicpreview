@@ -30,8 +30,8 @@
 	text-shadow: 0 0 2px #000;
 	padding: 4px 8px;
 	border: 1px solid rgba(255,255,255,0.25);
-	background: rgb(25,25,25);
-	background: rgba(25,25,25,0.92);
+	background-color: rgb(25,25,25);
+	background-color: rgba(25,25,25,0.92);
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(#000));
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -41,9 +41,6 @@
 	-moz-box-shadow: 0 0 3px #555;
 	word-wrap: break-word; /* Added by VSE to prevent long words extending past tiptip edges */
 }
-
-* html #tiptip_arrow {display:none;} /* IE6 bug with arrow, small black box, not arrow */
-
 
 #tiptip_arrow, #tiptip_arrow_inner {
 	position: absolute;
@@ -106,7 +103,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {	
 	#tiptip_content {
 		padding: 4px 8px 5px 8px;
-		background: rgba(45,45,45,0.88);
+		background-color: rgba(45,45,45,0.88);
 	}
 	#tiptip_holder.tip_bottom #tiptip_arrow_inner { 
 		border-bottom-color: rgba(45,45,45,0.88);
