@@ -2,7 +2,7 @@
 /**
 *
 * @package acp
-* @version $Id: topic_preview_check_version.php 3 8/10/10 10:34 PM VSE $
+* @version $Id: topic_preview_check_version.php 4 5/5/11 1:02 AM VSE $
 * @copyright (c) 2007 StarTrekGuide
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -26,7 +26,7 @@ class topic_preview_check_version
 			'title'		=> 'Topic Preview',
 			'tag'		=> 'topic_preview',
 			'version'	=> '1.0.10',
-			'file'		=> array('vse.heliohost.org', 'software', 'mods.xml'),
+			'file'		=> array('www.orca-music.com', 'software', 'mods.xml'),
 		);
 	}
 }
