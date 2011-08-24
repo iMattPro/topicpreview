@@ -28,7 +28,7 @@
 	</header>
 	<action-group>
 		<copy>
-			<file from="contrib/extras/tipTip/*.*" to="tipTip/*.*"/>
+			<file from="contrib/extras/tipTip/root/tipTip/*.*" to="tipTip/*.*"/>
 		</copy>
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
