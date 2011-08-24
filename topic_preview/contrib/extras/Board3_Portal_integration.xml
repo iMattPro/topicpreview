@@ -18,6 +18,7 @@ Board3 Portal 1.0.5 http://board3.de/]]></description>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
 		<mod-version>1.0.10</mod-version>
