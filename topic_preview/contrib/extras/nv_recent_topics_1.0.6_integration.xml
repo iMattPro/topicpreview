@@ -34,7 +34,7 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 				<action type="before-add"><![CDATA[	// BEGIN Topic Preview Mod
 	if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 	{
-		array_push($sql_query_array['LEFT_JOIN'], array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id'));
+		$sql_query_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
 		$sql_query_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';
 	}
 	// END Topic Preview Mod]]></action>
