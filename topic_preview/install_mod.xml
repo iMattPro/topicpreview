@@ -21,15 +21,15 @@
 		<installation>
 			<level>easy</level>
 			<time>600</time>
-			<target-version>3.0.8</target-version>
+			<target-version>3.0.9</target-version>
 		</installation>
 		<history>
 			<entry>
-				<date>2011-04-27</date>
+				<date>2011-08-23</date>
 				<rev-version>1.0.10</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Added Add-On : jQuery Tip Tip Style]]></change>
-					<change><![CDATA[Added Add-On : Topic Preview for NV Recent Topics]]></change>
+					<change><![CDATA[Added Add-On : Topic Preview for NV Recent Topics 1.0.5 and v1.0.6]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.4]]></change>
 				</changelog>
 			</entry>
