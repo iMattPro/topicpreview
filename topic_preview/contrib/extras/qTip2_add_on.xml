@@ -68,6 +68,10 @@ ui-tooltip-tipsy /* Tipsy style */
 				<action type="after-add"><![CDATA[					if ($row['topic_first_post_id'] != $row['topic_last_post_id'])
 					{
 						$last_post_preview_text = trim_topic_preview($row['last_post_preview_text'], $config['topic_preview_limit']);
+					}
+					else if (isset($last_post_preview_text))
+					{
+						unset($last_post_preview_text); //Clear any last post text that may be left over from previous topic
 					}]]></action>
 			</edit>
 			<edit>
@@ -106,6 +110,10 @@ ui-tooltip-tipsy /* Tipsy style */
 				<action type="after-add"><![CDATA[			if ($row['topic_first_post_id'] != $row['topic_last_post_id'])
 			{
 				$last_post_preview_text = trim_topic_preview($row['last_post_preview_text'], $config['topic_preview_limit']);
+			}
+			else if (isset($last_post_preview_text))
+			{
+				unset($last_post_preview_text); //Clear any last post text that may be left over from previous topic
 			}]]></action>
 			</edit>
 			<edit>
