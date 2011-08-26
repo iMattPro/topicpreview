@@ -44,7 +44,7 @@ ui-tooltip-tipsy /* Tipsy style */
 		</author-group>
 		<mod-version>1.0.10</mod-version>
 		<installation>
-			<level>Intermediate</level>
+			<level>intermediate</level>
 			<time>600</time>
 			<target-version>3.0.9</target-version>
 		</installation>
