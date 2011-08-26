@@ -6,14 +6,14 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview for Board3 Portal]]></title>
+		<title lang="en"><![CDATA[Topic Preview for Board3 Portal 1.0.X]]></title>
 		<description lang="en"><![CDATA[This add-on allows you to integrate Topic Preview with the Board3 Portal.
 
-These instructions are for use with Board3 Portal v 1.0.5
+These instructions are for use with Board3 Portal v1.0.5 and v1.0.6
 
 You must already have installed:
 Topic Preview 1.0.10 http://www.phpbb.com/customise/db/mod/topic_preview/
-Board3 Portal 1.0.5 http://board3.de/]]></description>
+Board3 Portal 1.0.5 or 1.0.6 http://board3.de/]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -23,8 +23,8 @@ Board3 Portal 1.0.5 http://board3.de/]]></description>
 		</author-group>
 		<mod-version>1.0.10</mod-version>
 		<installation>
-			<level>easy</level>
-			<time>180</time>
+			<level>intermediate</level>
+			<time>600</time>
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>

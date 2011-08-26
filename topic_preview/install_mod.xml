@@ -25,12 +25,13 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2011-08-23</date>
+				<date>2011-08-26</date>
 				<rev-version>1.0.10</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Added Add-On : jQuery qTip2 Style]]></change>
-					<change><![CDATA[Added Add-On : jQuery Tip Tip Style]]></change>
-					<change><![CDATA[Added Add-On : Topic Preview for NV Recent Topics 1.0.5 and v1.0.6]]></change>
+					<change><![CDATA[Optional Add-On : jQuery qTip2 Style]]></change>
+					<change><![CDATA[Optional Add-On : jQuery Tip Tip Style]]></change>
+					<change><![CDATA[Optional Add-On : Topic Preview for NV Recent Topics 1.0.5 and v1.0.6]]></change>
+					<change><![CDATA[Optional Add-On : Topic Preview for Board3 Portal v2.0.X instructions]]></change>
 					<change><![CDATA[Added Polish language pack]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.4]]></change>
 				</changelog>
@@ -40,7 +41,7 @@
 				<rev-version>1.0.9</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Added German and Italian language packs]]></change>
-					<change><![CDATA[Added non-English language pack install insturctions]]></change>
+					<change><![CDATA[Added non-English language pack install instructions]]></change>
 					<change><![CDATA[Optional add-on: Preserve Line-Breaks in Topic Previews]]></change>
 				</changelog>
 			</entry>
@@ -132,7 +133,8 @@
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
 			<link type="contrib" href="contrib/extras/qTip2_add_on.xml" lang="en">Add-On : jQuery qTip2 Style Add-On</link>
 			<link type="contrib" href="contrib/extras/tipTip_add_on.xml" lang="en">Add-On : jQuery Tip Tip Style Add-On</link>
-			<link type="contrib" href="contrib/extras/Board3_Portal_integration.xml" lang="en">Add-On : Topic Preview for Board3 Portal</link>
+			<link type="contrib" href="contrib/extras/Board3_Portal_integration_v1.0.X.xml" lang="en">Add-On : Topic Preview for Board3 Portal v1.0.X</link>
+			<link type="contrib" href="contrib/extras/Board3_Portal_integration_v2.0.X.xml" lang="en">Add-On : Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/extras/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : Topic Preview for NV Recent Topics v1.0.5</link>
 			<link type="contrib" href="contrib/extras/nv_recent_topics_1.0.6_integration.xml" lang="en">Add-On : Topic Preview for NV Recent Topics v1.0.6</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Topic Preview for Board3 Portal 2.0.X]]></title>
+		<description lang="en"><![CDATA[This add-on allows you to integrate Topic Preview with the Board3 Portal.
+
+These instructions are for use with Board3 Portal v2.0.0
+
+You must already have installed:
+Topic Preview 1.0.10 http://www.phpbb.com/customise/db/mod/topic_preview/
+Board3 Portal 2.0.0 http://board3.de/]]></description>
+		<author-group>
+			<author>
+				<realname><![CDATA[Matt Friedman]]></realname>
+				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
+			</author>
+		</author-group>
+		<mod-version>1.0.10</mod-version>
+		<installation>
+			<level>intermediate</level>
+			<time>600</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+		<link-group>
+			<link type="parent" href="../../install_mod.xml" lang="en">Main Install Instructions</link>
+		</link-group>
+	</header>
+	<action-group>
+		<open src="portal/modules/portal_announcements.php">
+			<edit>
+				<find><![CDATA[				$template->assign_block_vars('announcements_row', array(]]></find>
+				<action type="before-add"><![CDATA[				// BEGIN Topic Preview Mod
+				if ($config['topic_preview_limit'] && $user->data['user_topic_preview'] && !empty($fetch_news[$i]['topic_preview_text']))
+				{
+					$topic_preview_text = trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);
+				}
+				// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['TOPIC_FOLDER_IMG_ALT'	=> $user->lang[$folder_alt],]]></find>
+				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
+					'TOPIC_PREVIEW_TEXT'	=> (isset($topic_preview_text)) ? censor_text($topic_preview_text) : $fetch_news[$i]['topic_title'],
+					// END Topic Preview Mod]]></action>
+			</edit>
+		</open>
+		<open src="portal/modules/portal_news.php">
+			<edit>
+				<find><![CDATA[					$template->assign_block_vars('news_row', array(]]></find>
+				<action type="before-add"><![CDATA[					// BEGIN Topic Preview Mod
+					if ($config['topic_preview_limit'] && $user->data['user_topic_preview'] && !empty($fetch_news[$i]['topic_preview_text']))
+					{
+						$topic_preview_text = trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);
+					}
+					// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['TOPIC_FOLDER_IMG_ALT'  => $user->lang[$folder_alt],]]></find>
+				<action type="after-add"><![CDATA[						// BEGIN Topic Preview Mod
+						'TOPIC_PREVIEW_TEXT'	=> (isset($topic_preview_text)) ? censor_text($topic_preview_text) : $fetch_news[$i]['topic_title'],
+						// END Topic Preview Mod]]></action>
+			</edit>
+		</open>
+		<open src="portal/modules/portal_recent.php">
+			<edit>
+				<find><![CDATA[		global $config, $template, $db, $auth, $phpbb_root_path, $phpEx;]]></find>
+				<action type="replace-with"><![CDATA[		global $config, $template, $db, $auth, $phpbb_root_path, $phpEx, $user;]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		$sql = 'SELECT topic_title, forum_id, topic_id
+			FROM ' . TOPICS_TABLE . ' t
+			WHERE topic_status <> ' . FORUM_LINK . '
+				AND topic_approved = 1 
+				AND (topic_type = ' . POST_ANNOUNCE . ' OR topic_type = ' . POST_GLOBAL . ')
+				AND topic_moved_id = 0
+				' . $sql_where . '' .  $forum_sql . '
+			ORDER BY topic_time DESC';]]></find>
+				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
+		if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+		{
+			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
+			$sql_select = ', pt.post_text AS topic_preview_text';
+		
+			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . '
+				FROM ' . TOPICS_TABLE . ' t
+				' . $sql_join . 'WHERE t.topic_status <> ' . FORUM_LINK . '
+					AND t.topic_approved = 1 
+					AND (t.topic_type = ' . POST_ANNOUNCE . ' OR t.topic_type = ' . POST_GLOBAL . ')
+					AND t.topic_moved_id = 0
+					' . $sql_where . '' .  $forum_sql . '
+				ORDER BY t.topic_time DESC';
+		}
+		else
+		{
+			$sql = 'SELECT topic_title, forum_id, topic_id
+				FROM ' . TOPICS_TABLE . ' t
+				WHERE topic_status <> ' . FORUM_LINK . '
+					AND topic_approved = 1 
+					AND (topic_type = ' . POST_ANNOUNCE . ' OR topic_type = ' . POST_GLOBAL . ')
+					AND topic_moved_id = 0
+					' . $sql_where . '' .  $forum_sql . '
+				ORDER BY topic_time DESC';
+		}
+		// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$template->assign_block_vars('latest_announcements', array(]]></find>
+				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
+					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),
+					// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		$sql = 'SELECT topic_title, forum_id, topic_id
+			FROM ' . TOPICS_TABLE . ' t
+			WHERE topic_approved = 1 
+				AND topic_replies >=' . $config['hot_threshold'] . '
+				AND topic_moved_id = 0
+				' . $sql_where . '' .  $forum_sql . '
+			ORDER BY topic_time DESC';]]></find>
+				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
+		if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+		{
+			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
+			$sql_select = ', pt.post_text AS topic_preview_text';
+		
+			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . '
+				FROM ' . TOPICS_TABLE . ' t
+				' . $sql_join . 'WHERE t.topic_approved = 1 
+					AND t.topic_replies >=' . $config['hot_threshold'] . '
+					AND t.topic_moved_id = 0
+					' . $sql_where . '' .  $forum_sql . '
+				ORDER BY t.topic_time DESC';
+		}
+		else
+		{
+			$sql = 'SELECT topic_title, forum_id, topic_id
+				FROM ' . TOPICS_TABLE . ' t
+				WHERE topic_approved = 1 
+					AND topic_replies >=' . $config['hot_threshold'] . '
+					AND topic_moved_id = 0
+					' . $sql_where . '' .  $forum_sql . '
+				ORDER BY topic_time DESC';
+		}
+		// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$template->assign_block_vars('latest_hot_topics', array(]]></find>
+				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
+					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),
+					// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$sql = 'SELECT topic_title, forum_id, topic_id
+	FROM ' . TOPICS_TABLE . ' t
+	WHERE topic_status <> ' . ITEM_MOVED . '
+		AND topic_approved = 1 
+		AND topic_type = ' . POST_NORMAL . '
+		AND topic_moved_id = 0
+		' . $sql_where . '' .  $forum_sql . '
+	ORDER BY topic_time DESC';]]></find>
+				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
+		if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+		{
+			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
+			$sql_select = ', pt.post_text AS topic_preview_text';
+		
+			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . '
+				FROM ' . TOPICS_TABLE . ' t
+				' . $sql_join . 'WHERE t.topic_status <> ' . ITEM_MOVED . '
+					AND t.topic_approved = 1 
+					AND t.topic_type = ' . POST_NORMAL . '
+					AND t.topic_moved_id = 0
+					' . $sql_where . '' .  $forum_sql . '
+				ORDER BY t.topic_time DESC';
+		}
+		else
+		{
+			$sql = 'SELECT topic_title, forum_id, topic_id
+				FROM ' . TOPICS_TABLE . ' t
+				WHERE topic_status <> ' . ITEM_MOVED . '
+					AND topic_approved = 1 
+					AND topic_type = ' . POST_NORMAL . '
+					AND topic_moved_id = 0
+					' . $sql_where . '' .  $forum_sql . '
+				ORDER BY topic_time DESC';
+		}
+		// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$template->assign_block_vars('latest_topics', array(]]></find>
+				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
+					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),
+					// END Topic Preview Mod]]></action>
+			</edit>
+		</open>
+		<open src="portal/includes/functions.php">
+			<edit>
+				<find><![CDATA[if (!defined('IN_PHPBB') && !defined('UMIL_AUTO') && !defined('IN_INSTALL'))
+{
+   exit;
+}]]></find>
+				<action type="after-add"><![CDATA[// BEGIN Topic Preview Mod
+if(!function_exists('trim_topic_preview'))
+{
+	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+}
+// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	$sql_array['LEFT_JOIN'][] = array('FROM' => array(TOPICS_POSTED_TABLE => 'tp'), 'ON' => 'tp.topic_id = t.topic_id AND tp.user_id = ' . $user->data['user_id']);
+	$sql_array['SELECT'] .= ', tp.topic_posted';]]></find>
+				<action type="after-add"><![CDATA[	// BEGIN Topic Preview MOD
+	if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+	{
+		$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'p1'), 'ON' => 'p1.post_id = t.topic_first_post_id');
+		$sql_array['SELECT'] .= ', p1.post_text AS topic_preview_text';
+	}
+	// END Topic Preview MOD]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'post_text'				=> ap_validate($message),]]></find>
+				<action type="before-add"><![CDATA[			// BEGIN Topic Preview MOD
+			'topic_preview_text'	=> isset($row['topic_preview_text']) ? $row['topic_preview_text'] : '',
+			// END Topic Preview MOD]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/portal/modules/announcements_compact.html">
+			<edit>
+				<find><![CDATA[title="{announcements_row.TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{announcements_row.TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{announcements_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/portal/modules/news_compact_center.html">
+			<edit>
+				<find><![CDATA[title="{news_row.TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{news_row.TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{news_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/portal/modules/recent_center.html">
+			<edit>
+				<find><![CDATA[title="{latest_announcements.FULL_TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{latest_announcements.FULL_TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{latest_announcements.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[title="{latest_hot_topics.FULL_TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{latest_hot_topics.FULL_TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[title="{latest_topics.FULL_TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{latest_topics.FULL_TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{latest_topics.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/portal/modules/announcements_compact.html">
+			<edit>
+				<find><![CDATA[title="{announcements_row.TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{announcements_row.TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{announcements_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/portal/modules/news_compact_center.html">
+			<edit>
+				<find><![CDATA[title="{news_row.TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{news_row.TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{news_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/portal/modules/recent_center.html">
+			<edit>
+				<find><![CDATA[title="{latest_announcements.FULL_TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{latest_announcements.FULL_TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{latest_announcements.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[title="{latest_hot_topics.FULL_TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{latest_hot_topics.FULL_TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[title="{latest_topics.FULL_TITLE}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{latest_topics.FULL_TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{latest_topics.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Purge the cache!]]></diy-instructions>
+	</action-group>
+</mod>
