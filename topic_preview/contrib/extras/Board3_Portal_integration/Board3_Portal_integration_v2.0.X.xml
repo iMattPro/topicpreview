@@ -28,7 +28,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="parent" href="../../install_mod.xml" lang="en">Main Install Instructions</link>
+			<link type="parent" href="../../../install_mod.xml" lang="en">Main Install Instructions</link>
 		</link-group>
 	</header>
 	<action-group>
