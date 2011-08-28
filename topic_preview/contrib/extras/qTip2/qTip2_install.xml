@@ -49,7 +49,9 @@ ui-tooltip-tipsy /* Tipsy style */
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="parent" href="../../install_mod.xml" lang="en">Main Install Instructions</link>
+			<link type="parent" href="../../../install_mod.xml" lang="en">Main Install Instructions</link>
+			<link type="contrib" href="qTip2_topic_previews_for_NVrecenttopics.xml" lang="en">Add qTip2 style topic previews to NV Revcent Topics</link>
+			<link type="contrib" href="qTip2_topic_previews_for_precise_similar_topics.xml" lang="en">Add qTip2 style topic previews to Precise Similar Topics II</link>
 		</link-group>
 	</header>
 	<action-group>
