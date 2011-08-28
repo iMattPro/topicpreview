@@ -27,7 +27,7 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="qTip2_install.xml" lang="en">Main qTip Install Instructions</link>
+			<link type="dependency" href="qTip2_install.xml" lang="en">Main qTip2 Install Instructions</link>
 			<link type="dependency" href="../precise_similar_topics_integration.xml" lang="en">Topic Preview + Precise Similar Topics Integration</link>
 		</link-group>
 	</header>

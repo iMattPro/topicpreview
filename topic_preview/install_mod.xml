@@ -132,7 +132,7 @@
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
-			<link type="contrib" href="contrib/extras/qTip2/qTip2_add_on.xml" lang="en">Add-On : jQuery qTip2 Style Add-On</link>
+			<link type="contrib" href="contrib/extras/qTip2/qTip2_install.xml" lang="en">Add-On : jQuery qTip2 Style Add-On</link>
 			<link type="contrib" href="contrib/extras/tipTip/tipTip_install.xml" lang="en">Add-On : jQuery Tip Tip Style Add-On</link>
 			<link type="contrib" href="contrib/extras/precise_similar_topics_integration.xml" lang="en">Add-On : Topic Preview + Precise Similar Topics II Integration</link>
 			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Add-On : Topic Preview for Board3 Portal v1.0.X</link>
