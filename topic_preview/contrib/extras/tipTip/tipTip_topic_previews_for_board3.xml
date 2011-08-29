@@ -6,8 +6,8 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - jQuery Tip Tip Style Add-On for Board3 Portal]]></title>
-		<description lang="en"><![CDATA[Uses jQuery and the Tip Tip plug-in to create a nicer looking Topic Preview. These instructions add this feature to Board3 Portal installations.]]></description>
+		<title lang="en"><![CDATA[Topic Preview - jQuery TipTip Style Add-On for Board3 Portal]]></title>
+		<description lang="en"><![CDATA[Uses jQuery and the TipTip plug-in to create a nicer looking Topic Preview. These instructions add this feature to Board3 Portal installations.]]></description>
 		<author-notes lang="en"><![CDATA[Use of these instructions requires that you have already installed:
 -Board3 Portal (v1.0.X or 2.0.X)
 -Topic Preview
@@ -27,7 +27,7 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="tipTip_install.xml" lang="en">Main Tip Tip Install Instructions</link>
+			<link type="dependency" href="tipTip_install.xml" lang="en">Main TipTip Install Instructions</link>
 			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Topic Preview for Board3 Portal v1.0.X</link>
 			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Topic Preview for Board3 Portal v2.0.X</link>
 		</link-group>

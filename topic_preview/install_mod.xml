@@ -28,8 +28,8 @@
 				<date>2011-08-27</date>
 				<rev-version>1.0.10</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Optional Add-On : jQuery qTip2 Style]]></change>
-					<change><![CDATA[Optional Add-On : jQuery Tip Tip Style]]></change>
+					<change><![CDATA[Optional Add-On : qTip2 jQuery plug-in for Topic Preview]]></change>
+					<change><![CDATA[Optional Add-On : TipTip jQuery plug-in for Topic Preview]]></change>
 					<change><![CDATA[Optional Add-On : Topic Preview for NV Recent Topics 1.0.5 and v1.0.6]]></change>
 					<change><![CDATA[Optional Add-On : Topic Preview for Board3 Portal v2.0.X instructions]]></change>
 					<change><![CDATA[Optional Add-On : Topic Preview for Precise Similar Topics II instructions]]></change>
@@ -125,26 +125,26 @@
 			</entry>
 		</history>
 		<link-group>
-			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2</link>
+			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
 			<link type="language" href="contrib/languages/nl.xml" lang="en">Dutch Language Pack</link>
 			<link type="language" href="contrib/languages/de.xml" lang="en">German Language Pack</link>
 			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
-			<link type="contrib" href="contrib/extras/qTip2/qTip2_install.xml" lang="en">Add-On : jQuery qTip2 Style Add-On</link>
-			<link type="contrib" href="contrib/extras/tipTip/tipTip_install.xml" lang="en">Add-On : jQuery Tip Tip Style Add-On</link>
-			<link type="contrib" href="contrib/extras/precise_similar_topics_integration.xml" lang="en">Add-On : Topic Preview + Precise Similar Topics II Integration</link>
-			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Add-On : Topic Preview for Board3 Portal v1.0.X</link>
-			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Add-On : Topic Preview for Board3 Portal v2.0.X</link>
-			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : Topic Preview for NV Recent Topics v1.0.5</link>
-			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.6_integration.xml" lang="en">Add-On : Topic Preview for NV Recent Topics v1.0.6</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
-			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Topic Preview Preserve Line Breaks</link>
-			<link type="contrib" href="contrib/update_105_to_1010.xml" lang="en">Upgrade : Topic Preview 1.0.5 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_106_to_1010.xml" lang="en">Upgrade : Topic Preview 1.0.6 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_107_to_1010.xml" lang="en">Upgrade : Topic Preview 1.0.7 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_109_to_1010.xml" lang="en">Upgrade : Topic Preview 1.0.9 to 1.0.10</link>
+			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Preserve Line Breaks in Topic Previews</link>
+			<link type="contrib" href="contrib/extras/precise_similar_topics_integration.xml" lang="en">Add-On : Precise Similar Topics II Integration</link>
+			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Add-On : Board3 Portal v1.0.X Integration</link>
+			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Add-On : Board3 Portal v2.0.X Integration</link>
+			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.5 Integration</link>
+			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.6_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.6 Integration</link>
+			<link type="contrib" href="contrib/extras/qTip2/qTip2_install.xml" lang="en">Add-On : qTip2 jQuery plug-in for Topic Preview</link>
+			<link type="contrib" href="contrib/extras/tipTip/tipTip_install.xml" lang="en">Add-On : TipTip jQuery plug-in for Topic Preview</link>
+			<link type="contrib" href="contrib/update_105_to_1010.xml" lang="en">Upgrade : from 1.0.5 to 1.0.10</link>
+			<link type="contrib" href="contrib/update_106_to_1010.xml" lang="en">Upgrade : from 1.0.6 to 1.0.10</link>
+			<link type="contrib" href="contrib/update_107_to_1010.xml" lang="en">Upgrade : from 1.0.7 to 1.0.10</link>
+			<link type="contrib" href="contrib/update_109_to_1010.xml" lang="en">Upgrade : from 1.0.9 to 1.0.10</link>
 			<link type="uninstall" href="contrib/extras/uninstall_v1010.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>

@@ -6,8 +6,8 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - jQuery Tip Tip Style Add-On for NV Recent Topics]]></title>
-		<description lang="en"><![CDATA[Uses jQuery and the Tip Tip plug-in to create a nicer looking Topic Preview. These instructions add this feature to the NV Recent Topics MOD.]]></description>
+		<title lang="en"><![CDATA[Topic Preview - jQuery TipTip Style Add-On for NV Recent Topics]]></title>
+		<description lang="en"><![CDATA[Uses jQuery and the TipTip plug-in to create a nicer looking Topic Preview. These instructions add this feature to the NV Recent Topics MOD.]]></description>
 		<author-notes lang="en"><![CDATA[Use of these instructions requires that you have already installed:
 -NV Recent Topics
 -Topic Preview
@@ -27,7 +27,7 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="tipTip_install.xml" lang="en">Main Tip Tip Install Instructions</link>
+			<link type="dependency" href="tipTip_install.xml" lang="en">Main TipTip Install Instructions</link>
 			<link type="dependency" href="../NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Topic Preview for NV Recent Topics v1.0.5</link>
 			<link type="dependency" href="../NV_recent_topics_integration/nv_recent_topics_1.0.6_integration.xml" lang="en">Topic Preview for NV Recent Topics v1.0.6</link>
 		</link-group>
