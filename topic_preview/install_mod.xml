@@ -25,6 +25,13 @@
 		</installation>
 		<history>
 			<entry>
+				<date>2012-XX-XX</date>
+				<rev-version>1.0.XX</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Added Czech language pack]]></change>
+				</changelog>
+			</entry>
+			<entry>
 				<date>2011-08-27</date>
 				<rev-version>1.0.10</rev-version>
 				<changelog lang="en">
@@ -126,6 +133,7 @@
 		</history>
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
+			<link type="language" href="contrib/languages/cs.xml" lang="en">Czech Language Pack</link>
 			<link type="language" href="contrib/languages/nl.xml" lang="en">Dutch Language Pack</link>
 			<link type="language" href="contrib/languages/de.xml" lang="en">German Language Pack</link>
 			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
