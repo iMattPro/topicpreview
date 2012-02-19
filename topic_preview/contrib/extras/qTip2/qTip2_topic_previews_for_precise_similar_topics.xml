@@ -27,8 +27,9 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="qTip2_install.xml" lang="en">Main qTip2 Install Instructions</link>
-			<link type="dependency" href="../precise_similar_topics_integration.xml" lang="en">Topic Preview + Precise Similar Topics Integration</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
+			<link type="dependency" href="../precise_similar_topics_integration.xml" lang="en">Topic Preview for Precise Similar Topics Instructions</link>
+			<link type="dependency" href="qTip2_install.xml" lang="en">jQuery qTip2 style for Topic Preview Instructions</link>
 		</link-group>
 	</header>
 	<action-group>

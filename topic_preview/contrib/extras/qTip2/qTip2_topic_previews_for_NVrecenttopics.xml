@@ -29,9 +29,10 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="qTip2_install.xml" lang="en">Main qTip2 Install Instructions</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
 			<link type="dependency" href="../NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Topic Preview for NV Recent Topics v1.0.5</link>
 			<link type="dependency" href="../NV_recent_topics_integration/nv_recent_topics_1.0.6_integration.xml" lang="en">Topic Preview for NV Recent Topics v1.0.6</link>
+			<link type="dependency" href="qTip2_install.xml" lang="en">jQuery qTip2 style for Topic Preview Instructions</link>
 		</link-group>
 	</header>
 	<action-group>
