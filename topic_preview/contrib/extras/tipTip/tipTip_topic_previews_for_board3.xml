@@ -27,9 +27,10 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="tipTip_install.xml" lang="en">Main TipTip Install Instructions</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
 			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Topic Preview for Board3 Portal v1.0.X</link>
 			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Topic Preview for Board3 Portal v2.0.X</link>
+			<link type="dependency" href="tipTip_install.xml" lang="en">jQuery tipTip style for Topic Preview</link>
 		</link-group>
 	</header>
 	<action-group>
