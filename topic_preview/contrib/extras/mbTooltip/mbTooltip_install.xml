@@ -52,7 +52,7 @@
 	<script type="text/javascript" src="{ROOT_PATH}styles/mbTooltip/mbTooltip.js"></script>
 	<script type="text/javascript">
 	  $(function(){
-		$("dt[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });
+		$("dt[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });
 	  });
 	</script>
 <!-- ENDIF -->]]></action>
@@ -77,7 +77,7 @@
 	<script type="text/javascript" src="{ROOT_PATH}styles/mbTooltip/mbTooltip.js"></script>
 	<script type="text/javascript">
 	  $(function(){
-		$("a.topictitle").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });
+		$("a.topictitle").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });
 	  });
 	</script>
 <!-- ENDIF -->]]></action>

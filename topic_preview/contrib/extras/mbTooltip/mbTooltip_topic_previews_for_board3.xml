@@ -40,12 +40,12 @@
 				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or $S_IN_PORTAL -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[		$("dt[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });]]></find>
+				<find><![CDATA[		$("dt[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });]]></find>
 				<action type="replace-with"><![CDATA[		<!-- IF $S_IN_PORTAL -->
-		$("a[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });
+		$("a[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });
 		$("dt[title]").attr("title", "");
 		<!-- ELSE -->
-		$("dt[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });
+		$("dt[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });
 		<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
@@ -61,11 +61,11 @@
 				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or $S_IN_PORTAL -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[			$("a.topictitle").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });]]></find>
+				<find><![CDATA[			$("a.topictitle").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });]]></find>
 				<action type="replace-with"><![CDATA[		<!-- IF $S_IN_PORTAL -->
-		$("a[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });
+		$("a[title]").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });
 		<!-- ELSE -->
-		$("a.topictitle").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true });
+		$("a.topictitle").mbTooltip({ opacity:.9, wait:600, hasArrow:false, hasShadow:true, live:false });
 		<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
