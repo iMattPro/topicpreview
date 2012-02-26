@@ -6,7 +6,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview for Precise Similar Topics II (all versions)]]></title>
+		<title lang="en"><![CDATA[Topic Preview for Precise Similar Topics II (v1.1.7 or later)]]></title>
 		<description lang="en"><![CDATA[Gives the "Topic Preview" effect to my Precise Similar Topics MOD, allowing users to see a preview of the first post's text when they hover the mouse of the title of the Similar Topics.]]></description>
 		<author-notes lang="en"><![CDATA[Requirements: You must already have installed on your forum my "Precise Similar Topics" MOD.]]></author-notes>
 		<author-group>
@@ -63,16 +63,15 @@
 		</open>
 		<open src="styles/prosilver/template/similar_topics.html">
 			<edit>
-				<find><![CDATA[<dt><a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a><br />{L_IN} <a href="{similar.U_FORUM}">{similar.FORUM}</a></dt>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[<dt]]></inline-find>
-					<inline-action type="after-add"><![CDATA[ <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[				<dt>
+					<a href="{similar.U_VIEW_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
+				<action type="replace-with"><![CDATA[				<dt <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->>
+					<a href="{similar.U_VIEW_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/similar_topics.html">
 			<edit>
-				<find><![CDATA[<a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
+				<find><![CDATA[<a href="{similar.U_VIEW_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[class="topictitle"]]></inline-find>
 					<inline-action type="before-add"><![CDATA[<!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF --> ]]></inline-action>

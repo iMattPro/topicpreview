@@ -29,6 +29,7 @@
 				<rev-version>1.0.XX</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Optional Add-On : (mb)Tooltip jQuery plug-in for Topic Preview]]></change>
+					<change><![CDATA[Optional Add-On : Topic Preview for Precise Similar Topics II v1.1.7 instructions]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 				</changelog>
 			</entry>
@@ -143,7 +144,8 @@
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
 			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Preserve Line Breaks in Topic Previews</link>
-			<link type="contrib" href="contrib/extras/precise_similar_topics_integration.xml" lang="en">Add-On : Precise Similar Topics II Integration</link>
+			<link type="contrib" href="contrib/extras/precise_similar_topics_integration_1.1.7.xml" lang="en">Add-On : Precise Similar Topics II Integration v1.1.7 or later</link>
+			<link type="contrib" href="contrib/extras/precise_similar_topics_integration_1.1.6.xml" lang="en">Add-On : Precise Similar Topics II Integration v1.1.0 - v1.1.6</link>
 			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Add-On : Board3 Portal v1.0.X Integration</link>
 			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Add-On : Board3 Portal v2.0.X Integration</link>
 			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.5 Integration</link>

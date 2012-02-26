@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Topic Preview for Precise Similar Topics II (v1.1.0 - 1.1.6)]]></title>
+		<description lang="en"><![CDATA[Gives the "Topic Preview" effect to my Precise Similar Topics MOD, allowing users to see a preview of the first post's text when they hover the mouse of the title of the Similar Topics.]]></description>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed on your forum my "Precise Similar Topics" MOD.]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Matt Friedman]]></realname>
+				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
+			</author>
+		</author-group>
+		<mod-version>1.0.10</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>120</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+		<link-group>
+			<link type="parent" href="../../install_mod.xml" lang="en">Main Install Instructions</link>
+		</link-group>
+	</header>
+	<action-group>
+		<open src="includes/functions_similar_topics.php">
+			<edit>
+				<find><![CDATA[		// Now lets see if the current forum is set to search a specific forum search group, and search only those forums
+		if (!empty($topic_data['similar_topic_forums']))]]></find>
+				<action type="before-add"><![CDATA[		// BEGIN Topic Preview Mod
+		if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+		{
+			$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
+			$sql_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';
+		}
+		// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			if ($auth->acl_get('f_read', $similar['forum_id']))
+			{]]></find>
+				<action type="after-add"><![CDATA[				// BEGIN Topic Preview Mod
+				if (!empty($similar['first_post_preview_text']))
+				{
+					if(!function_exists('trim_topic_preview'))
+					{
+						include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+					}
+					$first_post_preview_text = trim_topic_preview($similar['first_post_preview_text'], $config['topic_preview_limit']);
+				}
+				// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[				$template->assign_block_vars('similar', array(
+]]></find>
+				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
+					'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
+					// END Topic Preview Mod]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/similar_topics.html">
+			<edit>
+				<find><![CDATA[<dt><a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a><br />{L_IN} <a href="{similar.U_FORUM}">{similar.FORUM}</a></dt>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<dt]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/similar_topics.html">
+			<edit>
+				<find><![CDATA[<a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[class="topictitle"]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF --> ]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Purge your style templates]]></diy-instructions>
+	</action-group>
+</mod>
