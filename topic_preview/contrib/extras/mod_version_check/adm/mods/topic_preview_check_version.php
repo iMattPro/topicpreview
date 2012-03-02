@@ -26,7 +26,7 @@ class topic_preview_check_version
 			'title'		=> 'Topic Preview',
 			'tag'		=> 'topic_preview',
 			'version'	=> '1.0.10',
-			'file'		=> array('www.orca-music.com', 'software', 'mods.xml'),
+			'file'		=> array('orcamx.vlexofree.com', 'software', 'mods.xml'),
 		);
 	}
 }
