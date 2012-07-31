@@ -35,10 +35,6 @@
 	<action-group>
 		<open src="includes/functions_similar_topics.php">
 			<edit>
-				<find><![CDATA[				t.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_replies, t.topic_poster, t.topic_first_poster_name, t.topic_first_poster_colour, ]]></find>
-				<action type="replace-with"><![CDATA[				t.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_replies, t.topic_poster, t.topic_first_poster_name, t.topic_first_poster_colour, t.topic_first_post_id, t.topic_last_post_id,]]></action>
-			</edit>
-			<edit>
 				<find><![CDATA[			$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
 			$sql_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';]]></find>
 				<action type="after-add"><![CDATA[			$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'ptl'), 'ON' => 'ptl.post_id = t.topic_last_post_id');
