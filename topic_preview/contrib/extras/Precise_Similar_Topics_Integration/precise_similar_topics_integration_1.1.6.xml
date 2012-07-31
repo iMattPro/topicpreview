@@ -23,7 +23,8 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="parent" href="../../../install_mod.xml" lang="en">Main Install Instructions</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
+			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precide Similar Topics v1.1.0 - 1.1.6</link>
 		</link-group>
 	</header>
 	<action-group>
@@ -63,6 +64,7 @@
 		</open>
 		<open src="styles/prosilver/template/similar_topics.html">
 			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles (ie: Aero style)]]></comment>
 				<find><![CDATA[<dt><a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a><br />{L_IN} <a href="{similar.U_FORUM}">{similar.FORUM}</a></dt>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[<dt]]></inline-find>
@@ -72,6 +74,7 @@
 		</open>
 		<open src="styles/subsilver2/template/similar_topics.html">
 			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles (ie: we_clearblue and we_universal)]]></comment>
 				<find><![CDATA[<a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[class="topictitle"]]></inline-find>

@@ -6,7 +6,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview for Precise Similar Topics II (v1.1.7 or later)]]></title>
+		<title lang="en"><![CDATA[Topic Preview for Precise Similar Topics II (v1.1.7 - v1.1.8)]]></title>
 		<description lang="en"><![CDATA[Gives the "Topic Preview" effect to my Precise Similar Topics MOD, allowing users to see a preview of the first post's text when they hover the mouse of the title of the Similar Topics.]]></description>
 		<author-notes lang="en"><![CDATA[Requirements: You must already have installed on your forum my "Precise Similar Topics" MOD.]]></author-notes>
 		<author-group>
@@ -23,7 +23,8 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
-			<link type="parent" href="../../../install_mod.xml" lang="en">Main Install Instructions</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
+			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precide Similar Topics v1.1.7 - v1.1.8</link>
 		</link-group>
 	</header>
 	<action-group>
@@ -63,6 +64,7 @@
 		</open>
 		<open src="styles/prosilver/template/similar_topics.html">
 			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles (ie: Aero style)]]></comment>
 				<find><![CDATA[				<dt>
 					<a href="{similar.U_VIEW_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
 				<action type="replace-with"><![CDATA[				<dt <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->>
@@ -71,6 +73,7 @@
 		</open>
 		<open src="styles/subsilver2/template/similar_topics.html">
 			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles (ie: we_clearblue and we_universal)]]></comment>
 				<find><![CDATA[<a href="{similar.U_VIEW_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[class="topictitle"]]></inline-find>

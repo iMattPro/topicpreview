@@ -24,6 +24,7 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
+			<link type="dependency" href="http://www.flying-bits.org" lang="en">NV recent topics v1.0.6</link>
 			<link type="parent" href="../../../install_mod.xml" lang="en">Main Install Instructions</link>
 		</link-group>
 	</header>
