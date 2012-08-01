@@ -369,11 +369,12 @@ if ($user->data['is_registered'])
 }
 
 // BEGIN Topic Preview Mod
-if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+if(!class_exists('phpbb_topic_preview'))
 {
-	$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
-	$sql_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';
+	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+	$topic_preview = new phpbb_topic_preview();
 }
+$sql_array = $topic_preview->inject_sql_array($sql_array);
 // END Topic Preview Mod
 
 if ($forum_data['forum_type'] == FORUM_POST)
@@ -502,25 +503,13 @@ if (sizeof($topic_list))
 // If we have some shadow topics, update the rowset to reflect their topic information
 if (sizeof($shadow_topic_list))
 {
+	$sql = 'SELECT *
+		FROM ' . TOPICS_TABLE . '
+		WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
 	// BEGIN Topic Preview Mod
-	if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
-	{
-		$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-		$sql_select =  ', p.post_text AS first_post_preview_text';
-
-		$sql = 'SELECT t.* ' . $sql_select . '
-			FROM ' . TOPICS_TABLE . ' t
-			' . $sql_join . 'WHERE ' . $db->sql_in_set(' t.topic_id', array_keys($shadow_topic_list));
-		$result = $db->sql_query($sql);
-	}
-	else
-	{
-		$sql = 'SELECT *
-			FROM ' . TOPICS_TABLE . '
-			WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
-		$result = $db->sql_query($sql);
-	}
+	$sql = $topic_preview->inject_sql($sql);
 	// END Topic Preview Mod
+	$result = $db->sql_query($sql);
 
 	while ($row = $db->sql_fetchrow($result))
 	{
@@ -672,17 +661,6 @@ if (sizeof($topic_list))
 		$posts_unapproved = ($row['topic_approved'] && $row['topic_replies'] < $row['topic_replies_real'] && $auth->acl_get('m_approve', $topic_forum_id)) ? true : false;
 		$u_mcp_queue = ($topic_unapproved || $posts_unapproved) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=queue&amp;mode=' . (($topic_unapproved) ? 'approve_details' : 'unapproved_posts') . "&amp;t=$topic_id", true, $user->session_id) : '';
 
-		// BEGIN Topic Preview Mod
-		if (!empty($row['first_post_preview_text']) && $auth->acl_get('f_read', $forum_id))
-		{
-			if(!function_exists('trim_topic_preview'))
-			{
-				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-			}
-			$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
-		}
-		// END Topic Preview Mod
-
 		// Send vars to template
 		$template->assign_block_vars('topicrow', array(
 			'FORUM_ID'					=> $topic_forum_id,
@@ -709,9 +687,6 @@ if (sizeof($topic_list))
 			'TOPIC_FOLDER_IMG_ALT'	=> $user->lang[$folder_alt],
 			'TOPIC_FOLDER_IMG_WIDTH'=> $user->img($folder_img, '', false, '', 'width'),
 			'TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),
-			// BEGIN Topic Preview Mod
-			'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-			// END Topic Preview Mod
 
 			'TOPIC_ICON_IMG'		=> (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['img'] : '',
 			'TOPIC_ICON_IMG_WIDTH'	=> (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['width'] : '',
@@ -742,6 +717,10 @@ if (sizeof($topic_list))
 
 			'S_TOPIC_TYPE_SWITCH'	=> ($s_type_switch == $s_type_switch_test) ? -1 : $s_type_switch_test)
 		);
+
+		// BEGIN Topic Preview Mod
+		$topic_preview->display_topic_preview($row, 'topicrow');
+		// END Topic Preview Mod
 
 		$s_type_switch = ($row['topic_type'] == POST_ANNOUNCE || $row['topic_type'] == POST_GLOBAL) ? 1 : 0;
 

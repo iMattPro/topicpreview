@@ -650,19 +650,21 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 				}
 			}
 
-			// BEGIN Topic Preview Mod
-			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
-			{
-				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-				$sql_select .= ', p.post_text AS first_post_preview_text';
-			}
-			// END Topic Preview Mod
-
 			if ($config['load_anon_lastread'] || ($user->data['is_registered'] && !$config['load_db_lastread']))
 			{
 				$tracking_topics = (isset($_COOKIE[$config['cookie_name'] . '_track'])) ? ((STRIP) ? stripslashes($_COOKIE[$config['cookie_name'] . '_track']) : $_COOKIE[$config['cookie_name'] . '_track']) : '';
 				$tracking_topics = ($tracking_topics) ? tracking_unserialize($tracking_topics) : array();
 			}
+
+			// BEGIN Topic Preview Mod
+			if(!class_exists('phpbb_topic_preview'))
+			{
+				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+				$topic_preview = new phpbb_topic_preview();
+			}
+			$sql_from 	= $topic_preview->inject_sql_join($sql_from);
+			$sql_select = $topic_preview->inject_sql_select($sql_select);
+			// END Topic Preview Mod
 
 			$sql = "SELECT $sql_select
 				FROM $sql_from
@@ -891,17 +893,6 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 
 				$row['topic_title'] = preg_replace('#(?!<.*)(?<!\w)(' . $hilit . ')(?!\w|[^<>]*(?:</s(?:cript|tyle))?>)#is', '<span class="posthilit">$1</span>', $row['topic_title']);
 
-				// BEGIN Topic Preview Mod
-				if (!empty($row['first_post_preview_text']))
-				{
-					if(!function_exists('trim_topic_preview'))
-					{
-						include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-					}
-					$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
-				}
-				// END Topic Preview Mod
-
 				$tpl_ary = array(
 					'TOPIC_AUTHOR'				=> get_username_string('username', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
 					'TOPIC_AUTHOR_COLOUR'		=> get_username_string('colour', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
@@ -922,9 +913,6 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 					'TOPIC_FOLDER_IMG_ALT'	=> $user->lang[$folder_alt],
 					'TOPIC_FOLDER_IMG_WIDTH'=> $user->img($folder_img, '', false, '', 'width'),
 					'TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),
-					// BEGIN Topic Preview Mod
-					'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-					// END Topic Preview Mod
 
 					'TOPIC_ICON_IMG'		=> (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['img'] : '',
 					'TOPIC_ICON_IMG_WIDTH'	=> (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['width'] : '',
@@ -1023,7 +1011,10 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 				'U_VIEW_TOPIC'		=> $view_topic_url,
 				'U_VIEW_FORUM'		=> append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id),
 				'U_VIEW_POST'		=> (!empty($row['post_id'])) ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=" . $row['topic_id'] . '&amp;p=' . $row['post_id'] . (($u_hilit) ? '&amp;hilit=' . $u_hilit : '')) . '#p' . $row['post_id'] : '')
-			));
+			));			
+			// BEGIN Topic Preview Mod
+			$topic_preview->display_topic_preview($row, 'searchresults');
+			// END Topic Preview Mod
 		}
 
 		if ($topic_id && ($topic_id == $result_topic_id))
