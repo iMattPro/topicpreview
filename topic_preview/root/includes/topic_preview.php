@@ -48,7 +48,7 @@ class phpbb_topic_preview
 	var $tp_sql_join	= '';
 
 	/**
-	* Also grab the last post's text for topic previews
+	* Get the last post's text for topic previews
 	*/
 	var $tp_last_post	= false;
 
@@ -62,8 +62,8 @@ class phpbb_topic_preview
 		$this->is_active		= ($config['topic_preview_limit'] && $user->data['user_topic_preview']) ? true : false;
 		$this->preview_limit	= (int) $config['topic_preview_limit'];
 		$this->strip_bbcodes	= (string) $config['topic_preview_strip_bbcodes'];
-		$this->tp_sql_select	= ', ptf.post_text AS first_post_preview_text' . (($this->tp_last_post) ? ', ptl.post_text AS last_post_preview_text' : '');
-		$this->tp_sql_join		= ' LEFT JOIN ' . POSTS_TABLE . ' ptf ON (ptf.post_id = t.topic_first_post_id)' . (($this->tp_last_post) ? ' LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)' : '');
+		$this->tp_sql_select	= ', fp.post_text AS first_post_preview_text' . (($this->tp_last_post) ? ', lp.post_text AS last_post_preview_text' : '');
+		$this->tp_sql_join		= ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' . (($this->tp_last_post) ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '');
 	}
 
 	/**
@@ -78,15 +78,15 @@ class phpbb_topic_preview
 		}
 
 		$sql_array['LEFT_JOIN'][] = array(
-			'FROM'	=> array(POSTS_TABLE => 'ptf'),
-			'ON'	=> "ptf.post_id = t.topic_first_post_id"
+			'FROM'	=> array(POSTS_TABLE => 'fp'),
+			'ON'	=> "fp.post_id = t.topic_first_post_id"
 		);
 
 		if ($this->tp_last_post)
 		{
 			$sql_array['LEFT_JOIN'][] = array(
-				'FROM'	=> array(POSTS_TABLE => 'ptl'),
-				'ON'	=> "ptl.post_id = t.topic_last_post_id"
+				'FROM'	=> array(POSTS_TABLE => 'lp'),
+				'ON'	=> "lp.post_id = t.topic_last_post_id"
 			);
 		}
 
@@ -158,27 +158,22 @@ class phpbb_topic_preview
 			return false;
 		}
 
-		if (!empty($row['first_post_preview_text']) || !empty($row['last_post_preview_text']))
+		global $template;
+
+		if (!empty($row['first_post_preview_text']))
 		{
-			global $auth, $forum_id;
-
-			if ($auth->acl_get('f_read', $forum_id))
-			{
-				global $template;
-
-				$first_post_preview_text = $this->_trim_topic_preview($row['first_post_preview_text'], $this->preview_limit);
-
-				if (!empty($row['last_post_preview_text']) && $row['topic_first_post_id'] != $row['topic_last_post_id'])
-				{
-					$last_post_preview_text = $this->_trim_topic_preview($row['last_post_preview_text'], $this->preview_limit);
-				}
-
-				$template->alter_block_array($block, array(
-					'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-					'TOPIC_PREVIEW_TEXT2'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
-				), true, 'change');
-			}
+			$first_post_preview_text = $this->_trim_topic_preview($row['first_post_preview_text'], $this->preview_limit);
 		}
+
+		if (!empty($row['last_post_preview_text']) && $row['topic_first_post_id'] != $row['topic_last_post_id'])
+		{
+			$last_post_preview_text = $this->_trim_topic_preview($row['last_post_preview_text'], $this->preview_limit);
+		}
+
+		$template->alter_block_array($block, array(
+			'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
+			'TOPIC_PREVIEW_TEXT2'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
+		), true, 'change');
 	}
 
 	/**
