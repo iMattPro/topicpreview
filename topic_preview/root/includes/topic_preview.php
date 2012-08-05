@@ -53,6 +53,16 @@ class phpbb_topic_preview
 	var $tp_last_post	= false;
 
 	/**
+	* Add-On: Preserve line breaks?
+	*/
+	var $preserve_lb	= false;
+
+	/**
+	* Add-On: [topicpreview] bbcode support?
+	*/
+	var $tp_bbcode		= false;
+
+	/**
 	* Topic Preview MOD constructor method
 	*/
 	function phpbb_topic_preview()
@@ -203,8 +213,21 @@ class phpbb_topic_preview
 	function _bbcode_strip($text)
 	{
 		static $RegEx = array();
-		$bbcode_strip = empty($this->strip_bbcodes) ? 'flash' : 'flash|' . trim($this->strip_bbcodes);
-		$text = smiley_text($text, true); // Save the smileys - show them as text :)
+
+		if ($this->tp_bbcode)
+		{
+			// use text inside [topicpreview] bbcode as the topic preview
+			if (preg_match('#\[(topicpreview[^\[\]]+)\].*\[/\1\]#Usi', $text, $matches))
+			{
+				$text = $matches[0];
+			}
+		}
+
+		$text = smiley_text($text, true); // display smileys as text :)
+		$text = ($this->preserve_lb ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
+
+		$bbcode_strip = (empty($this->strip_bbcodes) ? 'flash' : 'flash|' . trim($this->strip_bbcodes));
+
 		if (empty($RegEx))
 		{
 			$RegEx = array(
@@ -217,6 +240,7 @@ class phpbb_topic_preview
 				'#[\s]+#' // Multiple spaces
 			);
 		}
+
 		return trim(preg_replace($RegEx, ' ', $text));
 	}
 }

@@ -29,8 +29,8 @@ Thanks to phpBB member doum-ti-di-li-doom for submitting this trick.]]></descrip
 	<action-group>
 		<open src="includes/topic_preview.php">
 			<edit>
-				<find><![CDATA[	if (empty($RegEx))]]></find>
-				<action type="before-add"><![CDATA[	$text = str_replace("\n", '&#13;&#10;', $text); // Preserve line breaks]]></action>
+				<find><![CDATA[	var $preserve_lb	= false;]]></find>
+				<action type="replace-with"><![CDATA[	var $preserve_lb	= true;]]></action>
 			</edit>
 		</open>
 	</action-group>

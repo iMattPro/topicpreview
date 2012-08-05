@@ -28,15 +28,8 @@
 	<action-group>
 		<open src="includes/topic_preview.php">
 			<edit>
-				<find><![CDATA[function bbcode_strip($text)
-{
-	global $config;
-]]></find>
-				<action type="after-add"><![CDATA[	preg_match('#\[(topicpreview)[^\[\]]+\].*\[/(topicpreview)[^\[\]]+\]#Usi', $text, $matches);
-	if (@$matches)
-	{
-		$text = $matches[0];
-	}]]></action>
+				<find><![CDATA[	var $tp_bbcode		= false;]]></find>
+				<action type="replace-with"><![CDATA[	var $tp_bbcode		= true;]]></action>
 			</edit>
 		</open>
 		<diy-instructions lang="en"><![CDATA[Create the following custom BBcode in the ACP
