@@ -48,7 +48,7 @@ class phpbb_topic_preview
 	var $tp_sql_join	= '';
 
 	/**
-	* Get the last post's text for topic previews
+	* Get the last post's text for topic previews?
 	*/
 	var $tp_last_post	= false;
 
@@ -206,7 +206,7 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* This function's RegEx originally written by RMcGirr83 for his Topic Text Hover Mod
+	* This function's $RegEx originally written by RMcGirr83 for his Topic Text Hover Mod
 	* Modified by Matt Friedman to display smileys as text, strip URLs, custom BBcodes and trim whitespace
 	* @access private
 	*/
