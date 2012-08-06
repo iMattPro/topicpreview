@@ -22,11 +22,11 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.10</mod-version>
+		<mod-version>1.0.XX</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.9</target-version>
+			<target-version>3.0.10</target-version>
 		</installation>
 		<link-group>
 			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
@@ -37,33 +37,6 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 	</header>
 	<action-group>
 		<open src="includes/functions_recenttopics.php">
-			<edit>
-				<comment lang="en"><![CDATA[FOR NV RECENT TOPICS v1.0.5 - DO THIS EDIT]]></comment>
-				<find><![CDATA[$sql_select =  ', pt.post_text AS first_post_preview_text';]]></find>
-				<action type="after-add"><![CDATA[		$sql_join .= ' LEFT JOIN ' . POSTS_TABLE . ' pl ON (pl.post_id = t.topic_last_post_id)';
-		$sql_select .= ', pl.post_text AS last_post_preview_text';]]></action>
-			</edit>
-			<edit>
-				<comment lang="en"><![CDATA[FOR NV RECENT TOPICS v1.0.6 - DO THIS EDIT]]></comment>
-				<find><![CDATA[$sql_query_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';]]></find>
-				<action type="after-add"><![CDATA[		$sql_query_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'ptl'), 'ON' => 'ptl.post_id = t.topic_last_post_id');
-		$sql_query_array['SELECT'] .= ', ptl.post_text AS last_post_preview_text';]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);]]></find>
-				<action type="after-add"><![CDATA[			if ($row['topic_first_post_id'] != $row['topic_last_post_id'])
-			{
-				$last_post_preview_text = trim_topic_preview($row['last_post_preview_text'], $config['topic_preview_limit']);
-			}
-			else if (isset($last_post_preview_text))
-			{
-				unset($last_post_preview_text); //Clear any last post text that may be left over from previous topic
-			}]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',]]></find>
-				<action type="after-add"><![CDATA[			'TOPIC_PREVIEW_TEXT2'	=> (isset($last_post_preview_text)) ? censor_text($last_post_preview_text) : '',]]></action>
-			</edit>
 			<edit>
 				<find><![CDATA[		'S_TOPIC_ICONS'			=> (sizeof($topic_icons)) ? true : false,]]></find>
 				<action type="before-add"><![CDATA[		'S_SHOW_TOPICS'			=> true,]]></action>

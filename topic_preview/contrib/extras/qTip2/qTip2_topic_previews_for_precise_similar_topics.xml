@@ -9,7 +9,7 @@
 		<title lang="en"><![CDATA[Topic Preview - jQuery qTip2 Style Add-On for Precise Similar Topics]]></title>
 		<description lang="en"><![CDATA[Uses jQuery and the qTip2 plug-in to create a nicer looking Topic Preview. These instructions add this feature to Precise Similar Topics installations.]]></description>
 		<author-notes lang="en"><![CDATA[Use of these instructions requires that you have already installed:
--Precise Similar Topics (any version)
+-Precise Similar Topics 1.2.0
 -Topic Preview
 -Topic Preview for Precise Similar Topics add-on
 -jQuery qTip2 style for Topic Preview add-on]]></author-notes>
@@ -20,11 +20,11 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.10</mod-version>
+		<mod-version>1.0.XX</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.9</target-version>
+			<target-version>3.0.10</target-version>
 		</installation>
 		<link-group>
 			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
@@ -33,29 +33,6 @@
 		</link-group>
 	</header>
 	<action-group>
-		<open src="includes/functions_similar_topics.php">
-			<edit>
-				<find><![CDATA[			$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
-			$sql_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';]]></find>
-				<action type="after-add"><![CDATA[			$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'ptl'), 'ON' => 'ptl.post_id = t.topic_last_post_id');
-			$sql_array['SELECT'] .= ', ptl.post_text AS last_post_preview_text';]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[					$first_post_preview_text = trim_topic_preview($similar['first_post_preview_text'], $config['topic_preview_limit']);]]></find>
-				<action type="after-add"><![CDATA[					if ($similar['topic_first_post_id'] != $similar['topic_last_post_id'])
-					{
-						$last_post_preview_text = trim_topic_preview($similar['last_post_preview_text'], $config['topic_preview_limit']);
-					}
-					else if (isset($last_post_preview_text))
-					{
-						unset($last_post_preview_text); //Clear any last post text that may be left over from previous topic
-					}]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[					'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',]]></find>
-				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (isset($last_post_preview_text)) ? censor_text($last_post_preview_text) : '',]]></action>
-			</edit>
-		</open>
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
 				<find><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS -->]]></find>
@@ -64,15 +41,20 @@
 		</open>
 		<open src="styles/prosilver/template/similar_topics.html">
 			<edit>
-				<find><![CDATA[<dt <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->><a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a><br />{L_IN} <a href="{similar.U_FORUM}">{similar.FORUM}</a></dt>]]></find>
+				<find><![CDATA[<dt <!-- IF similar.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{similar.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --><!-- IF similar.TOPIC_PREVIEW_TEXT --> title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->>]]></find>
 				<inline-edit>
-					<inline-remove><![CDATA[ <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-remove>
-					<inline-find><![CDATA[<a href="{similar.U_TOPIC}"]]></inline-find>
+					<inline-remove><![CDATA[<!-- IF similar.TOPIC_PREVIEW_TEXT --> title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-remove>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<a href="{similar.U_VIEW_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a> {similar.ATTACH_ICON_IMG}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<a href="{similar.U_VIEW_TOPIC}"]]></inline-find>
 					<inline-action type="after-add"><![CDATA[<!-- IF similar.TOPIC_PREVIEW_TEXT --> id="t{similar.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
-				<find><![CDATA[<dd class="lastpost"><span>{L_POST_BY_AUTHOR} {similar.TOPIC_AUTHOR_FULL}<br />{similar.TOPIC_TIME}</span></dd>
+				<find><![CDATA[				</dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF similar.TOPIC_PREVIEW_TEXT -->
 				<script type="text/javascript">
@@ -95,14 +77,14 @@
 		</open>
 		<open src="styles/subsilver2/template/similar_topics.html">
 			<edit>
-				<find><![CDATA[<a href="{similar.U_TOPIC}" <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF --> class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
+				<find><![CDATA[<a href="{similar.U_VIEW_TOPIC}" <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF --> class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[title="{similar.TOPIC_PREVIEW_TEXT}"]]></inline-find>
 					<inline-action type="replace-with"><![CDATA[id="t{similar.TOPIC_ID}"]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
-				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{similar.U_FORUM}">{similar.FORUM}</a></p>]]></find>
+				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{similar.U_VIEW_FORUM}">{similar.FORUM_TITLE}</a></p>]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF similar.TOPIC_PREVIEW_TEXT -->
 					<script type="text/javascript">
 						$(document).ready(function(){
