@@ -17,17 +17,18 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.10</mod-version>
+		<mod-version>1.0.XX</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
-			<target-version>3.0.9</target-version>
+			<target-version>3.0.10</target-version>
 		</installation>
 		<history>
 			<entry>
 				<date>2012-XX-XX</date>
 				<rev-version>1.0.XX</rev-version>
 				<changelog lang="en">
+					<change><![CDATA[Overhaul of code.]]></change>
 					<change><![CDATA[Optional Add-On : (mb)Tooltip jQuery plug-in for Topic Preview]]></change>
 					<change><![CDATA[Optional Add-On : Topic Preview for Precise Similar Topics II v1.1.7 instructions]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
