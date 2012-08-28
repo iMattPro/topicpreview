@@ -2,8 +2,9 @@
 /**
 *
 * @package Topic Preview
+* @version $Id$
 * @copyright (c) 2010 Matt Friedman
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
 

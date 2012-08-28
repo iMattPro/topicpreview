@@ -1,10 +1,9 @@
 <?php
 /**
 *
-* @author VSE (Matt Friedman) maf675@gmail.com
-* @package umil
-* @version $Id install_topic_preview.php 5 8/10/10 10:40 PM VSE $
-* @copyright (c) 2010 VSE
+* @package Topic Preview
+* @version $Id$
+* @copyright (c) 2010 Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */

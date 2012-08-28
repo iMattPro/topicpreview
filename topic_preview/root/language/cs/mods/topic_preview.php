@@ -3,15 +3,15 @@
 *
 * topic_preview [Čeština]
 *
-* @package language
-* @version $Id: topic_preview.php, 7 2010-06-13 23:47:11GMT VSE $
-* @copyright (c) 2012 Škola po netu (http://www.skolaponetu.cz) 
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License 
-* 
+* @package Topic Preview
+* @version $Id$
+* @copyright (c) 2010 Matt Friedman (Pro nahlášení chyb v překladu a podporu překladu použijte stránky http://www.skolaponetu.cz. Děkujeme)
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+*
 */
 
 /**
- * Pro nahlášení chyb v překladu a podporu překladu použijte stránky http://www.skolaponetu.cz. Děkujeme
+ * 
 */
 
 /**

@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* @package acp
-* @version $Id: topic_preview_check_version.php 4 5/5/11 1:02 AM VSE $
-* @copyright (c) 2007 StarTrekGuide
+* @package Topic Preview
+* @version $Id$
+* @copyright (c) 2010 Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */

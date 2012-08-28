@@ -3,7 +3,8 @@
 *
 * topic_preview [Dutch]
 *
-* @package language
+* @package Topic Preview
+* @version $Id$
 * @copyright (c) 2010 Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *

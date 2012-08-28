@@ -3,8 +3,8 @@
 *
 * topic_preview [English]
 *
-* @package language
-* @version $Id: topic_preview.php, 7 2010-06-13 23:47:11GMT VSE $
+* @package Topic Preview
+* @version $Id$
 * @copyright (c) 2010 Matt Friedman
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
