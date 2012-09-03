@@ -9,12 +9,10 @@
 		<title lang="en"><![CDATA[Topic Preview - jQuery qTip2 Style Add-On for Board3 Portal]]></title>
 		<description lang="en"><![CDATA[Uses jQuery and the qTip2 plug-in to create a nicer looking Topic Preview. These instructions add this feature to Board3 Portal installations.]]></description>
 		<author-notes lang="en"><![CDATA[Use of these instructions requires that you have already installed:
--Board3 Portal (v1.0.X or 2.0.X)
+-Board3 Portal (2.0.X)
 -Topic Preview
 -Topic Preview for Board3 Portal add-on
--jQuery qTip2 style for Topic Preview add-on
-
-IMPORTANT: Do not use AutoMOD to perform this installation. These instructions are designed for Board3 v2.0.X however, there are comments with special instructions for Board3 v1.0.X users within. So this installation should be performed manually.]]></author-notes>
+-jQuery qTip2 style for Topic Preview add-on]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -22,16 +20,16 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.10</mod-version>
+		<mod-version>1.1.0</mod-version>
 		<installation>
 			<level>intermediate</level>
 			<time>900</time>
-			<target-version>3.0.9</target-version>
+			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
-			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Topic Preview for Board3 Portal v1.0.X</link>
-			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Topic Preview for Board3 Portal v2.0.X</link>
+			<link type="dependency" href="http://board3.de/" lang="en">Board3 Portal 2.0.X</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview 1.1.0</link>
+			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Topic Preview for Board3 Portal 2.0.X</link>
 			<link type="dependency" href="qTip2_install.xml" lang="en">jQuery qTip2 style for Topic Preview Instructions</link>
 		</link-group>
 	</header>
@@ -55,13 +53,10 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 		</open>
 		<open src="portal/modules/portal_announcements.php">
 			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT portal/block/announcements.php]]></comment>
-			</edit>
-			<edit>
-				<find><![CDATA[$topic_preview_text = trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);]]></find>
+				<find><![CDATA[$topic_preview_text = $topic_preview->_trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);]]></find>
 				<action type="after-add"><![CDATA[					if ($fetch_news[$i]['topic_first_post_id'] != $fetch_news[$i]['topic_last_post_id'])
 					{
-						$topic_preview_text2 = trim_topic_preview($fetch_news[$i]['topic_preview_text2'], $config['topic_preview_limit']);
+						$topic_preview_text2 = $topic_preview->_trim_topic_preview($fetch_news[$i]['topic_preview_text2'], $config['topic_preview_limit']);
 					}
 					else if (isset($topic_preview_text2))
 					{
@@ -76,13 +71,10 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 		</open>
 		<open src="portal/modules/portal_news.php">
 			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT portal/block/news.php]]></comment>
-			</edit>
-			<edit>
-				<find><![CDATA[$topic_preview_text = trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);]]></find>
+				<find><![CDATA[$topic_preview_text = $topic_preview->_trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);]]></find>
 				<action type="after-add"><![CDATA[						if ($fetch_news[$i]['topic_first_post_id'] != $fetch_news[$i]['topic_last_post_id'])
 						{
-							$topic_preview_text2 = trim_topic_preview($fetch_news[$i]['topic_preview_text2'], $config['topic_preview_limit']);
+							$topic_preview_text2 = $topic_preview->_trim_topic_preview($fetch_news[$i]['topic_preview_text2'], $config['topic_preview_limit']);
 						}
 						else if (isset($topic_preview_text2))
 						{
@@ -97,12 +89,9 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 		</open>
 		<open src="portal/modules/portal_recent.php">
 			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT portal/block/recent.php]]></comment>
-			</edit>
-			<edit>
 				<find><![CDATA[$sql_select = ', pt.post_text AS topic_preview_text';]]></find>
-				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' pl ON (pl.post_id = t.topic_last_post_id)';
-			$sql_select2 =  ', pl.post_text AS topic_preview_text2';]]></action>
+				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)';
+			$sql_select2 =  ', ptl.post_text AS topic_preview_text2';]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . ']]></find>
@@ -119,14 +108,14 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				</inline-edit>
 			</edit>
 			<edit>
-				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),]]></find>
-				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text(trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
+				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
+				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[$sql_select = ', pt.post_text AS topic_preview_text';]]></find>
-				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' pl ON (pl.post_id = t.topic_last_post_id)';
-			$sql_select2 =  ', pl.post_text AS topic_preview_text2';]]></action>
+				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)';
+			$sql_select2 =  ', ptl.post_text AS topic_preview_text2';]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . ']]></find>
@@ -143,14 +132,14 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				</inline-edit>
 			</edit>
 			<edit>
-				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),]]></find>
-				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text(trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
+				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
+				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[$sql_select = ', pt.post_text AS topic_preview_text';]]></find>
-				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' pl ON (pl.post_id = t.topic_last_post_id)';
-			$sql_select2 =  ', pl.post_text AS topic_preview_text2';]]></action>
+				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)';
+			$sql_select2 =  ', ptl.post_text AS topic_preview_text2';]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . ']]></find>
@@ -167,8 +156,8 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				</inline-edit>
 			</edit>
 			<edit>
-				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),]]></find>
-				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text(trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
+				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
+				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>
 		</open>
@@ -178,37 +167,31 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or $S_IN_PORTAL -->]]></action>
 			</edit>
 		</open>
-		<open src="styles/prosilver/template/portal/modules/announcements_compact.html">
+		<open src="styles/prosilver/template/portal/modules/announcements_center_compact.html">
 			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT styles/prosilver/template/portal/block/announcements_compact.html]]></comment>
-			</edit>
-			<edit>
-				<find><![CDATA[<a href="{announcements_row.U_VIEW_COMMENTS}" title="{announcements_row.TOPIC_PREVIEW_TEXT}"]]></find>
+				<find><![CDATA[<a href="{announcements_center_row.U_VIEW_COMMENTS}" title="{announcements_center_row.TOPIC_PREVIEW_TEXT}"]]></find>
 				<inline-edit>
-					<inline-find><![CDATA[title="{announcements_row.TOPIC_PREVIEW_TEXT}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[id="t{announcements_row.TOPIC_ID}"]]></inline-action>
+					<inline-find><![CDATA[title="{announcements_center_row.TOPIC_PREVIEW_TEXT}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[id="t{announcements_center_row.TOPIC_ID}"]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
 				<find><![CDATA[</dd>
 		</dl>]]></find>
-				<action type="after-add"><![CDATA[		<!-- IF announcements_row.TOPIC_PREVIEW_TEXT -->
+				<action type="after-add"><![CDATA[		<!-- IF announcements_center_row.TOPIC_PREVIEW_TEXT -->
 			<script type="text/javascript">
 				$(document).ready(function(){
-					$('#t{announcements_row.TOPIC_ID}').qtip({content:{text: $('#p{announcements_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{announcements_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
+					$('#t{announcements_center_row.TOPIC_ID}').qtip({content:{text: $('#p{announcements_center_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{announcements_center_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
 				});
 			</script>
-			<div id="p{announcements_row.TOPIC_ID}" style="display: none;">
-			<!-- IF announcements_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
-			<!-- IF announcements_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
+			<div id="p{announcements_center_row.TOPIC_ID}" style="display: none;">
+			<!-- IF announcements_center_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{announcements_center_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
+			<!-- IF announcements_center_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{announcements_center_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 			</div>
 		<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/portal/modules/news_compact_center.html">
-			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT styles/prosilver/template/portal/block/news_compact.html]]></comment>
-			</edit>
 			<edit>
 				<find><![CDATA[<a href="{news_row.U_VIEW_COMMENTS}" title="{news_row.TOPIC_PREVIEW_TEXT}"]]></find>
 				<inline-edit>
@@ -234,10 +217,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 		</open>
 		<open src="styles/prosilver/template/portal/modules/recent_center.html">
 			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT styles/prosilver/template/portal/block/recent.html]]></comment>
-			</edit>
-			<edit>
-				<find><![CDATA[<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
+				<find><![CDATA[								<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[						<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}">{latest_announcements.TITLE}</a><br />
 						<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT -->
 							<script type="text/javascript">
@@ -252,7 +232,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 						<!-- ENDIF -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
+				<find><![CDATA[						<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[						<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}">{latest_hot_topics.TITLE}</a><br />
 						<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT -->
 							<script type="text/javascript">
@@ -267,7 +247,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 						<!-- ENDIF -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
+				<find><![CDATA[						<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[						<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}">{latest_topics.TITLE}</a><br />
 						<!-- IF latest_topics.TOPIC_PREVIEW_TEXT -->
 							<script type="text/javascript">
@@ -288,36 +268,30 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or $S_IN_PORTAL -->]]></action>
 			</edit>
 		</open>
-		<open src="styles/subsilver2/template/portal/modules/announcements_compact.html">
+		<open src="styles/subsilver2/template/portal/modules/announcements_center_compact.html">
 			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT styles/subsilver2/template/portal/block/news_compact.html]]></comment>
-			</edit>
-			<edit>
-				<find><![CDATA[<a title="{announcements_row.TOPIC_PREVIEW_TEXT}" href="{announcements_row.U_VIEW_COMMENTS}" class="topictitle">]]></find>
+				<find><![CDATA[<a title="{announcements_center_row.TOPIC_PREVIEW_TEXT}" href="{announcements_center_row.U_VIEW_COMMENTS}" class="topictitle">]]></find>
 				<inline-edit>
-					<inline-find><![CDATA[title="{announcements_row.TOPIC_PREVIEW_TEXT}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[id="t{announcements_row.TOPIC_ID}"]]></inline-action>
+					<inline-find><![CDATA[title="{announcements_center_row.TOPIC_PREVIEW_TEXT}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[id="t{announcements_center_row.TOPIC_ID}"]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
 				<find><![CDATA[</td>]]></find>
-				<action type="before-add"><![CDATA[					<!-- IF announcements_row.TOPIC_PREVIEW_TEXT -->
+				<action type="before-add"><![CDATA[					<!-- IF announcements_center_row.TOPIC_PREVIEW_TEXT -->
 						<script type="text/javascript">
 							$(document).ready(function(){
-								$('#t{announcements_row.TOPIC_ID}').qtip({content:{text: $('#p{announcements_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{announcements_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
+								$('#t{announcements_center_row.TOPIC_ID}').qtip({content:{text: $('#p{announcements_center_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{announcements_center_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
 							});
 						</script>
-						<div id="p{announcements_row.TOPIC_ID}" style="display: none;">
-						<!-- IF announcements_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
-						<!-- IF announcements_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
+						<div id="p{announcements_center_row.TOPIC_ID}" style="display: none;">
+						<!-- IF announcements_center_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{announcements_center_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
+						<!-- IF announcements_center_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{announcements_center_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 						</div>
 					<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/portal/modules/news_compact_center.html">
-			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT styles/subsilver2/template/portal/block/news_compact.html]]></comment>
-			</edit>
 			<edit>
 				<find><![CDATA[<a title="{news_row.TOPIC_PREVIEW_TEXT}" href="{news_row.U_VIEW_COMMENTS}" class="topictitle">]]></find>
 				<inline-edit>
@@ -342,10 +316,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 		</open>
 		<open src="styles/subsilver2/template/portal/modules/recent_center.html">
 			<edit>
-				<comment lang="en"><![CDATA[IMPORTANT: FOR BOARD3 1.0.X THIS FILE IS LOCATED AT styles/subsilver2/template/portal/block/recent.html]]></comment>
-			</edit>
-			<edit>
-				<find><![CDATA[<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
+				<find><![CDATA[				<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[				<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}">{latest_announcements.TITLE}</a><br />
 				<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT -->
 					<script type="text/javascript">
@@ -360,7 +331,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<!-- ENDIF -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
+				<find><![CDATA[				<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[				<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}">{latest_hot_topics.TITLE}</a><br />
 				<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT -->
 					<script type="text/javascript">
@@ -375,7 +346,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<!-- ENDIF -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
+				<find><![CDATA[				<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[				<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}">{latest_topics.TITLE}</a><br />
 				<!-- IF latest_topics.TOPIC_PREVIEW_TEXT -->
 					<script type="text/javascript">

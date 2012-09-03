@@ -9,11 +9,11 @@
 		<title lang="en"><![CDATA[Topic Preview for Board3 Portal 2.0.X]]></title>
 		<description lang="en"><![CDATA[This add-on allows you to integrate Topic Preview with the Board3 Portal.
 
-These instructions are for use with Board3 Portal v2.0.0
+These instructions are for use with Board3 Portal v2.0.X
 
 You must already have installed:
-Topic Preview 1.0.10 http://www.phpbb.com/customise/db/mod/topic_preview/
-Board3 Portal 2.0.0 http://board3.de/]]></description>
+Topic Preview 1.1.0 http://www.phpbb.com/customise/db/mod/topic_preview/
+Board3 Portal 2.0.X http://board3.de/]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -21,25 +21,29 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.10</mod-version>
+		<mod-version>1.1.0</mod-version>
 		<installation>
 			<level>intermediate</level>
 			<time>600</time>
-			<target-version>3.0.9</target-version>
+			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
-			<link type="dependency" href="http://board3.de/" lang="en">Board3 Portal 2.0.0 or later</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview 1.1.0</link>
+			<link type="dependency" href="http://board3.de/" lang="en">Board3 Portal 2.0.X</link>
 		</link-group>
 	</header>
 	<action-group>
 		<open src="portal/modules/portal_announcements.php">
 			<edit>
-				<find><![CDATA[				$template->assign_block_vars('announcements_row', array(]]></find>
+				<find><![CDATA[		global $config, $template, $db, $user, $auth, $cache, $phpEx, $phpbb_root_path;]]></find>
+				<action type="replace-with"><![CDATA[		global $config, $template, $db, $user, $auth, $cache, $phpEx, $phpbb_root_path, $topic_preview;]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[				$template->assign_block_vars('announcements_center_row', array(]]></find>
 				<action type="before-add"><![CDATA[				// BEGIN Topic Preview Mod
-				if ($config['topic_preview_limit'] && $user->data['user_topic_preview'] && !empty($fetch_news[$i]['topic_preview_text']))
+				if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']) && !empty($fetch_news[$i]['topic_preview_text']))
 				{
-					$topic_preview_text = trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);
+					$topic_preview_text = $topic_preview->_trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);
 				}
 				// END Topic Preview Mod]]></action>
 			</edit>
@@ -52,11 +56,15 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 		</open>
 		<open src="portal/modules/portal_news.php">
 			<edit>
+				<find><![CDATA[		global $config, $template, $db, $user, $auth, $cache, $phpEx, $phpbb_root_path;]]></find>
+				<action type="replace-with"><![CDATA[		global $config, $template, $db, $user, $auth, $cache, $phpEx, $phpbb_root_path, $topic_preview;]]></action>
+			</edit>
+			<edit>
 				<find><![CDATA[					$template->assign_block_vars('news_row', array(]]></find>
 				<action type="before-add"><![CDATA[					// BEGIN Topic Preview Mod
-					if ($config['topic_preview_limit'] && $user->data['user_topic_preview'] && !empty($fetch_news[$i]['topic_preview_text']))
+					if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']) && !empty($fetch_news[$i]['topic_preview_text']))
 					{
-						$topic_preview_text = trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);
+						$topic_preview_text = $topic_preview->_trim_topic_preview($fetch_news[$i]['topic_preview_text'], $config['topic_preview_limit']);
 					}
 					// END Topic Preview Mod]]></action>
 			</edit>
@@ -70,7 +78,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 		<open src="portal/modules/portal_recent.php">
 			<edit>
 				<find><![CDATA[		global $config, $template, $db, $auth, $phpbb_root_path, $phpEx;]]></find>
-				<action type="replace-with"><![CDATA[		global $config, $template, $db, $auth, $phpbb_root_path, $phpEx, $user;]]></action>
+				<action type="replace-with"><![CDATA[		global $config, $template, $db, $auth, $phpbb_root_path, $phpEx, $user, $topic_preview;]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[		$sql = 'SELECT topic_title, forum_id, topic_id
@@ -82,7 +90,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 				' . $sql_where . '' .  $forum_sql . '
 			ORDER BY topic_time DESC';]]></find>
 				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
-		if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+		if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']))
 		{
 			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
 			$sql_select = ', pt.post_text AS topic_preview_text';
@@ -112,7 +120,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 			<edit>
 				<find><![CDATA[$template->assign_block_vars('latest_announcements', array(]]></find>
 				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
-					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),
+					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),
 					// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
@@ -124,7 +132,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 				' . $sql_where . '' .  $forum_sql . '
 			ORDER BY topic_time DESC';]]></find>
 				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
-		if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+		if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']))
 		{
 			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
 			$sql_select = ', pt.post_text AS topic_preview_text';
@@ -152,7 +160,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 			<edit>
 				<find><![CDATA[$template->assign_block_vars('latest_hot_topics', array(]]></find>
 				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
-					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),
+					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),
 					// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
@@ -165,7 +173,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 		' . $sql_where . '' .  $forum_sql . '
 	ORDER BY topic_time DESC';]]></find>
 				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
-		if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+		if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']))
 		{
 			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
 			$sql_select = ', pt.post_text AS topic_preview_text';
@@ -195,7 +203,7 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
 			<edit>
 				<find><![CDATA[$template->assign_block_vars('latest_topics', array(]]></find>
 				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
-					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text(trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $portal_config['portal_recent_title_limit']),
+					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),
 					// END Topic Preview Mod]]></action>
 			</edit>
 		</open>
@@ -206,9 +214,10 @@ Board3 Portal 2.0.0 http://board3.de/]]></description>
    exit;
 }]]></find>
 				<action type="after-add"><![CDATA[// BEGIN Topic Preview Mod
-if(!function_exists('trim_topic_preview'))
+if(!class_exists('phpbb_topic_preview'))
 {
 	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+	$topic_preview = new phpbb_topic_preview();
 }
 // END Topic Preview Mod]]></action>
 			</edit>
@@ -216,10 +225,10 @@ if(!function_exists('trim_topic_preview'))
 				<find><![CDATA[	$sql_array['LEFT_JOIN'][] = array('FROM' => array(TOPICS_POSTED_TABLE => 'tp'), 'ON' => 'tp.topic_id = t.topic_id AND tp.user_id = ' . $user->data['user_id']);
 	$sql_array['SELECT'] .= ', tp.topic_posted';]]></find>
 				<action type="after-add"><![CDATA[	// BEGIN Topic Preview MOD
-	if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+	if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']))
 	{
-		$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'p1'), 'ON' => 'p1.post_id = t.topic_first_post_id');
-		$sql_array['SELECT'] .= ', p1.post_text AS topic_preview_text';
+		$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
+		$sql_array['SELECT'] .= ', pt.post_text AS topic_preview_text';
 	}
 	// END Topic Preview MOD]]></action>
 			</edit>
@@ -230,12 +239,12 @@ if(!function_exists('trim_topic_preview'))
 			// END Topic Preview MOD]]></action>
 			</edit>
 		</open>
-		<open src="styles/prosilver/template/portal/modules/announcements_compact.html">
+		<open src="styles/prosilver/template/portal/modules/announcements_center_compact.html">
 			<edit>
-				<find><![CDATA[title="{announcements_row.TITLE}"]]></find>
+				<find><![CDATA[title="{announcements_center_row.TITLE}"]]></find>
 				<inline-edit>
-					<inline-find><![CDATA[title="{announcements_row.TITLE}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[title="{announcements_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+					<inline-find><![CDATA[title="{announcements_center_row.TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{announcements_center_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
 				</inline-edit>
 			</edit>
 		</open>
@@ -271,12 +280,12 @@ if(!function_exists('trim_topic_preview'))
 				</inline-edit>
 			</edit>
 		</open>
-		<open src="styles/subsilver2/template/portal/modules/announcements_compact.html">
+		<open src="styles/subsilver2/template/portal/modules/announcements_center_compact.html">
 			<edit>
-				<find><![CDATA[title="{announcements_row.TITLE}"]]></find>
+				<find><![CDATA[title="{announcements_center_row.TITLE}"]]></find>
 				<inline-edit>
-					<inline-find><![CDATA[title="{announcements_row.TITLE}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[title="{announcements_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
+					<inline-find><![CDATA[title="{announcements_center_row.TITLE}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[title="{announcements_center_row.TOPIC_PREVIEW_TEXT}"]]></inline-action>
 				</inline-edit>
 			</edit>
 		</open>

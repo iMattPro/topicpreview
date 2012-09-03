@@ -9,7 +9,7 @@
 		<title lang="en"><![CDATA[Topic Preview - jQuery (mb)Tooltip Style Add-On for Board3 Portal]]></title>
 		<description lang="en"><![CDATA[Uses jQuery and the (mb)Tooltip plug-in to create a nicer looking Topic Preview. These instructions add this feature to Board3 Portal installations.]]></description>
 		<author-notes lang="en"><![CDATA[Use of these instructions requires that you have already installed:
--Board3 Portal (v1.0.X or 2.0.X)
+-Board3 Portal (v2.0.X)
 -Topic Preview
 -Topic Preview for Board3 Portal add-on
 -jQuery (mb)Tooltip style for Topic Preview add-on]]></author-notes>
@@ -27,8 +27,8 @@
 			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
-			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Topic Preview for Board3 Portal v1.0.X</link>
+			<link type="dependency" href="http://board3.de/" lang="en">Board3 Portal 2.0.X</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview 1.1.0</link>
 			<link type="dependency" href="../Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="dependency" href="mbTooltip_install.xml" lang="en">jQuery (mb)Tooltip style for Topic Preview Instructions</link>
 		</link-group>
