@@ -5,7 +5,8 @@ Welcome to my Github repository for my MODs for phpBB3.
 *
 * Topic Preview 
 * 
-* Current Release version: v1.0.10
+* Current Release version: 1.0.10
+* Development version: 1.1.0
 * 
 * ========================================================================
 *
@@ -14,11 +15,9 @@ Welcome to my Github repository for my MODs for phpBB3.
 * their mouse over the topic title, using the browser's built-in tooltip 
 * ability. The amount of text shown can be defined in the ACP, and the mod 
 * can also be turned off. It's much more simplified than other similar mods 
-* (no javascript or css needed), this version is designed to mimic the 
+* (no javascript or css needed). This version is designed to mimic the 
 * vbulletin method.
 *
-* To-do list:
-* 
 *
 * More information:
 * http://www.phpbb.com/customise/db/mod/topic_preview/
