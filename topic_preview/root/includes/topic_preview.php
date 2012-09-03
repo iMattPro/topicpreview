@@ -64,13 +64,13 @@ class phpbb_topic_preview
 	var $tp_bbcode		= false;
 
 	/**
-	* Topic Preview MOD constructor method
+	* Topic Preview MOD constructor
 	*/
 	function phpbb_topic_preview()
 	{
 		global $config, $user;
 
-		$this->is_active		= ($config['topic_preview_limit'] && $user->data['user_topic_preview']) ? true : false;
+		$this->is_active		= (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview'])) ? true : false;
 		$this->preview_limit	= (int) $config['topic_preview_limit'];
 		$this->strip_bbcodes	= (string) $config['topic_preview_strip_bbcodes'];
 		$this->tp_sql_select	= ', fp.post_text AS first_post_preview_text' . (($this->tp_last_post) ? ', lp.post_text AS last_post_preview_text' : '');
@@ -78,7 +78,7 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* Extend the query to get more values from the POSTS_TABLE
+	* Extend a query to get post text from the POSTS_TABLE
 	* @access public
 	*/
 	function inject_sql_array($sql_array)

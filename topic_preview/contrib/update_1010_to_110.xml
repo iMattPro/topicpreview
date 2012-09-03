@@ -157,6 +157,8 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			</edit>
 		</open>
 		<php-installer><![CDATA[install_topic_preview.php]]></php-installer>
-		<diy-instructions lang="en"><![CDATA[Point your browser to yourforum/install_topic_preview.php to complete installation.]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Point your browser to yourforum/install_topic_preview.php to complete installation.
+
+IMPORTANT: If you have installed any of the extras/add-ons from previous versions of this MOD, then you should uninstall those and re-install them using the updated instructions included in this version's contrib folder.]]></diy-instructions>
 	</action-group>
 </mod>

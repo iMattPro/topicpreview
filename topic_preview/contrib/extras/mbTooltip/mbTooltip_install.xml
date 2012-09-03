@@ -24,7 +24,7 @@
 		</installation>
 		<link-group>
 			<link type="parent" href="../../../install_mod.xml" lang="en">Main Install Instructions</link>
-			<link type="contrib" href="mbTooltip_topic_previews_for_board3.xml" lang="en">Add (mb)Tooltip style topic previews to Board3 Portal </link>
+			<link type="contrib" href="mbTooltip_topic_previews_for_board3.xml" lang="en">Add (mb)Tooltip style topic previews to Board3 Portal</link>
 			<link type="contrib" href="mbTooltip_topic_previews_for_NVrecenttopics.xml" lang="en">Add (mb)Tooltip style topic previews to NV Revcent Topics</link>
 			<link type="contrib" href="mbTooltip_topic_previews_for_precise_similar_topics.xml" lang="en">Add (mb)Tooltip style topic previews to Precise Similar Topics II</link>
 		</link-group>

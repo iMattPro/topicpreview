@@ -24,7 +24,7 @@
 		</installation>
 		<link-group>
 			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
-			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precide Similar Topics v1.1.7 - v1.1.8</link>
+			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precise Similar Topics v1.1.7 - v1.1.8</link>
 		</link-group>
 	</header>
 	<action-group>

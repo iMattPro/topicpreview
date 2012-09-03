@@ -27,6 +27,7 @@
 			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
+			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precise Similar Topics v1.2.0</link>
 			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
 			<link type="dependency" href="../precise_similar_topics_integration.xml" lang="en">Topic Preview for Precise Similar Topics Instructions</link>
 			<link type="dependency" href="qTip2_install.xml" lang="en">jQuery qTip2 style for Topic Preview Instructions</link>
