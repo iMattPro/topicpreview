@@ -22,11 +22,11 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.XX</mod-version>
+		<mod-version>1.1.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.10</target-version>
+			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
 			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>

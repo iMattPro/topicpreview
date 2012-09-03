@@ -25,7 +25,7 @@ class topic_preview_check_version
 			'author'	=> 'VSE',
 			'title'		=> 'Topic Preview',
 			'tag'		=> 'topic_preview',
-			'version'	=> '1.0.10',
+			'version'	=> '1.1.0',
 			'file'		=> array('orcamx.vlexofree.com', 'software', 'mods.xml'),
 		);
 	}
