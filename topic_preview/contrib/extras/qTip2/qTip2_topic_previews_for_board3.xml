@@ -89,74 +89,41 @@
 		</open>
 		<open src="portal/modules/portal_recent.php">
 			<edit>
-				<find><![CDATA[$sql_select = ', pt.post_text AS topic_preview_text';]]></find>
-				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)';
-			$sql_select2 =  ', ptl.post_text AS topic_preview_text2';]]></action>
+				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id , pt.post_text AS topic_preview_text]]></find>
+				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . ']]></find>
-				<inline-edit>
-					<inline-find><![CDATA[t.topic_id ' . $sql_select . ']]></inline-find>
-					<inline-action type="replace-with"><![CDATA[t.topic_id, t.topic_first_post_id, t.topic_last_post_id ' . $sql_select . $sql_select2 . ']]></inline-action>
-				</inline-edit>
+				<find><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)]]></find>
+				<action type="after-add"><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[' . $sql_join . 'WHERE t.topic_status <> ' . FORUM_LINK . ']]></find>
-				<inline-edit>
-					<inline-find><![CDATA[$sql_join]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[$sql_join . $sql_join2]]></inline-action>
-				</inline-edit>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
+				<find><![CDATA[					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
 				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql_select = ', pt.post_text AS topic_preview_text';]]></find>
-				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)';
-			$sql_select2 =  ', ptl.post_text AS topic_preview_text2';]]></action>
+				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id , pt.post_text AS topic_preview_text]]></find>
+				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . ']]></find>
-				<inline-edit>
-					<inline-find><![CDATA[t.topic_id ' . $sql_select . ']]></inline-find>
-					<inline-action type="replace-with"><![CDATA[t.topic_id, t.topic_first_post_id, t.topic_last_post_id ' . $sql_select . $sql_select2 . ']]></inline-action>
-				</inline-edit>
+				<find><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)]]></find>
+				<action type="after-add"><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[' . $sql_join . 'WHERE t.topic_approved = 1 ]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[$sql_join]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[$sql_join . $sql_join2]]></inline-action>
-				</inline-edit>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
+				<find><![CDATA[					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
 				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql_select = ', pt.post_text AS topic_preview_text';]]></find>
-				<action type="after-add"><![CDATA[			$sql_join2 = ' LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)';
-			$sql_select2 =  ', ptl.post_text AS topic_preview_text2';]]></action>
+				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id , pt.post_text AS topic_preview_text]]></find>
+				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . ']]></find>
-				<inline-edit>
-					<inline-find><![CDATA[t.topic_id ' . $sql_select . ']]></inline-find>
-					<inline-action type="replace-with"><![CDATA[t.topic_id, t.topic_first_post_id, t.topic_last_post_id ' . $sql_select . $sql_select2 . ']]></inline-action>
-				</inline-edit>
+				<find><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)]]></find>
+				<action type="after-add"><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' ptl ON (ptl.post_id = t.topic_last_post_id)]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[' . $sql_join . 'WHERE t.topic_status <> ' . ITEM_MOVED . ']]></find>
-				<inline-edit>
-					<inline-find><![CDATA[$sql_join]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[$sql_join . $sql_join2]]></inline-action>
-				</inline-edit>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
+				<find><![CDATA[					'TOPIC_PREVIEW_TEXT'	=> (!empty($row['topic_preview_text'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text'], $config['topic_preview_limit'])) : character_limit($row['topic_title'], $config['board3_recent_title_limit_' . $module_id]),]]></find>
 				<action type="after-add"><![CDATA[					'TOPIC_PREVIEW_TEXT2'	=> (!empty($row['topic_preview_text2']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($topic_preview->_trim_topic_preview($row['topic_preview_text2'], $config['topic_preview_limit'])) : '',
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>

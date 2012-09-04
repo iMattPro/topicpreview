@@ -81,39 +81,19 @@ Board3 Portal 2.0.X http://board3.de/]]></description>
 				<action type="replace-with"><![CDATA[		global $config, $template, $db, $auth, $phpbb_root_path, $phpEx, $user, $topic_preview;]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[		$sql = 'SELECT topic_title, forum_id, topic_id
-			FROM ' . TOPICS_TABLE . ' t
-			WHERE topic_status <> ' . FORUM_LINK . '
-				AND topic_approved = 1 
-				AND (topic_type = ' . POST_ANNOUNCE . ' OR topic_type = ' . POST_GLOBAL . ')
-				AND topic_moved_id = 0
-				' . $sql_where . '' .  $forum_sql . '
-			ORDER BY topic_time DESC';]]></find>
-				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
+				<find><![CDATA[$result = $db->sql_query_limit($sql, $config['board3_max_topics_' . $module_id]);]]></find>
+				<action type="before-add"><![CDATA[		// BEGIN Topic Preview Mod
 		if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']))
 		{
-			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
-			$sql_select = ', pt.post_text AS topic_preview_text';
-		
-			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . '
+			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, pt.post_text AS topic_preview_text
 				FROM ' . TOPICS_TABLE . ' t
-				' . $sql_join . 'WHERE t.topic_status <> ' . FORUM_LINK . '
+				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)
+				WHERE t.topic_status <> ' . FORUM_LINK . '
 					AND t.topic_approved = 1 
 					AND (t.topic_type = ' . POST_ANNOUNCE . ' OR t.topic_type = ' . POST_GLOBAL . ')
 					AND t.topic_moved_id = 0
 					' . $sql_where . '' .  $forum_sql . '
 				ORDER BY t.topic_time DESC';
-		}
-		else
-		{
-			$sql = 'SELECT topic_title, forum_id, topic_id
-				FROM ' . TOPICS_TABLE . ' t
-				WHERE topic_status <> ' . FORUM_LINK . '
-					AND topic_approved = 1 
-					AND (topic_type = ' . POST_ANNOUNCE . ' OR topic_type = ' . POST_GLOBAL . ')
-					AND topic_moved_id = 0
-					' . $sql_where . '' .  $forum_sql . '
-				ORDER BY topic_time DESC';
 		}
 		// END Topic Preview Mod]]></action>
 			</edit>
@@ -124,36 +104,18 @@ Board3 Portal 2.0.X http://board3.de/]]></description>
 					// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[		$sql = 'SELECT topic_title, forum_id, topic_id
-			FROM ' . TOPICS_TABLE . ' t
-			WHERE topic_approved = 1 
-				AND topic_replies >=' . $config['hot_threshold'] . '
-				AND topic_moved_id = 0
-				' . $sql_where . '' .  $forum_sql . '
-			ORDER BY topic_time DESC';]]></find>
-				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
+				<find><![CDATA[$result = $db->sql_query_limit($sql, $config['board3_max_topics_' . $module_id]);]]></find>
+				<action type="before-add"><![CDATA[		// BEGIN Topic Preview Mod
 		if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']))
 		{
-			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
-			$sql_select = ', pt.post_text AS topic_preview_text';
-		
-			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . '
+			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, pt.post_text AS topic_preview_text
 				FROM ' . TOPICS_TABLE . ' t
-				' . $sql_join . 'WHERE t.topic_approved = 1 
+				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)
+				WHERE t.topic_approved = 1
 					AND t.topic_replies >=' . $config['hot_threshold'] . '
 					AND t.topic_moved_id = 0
 					' . $sql_where . '' .  $forum_sql . '
 				ORDER BY t.topic_time DESC';
-		}
-		else
-		{
-			$sql = 'SELECT topic_title, forum_id, topic_id
-				FROM ' . TOPICS_TABLE . ' t
-				WHERE topic_approved = 1 
-					AND topic_replies >=' . $config['hot_threshold'] . '
-					AND topic_moved_id = 0
-					' . $sql_where . '' .  $forum_sql . '
-				ORDER BY topic_time DESC';
 		}
 		// END Topic Preview Mod]]></action>
 			</edit>
@@ -164,39 +126,19 @@ Board3 Portal 2.0.X http://board3.de/]]></description>
 					// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql = 'SELECT topic_title, forum_id, topic_id
-	FROM ' . TOPICS_TABLE . ' t
-	WHERE topic_status <> ' . ITEM_MOVED . '
-		AND topic_approved = 1 
-		AND topic_type = ' . POST_NORMAL . '
-		AND topic_moved_id = 0
-		' . $sql_where . '' .  $forum_sql . '
-	ORDER BY topic_time DESC';]]></find>
-				<action type="replace-with"><![CDATA[		// BEGIN Topic Preview Mod
+				<find><![CDATA[$result = $db->sql_query_limit($sql, $config['board3_max_topics_' . $module_id]);]]></find>
+				<action type="before-add"><![CDATA[		// BEGIN Topic Preview Mod
 		if (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview']))
 		{
-			$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)';
-			$sql_select = ', pt.post_text AS topic_preview_text';
-		
-			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id ' . $sql_select . '
+			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, pt.post_text AS topic_preview_text
 				FROM ' . TOPICS_TABLE . ' t
-				' . $sql_join . 'WHERE t.topic_status <> ' . ITEM_MOVED . '
+				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)
+				WHERE t.topic_status <> ' . ITEM_MOVED . '
 					AND t.topic_approved = 1 
 					AND t.topic_type = ' . POST_NORMAL . '
 					AND t.topic_moved_id = 0
 					' . $sql_where . '' .  $forum_sql . '
 				ORDER BY t.topic_time DESC';
-		}
-		else
-		{
-			$sql = 'SELECT topic_title, forum_id, topic_id
-				FROM ' . TOPICS_TABLE . ' t
-				WHERE topic_status <> ' . ITEM_MOVED . '
-					AND topic_approved = 1 
-					AND topic_type = ' . POST_NORMAL . '
-					AND topic_moved_id = 0
-					' . $sql_where . '' .  $forum_sql . '
-				ORDER BY topic_time DESC';
 		}
 		// END Topic Preview Mod]]></action>
 			</edit>
