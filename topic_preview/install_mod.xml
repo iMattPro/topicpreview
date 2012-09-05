@@ -148,16 +148,17 @@
 			<link type="contrib" href="contrib/extras/Precise_Similar_Topics_Integration/precise_similar_topics_integration_1.1.7-1.1.8.xml" lang="en">Add-On : Precise Similar Topics II Integration v1.1.7 - v1.1.8</link>
 			<link type="contrib" href="contrib/extras/Precise_Similar_Topics_Integration/precise_similar_topics_integration_1.1.0-1.1.6.xml" lang="en">Add-On : Precise Similar Topics II Integration v1.1.0 - v1.1.6</link>
 			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Add-On : Board3 Portal v2.0.X Integration</link>
-			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.5 Integration</link>
+			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Add-On : Board3 Portal v1.0.X Integration</link>
 			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.6_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.6 Integration</link>
+			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.5 Integration</link>
 			<link type="contrib" href="contrib/extras/qTip2/qTip2_install.xml" lang="en">Add-On : qTip2 jQuery plug-in for Topic Preview</link>
 			<link type="contrib" href="contrib/extras/tipTip/tipTip_install.xml" lang="en">Add-On : TipTip jQuery plug-in for Topic Preview</link>
 			<link type="contrib" href="contrib/extras/mbTooltip/mbTooltip_install.xml" lang="en">Add-On : (mb)Tooltip jQuery plug-in for Topic Preview</link>
-			<link type="contrib" href="contrib/update_105_to_1010.xml" lang="en">Upgrade : from 1.0.5 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_106_to_1010.xml" lang="en">Upgrade : from 1.0.6 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_107_to_1010.xml" lang="en">Upgrade : from 1.0.7 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_109_to_1010.xml" lang="en">Upgrade : from 1.0.9 to 1.0.10</link>
 			<link type="contrib" href="contrib/update_1010_to_110.xml" lang="en">Upgrade : from 1.0.10 to 1.1.0</link>
+			<link type="contrib" href="contrib/update_109_to_1010.xml" lang="en">Upgrade : from 1.0.9 to 1.0.10</link>
+			<link type="contrib" href="contrib/update_107_to_1010.xml" lang="en">Upgrade : from 1.0.7 to 1.0.10</link>
+			<link type="contrib" href="contrib/update_106_to_1010.xml" lang="en">Upgrade : from 1.0.6 to 1.0.10</link>
+			<link type="contrib" href="contrib/update_105_to_1010.xml" lang="en">Upgrade : from 1.0.5 to 1.0.10</link>
 			<link type="uninstall" href="contrib/extras/uninstall_v110.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
