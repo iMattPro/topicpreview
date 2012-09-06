@@ -30,11 +30,11 @@ ui-tooltip-youtube /* Youtube style */
 ui-tooltip-jtools /* jTools tooltip style */
 ui-tooltip-cluetip /* ClueTip style */
 ui-tooltip-tipped /* Tipped style */
-ui-tooltip-tipsy /* Tipsy style */
-]]></author-notes>
+ui-tooltip-tipsy /* Tipsy style */]]></author-notes>
 		<author-group>
 			<author>
 				<username><![CDATA[Pico88]]></username>
+				<homepage><![CDATA[http://www.modsteam.tk]]></homepage>
 			</author>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -159,7 +159,7 @@ $lang = array_merge($lang, array(
 				<find><![CDATA[<a href="{searchresults.U_VIEW_TOPIC}" class="topictitle">{searchresults.TOPIC_TITLE}</a> {searchresults.ATTACH_ICON_IMG}]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[<a href="{searchresults.U_VIEW_TOPIC}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> id="s{searchresults.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
+					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> id="{searchresults.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
@@ -167,16 +167,33 @@ $lang = array_merge($lang, array(
 					</dd>
 				</dl>]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT -->
-					<script type="text/javascript">
-						$(document).ready(function(){
-							$('#s{searchresults.TOPIC_ID}').qtip({content:{text: $('#sp{searchresults.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#s{searchresults.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-						});
-					</script>
-					<div id="sp{searchresults.TOPIC_ID}" style="display: none;">
+					<div id="sp_{searchresults.TOPIC_ID}" style="display: none;">
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
 				<!-- ENDIF -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
+				<action type="before-add"><![CDATA[<script type="text/javascript"> 
+$(document).ready(function(){
+	$('a.topictitle').each(function(e) {
+		$(this).qtip({
+			content:{
+				text: $("#sp_" + $(this).attr('id')),
+				title:{text:'{L_TOPIC_PREVIEW}'}},
+			position:{
+				my:'bottom left',
+				at: 'top left',
+				target: $(this),
+				viewport: $(window)},
+			show:{solo:true,delay:250},
+			style:{classes:'ui-tooltip-light ui-tooltip-shadow'}
+		});
+	});
+});
+</script>
+]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/viewforum_body.html">
@@ -184,27 +201,41 @@ $lang = array_merge($lang, array(
 				<find><![CDATA[<dt<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->]]></find>
 				<inline-edit>
 					<inline-remove><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->]]></inline-remove>
-				</inline-edit>
-				<inline-edit>
 					<inline-find><![CDATA[<a href="{topicrow.U_VIEW_TOPIC}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="t{topicrow.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
+					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="{topicrow.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>
 				</dd>
 			</dl>]]></find>
-				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
-				<script type="text/javascript">
-					$(document).ready(function(){
-						$('#t{topicrow.TOPIC_ID}').qtip({content:{text: $('#p{topicrow.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{topicrow.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-					});
-				</script>
-				<div id="p{topicrow.TOPIC_ID}" style="display: none;">
+				<action type="before-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
+				<div id="p_{topicrow.TOPIC_ID}" style="display: none;">
 				<!-- IF topicrow.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 				<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 				</div>
 			<!-- ENDIF -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
+				<action type="before-add"><![CDATA[<script type="text/javascript"> 
+$(document).ready(function(){
+	$('a.topictitle').each(function(e) {
+		$(this).qtip({
+			content:{
+				text: $("#p_" + $(this).attr('id')),
+				title:{text:'{L_TOPIC_PREVIEW}'}},
+			position:{
+				my:'bottom left',
+				at: 'top left',
+				target: $(this),
+				viewport: $(window)},
+			show:{solo:true,delay:250},
+			style:{classes:'ui-tooltip-light ui-tooltip-shadow'}
+		});
+	});
+});
+</script>]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/overall_header.html">
@@ -224,40 +255,52 @@ $lang = array_merge($lang, array(
 				<find><![CDATA[{searchresults.ATTACH_ICON_IMG} <a href="{searchresults.U_VIEW_TOPIC}" class="topictitle"<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->>{searchresults.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[title="{searchresults.TOPIC_PREVIEW_TEXT}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[id="s{searchresults.TOPIC_ID}"]]></inline-action>
+					<inline-action type="replace-with"><![CDATA[id="{searchresults.TOPIC_ID}"]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{searchresults.U_VIEW_FORUM}">{searchresults.FORUM_TITLE}</a></p>
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT -->
-					<script type="text/javascript">
-						$(document).ready(function(){
-							$('#s{searchresults.TOPIC_ID}').qtip({content:{text: $('#sp{searchresults.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#s{searchresults.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-						});
-					</script>
-					<div id="sp{searchresults.TOPIC_ID}" style="display: none;">
+					<div id="sp_{searchresults.TOPIC_ID}" style="display: none;">
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
 				<!-- ENDIF -->]]></action>
 			</edit>
+			<edit>
+				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
+				<action type="before-add"><![CDATA[<script type="text/javascript"> 
+$(document).ready(function(){
+	$('a.topictitle').each(function(e) {
+		$(this).qtip({
+			content:{
+				text: $("#sp_" + $(this).attr('id')),
+				title:{text:'{L_TOPIC_PREVIEW}'}},
+			position:{
+				my:'bottom left',
+				at: 'top left',
+				target: $(this),
+				viewport: $(window)},
+			show:{solo:true,delay:250},
+			style:{classes:'ui-tooltip-light ui-tooltip-shadow'}
+		});
+	});
+});
+</script>
+]]></action>
+			</edit>
 		</open>
 		<open src="styles/subsilver2/template/viewforum_body.html">
 			<edit>
 				<find><![CDATA[				{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {topicrow.FIRST_POST_TIME}<!-- ENDIF -->" href="{topicrow.U_VIEW_TOPIC}"class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<action type="replace-with"><![CDATA[				{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="t{topicrow.TOPIC_ID}"<!-- ENDIF -->class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
+				<action type="replace-with"><![CDATA[				{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="{topicrow.TOPIC_ID}"<!-- ENDIF -->class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
-					<script type="text/javascript">
-						$(document).ready(function(){
-							$('#t{topicrow.TOPIC_ID}').qtip({content:{text: $('#p{topicrow.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{topicrow.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-						});
-					</script>
-					<div id="p{topicrow.TOPIC_ID}" style="display: none;">
+					<div id="p_{topicrow.TOPIC_ID}" style="display: none;">
 					<!-- IF topicrow.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
@@ -265,22 +308,39 @@ $lang = array_merge($lang, array(
 			</edit>
 			<edit>
 				<find><![CDATA[					{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {topicrow.FIRST_POST_TIME}<!-- ENDIF -->" href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<action type="replace-with"><![CDATA[					{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="t{topicrow.TOPIC_ID}"<!-- ENDIF --> class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
+				<action type="replace-with"><![CDATA[					{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="{topicrow.TOPIC_ID}"<!-- ENDIF --> class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 					<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[					<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
-						<script type="text/javascript">
-							$(document).ready(function(){
-								$('#t{topicrow.TOPIC_ID}').qtip({content:{text: $('#p{topicrow.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{topicrow.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-							});
-						</script>
-						<div id="p{topicrow.TOPIC_ID}" style="display: none;">
+						<div id="p_{topicrow.TOPIC_ID}" style="display: none;">
 						<!-- IF topicrow.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 						<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 						</div>
 					<!-- ENDIF -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
+				<action type="before-add"><![CDATA[<script type="text/javascript"> 
+$(document).ready(function(){
+	$('a.topictitle').each(function(e) {
+		$(this).qtip({
+			content:{
+				text: $("#sp_" + $(this).attr('id')),
+				title:{text:'{L_TOPIC_PREVIEW}'}},
+			position:{
+				my:'bottom left',
+				at: 'top left',
+				target: $(this),
+				viewport: $(window)},
+			show:{solo:true,delay:250},
+			style:{classes:'ui-tooltip-light ui-tooltip-shadow'}
+		});
+	});
+});
+</script>
+]]></action>
 			</edit>
 		</open>
 		<diy-instructions lang="en"><![CDATA[Purge the Cache.]]></diy-instructions>
