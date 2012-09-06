@@ -177,7 +177,7 @@ $lang = array_merge($lang, array(
 				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
 				<action type="before-add"><![CDATA[<script type="text/javascript"> 
 $(document).ready(function(){
-	$('a.topictitle').each(function(e) {
+	$('a.topictitle').each(function() {
 		$(this).qtip({
 			content:{
 				text: $("#sp_" + $(this).attr('id')),
@@ -220,7 +220,7 @@ $(document).ready(function(){
 				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
 				<action type="before-add"><![CDATA[<script type="text/javascript"> 
 $(document).ready(function(){
-	$('a.topictitle').each(function(e) {
+	$('a.topictitle').each(function() {
 		$(this).qtip({
 			content:{
 				text: $("#p_" + $(this).attr('id')),
@@ -272,7 +272,7 @@ $(document).ready(function(){
 				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
 				<action type="before-add"><![CDATA[<script type="text/javascript"> 
 $(document).ready(function(){
-	$('a.topictitle').each(function(e) {
+	$('a.topictitle').each(function() {
 		$(this).qtip({
 			content:{
 				text: $("#sp_" + $(this).attr('id')),
@@ -324,7 +324,7 @@ $(document).ready(function(){
 				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
 				<action type="before-add"><![CDATA[<script type="text/javascript"> 
 $(document).ready(function(){
-	$('a.topictitle').each(function(e) {
+	$('a.topictitle').each(function() {
 		$(this).qtip({
 			content:{
 				text: $("#sp_" + $(this).attr('id')),
