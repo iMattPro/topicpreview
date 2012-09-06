@@ -205,7 +205,7 @@ $(document).ready(function(){
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>
 				</dd>
 			</dl>]]></find>
-				<action type="before-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
+				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
 				<div id="tp_t{topicrow.TOPIC_ID}" style="display: none;">
 				<!-- IF topicrow.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 				<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
