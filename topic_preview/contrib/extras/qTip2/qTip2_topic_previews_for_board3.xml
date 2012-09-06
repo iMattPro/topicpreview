@@ -41,7 +41,7 @@
 				<action type="after-add"><![CDATA[			t.topic_first_post_id,]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql_array['SELECT'] .= ', p1.post_text AS topic_preview_text';]]></find>
+				<find><![CDATA[$sql_array['SELECT'] .= ', pt.post_text AS topic_preview_text';]]></find>
 				<action type="after-add"><![CDATA[		$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'ptl'), 'ON' => 'ptl.post_id = t.topic_last_post_id');
 		$sql_array['SELECT'] .= ', ptl.post_text AS topic_preview_text2';]]></action>
 			</edit>
@@ -89,8 +89,8 @@
 		</open>
 		<open src="portal/modules/portal_recent.php">
 			<edit>
-				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id , pt.post_text AS topic_preview_text]]></find>
-				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
+				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, pt.post_text AS topic_preview_text]]></find>
+				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)]]></find>
@@ -102,8 +102,8 @@
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id , pt.post_text AS topic_preview_text]]></find>
-				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
+				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, pt.post_text AS topic_preview_text]]></find>
+				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)]]></find>
@@ -115,8 +115,8 @@
 					'TOPIC_ID'				=> $row['topic_id'],]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id , pt.post_text AS topic_preview_text]]></find>
-				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
+				<find><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, pt.post_text AS topic_preview_text]]></find>
+				<action type="replace-with"><![CDATA[			$sql = 'SELECT t.topic_title, t.forum_id, t.topic_id, t.topic_first_post_id, t.topic_last_post_id, pt.post_text AS topic_preview_text, ptl.post_text AS topic_preview_text2]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[				LEFT JOIN ' . POSTS_TABLE . ' pt ON (pt.post_id = t.topic_first_post_id)]]></find>
@@ -175,7 +175,7 @@
 		<open src="styles/prosilver/template/portal/modules/recent_center.html">
 			<edit>
 				<find><![CDATA[								<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
-				<action type="replace-with"><![CDATA[						<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}">{latest_announcements.TITLE}</a><br />
+				<action type="replace-with"><![CDATA[						<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}" class="topictitle">{latest_announcements.TITLE}</a><br />
 						<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT -->
 							<div id="tp_a{latest_announcements.TOPIC_ID}" style="display: none;">
 							<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_announcements.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
@@ -185,7 +185,7 @@
 			</edit>
 			<edit>
 				<find><![CDATA[						<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
-				<action type="replace-with"><![CDATA[						<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}">{latest_hot_topics.TITLE}</a><br />
+				<action type="replace-with"><![CDATA[						<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}" class="topictitle">{latest_hot_topics.TITLE}</a><br />
 						<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT -->
 							<div id="tp_h{latest_hot_topics.TOPIC_ID}" style="display: none;">
 							<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_hot_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
@@ -195,7 +195,7 @@
 			</edit>
 			<edit>
 				<find><![CDATA[						<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
-				<action type="replace-with"><![CDATA[						<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}">{latest_topics.TITLE}</a><br />
+				<action type="replace-with"><![CDATA[						<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}" class="topictitle">{latest_topics.TITLE}</a><br />
 						<!-- IF latest_topics.TOPIC_PREVIEW_TEXT -->
 							<div id="tp_l{latest_topics.TOPIC_ID}" style="display: none;">
 							<!-- IF latest_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
@@ -249,7 +249,7 @@
 		<open src="styles/subsilver2/template/portal/modules/recent_center.html">
 			<edit>
 				<find><![CDATA[				<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
-				<action type="replace-with"><![CDATA[				<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}">{latest_announcements.TITLE}</a><br />
+				<action type="replace-with"><![CDATA[				<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}" class="topictitle">{latest_announcements.TITLE}</a><br />
 				<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT -->
 					<div id="tp_a{latest_announcements.TOPIC_ID}" style="display: none;">
 					<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_announcements.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
@@ -259,7 +259,7 @@
 			</edit>
 			<edit>
 				<find><![CDATA[				<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
-				<action type="replace-with"><![CDATA[				<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}">{latest_hot_topics.TITLE}</a><br />
+				<action type="replace-with"><![CDATA[				<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}" class="topictitle">{latest_hot_topics.TITLE}</a><br />
 				<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT -->
 					<div id="tp_h{latest_hot_topics.TOPIC_ID}" style="display: none;">
 					<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_hot_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
@@ -269,7 +269,7 @@
 			</edit>
 			<edit>
 				<find><![CDATA[				<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
-				<action type="replace-with"><![CDATA[				<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}">{latest_topics.TITLE}</a><br />
+				<action type="replace-with"><![CDATA[				<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}" class="topictitle">{latest_topics.TITLE}</a><br />
 				<!-- IF latest_topics.TOPIC_PREVIEW_TEXT -->
 					<div id="tp_l{latest_topics.TOPIC_ID}" style="display: none;">
 					<!-- IF latest_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
