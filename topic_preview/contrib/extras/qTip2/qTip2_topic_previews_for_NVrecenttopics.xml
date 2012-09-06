@@ -55,12 +55,7 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 				<find><![CDATA[</dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->
-				<script type="text/javascript">
-					$(document).ready(function(){
-						$('#t{recent_topics.TOPIC_ID}').qtip({content:{text: $('#p{recent_topics.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{recent_topics.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-					});
-				</script>
-				<div id="p{recent_topics.TOPIC_ID}" style="display: none;">
+				<div id="tp_t{recent_topics.TOPIC_ID}" style="display: none;">
 				<!-- IF recent_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 				<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 				</div>
@@ -79,12 +74,7 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 			<edit>
 				<find><![CDATA[<!-- IF recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED -->]]></find>
 				<action type="before-add"><![CDATA[					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->
-						<script type="text/javascript">
-							$(document).ready(function(){
-								$('#t{recent_topics.TOPIC_ID}').qtip({content:{text: $('#p{recent_topics.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{recent_topics.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-							});
-						</script>
-						<div id="p{recent_topics.TOPIC_ID}" style="display: none;">
+						<div id="tp_t{recent_topics.TOPIC_ID}" style="display: none;">
 						<!-- IF recent_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 						<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 						</div>
