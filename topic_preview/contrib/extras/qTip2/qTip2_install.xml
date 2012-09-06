@@ -177,7 +177,7 @@ $(document).ready(function(){
 				<find><![CDATA[<a href="{searchresults.U_VIEW_TOPIC}" class="topictitle">{searchresults.TOPIC_TITLE}</a> {searchresults.ATTACH_ICON_IMG}]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[<a href="{searchresults.U_VIEW_TOPIC}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> id="{searchresults.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
+					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> id="t{searchresults.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
@@ -185,7 +185,7 @@ $(document).ready(function(){
 					</dd>
 				</dl>]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT -->
-					<div id="tp_{searchresults.TOPIC_ID}" style="display: none;">
+					<div id="tp_t{searchresults.TOPIC_ID}" style="display: none;">
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
@@ -198,7 +198,7 @@ $(document).ready(function(){
 				<inline-edit>
 					<inline-remove><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->]]></inline-remove>
 					<inline-find><![CDATA[<a href="{topicrow.U_VIEW_TOPIC}"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="{topicrow.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
+					<inline-action type="after-add"><![CDATA[<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="t{topicrow.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
@@ -206,7 +206,7 @@ $(document).ready(function(){
 				</dd>
 			</dl>]]></find>
 				<action type="before-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
-				<div id="tp_{topicrow.TOPIC_ID}" style="display: none;">
+				<div id="tp_t{topicrow.TOPIC_ID}" style="display: none;">
 				<!-- IF topicrow.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 				<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 				</div>
@@ -227,7 +227,7 @@ $(document).ready(function(){
 	$('a.topictitle').each(function() {
 		$(this).qtip({
 			content:{
-				text: $("#sp_" + $(this).attr('id')),
+				text: $("#tp_" + $(this).attr('id')),
 				title:{text:'{L_TOPIC_PREVIEW}'}},
 			position:{
 				my:'bottom left',
@@ -248,14 +248,14 @@ $(document).ready(function(){
 				<find><![CDATA[{searchresults.ATTACH_ICON_IMG} <a href="{searchresults.U_VIEW_TOPIC}" class="topictitle"<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->>{searchresults.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[title="{searchresults.TOPIC_PREVIEW_TEXT}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[id="{searchresults.TOPIC_ID}"]]></inline-action>
+					<inline-action type="replace-with"><![CDATA[id="t{searchresults.TOPIC_ID}"]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{searchresults.U_VIEW_FORUM}">{searchresults.FORUM_TITLE}</a></p>
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT -->
-					<div id="tp_{searchresults.TOPIC_ID}" style="display: none;">
+					<div id="tp_t{searchresults.TOPIC_ID}" style="display: none;">
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{searchresults.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
@@ -265,13 +265,13 @@ $(document).ready(function(){
 		<open src="styles/subsilver2/template/viewforum_body.html">
 			<edit>
 				<find><![CDATA[				{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {topicrow.FIRST_POST_TIME}<!-- ENDIF -->" href="{topicrow.U_VIEW_TOPIC}"class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<action type="replace-with"><![CDATA[				{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="{topicrow.TOPIC_ID}"<!-- ENDIF -->class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
+				<action type="replace-with"><![CDATA[				{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="t{topicrow.TOPIC_ID}"<!-- ENDIF -->class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
-					<div id="tp_{topicrow.TOPIC_ID}" style="display: none;">
+					<div id="tp_t{topicrow.TOPIC_ID}" style="display: none;">
 					<!-- IF topicrow.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
@@ -279,13 +279,13 @@ $(document).ready(function(){
 			</edit>
 			<edit>
 				<find><![CDATA[					{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {topicrow.FIRST_POST_TIME}<!-- ENDIF -->" href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></find>
-				<action type="replace-with"><![CDATA[					{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="{topicrow.TOPIC_ID}"<!-- ENDIF --> class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
+				<action type="replace-with"><![CDATA[					{topicrow.ATTACH_ICON_IMG} <!-- IF topicrow.S_HAS_POLL or topicrow.S_TOPIC_MOVED --><b>{topicrow.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {topicrow.FIRST_POST_TIME}" href="{topicrow.U_VIEW_TOPIC}"<!-- IF topicrow.TOPIC_PREVIEW_TEXT --> id="t{topicrow.TOPIC_ID}"<!-- ENDIF --> class="topictitle">{topicrow.TOPIC_TITLE}</a>]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 					<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[					<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->
-						<div id="tp_{topicrow.TOPIC_ID}" style="display: none;">
+						<div id="tp_t{topicrow.TOPIC_ID}" style="display: none;">
 						<!-- IF topicrow.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 						<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{topicrow.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 						</div>
