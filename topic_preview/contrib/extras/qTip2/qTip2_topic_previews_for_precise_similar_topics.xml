@@ -75,12 +75,7 @@
 				<find><![CDATA[<dd class="lastpost"><span>{L_POST_BY_AUTHOR} {similar.TOPIC_AUTHOR_FULL}<br />{similar.TOPIC_TIME}</span></dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF similar.TOPIC_PREVIEW_TEXT -->
-				<script type="text/javascript">
-					$(document).ready(function(){
-						$('#t{similar.TOPIC_ID}').qtip({content:{text: $('#p{similar.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{similar.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-					});
-				</script>
-				<div id="p{similar.TOPIC_ID}" style="display: none;">
+				<div id="tp_t{similar.TOPIC_ID}" style="display: none;">
 				<!-- IF similar.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{similar.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 				<!-- IF similar.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{similar.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 				</div>
@@ -104,12 +99,7 @@
 			<edit>
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{similar.U_FORUM}">{similar.FORUM}</a></p>]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF similar.TOPIC_PREVIEW_TEXT -->
-					<script type="text/javascript">
-						$(document).ready(function(){
-							$('#t{similar.TOPIC_ID}').qtip({content:{text: $('#tp{similar.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{similar.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-						});
-					</script>
-					<div id="sp{similar.TOPIC_ID}" style="display: none;">
+					<div id="tp_t{similar.TOPIC_ID}" style="display: none;">
 					<!-- IF similar.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{similar.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF similar.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{similar.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>

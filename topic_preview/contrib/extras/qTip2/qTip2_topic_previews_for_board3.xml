@@ -193,12 +193,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[</dd>
 		</dl>]]></find>
 				<action type="after-add"><![CDATA[		<!-- IF announcements_row.TOPIC_PREVIEW_TEXT -->
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$('#t{announcements_row.TOPIC_ID}').qtip({content:{text: $('#p{announcements_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{announcements_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-				});
-			</script>
-			<div id="p{announcements_row.TOPIC_ID}" style="display: none;">
+			<div id="tp_t{announcements_row.TOPIC_ID}" style="display: none;">
 			<!-- IF announcements_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 			<!-- IF announcements_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 			</div>
@@ -220,12 +215,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[</dd>
 		</dl>]]></find>
 				<action type="after-add"><![CDATA[		<!-- IF news_row.TOPIC_PREVIEW_TEXT -->
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$('#n{news_row.TOPIC_ID}').qtip({content:{text: $('#pn{news_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#n{news_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-				});
-			</script>
-			<div id="pn{news_row.TOPIC_ID}" style="display: none;">
+			<div id="tp_n{news_row.TOPIC_ID}" style="display: none;">
 			<!-- IF news_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{news_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 			<!-- IF news_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{news_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 			</div>
@@ -240,12 +230,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[						<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}">{latest_announcements.TITLE}</a><br />
 						<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT -->
-							<script type="text/javascript">
-								$(document).ready(function(){
-									$('#a{latest_announcements.TOPIC_ID}').qtip({content:{text: $('#ap{latest_announcements.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#a{latest_announcements.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-								});
-							</script>
-							<div id="ap{latest_announcements.TOPIC_ID}" style="display: none;">
+							<div id="tp_a{latest_announcements.TOPIC_ID}" style="display: none;">
 							<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_announcements.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 							<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{latest_announcements.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 							</div>
@@ -255,12 +240,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[						<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}">{latest_hot_topics.TITLE}</a><br />
 						<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT -->
-							<script type="text/javascript">
-								$(document).ready(function(){
-									$('#h{latest_hot_topics.TOPIC_ID}').qtip({content:{text: $('#hp{latest_hot_topics.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#h{latest_hot_topics.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-								});
-							</script>
-							<div id="hp{latest_hot_topics.TOPIC_ID}" style="display: none;">
+							<div id="tp_h{latest_hot_topics.TOPIC_ID}" style="display: none;">
 							<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_hot_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 							<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{latest_hot_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 							</div>
@@ -270,12 +250,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[						<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}">{latest_topics.TITLE}</a><br />
 						<!-- IF latest_topics.TOPIC_PREVIEW_TEXT -->
-							<script type="text/javascript">
-								$(document).ready(function(){
-									$('#l{latest_topics.TOPIC_ID}').qtip({content:{text: $('#lp{latest_topics.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#l{latest_topics.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-								});
-							</script>
-							<div id="lp{latest_topics.TOPIC_ID}" style="display: none;">
+							<div id="tp_l{latest_topics.TOPIC_ID}" style="display: none;">
 							<!-- IF latest_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 							<!-- IF latest_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{latest_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 							</div>
@@ -302,12 +277,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 			<edit>
 				<find><![CDATA[</td>]]></find>
 				<action type="before-add"><![CDATA[					<!-- IF announcements_row.TOPIC_PREVIEW_TEXT -->
-						<script type="text/javascript">
-							$(document).ready(function(){
-								$('#t{announcements_row.TOPIC_ID}').qtip({content:{text: $('#p{announcements_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#t{announcements_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-							});
-						</script>
-						<div id="p{announcements_row.TOPIC_ID}" style="display: none;">
+						<div id="tp_t{announcements_row.TOPIC_ID}" style="display: none;">
 						<!-- IF announcements_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 						<!-- IF announcements_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{announcements_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 						</div>
@@ -328,12 +298,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 			<edit>
 				<find><![CDATA[</td>]]></find>
 				<action type="before-add"><![CDATA[					<!-- IF news_row.TOPIC_PREVIEW_TEXT -->
-						<script type="text/javascript">
-							$(document).ready(function(){
-								$('#n{news_row.TOPIC_ID}').qtip({content:{text: $('#pn{news_row.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#n{news_row.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-							});
-						</script>
-						<div id="pn{news_row.TOPIC_ID}" style="display: none;">
+						<div id="tp_n{news_row.TOPIC_ID}" style="display: none;">
 						<!-- IF news_row.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{news_row.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 						<!-- IF news_row.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{news_row.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 						</div>
@@ -348,12 +313,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[<a href="{latest_announcements.U_VIEW_TOPIC}" title="{latest_announcements.TOPIC_PREVIEW_TEXT}">{latest_announcements.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[				<a href="{latest_announcements.U_VIEW_TOPIC}" id="a{latest_announcements.TOPIC_ID}">{latest_announcements.TITLE}</a><br />
 				<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT -->
-					<script type="text/javascript">
-						$(document).ready(function(){
-							$('#a{latest_announcements.TOPIC_ID}').qtip({content:{text: $('#ap{latest_announcements.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#a{latest_announcements.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-						});
-					</script>
-					<div id="ap{latest_announcements.TOPIC_ID}" style="display: none;">
+					<div id="tp_a{latest_announcements.TOPIC_ID}" style="display: none;">
 					<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_announcements.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF latest_announcements.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{latest_announcements.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
@@ -363,12 +323,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.TOPIC_PREVIEW_TEXT}">{latest_hot_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[				<a href="{latest_hot_topics.U_VIEW_TOPIC}" id="h{latest_hot_topics.TOPIC_ID}">{latest_hot_topics.TITLE}</a><br />
 				<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT -->
-					<script type="text/javascript">
-						$(document).ready(function(){
-							$('#h{latest_hot_topics.TOPIC_ID}').qtip({content:{text: $('#hp{latest_hot_topics.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#h{latest_hot_topics.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-						});
-					</script>
-					<div id="hp{latest_hot_topics.TOPIC_ID}" style="display: none;">
+					<div id="tp_h{latest_hot_topics.TOPIC_ID}" style="display: none;">
 					<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_hot_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF latest_hot_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{latest_hot_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
@@ -378,12 +333,7 @@ IMPORTANT: Do not use AutoMOD to perform this installation. These instructions a
 				<find><![CDATA[<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.TOPIC_PREVIEW_TEXT}">{latest_topics.TITLE}</a><br />]]></find>
 				<action type="replace-with"><![CDATA[				<a href="{latest_topics.U_VIEW_TOPIC}" id="l{latest_topics.TOPIC_ID}">{latest_topics.TITLE}</a><br />
 				<!-- IF latest_topics.TOPIC_PREVIEW_TEXT -->
-					<script type="text/javascript">
-						$(document).ready(function(){
-							$('#l{latest_topics.TOPIC_ID}').qtip({content:{text: $('#lp{latest_topics.TOPIC_ID}'),title:{text:'{L_TOPIC_PREVIEW}'}},position:{my:'bottom left',at: 'top left',target: $('#l{latest_topics.TOPIC_ID}'),viewport: $(window)},show:{solo:true,delay:1000},style:{classes:'ui-tooltip-light ui-tooltip-shadow'}});
-						});
-					</script>
-					<div id="lp{latest_topics.TOPIC_ID}" style="display: none;">
+					<div id="tp_l{latest_topics.TOPIC_ID}" style="display: none;">
 					<!-- IF latest_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{latest_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
 					<!-- IF latest_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{latest_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
 					</div>
