@@ -25,9 +25,10 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2012-09-03</date>
+				<date>2012-11-23</date>
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
+					<change><![CDATA[Update UMIL package to 1.0.5.]]></change>
 					<change><![CDATA[Overhaul of code.]]></change>
 					<change><![CDATA[Optional Add-On : (mb)Tooltip jQuery plug-in for Topic Preview]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
