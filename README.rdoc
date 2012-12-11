@@ -5,7 +5,7 @@ This is a MOD for phpBB3 that will display an excerpt from the first post of a t
 Topic Preview for phpBB3 is much more simplified than other similar MODs (no javascript or css needed), and is designed to mimic the vBulletin method. However, optional add-ons are included for more stylized topic previews using jQuery and CSS.
 
 Current valid release available from phpBB:
-*https://www.phpbb.com/customise/db/mod/topic_preview
+https://www.phpbb.com/customise/db/mod/topic_preview
 
 == Features
 
