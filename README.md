@@ -1,13 +1,14 @@
-= Topic Preview for phpBB3
+Topic Preview for phpBB3
+========================
 
 This is a MOD for phpBB3 that will display an excerpt from the first post of a topic when the user hovers their mouse over the topic's title. Topic previews are displayed using the browser's built-in tooltip ability. The length of text shown in the preview can be defined in the Admin Control Panel. Forum members can also disable the topic previews if they prefer not to see them.
 
 Topic Preview for phpBB3 is much more simplified than other similar MODs (no javascript or css needed), and is designed to mimic the vBulletin method. However, optional add-ons are included for more stylized topic previews using jQuery and CSS.
 
-Current valid release available from phpBB:
-https://www.phpbb.com/customise/db/mod/topic_preview
+Current valid release available from phpBB: Version 1.0.10 ([Download it here](https://www.phpbb.com/customise/db/mod/topic_preview/)) 
 
-== Features
+Features
+--------
 
 * Let your visitors peek at what's inside a topic before they click on it!
 * Uses the browser's built-in tooltip (no javascript or css needed)
@@ -28,19 +29,23 @@ https://www.phpbb.com/customise/db/mod/topic_preview
 * Supports English, Czech, Dutch, German, Italian, Polish, Romanian, Spanish
 * Supports AutoMOD installation
 
-== Awards
+Awards
+------
 
-Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
+* Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
 
-== SUPPORT
+Support
+-------
 
 * Report any bugs or problems you encounter to the issue tracker: https://github.com/VSEphpbb/topic_preview/issues
 * Support is also available at phpBB: https://www.phpbb.com/customise/db/mod/topic_preview/support
 
-== REQUIREMENTS
+Requirements
+------------
 
 * phpBB 3.0.6 or newer recommended.
 
-== LICENSE
+License
+-------
 
 GNU General Public License v2
