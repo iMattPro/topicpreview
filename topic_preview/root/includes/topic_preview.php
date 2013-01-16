@@ -207,13 +207,13 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* This function's $RegEx originally written by RMcGirr83 for his Topic Text Hover Mod
+	* This function's RegEx patterns were originally written by RMcGirr83 for his Topic Text Hover Mod
 	* Modified by Matt Friedman to display smileys as text, strip URLs, custom BBcodes and trim whitespace
 	* @access private
 	*/
 	function _bbcode_strip($text)
 	{
-		static $RegEx = array();
+		static $patterns = array();
 
 		if ($this->tp_bbcode)
 		{
@@ -229,9 +229,9 @@ class phpbb_topic_preview
 
 		$bbcode_strip = (empty($this->strip_bbcodes) ? 'flash' : 'flash|' . trim($this->strip_bbcodes));
 
-		if (empty($RegEx))
+		if (empty($patterns))
 		{
-			$RegEx = array(
+			$patterns = array(
 				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Strip magic URLs			
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
 				'#\[(' . $bbcode_strip . ')[^\[\]]+\].*\[/(' . $bbcode_strip . ')[^\[\]]+\]#Usi', // bbcode to strip
@@ -242,6 +242,6 @@ class phpbb_topic_preview
 			);
 		}
 
-		return trim(preg_replace($RegEx, ' ', $text));
+		return trim(preg_replace($patterns, ' ', $text));
 	}
 }
