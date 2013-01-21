@@ -29,7 +29,6 @@
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Overhaul of code.]]></change>
-					<change><![CDATA[Optional Add-On : (mb)Tooltip jQuery plug-in for Topic Preview]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 					<change><![CDATA[Update MODX to 1.2.6.]]></change>
 					<change><![CDATA[Update UMIL to 1.0.5.]]></change>
@@ -155,7 +154,6 @@
 			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.5 Integration</link>
 			<link type="contrib" href="contrib/extras/qTip2/qTip2_install.xml" lang="en">Add-On : qTip2 jQuery plug-in for Topic Preview</link>
 			<link type="contrib" href="contrib/extras/tipTip/tipTip_install.xml" lang="en">Add-On : TipTip jQuery plug-in for Topic Preview</link>
-			<link type="contrib" href="contrib/extras/mbTooltip/mbTooltip_install.xml" lang="en">Add-On : (mb)Tooltip jQuery plug-in for Topic Preview</link>
 			<link type="contrib" href="contrib/update_1010_to_110.xml" lang="en">Upgrade : from 1.0.10 to 1.1.0</link>
 			<link type="contrib" href="contrib/update_109_to_1010.xml" lang="en">Upgrade : from 1.0.9 to 1.0.10</link>
 			<link type="contrib" href="contrib/update_107_to_1010.xml" lang="en">Upgrade : from 1.0.7 to 1.0.10</link>
