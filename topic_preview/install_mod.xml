@@ -25,12 +25,13 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2013-02-21</date>
+				<date>2013-03-03</date>
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Overhaul of code.]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 					<change><![CDATA[Added French language pack]]></change>
+					<change><![CDATA[Update qTip2 add-on to latest build (supports jQuery 1.9).]]></change>
 					<change><![CDATA[Update MODX to 1.2.6.]]></change>
 					<change><![CDATA[Update UMIL to 1.0.5.]]></change>
 				</changelog>

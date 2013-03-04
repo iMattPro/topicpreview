@@ -12,25 +12,26 @@
 
 We do not offer any support for use of the qTip2 plug-in. Please direct any issues related to the use of qTip2 to its developers at http://craigsworks.com/projects/qtip2/
 
-qTip2 Styling options: You can change the appearance of the qTip2 tooltip using any of its built-in themes. Search in viewforum_body.html and search_results.html for ui-tooltip-light and replace it with any of the following options:
+qTip2 Styling options: You can change the appearance of the qTip2 tooltip using any of its built-in themes. Search in viewforum_body.html and search_results.html for qtip-light and replace it with any of the following options:
 
 /* CSS2 styles */
-ui-tooltip /* This one is applied by default (formally the "cream" style) */
-ui-tooltip-plain
-ui-tooltip-light
-ui-tooltip-dark
-ui-tooltip-red
-ui-tooltip-green
-ui-tooltip-blue
- 
+qtip /* This one is applied by default (formally the "cream" style) */
+qtip-plain
+qtip-light
+qtip-dark
+qtip-red
+qtip-green
+qtip-blue
+
 /* CSS3+ styles */
-ui-tooltip-shadow /* Adds a shadows to your tooltips */
-ui-tooltip-rounded /* Adds a rounded corner to your tooltips */
-ui-tooltip-youtube /* Youtube style */
-ui-tooltip-jtools /* jTools tooltip style */
-ui-tooltip-cluetip /* ClueTip style */
-ui-tooltip-tipped /* Tipped style */
-ui-tooltip-tipsy /* Tipsy style */]]></author-notes>
+qtip-shadow /* Adds a shadows to your tooltips */
+qtip-rounded /* Adds a rounded corner to your tooltips */
+qtip-bootstrap{ } /* Bootstrap style */
+qtip-tipsy /* Tipsy style */
+qtip-youtube /* Youtube style */
+qtip-jtools /* jTools tooltip style */
+qtip-cluetip /* ClueTip style */
+qtip-tipped /* Tipped style */]]></author-notes>
 		<author-group>
 			<author>
 				<username><![CDATA[Pico88]]></username>
@@ -99,7 +100,7 @@ $(document).ready(function(){
 				target: $(this),
 				viewport: $(window)},
 			show:{solo:true,delay:250},
-			style:{classes:'ui-tooltip-light ui-tooltip-shadow'}
+			style:{classes:'qtip-light qtip-shadow'}
 		});
 	});
 });
@@ -178,7 +179,7 @@ $(document).ready(function(){
 				target: $(this),
 				viewport: $(window)},
 			show:{solo:true,delay:250},
-			style:{classes:'ui-tooltip-light ui-tooltip-shadow'}
+			style:{classes:'qtip-light qtip-shadow'}
 		});
 	});
 });
