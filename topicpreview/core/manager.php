@@ -58,7 +58,7 @@ class phpbb_ext_vse_topicpreview_core_manager
 	private $tp_bbcode		= false;
 
 	/**
-	 * Topic Preview MOD constructor
+	 * Topic Preview class constructor method
 	 */
 	public function __construct()
 	{
@@ -72,8 +72,10 @@ class phpbb_ext_vse_topicpreview_core_manager
 	}
 
 	/**
-	 * Extend a query to get post text from the POSTS_TABLE
-	 * @access public
+	 * Modify SQL array to get post text for viewforum topics
+	 *
+	 * @param	array	$sql_array 	SQL statement array
+	 * @return	array	SQL statement array
 	 */
 	public function inject_sql_array($sql_array)
 	{
@@ -101,8 +103,10 @@ class phpbb_ext_vse_topicpreview_core_manager
 	}
 
 	/**
-	 * Rewrite the query to get more values from the POSTS_TABLE
-	 * @access public
+	 * Modify SQL statement to get post text for viewforum shadowtopics
+	 *
+	 * @param	string	$sql 	SQL statement
+	 * @return	string	SQL statement
 	 */
 	public function inject_sql($sql)
 	{
@@ -121,8 +125,10 @@ class phpbb_ext_vse_topicpreview_core_manager
 	}
 
 	/**
-	 * Extend an $sql_select statement
-	 * @access public
+	 * Modify SQL SELECT statement to get post text for searchresults
+	 *
+	 * @param	string	$sql_select 	SQL SELECT statement
+	 * @return	string	SQL SELECT statement
 	 */
 	public function inject_sql_select($sql_select)
 	{
@@ -137,8 +143,10 @@ class phpbb_ext_vse_topicpreview_core_manager
 	}
 
 	/**
-	 * Extend an $sql_join statement
-	 * @access public
+	 * Modify SQL JOIN statement to get post text for searchresults
+	 *
+	 * @param	string	$sql_join 	SQL JOIN statement
+	 * @return	string	SQL JOIN statement
 	 */
 	public function inject_sql_join($sql_join)
 	{
@@ -154,7 +162,10 @@ class phpbb_ext_vse_topicpreview_core_manager
 
 	/**
 	 * Inject topic preview text into the template
-	 * @access public
+	 *
+	 * @param	array	$row 	row data
+	 * @param	array	$block 	template vars array
+	 * @return	array	template vars array
 	 */
 	public function display_topic_preview($row, $block)
 	{
@@ -188,6 +199,10 @@ class phpbb_ext_vse_topicpreview_core_manager
 
 	/**
 	 * Truncate and clean topic preview text
+	 *
+	 * @param	string	$string 	topic preview text
+	 * @param	int		$limit 		number of characters to allow
+	 * @return	string	topic preview text
 	 * @access private
 	 */
 	private function _trim_topic_preview($string, $limit)
@@ -206,8 +221,14 @@ class phpbb_ext_vse_topicpreview_core_manager
 	}
 
 	/**
-	 * This function's RegEx patterns were originally written by RMcGirr83 for his Topic Text Hover Mod
-	 * Modified by Matt Friedman to display smileys as text, strip URLs, custom BBcodes and trim whitespace
+	 * Strip bbcodes and links for topic preview text
+	 *
+	 * NOTE: These RegEx patterns were originally written by RMcGirr83 for
+	 * his Topic Text Hover Mod, and Modified by Matt Friedman to display
+	 * smileys as text, strip URLs, custom BBcodes and trim whitespace.
+	 *
+	 * @param	string	$text 	topic preview text
+	 * @return	string	topic preview text
 	 * @access private
 	 */
 	private function _bbcode_strip($text)
