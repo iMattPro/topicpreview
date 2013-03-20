@@ -15,7 +15,7 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-class phpbb_ext_vse_topicpreview_core_manager
+class phpbb_ext_vse_topicpreview_core_topic_preview
 {
 	/**
 	 * Are topic previews enabled?
