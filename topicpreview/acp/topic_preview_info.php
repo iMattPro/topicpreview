@@ -27,7 +27,7 @@ class phpbb_ext_vse_topicpreview_acp_topic_preview_info
 			'title'		=> 'TOPIC_PREVIEW',
 			'version'	=> '1.2.0',
 			'modes'		=> array(
-				'index'	=> array('title' => 'TOPIC_PREVIEW', 'auth' => 'acl_a_board', 'cat' => array('TOPIC_PREVIEW')),
+				'settings'	=> array('title' => 'TOPIC_PREVIEW', 'auth' => 'acl_a_board', 'cat' => array('TOPIC_PREVIEW')),
 			),
 		);
 	}
