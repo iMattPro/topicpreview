@@ -169,7 +169,9 @@ class phpbb_topic_preview
 			return false;
 		}
 
-		global $template;
+		global $template, $user;
+
+		$user->add_lang('mods/topic_preview');
 
 		if (!empty($row['first_post_preview_text']))
 		{

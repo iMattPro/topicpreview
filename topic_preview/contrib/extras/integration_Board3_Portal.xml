@@ -28,7 +28,7 @@ Board3 Portal 2.0.X http://board3.de/]]></description>
 			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview 1.1.0</link>
+			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 1.1.0</link>
 			<link type="dependency" href="http://board3.de/" lang="en">Board3 Portal 2.0.X</link>
 		</link-group>
 	</header>
