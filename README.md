@@ -1,4 +1,4 @@
-Topic Preview for phpBB3
+![Topic Preview](http://orcamx.vlexofree.com/forum/images/search.png "Topic Preview") Topic Preview for phpBB3
 ========================
 
 This is a MOD for phpBB3 that will display an excerpt from the first post of a topic when the user hovers their mouse over the topic's title. Topic previews are displayed using the browser's built-in tooltip ability. The length of text shown in the preview can be defined in the Admin Control Panel. Forum members can also disable the topic previews if they prefer not to see them.
