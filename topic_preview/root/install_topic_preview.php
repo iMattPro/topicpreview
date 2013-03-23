@@ -26,7 +26,7 @@ if (!file_exists($phpbb_root_path . 'umil/umil_auto.' . $phpEx))
 	trigger_error('Please download the latest UMIL (Unified MOD Install Library) from: <a href="http://www.phpbb.com/mods/umil/">phpBB.com/mods/umil</a>', E_USER_ERROR);
 }
 
-$mod_name = 'TP_MOD';
+$mod_name = 'TOPIC_PREVIEW';
 $version_config_name = 'topic_preview_version';
 $language_file = 'mods/topic_preview';
 

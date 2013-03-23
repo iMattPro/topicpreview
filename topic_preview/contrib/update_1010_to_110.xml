@@ -29,8 +29,15 @@
 		<copy>
 			<file from="root/includes/topic_preview.php" to="includes/topic_preview.php"/>
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
+			<file from="root/language/en/mods/topic_preview.php" to="language/en/mods/topic_preview.php"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>
+		<open src="includes/acp/acp_board.php">
+			<edit>
+				<find><![CDATA['topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),]]></find>
+				<action type="replace-with"><![CDATA['topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW_LENGTH',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),]]></action>
+			</edit>
+		</open>
 		<open src="search.php">
 			<edit>
 				<find><![CDATA[			// BEGIN Topic Preview Mod

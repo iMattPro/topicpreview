@@ -36,15 +36,14 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'TOPIC_PREVIEW'			=> 'Długość tekstu w Podglądzie Tematu',
-	'TOPIC_PREVIEW_EXPLAIN'	=> 'Pokaże fragment tekstu z pierwszego tematu w dymku, gdy kursor myszy pojawi się nad tytułem tematu. Wpisz liczbę znaków do wyświetlenia w dymku (domyślnie jest 150). Ustawienie wartości 0 wyłącza tę funkcję.',
-	'CHARS'   				=> 'Znaki',
-	'DISPLAY_TOPIC_PREVIEW' => 'Wyświetl Podgląd Tematu',	
+	'TOPIC_PREVIEW'					=> 'Podgląd Tematu',
+	'FIRST_POST'					=> 'Pierwszy post',
+	'TOPIC_PREVIEW_LENGTH'			=> 'Długość tekstu w Podglądzie Tematu',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Pokaże fragment tekstu z pierwszego tematu w dymku, gdy kursor myszy pojawi się nad tytułem tematu. Wpisz liczbę znaków do wyświetlenia w dymku (domyślnie jest 150). Ustawienie wartości 0 wyłącza tę funkcję.',
+	'CHARS'   						=> 'Znaki',
+	'DISPLAY_TOPIC_PREVIEW' 		=> 'Wyświetl Podgląd Tematu',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Ukryj BBkody w Podglądzie Tematu',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista z zawartością BBKodów, które chcesz usunąć podglądu (na przykład BBKody: spoiler, ukryty tekst, kod). Kilka BBKodów oddziel znakiem | , na przykład: spoiler|hide|code',
-
-	// Installation language vars (UMIL)
-	'TP_MOD'		=> 'Podgląd Tematu',
 ));
 
 ?>

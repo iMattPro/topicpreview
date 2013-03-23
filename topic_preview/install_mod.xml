@@ -236,7 +236,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<find><![CDATA['load_cpf_viewtopic'	=> array('lang' => 'LOAD_CPF_VIEWTOPIC',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></find>
 				<action type="after-add"><![CDATA[						// BEGIN Topic Preview Mod
-						'topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
+						'topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW_LENGTH',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
 						'topic_preview_strip_bbcodes'	=> array('lang' => 'TOPIC_PREVIEW_STRIP',	'validate' => 'string',	'type' => 'text:30:255', 'explain' => true),
 						// END Topic Preview Mod
 ]]></action>

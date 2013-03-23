@@ -11,10 +11,6 @@
 */
 
 /**
- * 
-*/
-
-/**
 * DO NOT CHANGE
 */
 if (!defined('IN_PHPBB'))
@@ -40,15 +36,14 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'TOPIC_PREVIEW'			=> 'Úryvek z tématu',
-	'TOPIC_PREVIEW_EXPLAIN'	=> 'Zde máte možnost zadat počet znaků zobrazených v úryvku z tématu.<br /><strong>Zadáním 0 funkci vypnete.</strong>',
-	'CHARS'					=> 'Počet znaků',
-	'DISPLAY_TOPIC_PREVIEW'	=> 'Zobrazit úryvek z tématu',	
+	'TOPIC_PREVIEW'					=> 'Úryvek z tématu',
+	'FIRST_POST'					=> 'První příspěvek',
+	'TOPIC_PREVIEW_LENGTH'			=> 'Úryvek z tématu',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Zde máte možnost zadat počet znaků zobrazených v úryvku z tématu.<br /><strong>Zadáním 0 funkci vypnete.</strong>',
+	'CHARS'							=> 'Počet znaků',
+	'DISPLAY_TOPIC_PREVIEW'			=> 'Zobrazit úryvek z tématu',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Skryté BBkódy',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Zde máte možnost zadat BBkódy, které v úryvku nebudou zobrazeny. Pro oddělení využijte znak |.<br /><i>Například: list|code|quote.</i>',
-
-	// Installation language vars (UMIL)
-	'TP_MOD'	=> 'Úryvek z tématu',
 ));
 
 ?>

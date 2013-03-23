@@ -36,15 +36,14 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'TOPIC_PREVIEW'			=> 'Lungimea textului subiectelor previzualizate',
-	'TOPIC_PREVIEW_EXPLAIN'	=> 'Va arăta o parte din textul primului subiect într-un tooltip în timp ce eşti cu mausul deasupra titlului subiectului. Introdu numărul de caractere ce vor fi afişate în tooltip (valoarea implicită este 150). Setarea acestei valori la 0 scoate din funcţiune această particularitate.',
-	'CHARS'   				=> 'Caractere',
-	'DISPLAY_TOPIC_PREVIEW' => 'Afişează previzualizările subiectelor',	
+	'TOPIC_PREVIEW'					=> 'Previzualizare Subiecte',
+	'FIRST_POST'					=> 'Primul mesaj',
+	'TOPIC_PREVIEW_LENGTH'			=> 'Lungimea textului subiectelor previzualizate',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Va arăta o parte din textul primului subiect într-un tooltip în timp ce eşti cu mausul deasupra titlului subiectului. Introdu numărul de caractere ce vor fi afişate în tooltip (valoarea implicită este 150). Setarea acestei valori la 0 scoate din funcţiune această particularitate.',
+	'CHARS'   						=> 'Caractere',
+	'DISPLAY_TOPIC_PREVIEW' 		=> 'Afişează previzualizările subiectelor',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Coduri BB de ascuns în previzualizarea subiectelor',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Afişează codurile BB cu conţinutul pe care-l doreşti înlăturat din previzualizare (spoileri şi texte cod BB ascunse, spre exemplu). Separă codurile BB multiple folosind caracterul |, de exemplu: spoiler|ascunde|cod',
-
-	// Installation language vars (UMIL)
-	'TP_MOD'		=> 'Previzualizare Subiecte',
 ));
 
 ?>

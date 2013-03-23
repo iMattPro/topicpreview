@@ -36,15 +36,14 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'TOPIC_PREVIEW'			=> 'Length of Topic Preview Text',
-	'TOPIC_PREVIEW_EXPLAIN'	=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
-	'CHARS'   				=> 'Characters',
-	'DISPLAY_TOPIC_PREVIEW' => 'Display topic previews',	
+	'TOPIC_PREVIEW'					=> 'Topic Preview',
+	'FIRST_POST'					=> 'First post',
+	'TOPIC_PREVIEW_LENGTH'			=> 'Length of Topic Preview Text',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
+	'CHARS'   						=> 'Characters',
+	'DISPLAY_TOPIC_PREVIEW' 		=> 'Display topic previews',	
 	'TOPIC_PREVIEW_STRIP'			=> 'BBcodes to hide in Topic Preview',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'List BBcodes with content you want removed from the preview (spoiler and hidden text BBcodes, for example). Separate multiple BBcodes using the | character, for example: spoiler|hide|code',
-
-	// Installation language vars (UMIL)
-	'TP_MOD'	=> 'Topic Preview',
 ));
 
 ?>
