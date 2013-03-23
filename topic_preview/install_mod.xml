@@ -25,12 +25,13 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2012-12-17</date>
+				<date>2013-03-03</date>
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Overhaul of code.]]></change>
 					<change><![CDATA[Optional Add-On : (mb)Tooltip jQuery plug-in for Topic Preview]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
+					<change><![CDATA[Added French language pack]]></change>
 					<change><![CDATA[Update MODX to 1.2.6.]]></change>
 					<change><![CDATA[Update UMIL to 1.0.5.]]></change>
 				</changelog>
@@ -139,6 +140,7 @@
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
 			<link type="language" href="contrib/languages/cs.xml" lang="en">Czech Language Pack</link>
 			<link type="language" href="contrib/languages/nl.xml" lang="en">Dutch Language Pack</link>
+			<link type="language" href="contrib/languages/fr.xml" lang="en">French Language Pack</link>
 			<link type="language" href="contrib/languages/de.xml" lang="en">German Language Pack</link>
 			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
