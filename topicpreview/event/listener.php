@@ -41,13 +41,13 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 			'core.user_setup'			=> 'setup',
 
 			// these are custom events that are not yet part of the core
-			'core.topicpreview_viewforum_sql_modify'		=> 'get_viewforum_topic_preview',
-			'core.topicpreview_shadowtopic_sql_modify'		=> 'get_shadowtopic_topic_preview',
-			'core.topicpreview_searchresults_sql_modify'	=> 'get_searchresults_topic_preview',
-			'core.search_modify_searchresults'				=> 'display_topic_previews',
+			'core.topicdata_modify_sql'				=> 'get_viewforum_topic_preview',
+			'core.shadowtopic_modify_sql'			=> 'get_shadowtopic_topic_preview',
+			'core.search_results_topics_modify_sql'	=> 'get_searchresults_topic_preview',
+			'core.search_modify_searchresults'		=> 'display_topic_previews',
 
 			// these are part of the core
-			'core.viewforum_modify_topicrow'				=> 'display_topic_previews',
+			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',
 		);
 	}
 
