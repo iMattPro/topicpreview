@@ -176,20 +176,20 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 
 		if (!empty($row['first_post_preview_text']))
 		{
-			$first_post_preview_text = $this->_trim_topic_preview($row['first_post_preview_text'], $this->preview_limit);
+			$first_post_preview_text = $this->trim_topic_preview($row['first_post_preview_text'], $this->preview_limit);
 		}
 
 		if (!empty($row['last_post_preview_text']) && $row['topic_first_post_id'] != $row['topic_last_post_id'])
 		{
-			$last_post_preview_text = $this->_trim_topic_preview($row['last_post_preview_text'], $this->preview_limit);
+			$last_post_preview_text = $this->trim_topic_preview($row['last_post_preview_text'], $this->preview_limit);
 		}
 	
-//		$block = array_merge(array(
-//			'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-//			'TOPIC_PREVIEW_TEXT2'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
-//		), $block);
+		$block = array_merge(array(
+			'TOPIC_PREVIEW_FP'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
+			'TOPIC_PREVIEW_LP'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
+		), $block);
 
-		// for testing - needs title="{searchresults.TOPIC_FOLDER_IMG_ALT}" be added to search_results.html
+		// for testing
 		$block['TOPIC_FOLDER_IMG_ALT'] = (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '';
 		$block['U_LAST_POST'] .= (isset($last_post_preview_text)) ? '" title="' . censor_text($last_post_preview_text) : '';
 
@@ -199,14 +199,14 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	/**
 	 * Truncate and clean topic preview text
 	 *
-	 * @param	string	$string 	topic preview text
-	 * @param	int		$limit 		number of characters to allow
+	 * @param	string	$text 	topic preview text
+	 * @param	int		$limit 	number of characters to allow
 	 * @return	string	topic preview text
 	 * @access private
 	 */
-	private function _trim_topic_preview($string, $limit)
+	private function trim_topic_preview($text, $limit)
 	{
-		$text = $this->_bbcode_strip($string);
+		$text = $this->bbcode_strip($text);
 
 		if (utf8_strlen($text) >= $limit)
 		{
@@ -230,7 +230,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	 * @return	string	topic preview text
 	 * @access private
 	 */
-	private function _bbcode_strip($text)
+	private function bbcode_strip($text)
 	{
 		static $patterns = array();
 
