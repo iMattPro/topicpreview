@@ -1,0 +1,30 @@
+
+<script>
+
+(function( $ ){
+
+	$.fn.topicPreview = function() {  
+
+		return this.each(function() {
+
+			var container = $(this).closest("li"),
+				firstPostText = container.find(".topic_preview_first").text(),
+				lastPostText = container.find(".topic_preview_last").text();
+
+			$(this).attr("title", firstPostText);
+
+			container.find(".icon_topic_latest").attr("title", lastPostText);
+
+		});
+
+	};
+})( jQuery );
+
+
+$(document).ready(function() {
+
+	$(".topictitle").topicPreview();
+
+});
+
+</script>
