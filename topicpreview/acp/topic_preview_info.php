@@ -23,7 +23,7 @@ class phpbb_ext_vse_topicpreview_acp_topic_preview_info
 	function module()
 	{
 		return array(
-			'filename'	=> 'topic_preview_module',
+			'filename'	=> 'phpbb_ext_vse_topicpreview_acp_topic_preview_module',
 			'title'		=> 'TOPIC_PREVIEW',
 			'version'	=> '1.2.0',
 			'modes'		=> array(
