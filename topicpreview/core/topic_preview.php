@@ -190,8 +190,8 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 		), $block);
 
 		// for testing
-		$block['TOPIC_FOLDER_IMG_ALT'] = (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '';
-		$block['U_LAST_POST'] .= (isset($last_post_preview_text)) ? '" title="' . censor_text($last_post_preview_text) : '';
+//		$block['TOPIC_FOLDER_IMG_ALT'] = (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '';
+//		$block['U_LAST_POST'] .= (isset($last_post_preview_text)) ? '" title="' . censor_text($last_post_preview_text) : '';
 
 		return $block;
 	}
