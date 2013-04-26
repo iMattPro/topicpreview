@@ -9,7 +9,6 @@
 
 class phpbb_ext_vse_topicpreview_migrations_1_2_0 extends phpbb_db_migration
 {
-
 	public function effectively_installed()
 	{
 		return version_compare($this->config['topic_preview_version'], '1.2.0', '>=');
@@ -24,9 +23,17 @@ class phpbb_ext_vse_topicpreview_migrations_1_2_0 extends phpbb_db_migration
 	{
 		return array(
 			// Add ACP module
-			array('module.add', array('acp', 'ACP_CAT_DOT_MODS', 'TOPIC_PREVIEW')),
-			array('module.add', array('acp', 'TOPIC_PREVIEW', array(
-				'module_basename'	=> 'phpbb_ext_vse_topicpreview_acp_topic_preview_module',
+			array('module.add', array(
+				'acp',
+				'ACP_CAT_DOT_MODS',
+				'TOPIC_PREVIEW'
+			)),
+			array('module.add', array(
+				'acp',
+				'TOPIC_PREVIEW',
+				array(
+					'module_basename'	=> 'phpbb_ext_vse_topicpreview_acp_topic_preview_module',
+					'modes'				=> array('settings'),
 				),
 			)),
 

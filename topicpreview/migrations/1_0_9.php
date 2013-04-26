@@ -9,7 +9,6 @@
 
 class phpbb_ext_vse_topicpreview_migrations_1_0_9 extends phpbb_db_migration
 {
-
 	public function effectively_installed()
 	{
 		return version_compare($this->config['topic_preview_version'], '1.0.9', '>=');
