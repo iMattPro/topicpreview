@@ -77,7 +77,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	 * @param	array	$sql_array 	SQL statement array
 	 * @return	array	SQL statement array
 	 */
-	public function inject_sql_array($sql_array)
+	public function modify_sql_array($sql_array)
 	{
 		if (!$this->is_active)
 		{
@@ -108,7 +108,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	 * @param	string	$sql 	SQL statement
 	 * @return	string	SQL statement
 	 */
-	public function inject_sql($sql)
+	public function modify_sql($sql)
 	{
 		if (!$this->is_active)
 		{
@@ -130,7 +130,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	 * @param	string	$sql_select 	SQL SELECT statement
 	 * @return	string	SQL SELECT statement
 	 */
-	public function inject_sql_select($sql_select)
+	public function modify_sql_select($sql_select)
 	{
 		if (!$this->is_active)
 		{
@@ -148,7 +148,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	 * @param	string	$sql_join 	SQL JOIN statement
 	 * @return	string	SQL JOIN statement
 	 */
-	public function inject_sql_join($sql_join)
+	public function modify_sql_join($sql_join)
 	{
 		if (!$this->is_active)
 		{

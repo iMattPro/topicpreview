@@ -72,7 +72,7 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	 */
 	public function get_viewforum_topic_preview($event)
 	{
-		$event['sql_array'] = $this->manager->inject_sql_array($event['sql_array']);
+		$event['sql_array'] = $this->manager->modify_sql_array($event['sql_array']);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	 */
 	public function get_shadowtopic_topic_preview($event)
 	{
-		$event['sql'] = $this->manager->inject_sql($event['sql']);
+		$event['sql'] = $this->manager->modify_sql($event['sql']);
 	}
 
 	/**
@@ -94,8 +94,8 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	 */
 	public function get_searchresults_topic_preview($event)
 	{
-		$event['sql_from'] = $this->manager->inject_sql_join($event['sql_from']);
-		$event['sql_select'] = $this->manager->inject_sql_select($event['sql_select']);		
+		$event['sql_from'] = $this->manager->modify_sql_join($event['sql_from']);
+		$event['sql_select'] = $this->manager->modify_sql_select($event['sql_select']);		
 	}
 
 	/**
