@@ -1,15 +1,15 @@
 <?php
 /**
- *
- * @package Topic Preview
- * @copyright (c) 2013 Matt Friedman
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
- *
- */
+*
+* @package Topic Preview
+* @copyright (c) 2013 Matt Friedman
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+*/
 
 /**
- * @ignore
- */
+* @ignore
+*/
 
 if (!defined('IN_PHPBB'))
 {
@@ -17,24 +17,24 @@ if (!defined('IN_PHPBB'))
 }
 
 /**
- * Event listener
- */
+* Event listener
+*/
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterface
 {
 	/**
-	 * Topic Preview manager object
-	 * @var phpbb_ext_vse_topicpreview_core_manager
-	 */
+	* Topic Preview manager object
+	* @var phpbb_ext_vse_topicpreview_core_manager
+	*/
 	private $manager;
 
 	/**
-	 * Get subscribed events
-	 *
-	 * @return array
-	 * @static
-	 */
+	* Get subscribed events
+	*
+	* @return array
+	* @static
+	*/
 	static public function getSubscribedEvents()
 	{
 		return array(
@@ -52,11 +52,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	}
 
 	/**
-	 * Set up the environment
-	 *
-	 * @param Event $event Event object
-	 * @return null
-	 */
+	* Set up the environment
+	*
+	* @param Event $event Event object
+	* @return null
+	*/
 	public function setup($event)
 	{
 		global $phpbb_container;
@@ -65,33 +65,33 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	}
 
 	/**
-	 * Modify the topics SQL to get post text for topic preview
-	 *
-	 * @param Event $event Event object
-	 * @return null
-	 */
+	* Modify the topics SQL to get post text for topic preview
+	*
+	* @param Event $event Event object
+	* @return null
+	*/
 	public function get_viewforum_topic_preview($event)
 	{
 		$event['sql_array'] = $this->manager->modify_sql_array($event['sql_array']);
 	}
 
 	/**
-	 * Modify the shadow topics SQL to get post text for topic preview
-	 *
-	 * @param Event $event Event object
-	 * @return null
-	 */
+	* Modify the shadow topics SQL to get post text for topic preview
+	*
+	* @param Event $event Event object
+	* @return null
+	*/
 	public function get_shadowtopic_topic_preview($event)
 	{
 		$event['sql'] = $this->manager->modify_sql($event['sql']);
 	}
 
 	/**
-	 * Modify the search results SQL to get post text for topic preview
-	 *
-	 * @param Event $event Event object
-	 * @return null
-	 */
+	* Modify the search results SQL to get post text for topic preview
+	*
+	* @param Event $event Event object
+	* @return null
+	*/
 	public function get_searchresults_topic_preview($event)
 	{
 		$event['sql_from'] = $this->manager->modify_sql_join($event['sql_from']);
@@ -99,11 +99,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	}
 
 	/**
-	 * Modify the template vars of the viewforum/search display topic preview text
-	 *
-	 * @param Event $event Event object
-	 * @return null
-	 */
+	* Modify the template vars of the viewforum/search display topic preview text
+	*
+	* @param Event $event Event object
+	* @return null
+	*/
 	public function display_topic_previews($event)
 	{
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';

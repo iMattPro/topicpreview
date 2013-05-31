@@ -1,23 +1,23 @@
 <?php
 /**
- *
- * @package Topic Preview
- * @copyright (c) 2013 Matt Friedman
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
- *
- */
+*
+* @package Topic Preview
+* @copyright (c) 2013 Matt Friedman
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+*/
 
 /**
- * @ignore
- */
+* @ignore
+*/
 if (!defined('IN_PHPBB'))
 {
 	exit;
 }
 
 /**
- * @package acp
- */
+* @package acp
+*/
 class phpbb_ext_vse_topicpreview_acp_topic_preview_module
 {
 	var $u_action;
@@ -49,7 +49,7 @@ class phpbb_ext_vse_topicpreview_acp_topic_preview_module
 			$topic_preview_strip_bbcodes = request_var('topic_preview_strip_bbcodes', '');
 			set_config('topic_preview_strip_bbcodes', $topic_preview_strip_bbcodes);
 
-//			add_log('admin', 'PST_LOG_MSG');
+			//add_log('admin', 'PST_LOG_MSG');
 
 			trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 		}

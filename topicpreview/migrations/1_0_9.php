@@ -1,11 +1,11 @@
 <?php
 /**
- *
- * @package Topic Preview
- * @copyright (c) 2013 Matt Friedman
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
- *
- */
+*
+* @package Topic Preview
+* @copyright (c) 2013 Matt Friedman
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+*/
 
 class phpbb_ext_vse_topicpreview_migrations_1_0_9 extends phpbb_db_migration
 {

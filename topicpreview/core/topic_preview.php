@@ -1,15 +1,15 @@
 <?php
 /**
- *
- * @package Topic Preview
- * @copyright (c) 2013 Matt Friedman
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
- *
- */
+*
+* @package Topic Preview
+* @copyright (c) 2013 Matt Friedman
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+*/
 
 /**
- * @ignore
- */
+* @ignore
+*/
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -18,48 +18,48 @@ if (!defined('IN_PHPBB'))
 class phpbb_ext_vse_topicpreview_core_topic_preview
 {
 	/**
-	 * Are topic previews enabled?
-	 */
+	* Are topic previews enabled?
+	*/
 	private $is_active		= true;
 
 	/**
-	 * The max number of characters in the topic preview text
-	 */
+	* The max number of characters in the topic preview text
+	*/
 	private $preview_limit	= 150;
 
 	/**
-	 * List of BBcodes whose text is to be stripped from topic previews
-	 */
+	* List of BBcodes whose text is to be stripped from topic previews
+	*/
 	private $strip_bbcodes	= '';
 
 	/**
-	 * The default SQL SELECT statement injection
-	 */
+	* The default SQL SELECT statement injection
+	*/
 	private $tp_sql_select	= '';
 
 	/**
-	 * The default SQL LEFT JOIN statement injection
-	 */
+	* The default SQL LEFT JOIN statement injection
+	*/
 	private $tp_sql_join	= '';
 
 	/**
-	 * Get the last post's text for topic previews?
-	 */
+	* Get the last post's text for topic previews?
+	*/
 	private $tp_last_post	= false;
 
 	/**
-	 * Add-On: Preserve line breaks?
-	 */
+	* Add-On: Preserve line breaks?
+	*/
 	private $preserve_lb	= false;
 
 	/**
-	 * Add-On: [topicpreview] bbcode support?
-	 */
+	* Add-On: [topicpreview] bbcode support?
+	*/
 	private $tp_bbcode		= false;
 
 	/**
-	 * Topic Preview class constructor method
-	 */
+	* Topic Preview class constructor method
+	*/
 	public function __construct()
 	{
 		global $config, $user;
@@ -72,11 +72,11 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	}
 
 	/**
-	 * Modify SQL array to get post text for viewforum topics
-	 *
-	 * @param	array	$sql_array 	SQL statement array
-	 * @return	array	SQL statement array
-	 */
+	* Modify SQL array to get post text for viewforum topics
+	*
+	* @param	array	$sql_array 	SQL statement array
+	* @return	array	SQL statement array
+	*/
 	public function modify_sql_array($sql_array)
 	{
 		if (!$this->is_active)
@@ -103,11 +103,11 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	}
 
 	/**
-	 * Modify SQL statement to get post text for viewforum shadowtopics
-	 *
-	 * @param	string	$sql 	SQL statement
-	 * @return	string	SQL statement
-	 */
+	* Modify SQL statement to get post text for viewforum shadowtopics
+	*
+	* @param	string	$sql 	SQL statement
+	* @return	string	SQL statement
+	*/
 	public function modify_sql($sql)
 	{
 		if (!$this->is_active)
@@ -125,11 +125,11 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	}
 
 	/**
-	 * Modify SQL SELECT statement to get post text for searchresults
-	 *
-	 * @param	string	$sql_select 	SQL SELECT statement
-	 * @return	string	SQL SELECT statement
-	 */
+	* Modify SQL SELECT statement to get post text for searchresults
+	*
+	* @param	string	$sql_select 	SQL SELECT statement
+	* @return	string	SQL SELECT statement
+	*/
 	public function modify_sql_select($sql_select)
 	{
 		if (!$this->is_active)
@@ -143,11 +143,11 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	}
 
 	/**
-	 * Modify SQL JOIN statement to get post text for searchresults
-	 *
-	 * @param	string	$sql_join 	SQL JOIN statement
-	 * @return	string	SQL JOIN statement
-	 */
+	* Modify SQL JOIN statement to get post text for searchresults
+	*
+	* @param	string	$sql_join 	SQL JOIN statement
+	* @return	string	SQL JOIN statement
+	*/
 	public function modify_sql_join($sql_join)
 	{
 		if (!$this->is_active)
@@ -161,12 +161,12 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	}
 
 	/**
-	 * Inject topic preview text into the template
-	 *
-	 * @param	array	$row 	row data
-	 * @param	array	$block 	template vars array
-	 * @return	array	template vars array
-	 */
+	* Inject topic preview text into the template
+	*
+	* @param	array	$row 	row data
+	* @param	array	$block 	template vars array
+	* @return	array	template vars array
+	*/
 	public function display_topic_preview($row, $block)
 	{
 		if (!$this->is_active)
@@ -197,13 +197,13 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	}
 
 	/**
-	 * Truncate and clean topic preview text
-	 *
-	 * @param	string	$text 	topic preview text
-	 * @param	int		$limit 	number of characters to allow
-	 * @return	string	topic preview text
-	 * @access private
-	 */
+	* Truncate and clean topic preview text
+	*
+	* @param	string	$text 	topic preview text
+	* @param	int		$limit 	number of characters to allow
+	* @return	string	topic preview text
+	* @access private
+	*/
 	private function trim_topic_preview($text, $limit)
 	{
 		$text = $this->bbcode_strip($text);
@@ -220,16 +220,16 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	}
 
 	/**
-	 * Strip bbcodes and links for topic preview text
-	 *
-	 * NOTE: These RegEx patterns were originally written by RMcGirr83 for
-	 * his Topic Text Hover Mod, and Modified by Matt Friedman to display
-	 * smileys as text, strip URLs, custom BBcodes and trim whitespace.
-	 *
-	 * @param	string	$text 	topic preview text
-	 * @return	string	topic preview text
-	 * @access private
-	 */
+	* Strip bbcodes and links for topic preview text
+	*
+	* NOTE: These RegEx patterns were originally written by RMcGirr83 for
+	* his Topic Text Hover Mod, and Modified by Matt Friedman to display
+	* smileys as text, strip URLs, custom BBcodes and trim whitespace.
+	*
+	* @param	string	$text 	topic preview text
+	* @return	string	topic preview text
+	* @access private
+	*/
 	private function bbcode_strip($text)
 	{
 		static $patterns = array();
