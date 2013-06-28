@@ -59,9 +59,13 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function setup($event)
 	{
-		global $phpbb_container;
+		global $phpbb_container, $template, $phpbb_root_path;
 
 		$this->manager = $phpbb_container->get('topicpreview.manager');
+
+		$template->assign_vars(array(
+			'TOPICPREVIEW_ASSETS'	=> $phpbb_root_path . 'ext/vse/topicpreview/styles/all/assets',
+		));
 	}
 
 	/**
