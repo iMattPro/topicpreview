@@ -14,7 +14,7 @@
 
 		return this.each(function() {
 			var obj = $(this),
-				firstPostText = obj.closest("li").find(".topic_preview_first").text(), // cache topic preview text
+				firstPostText = obj.closest("li").find(".topic_preview_first").text() || obj.closest("tr").find(".topic_preview_first").text(), // cache topic preview text
 				originalTitle = obj.closest("dt").attr("title"); // cache original title attributes
 
 			obj.hover(function() {
@@ -29,7 +29,7 @@
 				}
 
 				// remove original titles to prevent overlap
-				obj.closest("dt").attr("title", "");
+				obj.attr("title", "").closest("dt").attr("title", "");
 
 				tipTimeout = setTimeout(function() {
 					// clear the timeout var after delay and function begins to execute	
@@ -41,15 +41,15 @@
 					// Display the tooltip positioned relative to the hover object
 					tooltipContainer
 						.css({
-							"width" : settings.width,
+							"max-width" : settings.width + "px",
 							"top"   : obj.offset().top + settings.top + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
-						.fadeIn("fast") // display the tooltip with a fadein
+						.fadeIn("fast") // display the tooltip with a fadein and some animation
 						.animate({'top': '-=15px'}, {duration: 'fast', queue: false}, function() {
-							//animation complete
+							// animation complete
 						}); 
-				}, settings.delay); // Use a delay before fading in tooltip
+				}, settings.delay); // Use a delay before showing in tooltip
 
 			}, function() {
 				// clear any existing timeouts
