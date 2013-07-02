@@ -9,70 +9,61 @@
 			"top"   : 40
 		}, options );
 
-		var tipTimeout = 0,
-			tooltipContainer = $('<div id="tooltip" class="tooltip"></div>').appendTo("body");
+		var previewTimeout = 0,
+			previewContainer = $('<div id="topicPreview" class="topicPreview"></div>').appendTo("body");
 
 		return this.each(function() {
 			var obj = $(this),
-				firstPostText = obj.closest("li").find(".topic_preview_first").text() || obj.closest("tr").find(".topic_preview_first").text(), // cache topic preview text
+				previewText = obj.closest("li").find(".topic_preview_first").text() || obj.closest("tr").find(".topic_preview_first").text(), // cache topic preview text
 				originalTitle = obj.closest("dt").attr("title"); // cache original title attributes
 
 			obj.hover(function() {
 				// Proceed only if there is content to display
-				if (firstPostText === undefined || firstPostText === '') {
+				if (previewText === undefined || previewText === '') {
 					return false;
 				}
 
 				// clear any existing timeouts
-				if (tipTimeout !== 0) {
-					clearTimeout(tipTimeout);
+				if (previewTimeout !== 0) {
+					clearTimeout(previewTimeout);
 				}
 
 				// remove original titles to prevent overlap
 				obj.attr("title", "").closest("dt").attr("title", "");
 
-				tipTimeout = setTimeout(function() {
+				previewTimeout = setTimeout(function() {
 					// clear the timeout var after delay and function begins to execute	
-					tipTimeout = 0;
+					previewTimeout = 0;
 
-					// Fill the tooltip
-					$("#tooltip").html(firstPostText);
+					// Fill the topicPreview
+					$("#topicPreview").html(previewText);
 
-					// Display the tooltip positioned relative to the hover object
-					tooltipContainer
+					// Display the topicPreview positioned relative to the hover object
+					previewContainer
 						.css({
 							"max-width" : settings.width + "px",
 							"top"   : obj.offset().top + settings.top + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
-						.fadeIn("fast") // display the tooltip with a fadein and some animation
+						.fadeIn("fast") // display the topicPreview with a fadein and some animation
 						.animate({'top': '-=15px'}, {duration: 'fast', queue: false}, function() {
 							// animation complete
 						}); 
-				}, settings.delay); // Use a delay before showing in tooltip
+				}, settings.delay); // Use a delay before showing in topicPreview
 
 			}, function() {
 				// clear any existing timeouts
-				if (tipTimeout !== 0) {
-					clearTimeout(tipTimeout);
+				if (previewTimeout !== 0) {
+					clearTimeout(previewTimeout);
 				}
 
-				// Remove tooltip
-				tooltipContainer.stop(true, true).fadeOut("fast"); // hide the tooltip with a fadeout
+				// Remove topicPreview
+				previewContainer.stop(true, true).fadeOut("fast"); // hide the topicPreview with a fadeout
 				obj.closest("dt").attr("title", originalTitle); // reinstate original title attributes
 			});
 		});
 	};
 
-	// Run on DOM ready
-	$(function() {
-		$(".topictitle").topicPreview();
-	});
-
-})( jQuery, window, document );
-
-// (function( $, document ){
-// 
 // 	$.fn.topicPreview = function() {  
 // 
 // 		return this.each(function() {
@@ -84,15 +75,12 @@
 // 			$(this).attr("title", firstPostText);
 // 
 // 			container.find(".icon_topic_latest").attr("title", lastPostText);
-// 
 // 		});
-// 
 // 	};
-// 
-// 	$(document).ready(function() {
-// 
-// 		$(".topictitle").topicPreview();
-// 
-// 	});
-// 
-// })( jQuery, document );
+
+	// Run on DOM ready
+	$(function() {
+		$(".topictitle").topicPreview();
+	});
+
+})( jQuery, window, document );

@@ -1,4 +1,4 @@
-.tooltip {
+.topicPreview {
 	background: #fff; /* #333 dark theme */
 
 	border: 1px solid #cecece;
@@ -18,16 +18,16 @@
 	font-style: normal;
 	color: #333; /* #fff dark theme */
 
-	z-index: 10;	
+	z-index: 10;
 }
 
-.tooltip:before { /* Triangle */
+.topicPreview:before { /* Triangle */
 	content: "";
 	background: #fff; /* #333 dark theme */
 
 	border: 0;
 	border-top: 1px solid #cecece;
-	border-right: 1px solid #cecece;	
+	border-right: 1px solid #cecece;
 
 	width: 10px;
 	height: 10px;
