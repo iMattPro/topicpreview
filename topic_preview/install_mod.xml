@@ -153,10 +153,10 @@
 			<link type="contrib" href="contrib/extras/integration_Board3_Portal.xml" lang="en">Add-On : Integration with Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/extras/integration_nv_recent_topics.xml" lang="en">Add-On : Integration with NV Recent Topics v1.0.6</link>
 			<link type="contrib" href="contrib/update_1010_to_110.xml" lang="en">Upgrade : from 1.0.10 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_109_to_1010.xml" lang="en">Upgrade : from 1.0.9 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_107_to_1010.xml" lang="en">Upgrade : from 1.0.7 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_106_to_1010.xml" lang="en">Upgrade : from 1.0.6 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_105_to_1010.xml" lang="en">Upgrade : from 1.0.5 to 1.0.10</link>
+			<link type="contrib" href="contrib/update_109_to_110.xml" lang="en">Upgrade : from 1.0.9 to 1.1.0</link>
+			<link type="contrib" href="contrib/update_107_to_110.xml" lang="en">Upgrade : from 1.0.7 to 1.1.0</link>
+			<link type="contrib" href="contrib/update_106_to_110.xml" lang="en">Upgrade : from 1.0.6 to 1.1.0</link>
+			<link type="contrib" href="contrib/update_105_to_110.xml" lang="en">Upgrade : from 1.0.5 to 1.1.0</link>
 			<link type="uninstall" href="contrib/extras/uninstall_v110.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
