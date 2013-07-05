@@ -25,11 +25,11 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2013-03-03</date>
+				<date>2013-07-04</date>
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Overhaul of code.]]></change>
-					<change><![CDATA[Replace qTip2 and TipTip plugins with a new custom Fancy Topic Preview add-on]]></change>
+					<change><![CDATA[Replace qTip2 and TipTip plugins with a new custom jQuery Topic Preview add-on]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 					<change><![CDATA[Added French language pack]]></change>
 					<change><![CDATA[Update MODX to 1.2.6.]]></change>
