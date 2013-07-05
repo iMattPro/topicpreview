@@ -40,6 +40,11 @@ Styling / Behavior options: You can change the appearance and behavior of the To
 				<find><![CDATA[	var $tp_last_post	= false;]]></find>
 				<action type="replace-with"><![CDATA[	var $tp_last_post	= true;]]></action>
 			</edit>
+			<edit>
+				<comment lang="en">OPTIONAL: This only needs to be done if you want user avatars displayed inside Topic Previews.</comment>
+				<find><![CDATA[	var $tp_avatars		= false;]]></find>
+				<action type="replace-with"><![CDATA[	var $tp_avatars		= true;]]></action>
+			</edit>
 		</open>
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>

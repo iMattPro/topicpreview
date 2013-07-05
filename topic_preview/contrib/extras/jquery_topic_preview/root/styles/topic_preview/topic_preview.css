@@ -31,6 +31,15 @@
 	background: linear-gradient(to bottom,  #e6e6e6 0%,#d3d3d3 100%);
 	border-bottom: solid 1px #b9b9b9;
 }	
+.topic_preview_avatar_first, .topic_preview_avatar_last {
+	float: left;
+	position: relative;
+	margin: 10px 5px 10px 0;
+	padding: 0 10px;
+	border-right: solid 1px #cccccc;
+	width: 60px;
+	height: 60px;
+}
 .topic_preview_text_first, .topic_preview_text_last {
 	padding: 10px;
 	font-size: 11px;
@@ -92,6 +101,9 @@
 	background: -ms-linear-gradient(top, #4f4f4f 0%, #3b3b3b 100%);
 	background: linear-gradient(to bottom, #4f4f4f 0%, #3b3b3b 100%);
 	border-bottom: solid 1px #444;
+}
+#topic_preview.dark .topic_preview_avatar_first, #topic_preview.dark .topic_preview_avatar_last {
+	border-color: #444;
 }
 #topic_preview.dark #topic_preview_pointer {	
 	border-top: 10px solid #666;
