@@ -50,7 +50,10 @@ DELETE FROM phpbb_config WHERE config_name='topic_preview_version';]]></sql>
 			</edit>
 			<edit>
 				<remove><![CDATA[			// BEGIN Topic Preview Mod
-			$topic_preview->display_topic_preview($row, 'searchresults');
+			if(isset($topic_preview))
+			{
+				$topic_preview->display_topic_preview($row, 'searchresults');
+			}
 			// END Topic Preview Mod
 ]]></remove>
 			</edit>

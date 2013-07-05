@@ -85,7 +85,10 @@
 				<find><![CDATA[				'U_VIEW_POST'		=> (!empty($row['post_id'])) ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=" . $row['topic_id'] . '&amp;p=' . $row['post_id'] . (($u_hilit) ? '&amp;hilit=' . $u_hilit : '')) . '#p' . $row['post_id'] : '')
 			));]]></find>
 				<action type="after-add"><![CDATA[			// BEGIN Topic Preview Mod
-			$topic_preview->display_topic_preview($row, 'searchresults');
+			if(isset($topic_preview))
+			{
+				$topic_preview->display_topic_preview($row, 'searchresults');
+			}
 			// END Topic Preview Mod
 ]]></action>
 			</edit>
