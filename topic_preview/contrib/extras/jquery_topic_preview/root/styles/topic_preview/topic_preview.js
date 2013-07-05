@@ -9,18 +9,18 @@
 
 ;(function ( $, window, document, undefined ) {
 
-	$.fn.tooltips = function( options ) {
+	$.fn.topicPreview = function( options ) {
 
 		var settings = $.extend( {
 			"style" : "light",
 			"width" : 320,
 			"delay" : 500,
-			"leftX" : 0,
-			"topY"  : 12
+			"left" : 0,
+			"top"  : 12
 		}, options );
 
-		var tooltipContainer = $('<div id="tooltip" class="' + settings.style + '"><div id="tooltip_inner"></div><div id="tooltip_pointer"><div id="tooltip_pointer_inner"></div></div></div>').appendTo("body");
-		var tipTimeout = 0;
+		var previewContainer = $('<div id="topic_preview" class="' + settings.style + '"><div id="topic_preview_inner"></div><div id="topic_preview_pointer"><div id="topic_preview_pointer_inner"></div></div></div>').appendTo("body");
+		var previewTimeout = 0;
 
 		return this.each(function() {
 
@@ -36,46 +36,46 @@
 				}
 
 				// clear any existing timeouts
-				if (tipTimeout !== 0) {
-					clearTimeout(tipTimeout);
+				if (previewTimeout !== 0) {
+					clearTimeout(previewTimeout);
 				}
 
 				// remove default title
 				obj.attr("title", "");
 
-				tipTimeout = setTimeout(function() {
+				previewTimeout = setTimeout(function() {
 
 					// clear the timeout var after delay and function begins to execute	
-					tipTimeout = 0;
+					previewTimeout = 0;
 	
-					// Fill the tooltip
-					$("#tooltip_inner")
+					// Fill the topic preview
+					$("#topic_preview_inner")
 						.html(content)
-						.find(".tooltip_text_first > span")
+						.find(".topic_preview_text_first > span")
 						.html(firstPostText);
 
-					// Handle window top edge detection, and invert tooltip if needed 
-					var tooltipTop = obj.offset().top - tooltipContainer.height() - settings.topY;
-					$("#tooltip_pointer, #tooltip_pointer_inner").toggleClass("invert", topEdgeDetect(tooltipTop));
-					tooltipTop = topEdgeDetect(tooltipTop) ? obj.offset().top + (settings.topY * 3) : tooltipTop;
+					// Handle window top edge detection, and invert topic preview if needed 
+					var previewTop = obj.offset().top - previewContainer.height() - settings.top;
+					$("#topic_preview_pointer, #topic_preview_pointer_inner").toggleClass("invert", topEdgeDetect(previewTop));
+					previewTop = topEdgeDetect(previewTop) ? obj.offset().top + (settings.top * 3) : previewTop;
 
-					// position the tooltip relative to the hover object
-					tooltipContainer
+					// position the topic preview relative to the hover object
+					previewContainer
 						.css({
 							"width" : settings.width,
-							"top"   : (tooltipTop + "px"),
-							"left"  : ((obj.offset().left + settings.leftX) + "px")
+							"top"   : (previewTop + "px"),
+							"left"  : ((obj.offset().left + settings.left) + "px")
 						})
-						.fadeIn("fast"); // display the tooltip with a fadein
-				}, settings.delay); // Use a delay before fading in tooltip
+						.fadeIn("fast"); // display the topic preview with a fadein
+				}, settings.delay); // Use a delay before fading in topic preview
 
 			}, function() {
 
-				if (tipTimeout !== 0) {
-					clearTimeout(tipTimeout); // clear any existing timeouts
+				if (previewTimeout !== 0) {
+					clearTimeout(previewTimeout); // clear any existing timeouts
 				}
 
-				tooltipContainer.stop(true, true).fadeOut("fast"); // hide the tooltip with a fadeout
+				previewContainer.stop(true, true).fadeOut("fast"); // hide the topic preview with a fadeout
 
 			});
 
