@@ -24,10 +24,14 @@
 
 		return this.each(function() {
 
-			var obj = $(this);
-			var firstPostText = obj.attr("title"); // cache title attributes
+			var obj = $(this),
+				hoverObject = obj.parent().find(".topictitle"),
+				firstPostText = obj.attr("title"); // cache title attributes
 
-			obj.hover(function() {
+			// remove default titles
+			obj.attr("title", "");
+
+			hoverObject.hover(function() {
 
 				// Proceed only if there is content to display
 				var content = $("#topic_preview_" + obj.attr("id")).html();
@@ -39,9 +43,6 @@
 				if (previewTimeout !== 0) {
 					clearTimeout(previewTimeout);
 				}
-
-				// remove default title
-				obj.attr("title", "");
 
 				previewTimeout = setTimeout(function() {
 
@@ -78,9 +79,7 @@
 				previewContainer.stop(true, true).fadeOut("fast"); // hide the topic preview with a fadeout
 
 			});
-
 		});
-
 	};
 
 	// Check if y coord extends beyond top edge of window
