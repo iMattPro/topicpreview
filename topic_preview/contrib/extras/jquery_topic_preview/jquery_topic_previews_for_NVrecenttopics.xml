@@ -6,15 +6,13 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - jQuery qTip2 Style Add-On for NV Recent Topics]]></title>
-		<description lang="en"><![CDATA[Uses jQuery and the qTip2 plug-in to create a nicer looking Topic Preview. These instructions add this feature to the NV Recent Topics MOD.]]></description>
+		<title lang="en"><![CDATA[Topic Preview - jQuery Style Add-On for NV Recent Topics]]></title>
+		<description lang="en"><![CDATA[Uses jQuery to create a nicer looking Topic Preview. These instructions add this feature to the NV Recent Topics MOD.]]></description>
 		<author-notes lang="en"><![CDATA[Use of these instructions requires that you have already installed:
--NV Recent Topics 1.0.5 or 1.0.6
--Topic Preview
+-NV recent topics v1.0.6 (not included with this MOD)
+-Topic Preview (1.1.0 or later)
 -Topic Preview for NV Recent Topics add-on
--jQuery qTip2 style for Topic Preview add-on
-
-NOTE: Do not use AutoMOD to perform these instructions. There are optional edits to perform based on the version of NV Recent Topics you are using. These instructions must be performed manually.]]></author-notes>
+-jQuery Style Topic Previews Add-On]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -29,10 +27,10 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview Instructions</link>
-			<link type="dependency" href="../NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Topic Preview for NV Recent Topics v1.0.5</link>
-			<link type="dependency" href="../NV_recent_topics_integration/nv_recent_topics_1.0.6_integration.xml" lang="en">Topic Preview for NV Recent Topics v1.0.6</link>
-			<link type="dependency" href="qTip2_install.xml" lang="en">jQuery qTip2 style for Topic Preview Instructions</link>
+			<link type="dependency" href="http://www.flying-bits.org" lang="en">NV recent topics v1.0.6 (not included with this MOD)</link>
+			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview (1.1.0 or later)</link>
+			<link type="dependency" href="../integration_nv_recent_topics.xml" lang="en">Topic Preview for NV Recent Topics v1.0.6</link>
+			<link type="dependency" href="jquery_topic_preview_install.xml" lang="en">jQuery Style Topic Previews Add-On</link>
 		</link-group>
 	</header>
 	<action-group>
@@ -46,8 +44,7 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 			<edit>
 				<find><![CDATA[<dt style="<!-- IF recent_topics.TOPIC_ICON_IMG -->background-image: url({T_ICONS_PATH}{recent_topics.TOPIC_ICON_IMG}); background-repeat: no-repeat;<!-- ENDIF -->" title="<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{recent_topics.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"><!-- IF recent_topics.S_UNREAD_TOPIC --><a href="{recent_topics.U_NEWEST_POST}">{NEWEST_POST_IMG}</a> <!-- ENDIF --><a href="{recent_topics.U_VIEW_TOPIC}" class="topictitle">]]></find>
 				<inline-edit>
-					<inline-remove><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{recent_topics.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->]]></inline-remove>
-					<inline-find><![CDATA[<a href="{recent_topics.U_VIEW_TOPIC}"]]></inline-find>
+					<inline-find><![CDATA[title="<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{recent_topics.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"]]></inline-find>
 					<inline-action type="after-add"><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT --> id="t{recent_topics.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
@@ -55,10 +52,16 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 				<find><![CDATA[</dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->
-				<div id="tp_t{recent_topics.TOPIC_ID}" style="display: none;">
-				<!-- IF recent_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
-				<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
-				</div>
+			<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
+				<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
+				<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
+				<div class="topic_preview_break"></div>
+				<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
+					<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{recent_topics.TOPIC_PREVIEW_TEXT2}</span></div>
+				<!-- ENDIF -->
+			</div>
 			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
@@ -66,17 +69,22 @@ NOTE: Do not use AutoMOD to perform these instructions. There are optional edits
 			<edit>
 				<find><![CDATA[{recent_topics.ATTACH_ICON_IMG} <!-- IF recent_topics.S_HAS_POLL or recent_topics.S_TOPIC_MOVED --><b>{recent_topics.TOPIC_TYPE}</b> <!-- ENDIF --><a title="<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {recent_topics.FIRST_POST_TIME}<!-- ENDIF -->" href="{recent_topics.U_VIEW_TOPIC}" class="topictitle">{recent_topics.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
-					<inline-remove><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {recent_topics.FIRST_POST_TIME}<!-- ENDIF -->]]></inline-remove>
-					<inline-find><![CDATA[href="{recent_topics.U_VIEW_TOPIC}"]]></inline-find>
+					<inline-find><![CDATA[title="<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {recent_topics.FIRST_POST_TIME}<!-- ENDIF -->"]]></inline-find>
 					<inline-action type="after-add"><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT --> id="t{recent_topics.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
 			</edit>
 			<edit>
 				<find><![CDATA[<!-- IF recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED -->]]></find>
 				<action type="before-add"><![CDATA[					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->
-						<div id="tp_t{recent_topics.TOPIC_ID}" style="display: none;">
-						<!-- IF recent_topics.TOPIC_PREVIEW_TEXT --><h5>{L_TOPIC_PREVIEW_FIRST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ENDIF -->
-						<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><br /><br /><h5>{L_TOPIC_PREVIEW_LAST}</h5><hr />{recent_topics.TOPIC_PREVIEW_TEXT2}<!-- ENDIF -->
+						<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
+							<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
+							<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+							<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
+							<div class="topic_preview_break"></div>
+							<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
+								<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+								<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{recent_topics.TOPIC_PREVIEW_TEXT2}</span></div>
+							<!-- ENDIF -->
 						</div>
 					<!-- ENDIF -->]]></action>
 			</edit>
