@@ -27,23 +27,17 @@
 			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precise Similar Topics v1.2.0 (or later)</link>
+			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precise Similar Topics v1.2.0 (or later, not included with this MOD)</link>
 			<link type="dependency" href="../../../install_mod.xml" lang="en">Topic Preview (1.1.0 or later)</link>
-			<link type="dependency" href="../precise_similar_topics_integration.xml" lang="en">Topic Preview for Precise Similar Topics</link>
+			<link type="dependency" href="../integration_precise_similar_topics.xml" lang="en">Topic Preview for Precise Similar Topics</link>
 			<link type="dependency" href="jquery_topic_preview_install.xml" lang="en">jQuery Style Topic Previews Add-On</link>
 		</link-group>
 	</header>
 	<action-group>
-		<open src="styles/prosilver/template/overall_footer.html">
+		<open src="includes/functions_similar_topics.php">
 			<edit>
-				<find><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS -->]]></find>
-				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or S_VIEWTOPIC -->]]></action>
-			</edit>
-		</open>
-		<open src="styles/prosilver/template/overall_header.html">
-			<edit>
-				<find><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS -->]]></find>
-				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or S_VIEWTOPIC -->]]></action>
+				<find><![CDATA[			'L_SIMILAR_TOPICS'	=> $user->lang['PST_TITLE_ACP'],]]></find>
+				<action type="before-add"><![CDATA[			'S_SHOW_TOPICS'		=> true,]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/similar_topics.html">
@@ -72,18 +66,6 @@
 			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
-		<open src="styles/subsilver2/template/overall_footer.html">
-			<edit>
-				<find><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS -->]]></find>
-				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or S_VIEWTOPIC -->]]></action>
-			</edit>
-		</open>
-		<open src="styles/subsilver2/template/overall_header.html">
-			<edit>
-				<find><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS -->]]></find>
-				<action type="replace-with"><![CDATA[<!-- IF S_VIEWFORUM or S_SHOW_TOPICS or S_VIEWTOPIC -->]]></action>
-			</edit>
-		</open>
 		<open src="styles/subsilver2/template/similar_topics.html">
 			<edit>
 				<find><![CDATA[<a href="{similar.U_VIEW_TOPIC}" <!-- IF similar.TOPIC_PREVIEW_TEXT -->title="{similar.TOPIC_PREVIEW_TEXT}"<!-- ENDIF --> class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
@@ -103,7 +85,9 @@
 					<!-- IF similar.TOPIC_PREVIEW_TEXT2 -->
 						<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
 						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{similar.TOPIC_PREVIEW_TEXT2}</span></div>
-					<!-- ENDIF -->]]></action>
+					<!-- ENDIF -->
+				</div>
+			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<diy-instructions lang="en"><![CDATA[Purge the Cache.]]></diy-instructions>
