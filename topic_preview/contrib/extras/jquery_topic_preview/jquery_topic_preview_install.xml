@@ -9,7 +9,7 @@
 		<title lang="en"><![CDATA[Topic Preview - jQuery Style Topic Previews Add-On]]></title>
 		<description lang="en"><![CDATA[Uses jQuery to create a nicer looking Topic Preview with the option to display both the first post and last post of a topic in a single tooltip, and in several themes.]]></description>
 		<author-notes lang="en"><![CDATA[This add-on uses the jQuery library. It is your responsibility to ensure adding this MOD does not cause any conflicts with other jQuery related MODs on your forum. jQuery should never be included on a page more than once.
-Styling / Behavior options: You can change the appearance and behavior of the Topic Preview using any of its built-in themes and settings. Search in your styles overall_header.html for .tooltips and you will see available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
+Styling / Behavior options: You can change the appearance and behavior of the Topic Preview using any of its built-in themes and settings. Search in your styles overall_footer.html for .topicPreview and you will see available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
