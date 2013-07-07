@@ -64,12 +64,13 @@ $versions = array(
 
 		'module_add' => array(
 			array('acp', 'ACP_CAT_DOT_MODS', 'TOPIC_PREVIEW'),
-
 			array('acp', 'TOPIC_PREVIEW', array(
 					'module_basename'		=> 'topic_preview',
 				),
 			),
 		),
+
+		'cache_purge' => '',	
 	),
 
 );
