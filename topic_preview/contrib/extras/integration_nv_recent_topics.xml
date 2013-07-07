@@ -54,8 +54,24 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 				<find><![CDATA[				<dt style="<!-- IF recent_topics.TOPIC_ICON_IMG -->background-image: url({T_ICONS_PATH}{recent_topics.TOPIC_ICON_IMG}); background-repeat: no-repeat;<!-- ENDIF -->" title="{recent_topics.TOPIC_FOLDER_IMG_ALT}">]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[title="{recent_topics.TOPIC_FOLDER_IMG_ALT}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[title="<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{recent_topics.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"]]></inline-action>
+					<inline-action type="replace-with"><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->title="{recent_topics.TOPIC_PREVIEW_TEXT}" id="t{recent_topics.TOPIC_ID}"<!-- ELSE -->title="{recent_topics.TOPIC_FOLDER_IMG_ALT}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[</dd>
+			</dl>]]></find>
+				<action type="after-add"><![CDATA[			<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+			<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
+				<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
+				<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
+				<div class="topic_preview_break"></div>
+				<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
+					<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{recent_topics.TOPIC_PREVIEW_TEXT2}</span></div>
+				<!-- ENDIF -->
+			</div>
+			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/recent_topics_body.html">
@@ -63,8 +79,23 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 				<find><![CDATA[					{recent_topics.ATTACH_ICON_IMG} <!-- IF recent_topics.S_HAS_POLL or recent_topics.S_TOPIC_MOVED --><b>{recent_topics.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {recent_topics.FIRST_POST_TIME}" href="{recent_topics.U_VIEW_TOPIC}" class="topictitle">]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[title="{L_POSTED}: {recent_topics.FIRST_POST_TIME}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[title="<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->{recent_topics.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{L_POSTED}: {recent_topics.FIRST_POST_TIME}<!-- ENDIF -->"]]></inline-action>
+					<inline-action type="replace-with"><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->title="{recent_topics.TOPIC_PREVIEW_TEXT}" id="t{recent_topics.TOPIC_ID}"<!-- ELSE -->title="{L_POSTED}: {recent_topics.FIRST_POST_TIME}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- IF recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED -->]]></find>
+				<action type="before-add"><![CDATA[					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+						<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
+							<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
+							<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+							<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
+							<div class="topic_preview_break"></div>
+							<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
+								<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+								<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{recent_topics.TOPIC_PREVIEW_TEXT2}</span></div>
+							<!-- ENDIF -->
+						</div>
+					<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<diy-instructions lang="en"><![CDATA[Clear your cache and test it out!]]></diy-instructions>
