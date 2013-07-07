@@ -21,12 +21,12 @@
 			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="parent" href="../../install_mod.xml" lang="en">Main Install Instructions</link>
+			<link type="parent" href="../../install_mod.xml" lang="en">Topic Preview Install Instructions</link>
 		</link-group>
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/language/nl/mods/topic_preview.php" to="language/nl/mods/topic_preview.php"/>
+			<file from="root/language/nl/mods/info_acp_topic_preview.php" to="language/nl/mods/info_acp_topic_preview.php"/>
 		</copy>
 	</action-group>
 </mod>

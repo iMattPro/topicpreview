@@ -7,9 +7,11 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.		
+		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a Pretty jQuery theme with options to include user's avatars, and both the first and last posts from the topic. Topic Preview is highly customizable to get the right look for each style in your board.		
 		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
 		<github><![CDATA[https://github.com/VSEphpbb/topic_preview]]></github>
+		<author-notes lang="en"><![CDATA[This MOD uses the jQuery library. It is your responsibility to ensure adding this MOD does not cause any conflicts with other jQuery related MODs on your board. jQuery should never be included on a page more than once.
+Styling / Behavior options: You can change the appearance and behavior of the Pretty Topic Preview theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -25,15 +27,19 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2013-07-04</date>
+				<date>2013-07-07</date>
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Overhaul of code.]]></change>
-					<change><![CDATA[Replace qTip2 and TipTip plugins with a new custom jQuery Topic Preview add-on]]></change>
+					<change><![CDATA[Total overhaul of code base]]></change>
+					<change><![CDATA[Replaced qTip2 and TipTip plugins with a new jQuery Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to use native browser tooltips or the new Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display user's avatars in the Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display both first and last posts in the new Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Moved all ACP settings to the .MODs tab]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 					<change><![CDATA[Added French language pack]]></change>
-					<change><![CDATA[Update MODX to 1.2.6.]]></change>
-					<change><![CDATA[Update UMIL to 1.0.5.]]></change>
+					<change><![CDATA[Updated MODX to 1.2.6.]]></change>
+					<change><![CDATA[Updated UMIL to 1.0.5.]]></change>
 				</changelog>
 			</entry>
 			<entry>
@@ -146,25 +152,22 @@
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
-			<link type="contrib" href="contrib/extras/jquery_topic_preview/jquery_topic_preview_install.xml" lang="en">Add-On : jQuery Style Topic Previews</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
 			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Preserve Line Breaks in Topic Previews</link>
 			<link type="contrib" href="contrib/extras/integration_precise_similar_topics.xml" lang="en">Add-On : Integration with Precise Similar Topics II v1.2.0 or later</link>
 			<link type="contrib" href="contrib/extras/integration_Board3_Portal.xml" lang="en">Add-On : Integration with Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/extras/integration_nv_recent_topics.xml" lang="en">Add-On : Integration with NV Recent Topics v1.0.6</link>
 			<link type="contrib" href="contrib/update_1010_to_110.xml" lang="en">Upgrade : from 1.0.10 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_109_to_110.xml" lang="en">Upgrade : from 1.0.9 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_107_to_110.xml" lang="en">Upgrade : from 1.0.7 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_106_to_110.xml" lang="en">Upgrade : from 1.0.6 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_105_to_110.xml" lang="en">Upgrade : from 1.0.5 to 1.1.0</link>
 			<link type="uninstall" href="contrib/extras/uninstall_v110.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/language/en/mods/topic_preview.php" to="language/en/mods/topic_preview.php"/>
-			<file from="root/includes/topic_preview.php" to="includes/topic_preview.php"/>
+			<file from="root/adm/style/acp_topic_preview.html" to="adm/style/acp_topic_preview.html"/>
+			<file from="root/includes/*.*" to="includes/*.*"/>
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
+			<file from="root/language/en/mods/info_acp_topic_preview.php" to="language/en/mods/info_acp_topic_preview.php"/>
+			<file from="root/styles/topic_preview/*.*" to="styles/topic_preview/*.*"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>
 		<open src="search.php">
@@ -222,28 +225,11 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 ]]></action>
 			</edit>
 		</open>
-		<open src="includes/acp/acp_board.php">
-			<edit>
-				<find><![CDATA[$user->add_lang('acp/board');]]></find>
-				<action type="after-add"><![CDATA[ 		// BEGIN Topic Preview Mod
-		$user->add_lang('mods/topic_preview');
-		// END Topic Preview Mod
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['load_cpf_viewtopic'	=> array('lang' => 'LOAD_CPF_VIEWTOPIC',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></find>
-				<action type="after-add"><![CDATA[						// BEGIN Topic Preview Mod
-						'topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW_LENGTH',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
-						'topic_preview_strip_bbcodes'	=> array('lang' => 'TOPIC_PREVIEW_STRIP',	'validate' => 'string',	'type' => 'text:30:255', 'explain' => true),
-						// END Topic Preview Mod
-]]></action>
-			</edit>
-		</open>
 		<open src="includes/ucp/ucp_prefs.php">
 			<edit>
 				<find><![CDATA[				add_form_key('ucp_prefs_view');]]></find>
 				<action type="after-add"><![CDATA[				// BEGIN Topic Preview Mod
-				$user->add_lang('mods/topic_preview');
+				$user->add_lang('mods/info_acp_topic_preview');
 				// END Topic Preview Mod
 ]]></action>
 			</edit>
@@ -270,13 +256,59 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 ]]></action>
 			</edit>
 		</open>
+		<open src="styles/prosilver/template/overall_footer.html">
+			<edit>
+				<find><![CDATA[</body>]]></find>
+				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+	<script type="text/javascript">
+		window.jQuery || document.write(unescape('%3Cscript src="{ROOT_PATH}styles/topic_preview/jquery.min.js" type="text/javascript"%3E%3C/script%3E'));
+	</script>
+	<script src="{ROOT_PATH}styles/topic_preview/topic_preview.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("dt[title]").topicPreview({
+				"style" : "light", //use "light" or "dark" topic preview theme
+				"width" : 320, //sets the width of topic previews (in pixels)
+				"delay" : 500, //sets the delay before showing topic previews (in milliseconds)
+				"left"  : 42 //sets the position offset from the left (in pixels)
+			});
+		});
+	</script>
+<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/overall_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+	<link href="{ROOT_PATH}styles/topic_preview/topic_preview.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
 		<open src="styles/prosilver/template/search_results.html">
 			<edit>
 				<find><![CDATA[<dt <!-- IF searchresults.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF -->>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[background-repeat: no-repeat;"<!-- ENDIF -->]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
+					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}" id="t{searchresults.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{searchresults.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{searchresults.LAST_POST_TIME}<br /> </span>
+					</dd>
+				</dl>]]></find>
+				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<div id="topic_preview_t{searchresults.TOPIC_ID}" style="display:none;">
+					<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
+					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
+					<div class="topic_preview_break"></div>
+					<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 -->
+						<!-- IF searchresults.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{searchresults.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{searchresults.TOPIC_PREVIEW_TEXT2}</span></div>
+					<!-- ENDIF -->
+				</div>
+				<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/ucp_prefs_view.html">
@@ -299,11 +331,30 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 				<find><![CDATA[<dt<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}">]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[title="{topicrow.TOPIC_FOLDER_IMG_ALT}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"]]></inline-action>
+					<inline-action type="replace-with"><![CDATA[id="t{topicrow.TOPIC_ID}" title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"]]></inline-action>
 				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>
+				</dd>
+			</dl>]]></find>
+				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+			<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
+				<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
+				<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
+				<div class="topic_preview_break"></div>
+				<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
+					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{topicrow.TOPIC_PREVIEW_TEXT2}</span></div>
+				<!-- ENDIF -->
+			</div>
+			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<php-installer><![CDATA[install_topic_preview.php]]></php-installer>
-		<diy-instructions lang="en"><![CDATA[Point your browser to yourforum/install_topic_preview.php to complete installation.]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Once all the files have been modified and uploaded to your site, point your browser to the "install_topic_preview.php" script
+(or click the highlighted link above if you are using AutoMOD) and follow the instructions. Once that is complete,
+you can delete the "install_topic_preview.php" script.]]></diy-instructions>
 	</action-group>
 </mod>

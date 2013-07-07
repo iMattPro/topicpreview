@@ -37,15 +37,17 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'TOPIC_PREVIEW'			=> 'Longueur du texte de l’aperçu des sujets',
-	'TOPIC_PREVIEW_EXPLAIN'	=> 'Affichera dans une info-bulle un peu de texte du premier message, lorsque la souris survole le titre du sujet. Saisissez le nombre de caractères à afficher dans l’info-bulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
-	'CHARS'   				=> 'Caractères',
-	'DISPLAY_TOPIC_PREVIEW' => 'Afficher l’aperçu des sujets',	
+	'TOPIC_PREVIEW'					=> 'Aperçu des Sujets',
+	'FIRST_POST'					=> 'First post',
+	'TOPIC_PREVIEW_LENGTH'			=> 'Longueur du texte de l’aperçu des sujets',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Affichera dans une info-bulle un peu de texte du premier message, lorsque la souris survole le titre du sujet. Saisissez le nombre de caractères à afficher dans l’info-bulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
+	'CHARS'							=> 'Caractères',
+	'DISPLAY_TOPIC_PREVIEW'			=> 'Afficher l’aperçu des sujets',	
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode à cacher dans l’aperçu des sujets',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes de contenu à supprimer de l’aperçu (les BBCodes de texte caché et Spoiler par exemple). Séparez les différents BBCodes avec le caractère « | ». Exemples: spoiler|hide|code',
-
-	// Installation language vars (UMIL)
-	'TP_MOD'	=> 'Aperçu des Sujets',
+	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
 ));
 
 ?>

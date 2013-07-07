@@ -28,7 +28,7 @@ if (!file_exists($phpbb_root_path . 'umil/umil_auto.' . $phpEx))
 
 $mod_name = 'TOPIC_PREVIEW';
 $version_config_name = 'topic_preview_version';
-$language_file = 'mods/topic_preview';
+$language_file = 'mods/info_acp_topic_preview';
 
 $versions = array(
 	// Version 1.0.6
@@ -55,7 +55,23 @@ $versions = array(
 	'1.0.10' => array(),
 
 	// Version 1.1.0
-	'1.1.0' => array(),
+	'1.1.0' => array(
+		'config_add' => array(
+			array('topic_preview_last_post', '0'),
+			array('topic_preview_avatars', '0'),
+			array('topic_preview_pretty', '0'),
+		),
+
+		'module_add' => array(
+			array('acp', 'ACP_CAT_DOT_MODS', 'TOPIC_PREVIEW'),
+			array('acp', 'TOPIC_PREVIEW', array(
+					'module_basename'		=> 'topic_preview',
+				),
+			),
+		),
+
+		'cache_purge' => '',	
+	),
 
 );
 
