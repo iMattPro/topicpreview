@@ -26,7 +26,7 @@
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/language/es/mods/topic_preview.php" to="language/es/mods/topic_preview.php"/>
+			<file from="root/language/es/mods/info_acp_topic_preview.php" to="language/es/mods/info_acp_topic_preview.php"/>
 		</copy>
 	</action-group>
 </mod>
