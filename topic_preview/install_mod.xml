@@ -7,7 +7,7 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.		
+		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a Pretty jQuery theme with options to include user's avatars, and both the first and last posts from the topic. The default installation is very simple (no javascript or css needed) and designed to mimic the vbulletin method, but Topic Preview is easily enhanced with the Pretty jQuery theme option which is also highly customizable to get the right look for each style in your board.		
 		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
 		<github><![CDATA[https://github.com/VSEphpbb/topic_preview]]></github>
 		<author-group>
@@ -25,15 +25,19 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2013-07-04</date>
+				<date>2013-07-07</date>
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Overhaul of code.]]></change>
-					<change><![CDATA[Replace qTip2 and TipTip plugins with a new custom jQuery Topic Preview add-on]]></change>
+					<change><![CDATA[Total overhaul of code base]]></change>
+					<change><![CDATA[Replaced qTip2 and TipTip plugins with a new jQuery Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to use native browser tooltips or the new Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display user's avatars in the Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display both first and last posts in the new Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Moved all ACP settings to the .MODs tab]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 					<change><![CDATA[Added French language pack]]></change>
-					<change><![CDATA[Update MODX to 1.2.6.]]></change>
-					<change><![CDATA[Update UMIL to 1.0.5.]]></change>
+					<change><![CDATA[Updated MODX to 1.2.6.]]></change>
+					<change><![CDATA[Updated UMIL to 1.0.5.]]></change>
 				</changelog>
 			</entry>
 			<entry>
@@ -146,7 +150,6 @@
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
-			<link type="contrib" href="contrib/extras/jquery_topic_preview/jquery_topic_preview_install.xml" lang="en">Add-On : jQuery Style Topic Previews</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
 			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Preserve Line Breaks in Topic Previews</link>
 			<link type="contrib" href="contrib/extras/integration_precise_similar_topics.xml" lang="en">Add-On : Integration with Precise Similar Topics II v1.2.0 or later</link>
