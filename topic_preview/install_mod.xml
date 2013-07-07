@@ -7,9 +7,11 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a Pretty jQuery theme with options to include user's avatars, and both the first and last posts from the topic. The default installation is very simple (no javascript or css needed) and designed to mimic the vbulletin method, but Topic Preview is easily enhanced with the Pretty jQuery theme option which is also highly customizable to get the right look for each style in your board.		
+		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a Pretty jQuery theme with options to include user's avatars, and both the first and last posts from the topic. Topic Preview is highly customizable to get the right look for each style in your board.		
 		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
 		<github><![CDATA[https://github.com/VSEphpbb/topic_preview]]></github>
+		<author-notes lang="en"><![CDATA[This MOD uses the jQuery library. It is your responsibility to ensure adding this MOD does not cause any conflicts with other jQuery related MODs on your board. jQuery should never be included on a page more than once.
+Styling / Behavior options: You can change the appearance and behavior of the Pretty Topic Preview theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -165,6 +167,7 @@
 	</header>
 	<action-group>
 		<copy>
+			<file from="root/adm/style/acp_topic_preview.html" to="adm/style/acp_topic_preview.html"/>
 			<file from="root/includes/*.*" to="includes/*.*"/>
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
 			<file from="root/language/en/mods/info_acp_topic_preview.php" to="language/en/mods/info_acp_topic_preview.php"/>
@@ -230,7 +233,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<find><![CDATA[				add_form_key('ucp_prefs_view');]]></find>
 				<action type="after-add"><![CDATA[				// BEGIN Topic Preview Mod
-				$user->add_lang('mods/topic_preview');
+				$user->add_lang('mods/info_acp_topic_preview');
 				// END Topic Preview Mod
 ]]></action>
 			</edit>
@@ -354,6 +357,8 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			</edit>
 		</open>
 		<php-installer><![CDATA[install_topic_preview.php]]></php-installer>
-		<diy-instructions lang="en"><![CDATA[Point your browser to yourforum/install_topic_preview.php to complete installation.]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Once all the files have been modified and uploaded to your site, point your browser to the "install_topic_preview.php" script
+(or click the highlighted link above if you are using AutoMOD) and follow the instructions. Once that is complete,
+you can delete the "install_topic_preview.php" script.]]></diy-instructions>
 	</action-group>
 </mod>
