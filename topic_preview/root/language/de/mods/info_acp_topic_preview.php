@@ -47,6 +47,9 @@ $lang = array_merge($lang, array(
 	'DISPLAY_TOPIC_PREVIEW' 		=> 'Zeige Themenvorschau',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Aus Themenvorschau zu entfernende BBcodes',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Aufzählung aller BBcodes, die (mitsamt deren Inhalt) nicht im Vorschautext erscheinen sollen (z.B. für Spoiler oder versteckte Texte). Mehrere BBcodes müssen mit “|” getrennt werden - Beispiel: “spoiler|hide|code”.',
+	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
 ));
 
 ?>
