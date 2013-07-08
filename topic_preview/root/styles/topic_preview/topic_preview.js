@@ -20,7 +20,7 @@
 			"drift" : 12
 		}, options );
 
-		var previewContainer = $('<div id="topic_preview" class="' + settings.style + '"><div id="topic_preview_inner"></div><div id="topic_preview_pointer"><div id="topic_preview_pointer_inner"></div></div></div>').appendTo("body");
+		var previewContainer = $('<div id="topic_preview" class="' + settings.style + '"><div id="topic_preview_inner"></div><div id="topic_preview_pointer"><div id="topic_preview_pointer_inner"></div></div></div>').css("width", settings.width).appendTo("body");
 		var previewTimeout = 0;
 
 		return this.each(function() {
@@ -64,7 +64,6 @@
 					// position the topic preview relative to the hover object
 					previewContainer
 						.css({
-							"width" : settings.width,
 							"top"   : (previewTop + "px"),
 							"left"  : ((obj.offset().left + settings.left) + "px")
 						})
