@@ -207,7 +207,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			$("dt[title]").topicPreview({
 				"style" : "light", //use "light" or "dark" topic preview theme
 				"width" : 320, //sets the width of topic previews (in pixels)
-				"delay" : 500, //sets the delay before showing topic previews (in milliseconds)
+				"delay" : 1500, //sets the delay before showing topic previews (in milliseconds)
 				"left"  : 42 //sets the position offset from the left (in pixels)
 			});
 		});
@@ -288,7 +288,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			$("a.topictitle").topicPreview({
 				"style" : "light", //use "light" or "dark" topic preview theme
 				"width" : 320, //sets the width of topic previews (in pixels)
-				"delay" : 500, //sets the delay before showing topic previews (in milliseconds)
+				"delay" : 1500, //sets the delay before showing topic previews (in milliseconds)
 				"left"  : -10 //sets the position offset from the left (in pixels)
 			});
 		});
