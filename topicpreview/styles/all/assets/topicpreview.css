@@ -19,6 +19,8 @@
 	color: #333; /* #fff dark theme */
 
 	z-index: 10;
+	
+	display: none;
 }
 
 .topicPreview:before { /* Triangle */
