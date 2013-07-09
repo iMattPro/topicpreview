@@ -6,7 +6,8 @@
 			"width" : 300,
 			"delay" : 500,
 			"left"  : 35,
-			"top"   : 40
+			"top"   : 25,
+			"drift" : 15
 		}, options );
 
 		var previewTimeout = 0,
@@ -42,13 +43,13 @@
 					previewContainer
 						.css({
 							"max-width" : settings.width + "px",
-							"top"   : obj.offset().top + settings.top + "px",
+							"top"   : obj.offset().top + settings.top + settings.drift + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
 						.fadeIn("fast") // display the topicPreview with a fadein and some animation
-						.animate({'top': '-=15px'}, {duration: 'fast', queue: false}, function() {
+						.animate({"top": "-=" + settings.drift + "px"}, {duration: 'fast', queue: false}, function() {
 							// animation complete
-						}); 
+						});
 				}, settings.delay); // Use a delay before showing in topicPreview
 
 			}, function() {
@@ -58,7 +59,10 @@
 				}
 
 				// Remove topicPreview
-				previewContainer.stop(true, true).fadeOut("fast"); // hide the topicPreview with a fadeout
+				previewContainer.stop(true, true).fadeOut("fast") // hide the topicPreview with a fadeout
+					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
+						// animation complete
+					});
 				obj.closest("dt").attr("title", originalTitle); // reinstate original title attributes
 			});
 		});
