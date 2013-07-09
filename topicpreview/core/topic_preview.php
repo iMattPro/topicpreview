@@ -189,7 +189,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 			'TOPIC_PREVIEW_LP'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
 		), $block);
 
-		// for testing
+		// modify existing vars, only works for prosilver
 //		$block['TOPIC_FOLDER_IMG_ALT'] = (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '';
 //		$block['U_LAST_POST'] .= (isset($last_post_preview_text)) ? '" title="' . censor_text($last_post_preview_text) : '';
 

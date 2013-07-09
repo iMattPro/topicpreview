@@ -40,13 +40,13 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 		return array(
 			'core.user_setup'			=> 'setup',
 
-			// these are custom events that are not yet part of the core
-			'core.topicdata_modify_sql'				=> 'get_viewforum_topic_preview',
-			'core.shadowtopic_modify_sql'			=> 'get_shadowtopic_topic_preview',
-			'core.search_results_topics_modify_sql'	=> 'get_searchresults_topic_preview',
+			// These are custom events that are not yet part of the core
+			'core.topicdata_modify_sql'				=> 'modify_sql_array',
+			'core.shadowtopic_modify_sql'			=> 'modify_sql_statement',
+			'core.search_results_topics_modify_sql'	=> 'modify_sql_events',
 			'core.search_modify_searchresults'		=> 'display_topic_previews',
 
-			// these are part of the core
+			// These are part of the core
 			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',
 		);
 	}
@@ -69,41 +69,41 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	}
 
 	/**
-	* Modify the topics SQL to get post text for topic preview
+	* Modify an SQL array to get post text for topic previews (viewforum)
 	*
 	* @param Event $event Event object
 	* @return null
 	*/
-	public function get_viewforum_topic_preview($event)
+	public function modify_sql_array($event)
 	{
 		$event['sql_array'] = $this->manager->modify_sql_array($event['sql_array']);
 	}
 
 	/**
-	* Modify the shadow topics SQL to get post text for topic preview
+	* Modify an SQL statement to get post text for topic previews (shadow topics)
 	*
 	* @param Event $event Event object
 	* @return null
 	*/
-	public function get_shadowtopic_topic_preview($event)
+	public function modify_sql_statement($event)
 	{
 		$event['sql'] = $this->manager->modify_sql($event['sql']);
 	}
 
 	/**
-	* Modify the search results SQL to get post text for topic preview
+	* Modify SQL from and select to get post text for topic previews (search results )
 	*
 	* @param Event $event Event object
 	* @return null
 	*/
-	public function get_searchresults_topic_preview($event)
+	public function modify_sql_events($event)
 	{
 		$event['sql_from'] = $this->manager->modify_sql_join($event['sql_from']);
 		$event['sql_select'] = $this->manager->modify_sql_select($event['sql_select']);		
 	}
 
 	/**
-	* Modify the template vars of the viewforum/search display topic preview text
+	* Modify template vars to display topic previews
 	*
 	* @param Event $event Event object
 	* @return null
