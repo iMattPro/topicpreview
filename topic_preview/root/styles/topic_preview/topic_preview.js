@@ -68,7 +68,7 @@
 							"left"  : ((obj.offset().left + settings.left) + "px")
 						})
 						.fadeIn("fast") // display the topic preview with a fadein
-						.animate({'top': "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
+						.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 							// animation complete
 						});
 				}, settings.delay); // Use a delay before fading in topic preview
@@ -80,7 +80,7 @@
 				}
 
 				previewContainer.stop(true, true).fadeOut("fast") // hide the topic preview with a fadeout
-					.animate({'top': "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
+					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 						// animation complete
 					});
 			});
