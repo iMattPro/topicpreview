@@ -43,6 +43,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Zde máte možnost zadat počet znaků zobrazených v úryvku z tématu.<br /><strong>Zadáním 0 funkci vypnete.</strong>',
 	'TOPIC_PREVIEW_STRIP'			=> 'Skryté BBkódy',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Zde máte možnost zadat BBkódy, které v úryvku nebudou zobrazeny. Pro oddělení využijte znak |.<br /><i>Například: list|code|quote.</i>',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
 	'CHARS'							=> 'Počet znaků',
 ));

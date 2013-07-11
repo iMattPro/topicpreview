@@ -43,6 +43,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Introdu numărul de caractere ce vor fi afişate în tooltip (valoarea implicită este 150). Setarea acestei valori la 0 scoate din funcţiune această particularitate.',
 	'TOPIC_PREVIEW_STRIP'			=> 'Coduri BB de ascuns în previzualizarea subiectelor',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Afişează codurile BB cu conţinutul pe care-l doreşti înlăturat din previzualizare (spoileri şi texte cod BB ascunse, spre exemplu). Separă codurile BB multiple folosind caracterul |, de exemplu: spoiler|ascunde|cod',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
 	'CHARS'							=> 'Caractere',
 ));

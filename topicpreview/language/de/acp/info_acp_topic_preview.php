@@ -43,6 +43,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Hiermit wird die Zeichenanzahl des Textes festgelegt (Standard sind 150). Die Angabe “0” deaktiviert den Vorschautext gänzlich.',
 	'TOPIC_PREVIEW_STRIP'			=> 'Aus Themenvorschau zu entfernende BBcodes',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Aufzählung aller BBcodes, die (mitsamt deren Inhalt) nicht im Vorschautext erscheinen sollen (z.B. für Spoiler oder versteckte Texte). Mehrere BBcodes müssen mit “|” getrennt werden - Beispiel: “spoiler|hide|code”.',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
 	'CHARS'							=> 'Zeichen',
 ));

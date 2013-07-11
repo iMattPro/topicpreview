@@ -43,6 +43,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Saisissez le nombre de caractères à afficher dans l’info-bulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode à cacher dans l’aperçu des sujets',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes de contenu à supprimer de l’aperçu (les BBCodes de texte caché et Spoiler par exemple). Séparez les différents BBCodes avec le caractère « | ». Exemples: spoiler|hide|code',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
 	'CHARS'							=> 'Caractères',
 ));

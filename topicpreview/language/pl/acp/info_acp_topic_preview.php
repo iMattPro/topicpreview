@@ -43,6 +43,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Wpisz liczbę znaków do wyświetlenia w dymku (domyślnie jest 150). Ustawienie wartości 0 wyłącza tę funkcję.',
 	'TOPIC_PREVIEW_STRIP'			=> 'Ukryj BBkody w Podglądzie Tematu',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista z zawartością BBKodów, które chcesz usunąć podglądu (na przykład BBKody: spoiler, ukryty tekst, kod). Kilka BBKodów oddziel znakiem | , na przykład: spoiler|hide|code',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
 	'CHARS'							=> 'Znaki',
 ));
