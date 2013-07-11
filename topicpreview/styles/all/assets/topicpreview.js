@@ -4,7 +4,7 @@
 
 		var settings = $.extend( {
 			"delay" : 1500,
-			"width" : 300,
+			"width" : 320,
 			"left"  : 35,
 			"top"   : 25,
 			"drift" : 15
