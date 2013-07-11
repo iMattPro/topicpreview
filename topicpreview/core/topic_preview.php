@@ -55,12 +55,12 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	/**
 	* Add-On: Preserve line breaks?
 	*/
-	private $preserve_lb	= false;
+//	private $preserve_lb	= false;
 
 	/**
 	* Add-On: [topicpreview] bbcode support?
 	*/
-	private $tp_bbcode		= false;
+//	private $tp_bbcode		= false;
 
 	/**
 	* Topic Preview class constructor method
@@ -276,17 +276,17 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	{
 		static $patterns = array();
 
-		if ($this->tp_bbcode)
-		{
-			// use text inside [topicpreview] bbcode as the topic preview
-			if (preg_match('#\[(topicpreview[^\[\]]+)\].*\[/\1\]#Usi', $text, $matches))
-			{
-				$text = $matches[0];
-			}
-		}
+// 		if ($this->tp_bbcode)
+// 		{
+// 			// use text inside [topicpreview] bbcode as the topic preview
+// 			if (preg_match('#\[(topicpreview[^\[\]]+)\].*\[/\1\]#Usi', $text, $matches))
+// 			{
+// 				$text = $matches[0];
+// 			}
+// 		}
 
 		$text = smiley_text($text, true); // display smileys as text :)
-		$text = ($this->preserve_lb ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
+//		$text = ($this->preserve_lb ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
 
 		$bbcode_strip = (empty($this->strip_bbcodes) ? 'flash' : 'flash|' . trim($this->strip_bbcodes));
 
