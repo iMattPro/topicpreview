@@ -11,7 +11,7 @@
 		}, options );
 
 		var previewTimeout = 0,
-			previewContainer = $('<div id="topicPreview"></div>').css("width", settings.width).appendTo("body");
+			previewContainer = $('<div id="topic_preview"></div>').css("width", settings.width).appendTo("body");
 
 		return this.each(function() {
 			var obj = $(this),
@@ -36,7 +36,7 @@
 					// clear the timeout var after delay and function begins to execute	
 					previewTimeout = 0;
 
-					// Fill the topicPreview
+					// Fill the topic_preview
 					previewContainer.html(previewText);
 
 					// Window bottom edge detection, invert topic preview if needed 
@@ -45,17 +45,17 @@
 					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
 					previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight() + 6 : previewTop;
 
-					// Display the topicPreview positioned relative to the hover object
+					// Display the topic_preview positioned relative to the hover object
 					previewContainer
 						.css({
 							"top"   : previewTop + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
-						.fadeIn("fast") // display the topicPreview with a fadein and some animation
+						.fadeIn("fast") // display the topic_preview with a fadein and some animation
 						.animate({"top": "-=" + settings.drift + "px"}, {duration: 'fast', queue: false}, function() {
 							// animation complete
 						});
-				}, settings.delay); // Use a delay before showing in topicPreview
+				}, settings.delay); // Use a delay before showing in topic_preview
 
 			}, function() {
 				// clear any existing timeouts
@@ -63,8 +63,8 @@
 					clearTimeout(previewTimeout);
 				}
 
-				// Remove topicPreview
-				previewContainer.stop(true, true).fadeOut("fast") // hide the topicPreview with a fadeout
+				// Remove topic_preview
+				previewContainer.stop(true, true).fadeOut("fast") // hide the topic_preview with a fadeout
 					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 						// animation complete
 					});

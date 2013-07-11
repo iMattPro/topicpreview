@@ -1,4 +1,4 @@
-#topicPreview {
+#topic_preview {
 	background: #fff; /* #333 dark theme */
 
 	border: 1px solid #cecece;
@@ -23,7 +23,7 @@
 	display: none;
 }
 
-#topicPreview:before { /* Upper Triangle */
+#topic_preview:before { /* Upper Triangle */
 	content: "";
 	background: #fff; /* #333 dark theme */
 
@@ -50,7 +50,7 @@
 	*display: none;
 }
 
-#topicPreview.invert:before { /* Lower Triangle */
+#topic_preview.invert:before { /* Lower Triangle */
 	content: "";
 	background: #fff; /* #333 dark theme */
 
