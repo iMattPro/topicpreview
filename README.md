@@ -1,7 +1,7 @@
 ![Topic Preview](http://orcamx.vlexofree.com/forum/images/search.png "Topic Preview") Topic Preview for phpBB3
 ========================
 
-This is an extension for phpBB 3.1 that will display an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability.
+This is an extension for phpBB 3.1 that will display an excerpt from the first post of a topic when the user hovers their mouse over the topic title, in the form of a pretty jQuery Tooltip.
 
 STATUS
 ------
