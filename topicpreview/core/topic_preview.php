@@ -71,7 +71,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 
 		// config parameters
 		$this->is_active     = (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview'])) ? true : false;
-		$this->tp_avatars    = (bool) $config['topic_preview_avatars'];
+		$this->tp_avatars    = $config['topic_preview_avatars'] && $config['allow_avatar'] ? true : false;
 		$this->preview_limit = (int) $config['topic_preview_limit'];
 		$this->strip_bbcodes = (string) $config['topic_preview_strip_bbcodes'];
 
