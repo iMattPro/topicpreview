@@ -68,7 +68,7 @@ class acp_topic_preview
 			'S_TOPIC_PREVIEW_PRETTY'	=> isset($config['topic_preview_pretty']) ? $config['topic_preview_pretty'] : false,
 			'S_TOPIC_PREVIEW_AVATARS'	=> isset($config['topic_preview_avatars']) ? $config['topic_preview_avatars'] : false,
 			'S_TOPIC_PREVIEW_LAST_POST'	=> isset($config['topic_preview_last_post']) ? $config['topic_preview_last_post'] : false,
-			'S_TOPIC_PREVIEW_VERSION'	=> isset($config['topic_preview_version']) ? 'v' . $config['topic_preview_version'] : false,
+			'S_TOPIC_PREVIEW_VERSION'	=> isset($config['topic_preview_version']) ? 'v' . $config['topic_preview_version'] : '',
 			'U_ACTION'					=> $this->u_action,
 		));
 	}
