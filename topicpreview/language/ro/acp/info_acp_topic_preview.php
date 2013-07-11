@@ -42,4 +42,5 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'Coduri BB de ascuns în previzualizarea subiectelor',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Afişează codurile BB cu conţinutul pe care-l doreşti înlăturat din previzualizare (spoileri şi texte cod BB ascunse, spre exemplu). Separă codurile BB multiple folosind caracterul |, de exemplu: spoiler|ascunde|cod',
 	'CHARS'   						=> 'Caractere',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
 ));

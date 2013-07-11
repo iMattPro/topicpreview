@@ -42,4 +42,5 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'Aus Themenvorschau zu entfernende BBcodes',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Aufzählung aller BBcodes, die (mitsamt deren Inhalt) nicht im Vorschautext erscheinen sollen (z.B. für Spoiler oder versteckte Texte). Mehrere BBcodes müssen mit “|” getrennt werden - Beispiel: “spoiler|hide|code”.',
 	'CHARS'   						=> 'Zeichen',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
 ));

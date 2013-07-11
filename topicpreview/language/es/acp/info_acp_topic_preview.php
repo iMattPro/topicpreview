@@ -42,4 +42,5 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'BBcodes a ocultar en Topic Preview',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista de BBcodes con contenido que desea eliminar de la vista previa (BBcodes spoiler y texto oculto, por ejemplo). Separar múltiples BBcodes usando el caracter |, por ejemplo: spoiler|hide|code',
 	'CHARS'   						=> 'Caracteres',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
 ));

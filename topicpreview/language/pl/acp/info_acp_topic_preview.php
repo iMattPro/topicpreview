@@ -42,4 +42,5 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'Ukryj BBkody w Podglądzie Tematu',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista z zawartością BBKodów, które chcesz usunąć podglądu (na przykład BBKody: spoiler, ukryty tekst, kod). Kilka BBKodów oddziel znakiem | , na przykład: spoiler|hide|code',
 	'CHARS'   						=> 'Znaki',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
 ));

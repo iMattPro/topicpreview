@@ -37,6 +37,8 @@ class phpbb_ext_vse_topicpreview_migrations_1_2_0 extends phpbb_db_migration
 				),
 			)),
 
+			array('config.add', array('topic_preview_avatars', '1')),
+
 			array('config.update', array('topic_preview_version', '1.2.0')),
 		);
 	}

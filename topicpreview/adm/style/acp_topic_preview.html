@@ -15,6 +15,13 @@
 		<dt><label>{L_TOPIC_PREVIEW_STRIP}:</label><br /><span>{L_TOPIC_PREVIEW_STRIP_EXPLAIN}</span></dt>
 		<dd><input name="topic_preview_strip_bbcodes" type="text" size="30" maxlength="255" value="{TOPIC_PREVIEW_STRIP}" /></dd>
 	</dl>
+	<dl>
+		<dt><label>{L_TOPIC_PREVIEW_AVATARS}:</label></dt>
+		<dd>
+			<input type="radio" class="radio" name="topic_preview_avatars" value="1"<!-- IF S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /><label> {L_YES}</label>
+			<input type="radio" class="radio" name="topic_preview_avatars" value="0"<!-- IF not S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /><label> {L_NO}</label>
+		</dd>
+	</dl>
 	</fieldset>
 
 	<fieldset>

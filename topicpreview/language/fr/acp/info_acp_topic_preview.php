@@ -42,4 +42,5 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode à cacher dans l’aperçu des sujets',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes de contenu à supprimer de l’aperçu (les BBCodes de texte caché et Spoiler par exemple). Séparez les différents BBCodes avec le caractère « | ». Exemples: spoiler|hide|code',
 	'CHARS'   						=> 'Caractères',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
 ));
