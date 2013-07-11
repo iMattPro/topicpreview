@@ -36,11 +36,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Topic Voorbeeld',
-	'TOPIC_PREVIEW_DISPLAY' 		=> 'Laat het topic voorbeeld zien',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Er zal een voorbeeld van het topic worden weergegeven zolang de muis boven de titel van het onderwerp gehouden wordt. ',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_DISPLAY'			=> 'Laat het topic voorbeeld zien',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Lengte van de topic voorbeeld tekst',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Er zal een voorbeeld van het topic worden weergegeven zolang de muis boven de titel van het onderwerp gehouden wordt. Geef hier aan hoeveel tekens er voor het voorbeeld gebruikt dienen te worden (standaard 150). Door deze waarde op 0 te zetten wordt deze functie uitgezet',
-	'TOPIC_PREVIEW_STRIP'			=> 'BBCodes die niet gebruikt worden in het voorbeeld',	
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Geef hier aan hoeveel tekens er voor het voorbeeld gebruikt dienen te worden (standaard 150). Door deze waarde op 0 te zetten wordt deze functie uitgezet',
+	'TOPIC_PREVIEW_STRIP'			=> 'BBCodes die niet gebruikt worden in het voorbeeld',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Geef hier aan welde BBCodes je wilt verwijderen van het voorbeeld (bijvoorbeeld spoiler and verborgen text BBCodes). BBCodes worden gescheiden door het "|" teken, bijvoorbeeld: spoiler|hide|code',
-	'CHARS'   						=> 'Tekens',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'CHARS'							=> 'Tekens',
 ));

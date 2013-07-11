@@ -36,11 +36,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Topic Preview',
-	'TOPIC_PREVIEW_DISPLAY' 		=> 'Zeige Themenvorschau',	
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Wenn man mit der Maus über den Thementitel fährt wird im Browser angezeigt mit einem Textausschnitt des ersten Beitrags.',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_DISPLAY'			=> 'Zeige Themenvorschau',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Länge des Vorschautextes',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Wenn man mit der Maus über den Thementitel fährt wird im Browser angezeigt mit einem Textausschnitt des ersten Beitrags. Hiermit wird die Zeichenanzahl des Textes festgelegt (Standard sind 150). Die Angabe “0” deaktiviert den Vorschautext gänzlich.',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Hiermit wird die Zeichenanzahl des Textes festgelegt (Standard sind 150). Die Angabe “0” deaktiviert den Vorschautext gänzlich.',
 	'TOPIC_PREVIEW_STRIP'			=> 'Aus Themenvorschau zu entfernende BBcodes',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Aufzählung aller BBcodes, die (mitsamt deren Inhalt) nicht im Vorschautext erscheinen sollen (z.B. für Spoiler oder versteckte Texte). Mehrere BBcodes müssen mit “|” getrennt werden - Beispiel: “spoiler|hide|code”.',
-	'CHARS'   						=> 'Zeichen',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'CHARS'							=> 'Zeichen',
 ));

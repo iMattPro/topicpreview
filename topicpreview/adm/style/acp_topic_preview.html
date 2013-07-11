@@ -3,10 +3,12 @@
 <h1>{L_TOPIC_PREVIEW}</h1>
 <!-- IF S_TOPIC_PREVIEW_VERSION --><p>{S_TOPIC_PREVIEW_VERSION}</p><!-- ENDIF -->
 
+<p>{L_TOPIC_PREVIEW_EXPLAIN}</p>
+
 <form id="select_victim" method="post" action="{U_ACTION}">
 
 	<fieldset>
-		<legend>{L_TOPIC_PREVIEW_DISPLAY}</legend>
+		<legend>{L_TOPIC_PREVIEW_SETTINGS}</legend>
 	<dl>
 		<dt><label>{L_TOPIC_PREVIEW_LENGTH}:</label><br /><span>{L_TOPIC_PREVIEW_LENGTH_EXPLAIN}</span></dt>
 		<dd><input name="topic_preview_limit" type="text" size="3" maxlength="3" value="{TOPIC_PREVIEW_LIMIT}" /> {L_CHARS}</dd>

@@ -36,11 +36,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Topic Preview',
-	'TOPIC_PREVIEW_DISPLAY' 		=> 'Mostrar previsualización del tema',	
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Mostrará el primer texto de un tema en una descripción emergente mientras el ratón está sobre el título del tema.',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_DISPLAY'			=> 'Mostrar previsualización del tema',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Longitud del texto de Topic Preview',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Mostrará el primer texto de un tema en una descripción emergente mientras el ratón está sobre el título del tema. Introduce el número de caracteres que se mostrarán en la descripción (por defecto es 150). Ajustando el valor a 0 desactiva esta función.',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Introduce el número de caracteres que se mostrarán en la descripción (por defecto es 150). Ajustando el valor a 0 desactiva esta función.',
 	'TOPIC_PREVIEW_STRIP'			=> 'BBcodes a ocultar en Topic Preview',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista de BBcodes con contenido que desea eliminar de la vista previa (BBcodes spoiler y texto oculto, por ejemplo). Separar múltiples BBcodes usando el caracter |, por ejemplo: spoiler|hide|code',
-	'CHARS'   						=> 'Caracteres',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'CHARS'							=> 'Caracteres',
 ));

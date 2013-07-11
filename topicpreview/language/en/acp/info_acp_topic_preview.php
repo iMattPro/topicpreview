@@ -36,11 +36,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Topic Preview',
-	'TOPIC_PREVIEW_DISPLAY' 		=> 'Display topic previews',	
-	'TOPIC_PREVIEW_LENGTH'			=> 'Length of Topic Preview Text',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Will show some text from the first topic in a tooltip while the mouse hovers over the topic title. Enter the number of characters to display in the tooltip (default is 150). Setting the value to 0 disables this feature.',
-	'TOPIC_PREVIEW_STRIP'			=> 'BBcodes to hide in Topic Preview',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_DISPLAY'			=> 'Display topic previews',
+	'TOPIC_PREVIEW_LENGTH'			=> 'Length of topic preview text',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Enter the number of characters to display in the topic preview tooltip (default is 150). Setting the value to 0 disables this feature.',
+	'TOPIC_PREVIEW_STRIP'			=> 'BBcodes to hide in topic previews',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'List BBcodes with content you want removed from the preview (spoiler and hidden text BBcodes, for example). Separate multiple BBcodes using the | character, for example: spoiler|hide|code',
-	'CHARS'   						=> 'Characters',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside topic previews',
+	'CHARS'							=> 'Characters',
 ));

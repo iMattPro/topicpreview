@@ -36,11 +36,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Aperçu des Sujets',
-	'TOPIC_PREVIEW_DISPLAY' 		=> 'Afficher l’aperçu des sujets',	
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affichera dans une info-bulle un peu de texte du premier message, lorsque la souris survole le titre du sujet. ',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_DISPLAY'			=> 'Afficher l’aperçu des sujets',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Longueur du texte de l’aperçu des sujets',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Affichera dans une info-bulle un peu de texte du premier message, lorsque la souris survole le titre du sujet. Saisissez le nombre de caractères à afficher dans l’info-bulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Saisissez le nombre de caractères à afficher dans l’info-bulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode à cacher dans l’aperçu des sujets',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes de contenu à supprimer de l’aperçu (les BBCodes de texte caché et Spoiler par exemple). Séparez les différents BBCodes avec le caractère « | ». Exemples: spoiler|hide|code',
-	'CHARS'   						=> 'Caractères',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars inside Topic Previews',
+	'CHARS'							=> 'Caractères',
 ));
