@@ -58,8 +58,8 @@ class phpbb_ext_vse_topicpreview_acp_topic_preview_module
 		$template->assign_vars(array(
 			'TOPIC_PREVIEW_LIMIT'		=> isset($config['topic_preview_limit']) ? $config['topic_preview_limit'] : '',
 			'TOPIC_PREVIEW_STRIP'		=> isset($config['topic_preview_strip_bbcodes']) ? $config['topic_preview_strip_bbcodes'] : '',
-			'S_TOPIC_PREVIEW_VERSION'	=> isset($config['topic_preview_version']) ? 'v' . $config['topic_preview_version'] : false,
 			'S_TOPIC_PREVIEW_AVATARS'	=> isset($config['topic_preview_avatars']) ? $config['topic_preview_avatars'] : false,
+			'S_TOPIC_PREVIEW_VERSION'	=> isset($config['topic_preview_version']) ? 'v' . $config['topic_preview_version'] : '',
 			'U_ACTION'					=> $this->u_action,
 		));
 	}
