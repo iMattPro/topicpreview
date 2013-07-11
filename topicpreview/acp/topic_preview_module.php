@@ -49,8 +49,6 @@ class phpbb_ext_vse_topicpreview_acp_topic_preview_module
 			$topic_preview_strip_bbcodes = request_var('topic_preview_strip_bbcodes', '');
 			set_config('topic_preview_strip_bbcodes', $topic_preview_strip_bbcodes);
 
-			//add_log('admin', 'PST_LOG_MSG');
-
 			trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 		}
 
