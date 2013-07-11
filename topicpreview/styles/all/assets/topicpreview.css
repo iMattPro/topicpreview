@@ -23,7 +23,7 @@
 	display: none;
 }
 
-#topicPreview:before { /* Triangle */
+#topicPreview:before { /* Upper Triangle */
 	content: "";
 	background: #fff; /* #333 dark theme */
 
@@ -48,4 +48,41 @@
 	display /*\**/: none\9;
 	*display: none !important;
 	*display: none;
+}
+
+#topicPreview.invert:before { /* Lower Triangle */
+	content: "";
+	background: #fff; /* #333 dark theme */
+
+	border: 0;
+	border-bottom: 1px solid #cecece;
+	border-left: 1px solid #cecece;
+
+	width: 10px;
+	height: 10px;
+	bottom: 0;
+	margin-left: 15px;
+	margin-bottom: -6px;
+
+	display: block;
+	position: absolute;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+
+	display /*\**/: none\9;
+	*display: none !important;
+	*display: none;
+}
+
+.topic_preview_avatar {
+	float: left;
+	position: relative;
+	margin: 0 10px 0 0;
+	border: solid 1px #cccccc;
+	width: 60px;
+	height: 60px;
 }
