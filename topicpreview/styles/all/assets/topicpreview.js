@@ -3,15 +3,15 @@
 	$.fn.topicPreview = function( options ) {
 
 		var settings = $.extend( {
+			"delay" : 1500,
 			"width" : 300,
-			"delay" : 500,
 			"left"  : 35,
 			"top"   : 25,
 			"drift" : 15
 		}, options );
 
 		var previewTimeout = 0,
-			previewContainer = $('<div id="topicPreview" class="topicPreview"></div>').appendTo("body");
+			previewContainer = $('<div id="topicPreview"></div>').css("width", settings.width).appendTo("body");
 
 		return this.each(function() {
 			var obj = $(this),
@@ -37,12 +37,11 @@
 					previewTimeout = 0;
 
 					// Fill the topicPreview
-					$("#topicPreview").html(previewText);
+					previewContainer.html(previewText);
 
 					// Display the topicPreview positioned relative to the hover object
 					previewContainer
 						.css({
-							"max-width" : settings.width + "px",
 							"top"   : obj.offset().top + settings.top + settings.drift + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
@@ -67,24 +66,5 @@
 			});
 		});
 	};
-
-// 	$.fn.topicPreview = function() {  
-// 
-// 		return this.each(function() {
-// 
-// 			var container = $(this).closest("li") /*$(this).closest("tr")*/,
-// 				firstPostText = container.find(".topic_preview_first").text(),
-// 				lastPostText = container.find(".topic_preview_last").text();
-// 
-// 			$(this).attr("title", firstPostText);
-// 
-// 			container.find(".icon_topic_latest").attr("title", lastPostText);
-// 		});
-// 	};
-
-	// Run on DOM ready
-	$(function() {
-		$(".topictitle").topicPreview();
-	});
 
 })( jQuery, window, document );
