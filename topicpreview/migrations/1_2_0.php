@@ -16,30 +16,38 @@ class phpbb_ext_vse_topicpreview_migrations_1_2_0 extends phpbb_db_migration
 
 	static public function depends_on()
 	{
-		return array('phpbb_ext_vse_topicpreview_migrations_1_0_10');
+		return array('phpbb_ext_vse_topicpreview_migrations_1_1_0');
 	}
 
 	public function update_data()
 	{
 		return array(
-			// Add ACP module
-			array('module.add', array(
-				'acp',
-				'ACP_CAT_DOT_MODS',
-				'TOPIC_PREVIEW'
-			)),
-			array('module.add', array(
-				'acp',
-				'TOPIC_PREVIEW',
-				array(
-					'module_basename'	=> 'phpbb_ext_vse_topicpreview_acp_topic_preview_module',
-					'modes'				=> array('settings'),
-				),
+			array('custom', array(array($this, 'update_module_basename'))),
+
+			array('if', array(
+				($this->config['topic_preview_pretty']),
+				array('config.remove', array('topic_preview_pretty')),
 			)),
 
-			array('config.add', array('topic_preview_avatars', '1')),
+			array('if', array(
+				($this->config['topic_preview_last_post']),
+				array('config.remove', array('topic_preview_last_post')),
+			)),
+
+			array('config.update', array('topic_preview_avatars', '1')),
 
 			array('config.update', array('topic_preview_version', '1.2.0')),
 		);
+	}
+
+	public function update_module_basename()
+	{
+		$old_module_basename = 'acp_topic_preview';
+		$new_module_basename = 'phpbb_ext_vse_topicpreview_acp_topic_preview_module';
+		
+		$sql = 'UPDATE ' . $this->table_prefix . "modules
+			SET module_basename = '$new_module_basename'
+			WHERE module_basename = '$old_module_basename'";
+		$this->db->sql_query($sql);
 	}
 }
