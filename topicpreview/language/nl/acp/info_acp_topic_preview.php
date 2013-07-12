@@ -36,7 +36,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Topic Voorbeeld',
-	'TOPIC_PREVIEW_EXPLAIN'			=> 'Er zal een voorbeeld van het topic worden weergegeven zolang de muis boven de titel van het onderwerp gehouden wordt. ',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Er zal een voorbeeld van het topic worden weergegeven zolang de muis boven de titel van het onderwerp gehouden wordt.',
 	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic voorbeeld instellingen',
 	'TOPIC_PREVIEW_DISPLAY'			=> 'Laat het topic voorbeeld zien',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Lengte van de topic voorbeeld tekst',
