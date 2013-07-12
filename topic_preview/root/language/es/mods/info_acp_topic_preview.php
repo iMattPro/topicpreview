@@ -37,16 +37,18 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Topic Preview',
-	'FIRST_POST'					=> 'Primer puesto',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Mostrará el primer texto de un tema en una descripción emergente mientras el ratón está sobre el título del tema.',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Configuración de topic preview',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Longitud del texto de Topic Preview',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Mostrará el primer texto de un tema en una descripción emergente mientras el ratón está sobre el título del tema. Introduce el número de caracteres que se mostrarán en la descripción (por defecto es 150). Ajustando el valor a 0 desactiva esta función.',
-	'CHARS'   						=> 'Caracteres',
-	'DISPLAY_TOPIC_PREVIEW' 		=> 'Mostrar previsualización del tema',	
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Introduce el número de caracteres que se mostrarán en la descripción (por defecto es 150). Ajustando el valor a 0 desactiva esta función.',
+	'DISPLAY_TOPIC_PREVIEW'			=> 'Mostrar previsualización del tema',	
 	'TOPIC_PREVIEW_STRIP'			=> 'BBcodes a ocultar en Topic Preview',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista de BBcodes con contenido que desea eliminar de la vista previa (BBcodes spoiler y texto oculto, por ejemplo). Separar múltiples BBcodes usando el caracter |, por ejemplo: spoiler|hide|code',
 	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
+	'CHARS'							=> 'Caracteres',
+	'FIRST_POST'					=> 'Primer puesto',
 ));
 
 ?>

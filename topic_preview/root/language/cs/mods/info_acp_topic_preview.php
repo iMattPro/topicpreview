@@ -37,16 +37,18 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Úryvek z tématu',
-	'FIRST_POST'					=> 'První příspěvek',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Úryvek z tématu',
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Zde máte možnost zadat počet znaků zobrazených v úryvku z tématu.<br /><strong>Zadáním 0 funkci vypnete.</strong>',
-	'CHARS'							=> 'Počet znaků',
 	'DISPLAY_TOPIC_PREVIEW'			=> 'Zobrazit úryvek z tématu',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Skryté BBkódy',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Zde máte možnost zadat BBkódy, které v úryvku nebudou zobrazeny. Pro oddělení využijte znak |.<br /><i>Například: list|code|quote.</i>',
 	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
+	'CHARS'							=> 'Počet znaků',
+	'FIRST_POST'					=> 'První příspěvek',
 ));
 
 ?>

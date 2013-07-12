@@ -37,16 +37,18 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Podgląd Tematu',
-	'FIRST_POST'					=> 'Pierwszy post',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Pokaże fragment tekstu z pierwszego tematu w dymku, gdy kursor myszy pojawi się nad tytułem tematu.',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Długość tekstu w Podglądzie Tematu',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Pokaże fragment tekstu z pierwszego tematu w dymku, gdy kursor myszy pojawi się nad tytułem tematu. Wpisz liczbę znaków do wyświetlenia w dymku (domyślnie jest 150). Ustawienie wartości 0 wyłącza tę funkcję.',
-	'CHARS'   						=> 'Znaki',
-	'DISPLAY_TOPIC_PREVIEW' 		=> 'Wyświetl Podgląd Tematu',	
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Wpisz liczbę znaków do wyświetlenia w dymku (domyślnie jest 150). Ustawienie wartości 0 wyłącza tę funkcję.',
+	'DISPLAY_TOPIC_PREVIEW'			=> 'Wyświetl Podgląd Tematu',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Ukryj BBkody w Podglądzie Tematu',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista z zawartością BBKodów, które chcesz usunąć podglądu (na przykład BBKody: spoiler, ukryty tekst, kod). Kilka BBKodów oddziel znakiem | , na przykład: spoiler|hide|code',
 	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
+	'CHARS'							=> 'Znaki',
+	'FIRST_POST'					=> 'Pierwszy post',
 ));
 
 ?>
