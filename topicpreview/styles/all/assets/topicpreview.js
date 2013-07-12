@@ -1,3 +1,12 @@
+/*
+ * jQuery ToolTips for Topic Preview
+ * https://github.com/VSEphpbb/topic_preview
+ *
+ * Copyright 2013, Matt Friedman
+ * Licensed under the GPL Version 2 license.
+ * http://www.opensource.org/licenses/GPL-2.0
+ */
+
 ;(function ( $, window, document, undefined ) {
 
 	$.fn.topicPreview = function( options ) {
@@ -40,10 +49,10 @@
 					previewContainer.html(previewText);
 
 					// Window bottom edge detection, invert topic preview if needed 
-					var previewTop = obj.offset().top + settings.top + settings.drift,
-						previewBottom = previewTop + previewContainer.height() + 6;
+					var previewTop = obj.offset().top + settings.top,
+						previewBottom = previewTop + previewContainer.height() + 8;
 					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
-					previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight() + 6 : previewTop;
+					previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight() - 8 : previewTop;
 
 					// Display the topic_preview positioned relative to the hover object
 					previewContainer
@@ -51,10 +60,7 @@
 							"top"   : previewTop + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
-						.fadeIn("fast") // display the topic_preview with a fadein and some animation
-						.animate({"top": "-=" + settings.drift + "px"}, {duration: 'fast', queue: false}, function() {
-							// animation complete
-						});
+						.fadeIn("fast"); // display the topic_preview with a fadein
 				}, settings.delay); // Use a delay before showing in topic_preview
 
 			}, function() {
@@ -73,9 +79,9 @@
 		});
 	};
 
-	// Check if y coord extends beyond bottom edge of window
+	// Check if y coord extends beyond bottom edge of window (with 20px of pad)
 	function edgeDetect(y) {
-		return ( y >= ($(window).scrollTop() + $(window).height()) );
+		return ( y >= ($(window).scrollTop() + $(window).height() - 20) );
 	}
 
 })( jQuery, window, document );
