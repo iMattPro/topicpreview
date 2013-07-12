@@ -2,7 +2,7 @@
  * jQuery ToolTips for Topic Preview
  * https://github.com/VSEphpbb/topic_preview
  *
- * Copyright 2012, Matt Friedman
+ * Copyright 2013, Matt Friedman
  * Licensed under the GPL Version 2 license.
  * http://www.opensource.org/licenses/GPL-2.0
  */
@@ -13,18 +13,17 @@
 
 		var settings = $.extend( {
 			"style" : "light",
+			"delay" : 1500,
 			"width" : 320,
-			"delay" : 500,
-			"left"  : 0,
-			"top"   : 12,
-			"drift" : 12
+			"left"  : 75,
+			"top"   : 25,
+			"drift" : 15
 		}, options );
 
-		var previewContainer = $('<div id="topic_preview" class="' + settings.style + '"><div id="topic_preview_inner"></div><div id="topic_preview_pointer"><div id="topic_preview_pointer_inner"></div></div></div>').css("width", settings.width).appendTo("body");
-		var previewTimeout = 0;
+		var previewTimeout = 0,
+			previewContainer = $('<div id="topic_preview" class="' + settings.style + '"></div>').css("width", settings.width).appendTo("body");
 
 		return this.each(function() {
-
 			var obj = $(this),
 				hoverObject = obj.parent().find(".topictitle"),
 				firstPostText = obj.attr("title"); // cache title attributes
@@ -33,7 +32,6 @@
 			obj.attr("title", "");
 
 			hoverObject.hover(function() {
-
 				// Proceed only if there is content to display
 				var content = $("#topic_preview_" + obj.attr("id")).html();
 				if (content === undefined || content === '') {
@@ -46,40 +44,38 @@
 				}
 
 				previewTimeout = setTimeout(function() {
-
 					// clear the timeout var after delay and function begins to execute	
 					previewTimeout = 0;
-	
+
 					// Fill the topic preview
-					$("#topic_preview_inner")
+					previewContainer
 						.html(content)
-						.find(".topic_preview_text_first > span")
-						.html(firstPostText);
+						.find(".topic_preview_text_first")
+						.append(firstPostText);
 
-					// Handle window top edge detection, and invert topic preview if needed 
-					var previewTop = obj.offset().top - previewContainer.height() - settings.top + settings.drift;
-					$("#topic_preview_pointer, #topic_preview_pointer_inner").toggleClass("invert", topEdgeDetect(previewTop));
-					previewTop = topEdgeDetect(previewTop) ? obj.offset().top + (settings.top * 3) + settings.drift: previewTop;
+					// Window bottom edge detection, invert topic preview if needed 
+					var previewTop = obj.offset().top + settings.top,
+						previewBottom = previewTop + previewContainer.height() + 8;
+					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
+					previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight() - 8 : previewTop;
 
-					// position the topic preview relative to the hover object
+					// Display the topic_preview positioned relative to the hover object
 					previewContainer
 						.css({
-							"top"   : (previewTop + "px"),
-							"left"  : ((obj.offset().left + settings.left) + "px")
+							"top"   : previewTop + "px",
+							"left"  : obj.offset().left + settings.left + "px"
 						})
-						.fadeIn("fast") // display the topic preview with a fadein
-						.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
-							// animation complete
-						});
-				}, settings.delay); // Use a delay before fading in topic preview
+						.fadeIn("fast"); // display the topic preview with a fadein
+				}, settings.delay); // Use a delay before showing in topic_preview
 
 			}, function() {
-
+				// clear any existing timeouts
 				if (previewTimeout !== 0) {
-					clearTimeout(previewTimeout); // clear any existing timeouts
+					clearTimeout(previewTimeout);
 				}
 
-				previewContainer.stop(true, true).fadeOut("fast") // hide the topic preview with a fadeout
+				// Remove topic_preview
+				previewContainer.stop(true, true).fadeOut("fast") // hide the topic_preview with a fadeout
 					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 						// animation complete
 					});
@@ -87,9 +83,9 @@
 		});
 	};
 
-	// Check if y coord extends beyond top edge of window
-	function topEdgeDetect(y) {
-		return ( y <= $(window).scrollTop() );
+	// Check if y coord extends beyond bottom edge of window (with 20px of pad)
+	function edgeDetect(y) {
+		return ( y >= ($(window).scrollTop() + $(window).height() - 20) );
 	}
 
 })( jQuery, window, document );

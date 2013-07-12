@@ -131,10 +131,11 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 	<script type="text/javascript">
 		$(function(){
 			$("dt[title]").topicPreview({
-				"style" : "light", //use "light" or "dark" topic preview theme
-				"width" : 320, //sets the width of topic previews (in pixels)
-				"delay" : 1500, //sets the delay before showing topic previews (in milliseconds)
-				"left"  : 42 //sets the position offset from the left (in pixels)
+				"style" : "light", // use "light" or "dark" topic preview theme
+				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
+				"width" : 360, // sets the width of topic previews (in pixels)
+				"left"  : 75, // sets the position offset from the left (in pixels)
+				"drift" : 15 // sets the amount of vertical animation, use negative values to change direction (in pixels)
 			});
 		});
 	</script>
@@ -158,13 +159,12 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<remove><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{searchresults.TOPIC_ID}" style="display:none;">
-					<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-					<div class="topic_preview_break"></div>
+					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 -->
-						<!-- IF searchresults.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{searchresults.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{searchresults.TOPIC_PREVIEW_TEXT2}</span></div>
+						<div class="topic_preview_break"></div>
+						<!-- IF searchresults.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{searchresults.TOPIC_PREVIEW_TEXT2}</div>
 					<!-- ENDIF -->
 				</div>
 				<!-- ENDIF -->]]></remove>
@@ -195,13 +195,12 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<remove><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 			<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
-				<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-				<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-				<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-				<div class="topic_preview_break"></div>
+				<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 				<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
-					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{topicrow.TOPIC_PREVIEW_TEXT2}</span></div>
+					<div class="topic_preview_break"></div>
+					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_TEXT2}</div>
 				<!-- ENDIF -->
 			</div>
 			<!-- ENDIF -->]]></remove>
@@ -217,10 +216,11 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 	<script type="text/javascript">
 		$(function(){
 			$("a.topictitle").topicPreview({
-				"style" : "light", //use "light" or "dark" topic preview theme
-				"width" : 320, //sets the width of topic previews (in pixels)
-				"delay" : 1500, //sets the delay before showing topic previews (in milliseconds)
-				"left"  : -10 //sets the position offset from the left (in pixels)
+				"style" : "light", // use "light" or "dark" topic preview theme
+				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
+				"width" : 360, // sets the width of topic previews (in pixels)
+				"left"  : 25, // sets the position offset from the left (in pixels)
+				"drift" : 15 // sets the amount of vertical animation, use negative values to change direction (in pixels)
 			});
 		});
 	</script>
@@ -245,13 +245,12 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<remove><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{searchresults.TOPIC_ID}" style="display:none;">
-					<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-					<div class="topic_preview_break"></div>
+					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 					<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 -->
-						<!-- IF searchresults.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{searchresults.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{searchresults.TOPIC_PREVIEW_TEXT2}</span></div>
+						<div class="topic_preview_break"></div>
+						<!-- IF searchresults.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{searchresults.TOPIC_PREVIEW_TEXT2}</div>
 					<!-- ENDIF -->
 				</div>
 				<!-- ENDIF -->]]></remove>
@@ -278,13 +277,12 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<remove><![CDATA[				<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
-					<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-					<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-					<div class="topic_preview_break"></div>
+					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
-						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{topicrow.TOPIC_PREVIEW_TEXT2}</span></div>
+						<div class="topic_preview_break"></div>
+						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_TEXT2}</div>
 					<!-- ENDIF -->
 				</div>
 				<!-- ENDIF -->]]></remove>
@@ -299,13 +297,12 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<remove><![CDATA[					<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 					<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
-						<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-						<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-						<div class="topic_preview_break"></div>
+						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+						<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 						<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
-							<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-							<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{topicrow.TOPIC_PREVIEW_TEXT2}</span></div>
+							<div class="topic_preview_break"></div>
+							<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+							<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_TEXT2}</div>
 						<!-- ENDIF -->
 					</div>
 					<!-- ENDIF -->]]></remove>

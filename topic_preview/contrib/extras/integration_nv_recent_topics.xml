@@ -62,13 +62,12 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 			<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
-				<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-				<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-				<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-				<div class="topic_preview_break"></div>
+				<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 				<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
-					<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{recent_topics.TOPIC_PREVIEW_TEXT2}</span></div>
+					<div class="topic_preview_break"></div>
+					<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{recent_topics.TOPIC_PREVIEW_TEXT2}</div>
 				<!-- ENDIF -->
 			</div>
 			<!-- ENDIF -->]]></action>
@@ -86,13 +85,12 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 				<find><![CDATA[<!-- IF recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED -->]]></find>
 				<action type="before-add"><![CDATA[					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 						<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
-							<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-							<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-							<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-							<div class="topic_preview_break"></div>
+							<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+							<div class="topic_preview_text_first"><!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 							<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
-								<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-								<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{recent_topics.TOPIC_PREVIEW_TEXT2}</span></div>
+								<div class="topic_preview_break"></div>
+								<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+								<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{recent_topics.TOPIC_PREVIEW_TEXT2}</div>
 							<!-- ENDIF -->
 						</div>
 					<!-- ENDIF -->]]></action>

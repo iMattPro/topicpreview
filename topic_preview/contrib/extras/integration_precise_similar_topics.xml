@@ -62,13 +62,12 @@
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF similar.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 			<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
-				<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-				<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-				<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-				<div class="topic_preview_break"></div>
+				<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 				<!-- IF similar.TOPIC_PREVIEW_TEXT2 -->
-					<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{similar.TOPIC_PREVIEW_TEXT2}</span></div>
+					<div class="topic_preview_break"></div>
+					<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><{similar.TOPIC_PREVIEW_TEXT2}</div>
 				<!-- ENDIF -->
 			</div>
 			<!-- ENDIF -->]]></action>
@@ -88,13 +87,12 @@
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{similar.U_VIEW_FORUM}">{similar.FORUM_TITLE}</a></p>]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF similar.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
-					<div class="topic_preview_caption">{L_TOPIC_PREVIEW}</div>
-					<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar_first">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-					<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --><span></span></div>
-					<div class="topic_preview_break"></div>
+					<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
 					<!-- IF similar.TOPIC_PREVIEW_TEXT2 -->
-						<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar_last">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><span>{similar.TOPIC_PREVIEW_TEXT2}</span></div>
+						<div class="topic_preview_break"></div>
+						<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{similar.TOPIC_PREVIEW_TEXT2}</div>
 					<!-- ENDIF -->
 				</div>
 			<!-- ENDIF -->]]></action>
