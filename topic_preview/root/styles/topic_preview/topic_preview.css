@@ -50,7 +50,7 @@
 	*display: none;
 }
 
-#topic_preview.invert:before { /* Lower Triangle */
+#topic_preview.invert:after { /* Lower Triangle */
 	content: "";
 	background: #fff;
 
@@ -60,9 +60,9 @@
 
 	width: 10px;
 	height: 10px;
-	bottom: 0;
+	top: 100%;
 	margin-left: 15px;
-	margin-bottom: -6px;
+	margin-top: -5px;
 
 	display: block;
 	position: absolute;
@@ -78,6 +78,11 @@
 	*display: none;
 }
 
+#topic_preview.invert:before { /* Hide upper triangle */
+	content: "";
+	display: none;
+}
+
 /* dark theme */
 #topic_preview.dark {
 	background: #1e1e1e;
@@ -89,7 +94,7 @@
 	background: #1e1e1e;
 }
 
-#topic_preview.dark.invert:before { /* Lower Triangle */
+#topic_preview.dark.invert:after { /* Lower Triangle */
 	content: "";
 	background: #1e1e1e;
 }

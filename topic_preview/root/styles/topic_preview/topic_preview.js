@@ -83,9 +83,9 @@
 		});
 	};
 
-	// Check if y coord extends beyond bottom edge of window (with 20px of pad)
+	// Check if y coord extends beyond bottom edge of window (with 100px of pad)
 	function edgeDetect(y) {
-		return ( y >= ($(window).scrollTop() + $(window).height() - 20) );
+		return ( y >= ($(window).scrollTop() + $(window).height() - 100) );
 	}
 
 })( jQuery, window, document );
