@@ -12,6 +12,7 @@
 	$.fn.topicPreview = function( options ) {
 
 		var settings = $.extend( {
+			"theme" : "light",
 			"delay" : 1500,
 			"width" : 360,
 			"left"  : 35,
@@ -20,7 +21,7 @@
 		}, options );
 
 		var previewTimeout = 0,
-			previewContainer = $('<div id="topic_preview"></div>').css("width", settings.width).appendTo("body");
+			previewContainer = $('<div id="topic_preview" class="' + settings.theme + '"></div>').css("width", settings.width).appendTo("body");
 
 		return this.each(function() {
 			var obj = $(this),

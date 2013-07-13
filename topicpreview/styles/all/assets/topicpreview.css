@@ -1,5 +1,5 @@
 #topic_preview {
-	background: #fff; /* #333 dark theme */
+	background: #fff;
 
 	border: 1px solid #cecece;
 	-webkit-border-radius: 3px;
@@ -20,7 +20,7 @@
 	font-size: 11px;
 	text-decoration: none;
 	font-style: normal;
-	color: #333; /* #fff dark theme */
+	color: #333;
 
 	z-index: 10;
 	
@@ -29,7 +29,7 @@
 
 #topic_preview:before { /* Upper Triangle */
 	content: "";
-	background: #fff; /* #333 dark theme */
+	background: #fff;
 
 	border: 0;
 	border-top: 1px solid #cecece;
@@ -56,7 +56,7 @@
 
 #topic_preview.invert:after { /* Lower Triangle */
 	content: "";
-	background: #fff; /* #333 dark theme */
+	background: #fff;
 
 	border: 0;
 	border-bottom: 1px solid #cecece;
@@ -85,6 +85,25 @@
 #topic_preview.invert:before { /* Hide upper triangle */
 	content: "";
 	display: none;
+}
+
+/* dark theme */
+#topic_preview.dark {
+	background: #1e1e1e;
+	-webkit-box-shadow: 1px 1px 3px #808080;
+	-moz-box-shadow: 1px 1px 3px #808080;
+	box-shadow: 1px 1px 3px #808080;
+	color: #cecece;
+}
+
+#topic_preview.dark:before { /* Upper Triangle */
+	content: "";
+	background: #1e1e1e;
+}
+
+#topic_preview.dark.invert:after { /* Lower Triangle */
+	content: "";
+	background: #1e1e1e;
 }
 
 .topic_preview_avatar {
