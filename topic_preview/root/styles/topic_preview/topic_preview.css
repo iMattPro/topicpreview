@@ -6,6 +6,10 @@
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
+	
+	-webkit-box-shadow: 1px 1px 3px #cecece;
+	-moz-box-shadow: 1px 1px 3px #cecece;
+	box-shadow: 1px 1px 3px #cecece;
 
 	padding: 10px;
 	margin-left: -40px;
@@ -86,6 +90,9 @@
 /* dark theme */
 #topic_preview.dark {
 	background: #1e1e1e;
+	-webkit-box-shadow: 1px 1px 3px #808080;
+	-moz-box-shadow: 1px 1px 3px #808080;
+	box-shadow: 1px 1px 3px #808080;
 	color: #cecece;
 }
 
