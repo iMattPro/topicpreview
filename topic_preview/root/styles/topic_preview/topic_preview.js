@@ -14,7 +14,7 @@
 		var settings = $.extend( {
 			"style" : "light",
 			"delay" : 1500,
-			"width" : 320,
+			"width" : 360,
 			"left"  : 75,
 			"top"   : 25,
 			"drift" : 15

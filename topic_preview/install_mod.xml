@@ -7,11 +7,10 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a Pretty jQuery theme with options to include user's avatars, and both the first and last posts from the topic. Topic Preview is highly customizable to get the right look for each style in your board.		
+		<description lang="en"><![CDATA[Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a Pretty jQuery theme with options to also show user's avatars, and both the first and last posts from the topic. Topic Preview is customizable to get the right look for each style in your board.		
 		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
 		<github><![CDATA[https://github.com/VSEphpbb/topic_preview]]></github>
-		<author-notes lang="en"><![CDATA[This MOD uses the jQuery library. It is your responsibility to ensure adding this MOD does not cause any conflicts with other jQuery related MODs on your board. jQuery should never be included on a page more than once.
-Styling / Behavior options: You can change the appearance and behavior of the Pretty Topic Preview theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
+		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the "Pretty Topic Preview" theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -23,7 +22,7 @@ Styling / Behavior options: You can change the appearance and behavior of the Pr
 		<installation>
 			<level>easy</level>
 			<time>600</time>
-			<target-version>3.0.11</target-version>
+			<target-version>3.0.12</target-version>
 		</installation>
 		<history>
 			<entry>
@@ -152,21 +151,21 @@ Styling / Behavior options: You can change the appearance and behavior of the Pr
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
-			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
+			<link type="contrib" href="contrib/extras/addon_precise_similar_topics.xml" lang="en">Add-On : Topic Preview for Precise Similar Topics II v1.2.X</link>
+			<link type="contrib" href="contrib/extras/addon_nv_recent_topics.xml" lang="en">Add-On : Topic Preview for NV Recent Topics v1.0.6</link>
+			<link type="contrib" href="contrib/extras/addon_board3_portal.xml" lang="en">Add-On : Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Preserve Line Breaks in Topic Previews</link>
-			<link type="contrib" href="contrib/extras/integration_precise_similar_topics.xml" lang="en">Add-On : Integration with Precise Similar Topics II v1.2.0 or later</link>
-			<link type="contrib" href="contrib/extras/integration_Board3_Portal.xml" lang="en">Add-On : Integration with Board3 Portal v2.0.X</link>
-			<link type="contrib" href="contrib/extras/integration_nv_recent_topics.xml" lang="en">Add-On : Integration with NV Recent Topics v1.0.6</link>
+			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
 			<link type="contrib" href="contrib/update_1010_to_110.xml" lang="en">Upgrade : from 1.0.10 to 1.1.0</link>
 			<link type="uninstall" href="contrib/extras/uninstall_v110.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/adm/style/acp_topic_preview.html" to="adm/style/acp_topic_preview.html"/>
+			<file from="root/adm/style/*.*" to="adm/style/*.*"/>
 			<file from="root/includes/*.*" to="includes/*.*"/>
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
-			<file from="root/language/en/mods/info_acp_topic_preview.php" to="language/en/mods/info_acp_topic_preview.php"/>
+			<file from="root/language/en/mods/*.*" to="language/en/mods/*.*"/>
 			<file from="root/styles/topic_preview/*.*" to="styles/topic_preview/*.*"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>

@@ -19,28 +19,22 @@
 		<installation>
 			<level>easy</level>
 			<time>600</time>
-			<target-version>3.0.11</target-version>
+			<target-version>3.0.12</target-version>
 		</installation>
 		<link-group>
 			<link type="parent" href="../../install_mod.xml" lang="en">Topic Preview Install Instructions</link>
 		</link-group>
 	</header>
 	<action-group>
-		<sql><![CDATA[ALTER TABLE phpbb_users DROP user_topic_preview;
-DELETE FROM phpbb_modules WHERE module_langname='TOPIC_PREVIEW';
-DELETE FROM phpbb_config WHERE config_name='topic_preview_limit';
-DELETE FROM phpbb_config WHERE config_name='topic_preview_strip_bbcodes';
-DELETE FROM phpbb_config WHERE config_name='topic_preview_last_post';
-DELETE FROM phpbb_config WHERE config_name='topic_preview_avatars';
-DELETE FROM phpbb_config WHERE config_name='topic_preview_pretty';
-DELETE FROM phpbb_config WHERE config_name='topic_preview_version';]]></sql>
+		<copy>
+			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
+			<file from="root/umil/*.*" to="umil/*.*"/>
+		</copy>
 		<delete>
 			<file name="adm/style/acp_topic_preview.html"/>
 			<file name="includes/acp/info/acp_topic_preview.php"/>
 			<file name="includes/acp/acp_topic_preview.php"/>
 			<file name="includes/topic_preview.php"/>
-			<file name="install_topic_preview.php"/>
-			<file name="language/en/mods/info_acp_topic_preview.php"/>
 			<file name="styles/topic_preview/jquery.min.js"/>
 			<file name="styles/topic_preview/no_avatar.png"/>
 			<file name="styles/topic_preview/topic_preview.css"/>
@@ -308,6 +302,6 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 					<!-- ENDIF -->]]></remove>
 			</edit>
 		</open>
-		<diy-instructions lang="en"><![CDATA[Purge your cache in the ACP.]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Point your browser to the "install_topic_preview.php" script and choose "Uninstall".  Once that is complete, you can delete the "install_topic_preview.php" script.]]></diy-instructions>
 	</action-group>
 </mod>

@@ -7,7 +7,7 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview - BBcode Add-On]]></title>
-		<description lang="en"><![CDATA[This add-on will allow you to use a [topicpreview] BBcode so users can define what part of their post they want to show in the Topic Preview - anything inside the [topicpreview][/topicpreview] tags will be used as the Topic Preview.]]></description>
+		<description lang="en"><![CDATA[This add-on will allow you to use a [topicpreview] BBcode so users can define what part of their post they want to show in the Topic Preview - only content inside the [topicpreview][/topicpreview] tags will be shown in the Topic Preview.]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -19,7 +19,7 @@
 		<installation>
 			<level>easy</level>
 			<time>60</time>
-			<target-version>3.0.11</target-version>
+			<target-version>3.0.12</target-version>
 		</installation>
 		<link-group>
 			<link type="parent" href="../../install_mod.xml" lang="en">Topic Preview Install Instructions</link>

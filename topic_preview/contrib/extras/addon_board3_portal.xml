@@ -9,11 +9,9 @@
 		<title lang="en"><![CDATA[Topic Preview for Board3 Portal 2.0.X]]></title>
 		<description lang="en"><![CDATA[This add-on allows you to integrate Topic Preview with the Board3 Portal.
 
-You must already have installed:
-Topic Preview 1.1.0 http://www.phpbb.com/customise/db/mod/topic_preview/
-Board3 Portal 2.0.X http://board3.de/
-
-(Note: Topic Preview's "Pretty Topic Preview" theme will not work with Board3. Only the default native Topic Preview functionality will work with Board3.]]></description>
+* All changes will be made to Board3 Portal files. Please back up your original files before modifying them.
+** Topic Preview's "Pretty Topic Preview" theme will not work with Board3. Only the default native Topic Preview functionality will work with Board3.]]></description>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Board3 Portal 2.0.X" and "Topic Preview 1.1.0" on your forum.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -24,8 +22,8 @@ Board3 Portal 2.0.X http://board3.de/
 		<mod-version>1.1.0</mod-version>
 		<installation>
 			<level>intermediate</level>
-			<time>600</time>
-			<target-version>3.0.11</target-version>
+			<time>900</time>
+			<target-version>3.0.12</target-version>
 		</installation>
 		<link-group>
 			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 1.1.0</link>
