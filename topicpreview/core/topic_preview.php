@@ -55,7 +55,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	/**
 	* Add-On: Preserve line breaks?
 	*/
-//	private $preserve_lb	= false;
+//	private $tp_line_breaks	= false;
 
 	/**
 	* Add-On: [topicpreview] bbcode support?
@@ -286,7 +286,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 // 		}
 
 		$text = smiley_text($text, true); // display smileys as text :)
-//		$text = ($this->preserve_lb ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
+//		$text = ($this->tp_line_breaks ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
 
 		$bbcode_strip = (empty($this->strip_bbcodes) ? 'flash' : 'flash|' . trim($this->strip_bbcodes));
 

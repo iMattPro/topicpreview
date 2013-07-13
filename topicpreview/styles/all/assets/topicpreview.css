@@ -6,6 +6,10 @@
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
+	
+	-webkit-box-shadow: 1px 1px 3px #cecece;
+	-moz-box-shadow: 1px 1px 3px #cecece;
+	box-shadow: 1px 1px 3px #cecece;
 
 	padding: 10px;
 	margin-left: -40px;
@@ -50,7 +54,7 @@
 	*display: none;
 }
 
-#topic_preview.invert:before { /* Lower Triangle */
+#topic_preview.invert:after { /* Lower Triangle */
 	content: "";
 	background: #fff; /* #333 dark theme */
 
@@ -60,9 +64,9 @@
 
 	width: 10px;
 	height: 10px;
-	bottom: 0;
+	top: 100%;
 	margin-left: 15px;
-	margin-bottom: -6px;
+	margin-top: -5px;
 
 	display: block;
 	position: absolute;
@@ -78,6 +82,11 @@
 	*display: none;
 }
 
+#topic_preview.invert:before { /* Hide upper triangle */
+	content: "";
+	display: none;
+}
+
 .topic_preview_avatar {
 	float: left;
 	position: relative;
@@ -85,4 +94,9 @@
 	border: solid 1px #cecece;
 	width: 60px;
 	height: 60px;
+}
+
+.topic_preview_first, .topic_preview_last {
+	word-wrap: break-word;
+	overflow: hidden;
 }

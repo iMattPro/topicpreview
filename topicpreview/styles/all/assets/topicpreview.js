@@ -13,7 +13,7 @@
 
 		var settings = $.extend( {
 			"delay" : 1500,
-			"width" : 320,
+			"width" : 360,
 			"left"  : 35,
 			"top"   : 25,
 			"drift" : 15
@@ -79,9 +79,9 @@
 		});
 	};
 
-	// Check if y coord extends beyond bottom edge of window (with 20px of pad)
+	// Check if y coord extends beyond bottom edge of window (with 100px of pad)
 	function edgeDetect(y) {
-		return ( y >= ($(window).scrollTop() + $(window).height() - 20) );
+		return ( y >= ($(window).scrollTop() + $(window).height() - 100) );
 	}
 
 })( jQuery, window, document );

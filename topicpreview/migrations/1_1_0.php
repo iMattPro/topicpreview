@@ -39,7 +39,7 @@ class phpbb_ext_vse_topicpreview_migrations_1_1_0 extends phpbb_db_migration
 
 			array('config.add', array('topic_preview_last_post', '0')),
 			array('config.add', array('topic_preview_avatars', '0')),
-			array('config.add', array('topic_preview_pretty', '0')),
+			array('config.add', array('topic_preview_jquery', '0')),
 
 			array('config.update', array('topic_preview_version', '1.1.0')),
 		);

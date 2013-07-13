@@ -25,8 +25,8 @@ class phpbb_ext_vse_topicpreview_migrations_1_2_0 extends phpbb_db_migration
 			array('custom', array(array($this, 'update_module_basename'))),
 
 			array('if', array(
-				($this->config['topic_preview_pretty']),
-				array('config.remove', array('topic_preview_pretty')),
+				($this->config['topic_preview_jquery']),
+				array('config.remove', array('topic_preview_jquery')),
 			)),
 
 			array('if', array(
