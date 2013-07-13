@@ -32,7 +32,6 @@
 		</copy>
 		<delete>
 			<file name="adm/style/acp_topic_preview.html"/>
-			<file name="includes/acp/info/acp_topic_preview.php"/>
 			<file name="includes/acp/acp_topic_preview.php"/>
 			<file name="includes/topic_preview.php"/>
 			<file name="styles/topic_preview/jquery.min.js"/>
