@@ -44,9 +44,9 @@ $lang = array_merge($lang, array(
 	'DISPLAY_TOPIC_PREVIEW'			=> 'Afişează previzualizările subiectelor',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Coduri BB de ascuns în previzualizarea subiectelor',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Afişează codurile BB cu conţinutul pe care-l doreşti înlăturat din previzualizare (spoileri şi texte cod BB ascunse, spre exemplu). Separă codurile BB multiple folosind caracterul |, de exemplu: spoiler|ascunde|cod',
-	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
+	'TOPIC_PREVIEW_JQUERY'			=> 'Enable jQuery Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in jQuery Topic Previews)',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in jQuery Topic Previews)',
 	'CHARS'							=> 'Caractere',
 	'FIRST_POST'					=> 'Primul mesaj',
 ));

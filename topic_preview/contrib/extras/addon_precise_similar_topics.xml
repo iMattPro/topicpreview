@@ -62,7 +62,7 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{similar.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{similar.LAST_POST_TIME}<br /> </span>
 				</dd>
 			</dl>]]></find>
-				<action type="after-add"><![CDATA[			<!-- IF similar.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[			<!-- IF similar.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 			<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
 				<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 				<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
@@ -87,7 +87,7 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 			<edit>
 				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles (ie: we_clearblue and we_universal)]]></comment>
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{similar.U_VIEW_FORUM}">{similar.FORUM_TITLE}</a></p>]]></find>
-				<action type="after-add"><![CDATA[				<!-- IF similar.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[				<!-- IF similar.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
 					<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 					<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>

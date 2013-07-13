@@ -44,9 +44,9 @@ $lang = array_merge($lang, array(
 	'DISPLAY_TOPIC_PREVIEW'			=> 'Wyświetl Podgląd Tematu',	
 	'TOPIC_PREVIEW_STRIP'			=> 'Ukryj BBkody w Podglądzie Tematu',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista z zawartością BBKodów, które chcesz usunąć podglądu (na przykład BBKody: spoiler, ukryty tekst, kod). Kilka BBKodów oddziel znakiem | , na przykład: spoiler|hide|code',
-	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
+	'TOPIC_PREVIEW_JQUERY'			=> 'Enable jQuery Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in jQuery Topic Previews)',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in jQuery Topic Previews)',
 	'CHARS'							=> 'Znaki',
 	'FIRST_POST'					=> 'Pierwszy post',
 ));

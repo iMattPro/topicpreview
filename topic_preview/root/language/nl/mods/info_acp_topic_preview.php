@@ -47,9 +47,9 @@ $lang = array_merge($lang, array(
 	'DISPLAY_TOPIC_PREVIEW'			=> 'Laat het topic voorbeeld zien',
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCodes die niet gebruikt worden in het voorbeeld',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Geef hier aan welde BBCodes je wilt verwijderen van het voorbeeld (bijvoorbeeld spoiler and verborgen text BBCodes). BBCodes worden gescheiden door het "|" teken, bijvoorbeeld: spoiler|hide|code',
-	'TOPIC_PREVIEW_PRETTY'			=> 'Enable Pretty Topic Previews',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in Pretty Topic Previews)',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in Pretty Topic Previews)',
+	'TOPIC_PREVIEW_JQUERY'			=> 'Enable jQuery Topic Previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in jQuery Topic Previews)',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in jQuery Topic Previews)',
 	'CHARS'							=> 'Tekens',
 	'FIRST_POST'					=> 'Eerste bericht',
 ));

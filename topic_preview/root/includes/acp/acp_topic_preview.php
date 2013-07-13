@@ -50,8 +50,8 @@ class acp_topic_preview
 			$topic_preview_strip_bbcodes = request_var('topic_preview_strip_bbcodes', '');
 			set_config('topic_preview_strip_bbcodes', $topic_preview_strip_bbcodes);
 
-			$topic_preview_pretty = request_var('topic_preview_pretty', 0);
-			set_config('topic_preview_pretty', $topic_preview_pretty);
+			$topic_preview_jquery = request_var('topic_preview_jquery', 0);
+			set_config('topic_preview_jquery', $topic_preview_jquery);
 
 			$topic_preview_avatars = request_var('topic_preview_avatars', 0);
 			set_config('topic_preview_avatars', $topic_preview_avatars);
@@ -65,7 +65,7 @@ class acp_topic_preview
 		$template->assign_vars(array(
 			'TOPIC_PREVIEW_LIMIT'		=> isset($config['topic_preview_limit']) ? $config['topic_preview_limit'] : '',
 			'TOPIC_PREVIEW_STRIP'		=> isset($config['topic_preview_strip_bbcodes']) ? $config['topic_preview_strip_bbcodes'] : '',
-			'S_TOPIC_PREVIEW_PRETTY'	=> isset($config['topic_preview_pretty']) ? $config['topic_preview_pretty'] : false,
+			'S_TOPIC_PREVIEW_JQUERY'	=> isset($config['topic_preview_jquery']) ? $config['topic_preview_jquery'] : false,
 			'S_TOPIC_PREVIEW_AVATARS'	=> isset($config['topic_preview_avatars']) ? $config['topic_preview_avatars'] : false,
 			'S_TOPIC_PREVIEW_LAST_POST'	=> isset($config['topic_preview_last_post']) ? $config['topic_preview_last_post'] : false,
 			'S_TOPIC_PREVIEW_VERSION'	=> isset($config['topic_preview_version']) ? 'v' . $config['topic_preview_version'] : '',

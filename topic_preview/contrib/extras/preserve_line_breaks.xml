@@ -7,7 +7,7 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview - Preserve Line Breaks]]></title>
-		<description lang="en"><![CDATA[This add-on will allow newlines/carriage returns from the post to be preserved in the Topic Preview tooltip (does not work in the Pretty Topic Preview theme).
+		<description lang="en"><![CDATA[This add-on will allow newlines/carriage returns from the post to be preserved in the Topic Preview tooltip (does not work in the jQuery Topic Preview theme).
 Thanks to phpBB member doum-ti-di-li-doom for submitting this trick.]]></description>
 		<author-group>
 			<author>

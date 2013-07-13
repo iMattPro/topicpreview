@@ -59,9 +59,9 @@ class phpbb_topic_preview
 	var $tp_avatars		= false;
 
 	/**
-	* Display native topic preview tooltips (false for jQuery version)
+	* Display jQuery topic preview tooltip theme
 	*/
-	var $tp_pretty_mode	= false;
+	var $tp_jquery_mode	= false;
 
 	/**
 	* Add-On: Preserve line breaks?
@@ -84,9 +84,9 @@ class phpbb_topic_preview
 		$this->preview_limit = (int) $config['topic_preview_limit'];
 		$this->strip_bbcodes = (string) $config['topic_preview_strip_bbcodes'];
 
-		$this->tp_pretty_mode = (bool) $config['topic_preview_pretty'];
-		$this->tp_avatars     = $config['topic_preview_avatars'] && $config['allow_avatar'] && $this->tp_pretty_mode ? true : false;
-		$this->tp_last_post   = $config['topic_preview_last_post'] && $this->tp_pretty_mode ? true : false;
+		$this->tp_jquery_mode = (bool) $config['topic_preview_jquery'];
+		$this->tp_avatars     = $config['topic_preview_avatars'] && $config['allow_avatar'] && $this->tp_jquery_mode ? true : false;
+		$this->tp_last_post   = $config['topic_preview_last_post'] && $this->tp_jquery_mode ? true : false;
 
 		$this->tp_sql_select = ', fp.post_text AS first_post_preview_text' . (($this->tp_last_post) ? ', lp.post_text AS last_post_preview_text' : '');
 		$this->tp_sql_join   = ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' . (($this->tp_last_post) ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '');
@@ -235,10 +235,10 @@ class phpbb_topic_preview
 		), true, 'change');
 
 		// Set this template var only once
-		if (!isset($template->_tpldata['.'][0]['S_PRETTY_TOPIC_PREVIEW']))
+		if (!isset($template->_tpldata['.'][0]['S_JQUERY_TOPIC_PREVIEW']))
 		{
 			$template->assign_vars(array(
-				'S_PRETTY_TOPIC_PREVIEW'	=> $this->tp_pretty_mode,
+				'S_JQUERY_TOPIC_PREVIEW'	=> $this->tp_jquery_mode,
 			));
 		}
 	}

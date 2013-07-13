@@ -7,10 +7,10 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a Pretty jQuery theme with options to also show user's avatars, and both the first and last posts from the topic. Topic Preview is customizable to get the right look for each style in your board.		
+		<description lang="en"><![CDATA[Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a pretty jQuery theme with options to also show user's avatars, and both the first and last posts from the topic. Topic Preview is customizable to get the right look for each style in your board.		
 		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
 		<github><![CDATA[https://github.com/VSEphpbb/topic_preview]]></github>
-		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the "Pretty Topic Preview" theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
+		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the "jQuery Topic Preview" theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -30,10 +30,10 @@
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Total overhaul of code base]]></change>
-					<change><![CDATA[Replaced qTip2 and TipTip add-ons with a new integrated jQuery Pretty Topic Preview theme]]></change>
-					<change><![CDATA[Added an ACP option to use native browser tooltips or the new Pretty Topic Preview theme]]></change>
-					<change><![CDATA[Added an ACP option to display user's avatars in the Pretty Topic Preview theme]]></change>
-					<change><![CDATA[Added an ACP option to display both first and last posts in the new Pretty Topic Preview theme]]></change>
+					<change><![CDATA[Replaced qTip2 and TipTip add-ons with a new integrated jQuery Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to use native browser tooltips or the new jQuery Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display user's avatars in the jQuery Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display both first and last posts in the new jQuery Topic Preview theme]]></change>
 					<change><![CDATA[Moved all ACP settings to the .MODs tab]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 					<change><![CDATA[Added French language pack]]></change>
@@ -262,7 +262,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 		<open src="styles/prosilver/template/overall_footer.html">
 			<edit>
 				<find><![CDATA[</body>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
 	<script type="text/javascript">
 		window.jQuery || document.write(unescape('%3Cscript src="{ROOT_PATH}styles/topic_preview/jquery.min.js" type="text/javascript"%3E%3C/script%3E'));
 	</script>
@@ -284,7 +284,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
 	<link href="{ROOT_PATH}styles/topic_preview/topic_preview.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->]]></action>
 			</edit>
@@ -301,7 +301,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{searchresults.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{searchresults.LAST_POST_TIME}<br /> </span>
 					</dd>
 				</dl>]]></find>
-				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{searchresults.TOPIC_ID}" style="display:none;">
 					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
@@ -341,7 +341,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>
 				</dd>
 			</dl>]]></find>
-				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 			<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
 				<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 				<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>

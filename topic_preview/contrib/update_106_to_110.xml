@@ -8,7 +8,7 @@
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview - Update 1.0.6 to 1.1.0]]></title>
 		<description lang="en"><![CDATA[Update from version 1.0.6 to 1.1.0]]></description>
-		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the Pretty Topic Preview theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.
+		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the jQuery Topic Preview theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.
 
 IMPORTANT: If you have installed any of the contrib/extras add-ons from previous versions of Topic Preview MOD, then you should uninstall those add-ons (following their instructions from THE OLD version of Topic Preview in reverse) and then it should be safe to re-install add-ons using the updated instructions included within this version's contrib/extras folder.]]></author-notes>
 		<author-group>
@@ -189,7 +189,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 		<open src="styles/prosilver/template/overall_footer.html">
 			<edit>
 				<find><![CDATA[</body>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
 	<script type="text/javascript">
 		window.jQuery || document.write(unescape('%3Cscript src="{ROOT_PATH}styles/topic_preview/jquery.min.js" type="text/javascript"%3E%3C/script%3E'));
 	</script>
@@ -211,7 +211,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
 	<link href="{ROOT_PATH}styles/topic_preview/topic_preview.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->]]></action>
 			</edit>
@@ -228,7 +228,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{searchresults.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{searchresults.LAST_POST_TIME}<br /> </span>
 					</dd>
 				</dl>]]></find>
-				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{searchresults.TOPIC_ID}" style="display:none;">
 					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
@@ -253,7 +253,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>
 				</dd>
 			</dl>]]></find>
-				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 			<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
 				<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 				<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
@@ -275,7 +275,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 		<open src="styles/subsilver2/template/overall_footer.html">
 			<edit>
 				<find><![CDATA[</body>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
 	<script type="text/javascript">
 		window.jQuery || document.write(unescape('%3Cscript src="{ROOT_PATH}styles/topic_preview/jquery.min.js" type="text/javascript"%3E%3C/script%3E'));
 	</script>
@@ -297,7 +297,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 		<open src="styles/subsilver2/template/overall_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_PRETTY_TOPIC_PREVIEW -->
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
 	<link href="{ROOT_PATH}styles/topic_preview/topic_preview.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->]]></action>
 			</edit>
@@ -313,7 +313,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{searchresults.U_VIEW_FORUM}">{searchresults.FORUM_TITLE}</a></p>
 				<!-- ENDIF -->]]></find>
-				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{searchresults.TOPIC_ID}" style="display:none;">
 					<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 					<div class="topic_preview_text_first"><!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
@@ -337,7 +337,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 				<!-- ENDIF -->]]></find>
-				<action type="after-add"><![CDATA[				<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[				<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 				<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
 					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 					<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
@@ -359,7 +359,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 			<edit>
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 					<!-- ENDIF -->]]></find>
-				<action type="after-add"><![CDATA[					<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_PRETTY_TOPIC_PREVIEW -->
+				<action type="after-add"><![CDATA[					<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 					<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
 						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
 						<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>

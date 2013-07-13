@@ -10,7 +10,7 @@ Features
 
 * Let your visitors peek at what's inside a topic before they click on it!
 * Uses the browser's built-in tooltip (no javascript or css needed)
-* Optional enhanced pretty jQuery tooltip theme with options to also display user's avatars and the first and last posts
+* Optional enhanced jQuery Topic Preview theme with options to also display user's avatars and the first and last posts
 * The last word in the tooltip will not be cut off
 * Topic previews also appear in View new topics, View your topics, View unanswered topics, search results, etc.
 * Smileys are displayed as text :)

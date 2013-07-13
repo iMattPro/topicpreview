@@ -59,7 +59,7 @@ $versions = array(
 		'config_add' => array(
 			array('topic_preview_last_post', '0'),
 			array('topic_preview_avatars', '0'),
-			array('topic_preview_pretty', '0'),
+			array('topic_preview_jquery', '0'),
 		),
 
 		'module_add' => array(

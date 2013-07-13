@@ -10,7 +10,7 @@
 		<description lang="en"><![CDATA[This add-on allows you to integrate Topic Preview with the Board3 Portal.
 
 * All changes will be made to Board3 Portal files. Please back up your original files before modifying them.
-** Topic Preview's "Pretty Topic Preview" theme will not work with Board3. Only the default native Topic Preview functionality will work with Board3.]]></description>
+** Topic Preview's "jQuery Topic Preview" theme will not work with Board3. Only the default native Topic Preview functionality will work with Board3.]]></description>
 		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Board3 Portal 2.0.X" and "Topic Preview 1.1.0" on your forum.]]></author-notes>
 		<author-group>
 			<author>
