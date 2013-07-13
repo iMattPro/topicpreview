@@ -156,6 +156,10 @@
 			<link type="contrib" href="contrib/extras/addon_board3_portal.xml" lang="en">Add-On : Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Preserve Line Breaks in Topic Previews</link>
 			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
+			<link type="contrib" href="contrib/update_105_to_110.xml" lang="en">Upgrade : from 1.0.5 to 1.1.0</link>
+			<link type="contrib" href="contrib/update_106_to_110.xml" lang="en">Upgrade : from 1.0.6 to 1.1.0</link>
+			<link type="contrib" href="contrib/update_107_to_110.xml" lang="en">Upgrade : from 1.0.7 to 1.1.0</link>
+			<link type="contrib" href="contrib/update_109_to_110.xml" lang="en">Upgrade : from 1.0.9 to 1.1.0</link>
 			<link type="contrib" href="contrib/update_1010_to_110.xml" lang="en">Upgrade : from 1.0.10 to 1.1.0</link>
 			<link type="uninstall" href="contrib/extras/uninstall_v110.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
