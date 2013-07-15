@@ -53,7 +53,7 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 		</open>
 		<open src="styles/prosilver/template/similar_topics.html">
 			<edit>
-				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles (ie: Aero style)]]></comment>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles]]></comment>
 				<find><![CDATA[<dt <!-- IF similar.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{similar.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF -->>]]></find>
 				<action type="replace-with"><![CDATA[<dt <!-- IF similar.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{similar.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --><!-- IF similar.TOPIC_PREVIEW_TEXT --> title="{similar.TOPIC_PREVIEW_TEXT}" id="t{similar.TOPIC_ID}"<!-- ENDIF -->>]]></action>
 			</edit>
@@ -77,7 +77,7 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 		</open>
 		<open src="styles/subsilver2/template/similar_topics.html">
 			<edit>
-				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles (ie: we_clearblue and we_universal)]]></comment>
+				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles]]></comment>
 				<find><![CDATA[<a href="{similar.U_VIEW_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[class="topictitle"]]></inline-find>
