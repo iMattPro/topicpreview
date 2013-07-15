@@ -20,6 +20,9 @@
 			"drift" : 15
 		}, options );
 
+		// Do not allow delay times less than 300ms to prevent tooltip madness
+		settings.delay = Math.max(settings.delay, 300);
+
 		// Add no avatar image to any broken/missing avatar imagess in topic previews
 		$(".topic_preview_avatar > img").one("error", function() { 
 			$(this).attr("src", settings.noavatar);
