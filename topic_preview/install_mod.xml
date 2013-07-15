@@ -37,6 +37,7 @@
 					<change><![CDATA[Moved all ACP settings to the .MODs tab]]></change>
 					<change><![CDATA[Added Czech language pack]]></change>
 					<change><![CDATA[Added French language pack]]></change>
+					<change><![CDATA[Optional Add-On : Topic Preview for Top Five MOD instructions]]></change>
 					<change><![CDATA[Updated MODX to 1.2.6.]]></change>
 					<change><![CDATA[Updated UMIL to 1.0.5.]]></change>
 				</changelog>
