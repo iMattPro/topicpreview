@@ -23,6 +23,11 @@
 		// Do not allow delay times less than 300ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);
 
+		// Add no avatar image to any broken/missing avatar imagess in topic previews
+		$(".topic_preview_avatar > img").one("error", function() { 
+			$(this).attr("src", settings.noavatar);
+		});
+
 		var previewTimeout = 0,
 			previewContainer = $('<div id="topic_preview" class="' + settings.theme + '"></div>').css("width", settings.width).appendTo("body");
 
