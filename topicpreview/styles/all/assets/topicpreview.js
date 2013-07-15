@@ -20,6 +20,9 @@
 			"drift" : 15
 		}, options );
 
+		// Do not allow delay times less than 300ms to prevent tooltip madness
+		settings.delay = Math.max(settings.delay, 300);
+
 		var previewTimeout = 0,
 			previewContainer = $('<div id="topic_preview" class="' + settings.theme + '"></div>').css("width", settings.width).appendTo("body");
 
