@@ -20,6 +20,11 @@
 			"drift" : 15
 		}, options );
 
+		// Add no avatar image to any broken/missing avatar imagess in topic previews
+		$(".topic_preview_avatar > img").one("error", function() { 
+			$(this).attr("src", settings.noavatar);
+		});
+
 		var previewTimeout = 0,
 			previewContainer = $('<div id="topic_preview" class="' + settings.style + '"></div>').css("width", settings.width).appendTo("body");
 

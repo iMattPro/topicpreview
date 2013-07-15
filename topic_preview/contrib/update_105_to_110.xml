@@ -241,7 +241,8 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
 				"width" : 360, // sets the width of topic previews (in pixels)
 				"left"  : 75, // sets the position offset from the left (in pixels)
-				"drift" : 15 // sets the amount of vertical animation, use negative values to change direction (in pixels)
+				"drift" : 15, // sets the amount of vertical animation, use negative values to change direction (in pixels)
+				"noavatar" : "{ROOT_PATH}styles/topic_preview/no_avatar.png"
 			});
 		});
 	</script>
@@ -336,7 +337,8 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
 				"width" : 360, // sets the width of topic previews (in pixels)
 				"left"  : 25, // sets the position offset from the left (in pixels)
-				"drift" : 15 // sets the amount of vertical animation, use negative values to change direction (in pixels)
+				"drift" : 15, // sets the amount of vertical animation, use negative values to change direction (in pixels)
+				"noavatar" : "{ROOT_PATH}styles/topic_preview/no_avatar.png"
 			});
 		});
 	</script>
