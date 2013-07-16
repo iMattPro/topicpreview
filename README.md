@@ -4,6 +4,7 @@
 This is a MOD for phpBB3 that will display an excerpt from the first post of a topic when the user hovers their mouse over the topic's title. Topic previews are displayed using the browser's built-in tooltip ability or using a pretty jQuery stylized theme (with options to also display user's avatars and both the first and last posts from the topic). The length of text shown in the preview can be defined in the Admin Control Panel. Forum members can also disable the topic previews if they prefer not to see them.
 
 Current valid release available from phpBB: Version 1.0.10 ([Download it here](https://www.phpbb.com/customise/db/mod/topic_preview/)) 
+
 Current branch development: Version 1.1.0
 
 Features
@@ -21,12 +22,26 @@ Features
 * User option allows users to disable the feature
 * Does not significantly impact server load (no additional db queries)
 * Prosilver and Subsilver2 compatible
+* Supports AutoMOD installation
+
+Optional Add-Ons with other MODs:
+
 * Works with with Precise Similar Topics II MOD (optional)
 * Works with with Board3 Portal MOD (optional)
 * Works with with NV Recent Topics MOD (optional)
 * Works with with Top Five MOD (optional)
-* Supports English, Czech, Dutch, French, German, Italian, Polish, Romanian, Spanish
-* Supports AutoMOD installation
+
+Languages supported:
+
+* English
+* Czech
+* Dutch
+* French
+* German
+* Italian
+* Polish
+* Romanian
+* Spanish
 
 Awards
 ------
@@ -47,4 +62,4 @@ Requirements
 License
 -------
 
-GNU General Public License v2
+[GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
