@@ -39,17 +39,17 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Aperçu des Sujets',
 	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affichera dans une info-bulle un peu de texte du premier message, lorsque la souris survole le titre du sujet. ',
-	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Paramètres de l’Aperçu des Sujets',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Longueur du texte de l’aperçu des sujets',
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Saisissez le nombre de caractères à afficher dans l’info-bulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
 	'DISPLAY_TOPIC_PREVIEW'			=> 'Afficher l’aperçu des sujets',	
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode à cacher dans l’aperçu des sujets',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes de contenu à supprimer de l’aperçu (les BBCodes de texte caché et Spoiler par exemple). Séparez les différents BBCodes avec le caractère « | ». Exemples: spoiler|hide|code',
-	'TOPIC_PREVIEW_JQUERY'			=> 'Enable jQuery Topic Previews',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display user avatars (in jQuery Topic Previews)',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text (in jQuery Topic Previews)',
+	'TOPIC_PREVIEW_JQUERY'			=> 'Activer jQuery Aperçu des Sujets',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Afficher l’avatar des utilisateurs (jQuery Aperçu des Sujets requis)',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Afficher le texte du « Dernier Message » (jQuery Aperçu des Sujets requis)',
 	'CHARS'							=> 'Caractères',
-	'FIRST_POST'					=> 'First post',
+	'FIRST_POST'					=> 'Premier message',
 ));
 
 ?>
