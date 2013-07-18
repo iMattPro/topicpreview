@@ -96,6 +96,12 @@ class phpbb_topic_preview
 			$this->tp_sql_select .= ', fpu.user_avatar AS first_user_avatar, fpu.user_avatar_type AS first_user_avatar_type' . (($this->tp_last_post) ? ', lpu.user_avatar AS last_user_avatar, lpu.user_avatar_type AS last_user_avatar_type' : '');
 			$this->tp_sql_join   .= ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' . (($this->tp_last_post) ? ' LEFT JOIN ' . USERS_TABLE . ' lpu ON (lpu.user_id = t.topic_last_poster_id)' : '');
 		}
+
+		// Load our language file if needed
+		if ($this->tp_last_post)
+		{
+			$user->add_lang('mods/info_acp_topic_preview');
+		}
 	}
 
 	/**
@@ -207,8 +213,6 @@ class phpbb_topic_preview
 		}
 
 		global $template, $user, $phpbb_root_path;
-
-		$user->add_lang('mods/info_acp_topic_preview');
 
 		if (!empty($row['first_post_preview_text']))
 		{
