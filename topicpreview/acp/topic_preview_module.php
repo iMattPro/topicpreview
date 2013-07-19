@@ -52,6 +52,9 @@ class phpbb_ext_vse_topicpreview_acp_topic_preview_module
 			$topic_preview_avatars = request_var('topic_preview_avatars', 0);
 			set_config('topic_preview_avatars', $topic_preview_avatars);
 
+			$topic_preview_last_post = request_var('topic_preview_last_post', 0);
+			set_config('topic_preview_last_post', $topic_preview_last_post);
+
 			trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 		}
 
@@ -59,6 +62,7 @@ class phpbb_ext_vse_topicpreview_acp_topic_preview_module
 			'TOPIC_PREVIEW_LIMIT'		=> isset($config['topic_preview_limit']) ? $config['topic_preview_limit'] : '',
 			'TOPIC_PREVIEW_STRIP'		=> isset($config['topic_preview_strip_bbcodes']) ? $config['topic_preview_strip_bbcodes'] : '',
 			'S_TOPIC_PREVIEW_AVATARS'	=> isset($config['topic_preview_avatars']) ? $config['topic_preview_avatars'] : false,
+			'S_TOPIC_PREVIEW_LAST_POST'	=> isset($config['topic_preview_last_post']) ? $config['topic_preview_last_post'] : false,
 			'S_TOPIC_PREVIEW_VERSION'	=> isset($config['topic_preview_version']) ? 'v' . $config['topic_preview_version'] : '',
 			'U_ACTION'					=> $this->u_action,
 		));

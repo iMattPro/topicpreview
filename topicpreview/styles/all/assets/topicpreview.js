@@ -33,7 +33,7 @@
 
 		return this.each(function() {
 			var obj = $(this),
-				previewText = obj.closest("li").find(".topic_preview_first").html() || obj.closest("tr").find(".topic_preview_first").html(), // cache topic preview text
+				previewText = obj.closest("li").find(".topic_preview_content").html() || obj.closest("tr").find(".topic_preview_content").html(), // cache topic preview text
 				originalTitle = obj.closest("dt").attr("title"); // cache original title attributes
 
 			obj.hover(function() {

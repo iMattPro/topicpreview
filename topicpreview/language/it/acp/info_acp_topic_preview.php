@@ -44,5 +44,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode da nascondere nell’anteprima',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista dei BBCode con i contenuti da rimuovere dall’anteprima. Separa i BBCode multipli usando il carattere |, ad esempio: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Include “Last post” text in topic previews',
 	'CHARS'							=> 'Caratteri',
 ));

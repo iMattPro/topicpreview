@@ -44,5 +44,6 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'Skryté BBkódy',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Zde máte možnost zadat BBkódy, které v úryvku nebudou zobrazeny. Pro oddělení využijte znak |.<br /><i>Například: list|code|quote.</i>',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Include “Last post” text in topic previews',
 	'CHARS'							=> 'Počet znaků',
 ));

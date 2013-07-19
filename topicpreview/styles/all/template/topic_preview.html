@@ -1,5 +1,23 @@
-<!-- IF topicrow.TOPIC_PREVIEW_FP --><div class="topic_preview_first" style="display:none;"><!-- IF topicrow.TOPIC_PREVIEW_AVATAR_FP --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR_FP}</div><!-- ENDIF -->{topicrow.TOPIC_PREVIEW_FP}</div><!-- ENDIF -->
-<!-- IF topicrow.TOPIC_PREVIEW_LP --><div class="topic_preview_last" style="display:none;"><!-- IF topicrow.TOPIC_PREVIEW_AVATAR_LP --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR_LP}</div><!-- ENDIF -->{topicrow.TOPIC_PREVIEW_LP}</div><!-- ENDIF -->
+<!-- IF topicrow.TOPIC_PREVIEW_FP -->
+	<div class="topic_preview_content" style="display:none;">
+		<!-- IF topicrow.TOPIC_PREVIEW_AVATAR_FP --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR_FP}</div><!-- ENDIF -->
+		<div class="topic_preview_first"><!-- IF topicrow.TOPIC_PREVIEW_LP --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF -->{topicrow.TOPIC_PREVIEW_FP}</div>
+		<!-- IF topicrow.TOPIC_PREVIEW_LP -->
+			<div class="topic_preview_break"></div>
+			<!-- IF topicrow.TOPIC_PREVIEW_AVATAR_LP --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR_LP}</div><!-- ENDIF -->
+			<div class="topic_preview_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_LP}</div>
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
 
-<!-- IF searchresults.TOPIC_PREVIEW_FP --><div class="topic_preview_first" style="display:none;"><!-- IF searchresults.TOPIC_PREVIEW_AVATAR_FP --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR_FP}</div><!-- ENDIF -->{searchresults.TOPIC_PREVIEW_FP}</div><!-- ENDIF -->
-<!-- IF searchresults.TOPIC_PREVIEW_LP --><div class="topic_preview_last" style="display:none;"><!-- IF searchresults.TOPIC_PREVIEW_AVATAR_LP --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR_LP}</div><!-- ENDIF -->{searchresults.TOPIC_PREVIEW_LP}</div><!-- ENDIF -->
+<!-- IF searchresults.TOPIC_PREVIEW_FP -->
+	<div class="topic_preview_content" style="display:none;">
+		<!-- IF searchresults.TOPIC_PREVIEW_AVATAR_FP --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR_FP}</div><!-- ENDIF -->
+		<div class="topic_preview_first"><!-- IF searchresults.TOPIC_PREVIEW_LP --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF -->{searchresults.TOPIC_PREVIEW_FP}</div>
+		<!-- IF searchresults.TOPIC_PREVIEW_LP -->
+			<div class="topic_preview_break"></div>
+			<!-- IF searchresults.TOPIC_PREVIEW_AVATAR_LP --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR_LP}</div><!-- ENDIF -->
+			<div class="topic_preview_last"><strong>{L_LAST_POST}:</strong><br />{searchresults.TOPIC_PREVIEW_LP}</div>
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
