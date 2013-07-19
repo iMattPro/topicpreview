@@ -41,7 +41,7 @@
 		$topic_preview = new phpbb_topic_preview();
 	}
 	$sql_ary['SELECT'] .= ', t.topic_first_post_id';
-	$sql_ary = $topic_preview->inject_sql_array($sql_ary);
+	$sql_ary = $topic_preview->modify_sql_array($sql_ary);
 	// END Topic Preview Mod]]></action>
 			</edit>
 			<edit>

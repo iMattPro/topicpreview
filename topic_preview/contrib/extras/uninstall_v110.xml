@@ -47,8 +47,8 @@
 				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 				$topic_preview = new phpbb_topic_preview();
 			}
-			$sql_from 	= $topic_preview->inject_sql_join($sql_from);
-			$sql_select = $topic_preview->inject_sql_select($sql_select);
+			$sql_from 	= $topic_preview->modify_sql_join($sql_from);
+			$sql_select = $topic_preview->modify_sql_select($sql_select);
 			// END Topic Preview Mod
 ]]></remove>
 			</edit>
@@ -70,13 +70,13 @@ if(!class_exists('phpbb_topic_preview'))
 	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 	$topic_preview = new phpbb_topic_preview();
 }
-$sql_array = $topic_preview->inject_sql_array($sql_array);
+$sql_array = $topic_preview->modify_sql_array($sql_array);
 // END Topic Preview Mod
 ]]></remove>
 			</edit>
 			<edit>
 				<remove><![CDATA[	// BEGIN Topic Preview Mod
-	$sql = $topic_preview->inject_sql($sql);
+	$sql = $topic_preview->modify_sql($sql);
 	// END Topic Preview Mod
 ]]></remove>
 			</edit>

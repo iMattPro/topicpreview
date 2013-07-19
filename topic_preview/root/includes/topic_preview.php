@@ -111,7 +111,7 @@ class phpbb_topic_preview
 	* Extend a query to get post text from the POSTS_TABLE
 	* @access public
 	*/
-	function inject_sql_array($sql_array)
+	function modify_sql_array($sql_array)
 	{
 		if (!$this->is_active)
 		{
@@ -156,7 +156,7 @@ class phpbb_topic_preview
 	* Rewrite the query to get more values from the POSTS_TABLE
 	* @access public
 	*/
-	function inject_sql($sql)
+	function modify_sql($sql)
 	{
 		if (!$this->is_active)
 		{
@@ -176,7 +176,7 @@ class phpbb_topic_preview
 	* Extend an $sql_select statement
 	* @access public
 	*/
-	function inject_sql_select($sql_select)
+	function modify_sql_select($sql_select)
 	{
 		if (!$this->is_active)
 		{
@@ -192,7 +192,7 @@ class phpbb_topic_preview
 	* Extend an $sql_join statement
 	* @access public
 	*/
-	function inject_sql_join($sql_join)
+	function modify_sql_join($sql_join)
 	{
 		if (!$this->is_active)
 		{

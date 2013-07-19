@@ -80,8 +80,8 @@ IMPORTANT: If you have installed any of the contrib/extras add-ons from previous
 				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 				$topic_preview = new phpbb_topic_preview();
 			}
-			$sql_from 	= $topic_preview->inject_sql_join($sql_from);
-			$sql_select = $topic_preview->inject_sql_select($sql_select);
+			$sql_from 	= $topic_preview->modify_sql_join($sql_from);
+			$sql_select = $topic_preview->modify_sql_select($sql_select);
 			// END Topic Preview Mod
 ]]></action>
 			</edit>
@@ -131,7 +131,7 @@ if(!class_exists('phpbb_topic_preview'))
 	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 	$topic_preview = new phpbb_topic_preview();
 }
-$sql_array = $topic_preview->inject_sql_array($sql_array);
+$sql_array = $topic_preview->modify_sql_array($sql_array);
 // END Topic Preview Mod
 ]]></action>
 			</edit>
@@ -159,7 +159,7 @@ $sql_array = $topic_preview->inject_sql_array($sql_array);
 		FROM ' . TOPICS_TABLE . '
 		WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
 	// BEGIN Topic Preview Mod
-	$sql = $topic_preview->inject_sql($sql);
+	$sql = $topic_preview->modify_sql($sql);
 	// END Topic Preview Mod
 	$result = $db->sql_query($sql);
 ]]></action>
