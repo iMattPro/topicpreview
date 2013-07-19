@@ -86,9 +86,9 @@ class phpbb_topic_preview
 		$this->strip_bbcodes = (string) $config['topic_preview_strip_bbcodes'];
 
 		// Set-up jQuery theme config parameters
-		$this->tp_jquery_mode = (bool) $config['topic_preview_jquery'];
-		$this->tp_last_post   = $config['topic_preview_last_post'] && $this->tp_jquery_mode ? true : false;
-		$this->tp_avatars     = $config['topic_preview_avatars'] && $config['allow_avatar'] && $this->tp_jquery_mode ? true : false;
+		$this->tp_jquery_mode = (!empty($config['topic_preview_jquery'])) ? true : false;
+		$this->tp_last_post   = (!empty($config['topic_preview_last_post']) && $this->tp_jquery_mode) ? true : false;
+		$this->tp_avatars     = (!empty($config['topic_preview_avatars']) && $config['allow_avatar'] && $this->tp_jquery_mode) ? true : false;
 
 		// Set-up some common SQL statements we'll be using
 		$this->tp_sql_select = ', fp.post_text AS first_post_preview_text' . (($this->tp_last_post) ? ', lp.post_text AS last_post_preview_text' : '');
