@@ -108,8 +108,10 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* Extend a query to get post text from the POSTS_TABLE
-	* @access public
+	* Modify SQL array to get post text for viewforum topics
+	*
+	* @param	array	$sql_array 	SQL statement array
+	* @return	array	SQL statement array
 	*/
 	function modify_sql_array($sql_array)
 	{
@@ -153,8 +155,10 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* Rewrite the query to get more values from the POSTS_TABLE
-	* @access public
+	* Modify SQL statement to get post text for viewforum shadowtopics
+	*
+	* @param	string	$sql 	SQL statement
+	* @return	string	SQL statement
 	*/
 	function modify_sql($sql)
 	{
@@ -173,8 +177,10 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* Extend an $sql_select statement
-	* @access public
+	* Modify SQL SELECT statement to get post text for searchresults
+	*
+	* @param	string	$sql_select 	SQL SELECT statement
+	* @return	string	SQL SELECT statement
 	*/
 	function modify_sql_select($sql_select)
 	{
@@ -189,8 +195,10 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* Extend an $sql_join statement
-	* @access public
+	* Modify SQL JOIN statement to get post text for searchresults
+	*
+	* @param	string	$sql_join 	SQL JOIN statement
+	* @return	string	SQL JOIN statement
 	*/
 	function modify_sql_join($sql_join)
 	{
@@ -206,7 +214,10 @@ class phpbb_topic_preview
 
 	/**
 	* Inject topic preview text into the template
-	* @access public
+	*
+	* @param	array	$row 	row data
+	* @param	array	$block 	template vars array
+	* @return	null
 	*/
 	function display_topic_preview($row, $block)
 	{
@@ -252,11 +263,15 @@ class phpbb_topic_preview
 
 	/**
 	* Truncate and clean topic preview text
+	*
+	* @param	string	$text 	topic preview text
+	* @param	int		$limit 	number of characters to allow
+	* @return	string	topic preview text
 	* @access private
 	*/
-	function _trim_topic_preview($string, $limit)
+	function _trim_topic_preview($text, $limit)
 	{
-		$text = $this->_bbcode_strip($string);
+		$text = $this->_bbcode_strip($text);
 
 		if (utf8_strlen($text) >= $limit)
 		{
@@ -270,8 +285,14 @@ class phpbb_topic_preview
 	}
 
 	/**
-	* This function's RegEx patterns were originally written by RMcGirr83 for his Topic Text Hover Mod
-	* Modified by Matt Friedman to display smileys as text, strip URLs, custom BBcodes and trim whitespace
+	* Strip bbcodes and links for topic preview text
+	*
+	* NOTE: These RegEx patterns were originally written by RMcGirr83 for
+	* his Topic Text Hover Mod, and Modified by Matt Friedman to display
+	* smileys as text, strip URLs, custom BBcodes and trim whitespace.
+	*
+	* @param	string	$text 	topic preview text
+	* @return	string	topic preview text
 	* @access private
 	*/
 	function _bbcode_strip($text)
