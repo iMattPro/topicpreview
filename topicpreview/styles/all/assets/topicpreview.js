@@ -29,7 +29,7 @@
 		});
 
 		var previewTimeout = 0,
-			previewContainer = $('<div id="topic_preview" class="' + settings.theme + '"></div>').css("width", settings.width).appendTo("body");
+			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.theme).css("width", settings.width).appendTo("body");
 
 		return this.each(function() {
 			var obj = $(this),
