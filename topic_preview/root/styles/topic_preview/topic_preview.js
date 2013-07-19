@@ -36,9 +36,6 @@
 				hoverObject = obj.parent().find(".topictitle"),
 				firstPostText = obj.attr("title"); // cache title attributes
 
-			// remove default titles
-			obj.attr("title", "");
-
 			hoverObject.hover(function() {
 				// Proceed only if there is content to display
 				var content = $("#topic_preview_" + obj.attr("id")).html();
@@ -50,6 +47,9 @@
 				if (previewTimeout !== 0) {
 					clearTimeout(previewTimeout);
 				}
+
+				// remove default titles
+				obj.attr("title", "");
 
 				previewTimeout = setTimeout(function() {
 					// clear the timeout var after delay and function begins to execute	
