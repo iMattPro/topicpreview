@@ -10,8 +10,7 @@ STATUS
 * To-do: UCP module or UCP events are needed
 * To-do: Event listeners are needed in viewforum.php and search.php
 * To-do: Template events are needed in Prosilver and Subsilver2
-* To-do: contrib styles and add ons will need to be addressed
-
+* To-do: Complete language translation updates
 
 Requirements
 ------------
