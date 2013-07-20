@@ -3,8 +3,8 @@
     "type": "phpbb3-extension",
     "description": "An extension for phpBB 3.1 that will display an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability.",
     "homepage": "https://github.com/VSEphpbb/topic_preview",
-    "version": "1.2.0",
-    "time": "2013-03-18",
+    "version": "2.1.0",
+    "time": "2013-07-20",
     "licence": "GPLv2",
     "authors": [
         {

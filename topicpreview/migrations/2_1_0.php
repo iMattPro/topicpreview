@@ -7,16 +7,16 @@
 *
 */
 
-class phpbb_ext_vse_topicpreview_migrations_1_2_0 extends phpbb_db_migration
+class phpbb_ext_vse_topicpreview_migrations_2_1_0 extends phpbb_db_migration
 {
 	public function effectively_installed()
 	{
-		return version_compare($this->config['topic_preview_version'], '1.2.0', '>=');
+		return version_compare($this->config['topic_preview_version'], '2.1.0', '>=');
 	}
 
 	static public function depends_on()
 	{
-		return array('phpbb_ext_vse_topicpreview_migrations_1_1_0');
+		return array('phpbb_ext_vse_topicpreview_migrations_2_0_0');
 	}
 
 	public function update_data()
@@ -31,7 +31,7 @@ class phpbb_ext_vse_topicpreview_migrations_1_2_0 extends phpbb_db_migration
 
 			array('config.update', array('topic_preview_avatars', '1')),
 
-			array('config.update', array('topic_preview_version', '1.2.0')),
+			array('config.update', array('topic_preview_version', '2.1.0')),
 		);
 	}
 
