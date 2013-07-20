@@ -33,10 +33,12 @@
 
 		return this.each(function() {
 			var obj = $(this),
-				previewText = obj.closest("li").find(".topic_preview_content").html() || obj.closest("tr").find(".topic_preview_content").html(), // cache topic preview text
 				originalTitle = obj.closest("dt").attr("title"); // cache original title attributes
 
 			obj.hover(function() {
+				// Grab tooltip content
+				var content = obj.closest("li").find(".topic_preview_content").html() || obj.closest("tr").find(".topic_preview_content").html();
+
 				// Proceed only if there is content to display
 				if (content === undefined || content === '') {
 					return false;
