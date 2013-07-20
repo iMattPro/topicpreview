@@ -26,7 +26,7 @@ class acp_topic_preview_info
 		return array(
 			'filename'	=> 'acp_topic_preview',
 			'title'		=> 'TOPIC_PREVIEW',
-			'version'	=> '1.1.0',
+			'version'	=> '2.0.0',
 			'modes'		=> array(
 				'settings'	=> array('title' => 'TOPIC_PREVIEW_SETTINGS', 'auth' => 'acl_a_board', 'cat' => array('TOPIC_PREVIEW_SETTINGS')),
 			),

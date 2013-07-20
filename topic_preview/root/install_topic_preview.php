@@ -54,8 +54,8 @@ $versions = array(
 	// Version 1.0.10
 	'1.0.10' => array(),
 
-	// Version 1.1.0
-	'1.1.0' => array(
+	// Version 2.0.0
+	'2.0.0' => array(
 		'config_add' => array(
 			array('topic_preview_last_post', '0'),
 			array('topic_preview_avatars', '0'),

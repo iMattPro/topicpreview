@@ -11,7 +11,7 @@
 
 * All changes will be made to Board3 Portal files. Please back up your original files before modifying them.
 ** Topic Preview's "jQuery Topic Preview" theme will not work with Top Five. Only the default native Topic Preview functionality will work with Top Five.]]></description>
-		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Top Five v1.0.1d" and "Topic Preview 1.1.0" on your forum.]]></author-notes>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Top Five v1.0.1d" and "Topic Preview 2.0.0" on your forum.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -19,14 +19,14 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.1.0</mod-version>
+		<mod-version>2.0.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
 			<target-version>3.0.12</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 1.1.0</link>
+			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.0</link>
 			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/top_five/" lang="en">Top Five v1.0.1d</link>
 		</link-group>
 	</header>

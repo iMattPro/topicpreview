@@ -18,7 +18,7 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.1.0</mod-version>
+		<mod-version>2.0.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -27,9 +27,9 @@
 		<history>
 			<entry>
 				<date>2013-07-19</date>
-				<rev-version>1.1.0</rev-version>
+				<rev-version>2.0.0</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Total overhaul of code base]]></change>
+					<change><![CDATA[Total overhaul/re-write of code base]]></change>
 					<change><![CDATA[Replaced qTip2 and TipTip add-ons with a new integrated jQuery Topic Preview theme]]></change>
 					<change><![CDATA[Added an ACP option to use native browser tooltips or the new jQuery Topic Preview theme]]></change>
 					<change><![CDATA[Added an ACP option to display user's avatars in the jQuery Topic Preview theme]]></change>
@@ -160,12 +160,12 @@
 			<link type="contrib" href="contrib/extras/mod_nv_recent_topics.xml" lang="en">MOD Add-On: Topic Preview for NV Recent Topics v1.0.6</link>
 			<link type="contrib" href="contrib/extras/mod_board3_portal.xml" lang="en">MOD Add-On: Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/extras/mod_top_five.xml" lang="en">MOD Add-On: Topic Preview for Top Five 1.0.1d</link>
-			<link type="contrib" href="contrib/update_105_to_110.xml" lang="en">Upgrade: from 1.0.5 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_106_to_110.xml" lang="en">Upgrade: from 1.0.6 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_107_to_110.xml" lang="en">Upgrade: from 1.0.7 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_109_to_110.xml" lang="en">Upgrade: from 1.0.9 to 1.1.0</link>
-			<link type="contrib" href="contrib/update_1010_to_110.xml" lang="en">Upgrade: from 1.0.10 to 1.1.0</link>
-			<link type="uninstall" href="contrib/extras/uninstall_v110.xml" lang="en">Uninstall Topic Preview</link>
+			<link type="contrib" href="contrib/update_105_to_200.xml" lang="en">Upgrade: from 1.0.5 to 2.0.0</link>
+			<link type="contrib" href="contrib/update_106_to_200.xml" lang="en">Upgrade: from 1.0.6 to 2.0.0</link>
+			<link type="contrib" href="contrib/update_107_to_200.xml" lang="en">Upgrade: from 1.0.7 to 2.0.0</link>
+			<link type="contrib" href="contrib/update_109_to_200.xml" lang="en">Upgrade: from 1.0.9 to 2.0.0</link>
+			<link type="contrib" href="contrib/update_1010_to_200.xml" lang="en">Upgrade: from 1.0.10 to 2.0.0</link>
+			<link type="uninstall" href="contrib/extras/uninstall_v200.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
 	<action-group>
