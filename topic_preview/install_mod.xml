@@ -26,7 +26,7 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2013-07-07</date>
+				<date>2013-07-19</date>
 				<rev-version>1.1.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Total overhaul of code base]]></change>
@@ -38,6 +38,7 @@
 					<change><![CDATA[Optional Add-On : Topic Preview for Top Five MOD instructions]]></change>
 					<change><![CDATA[Language pack : Czech]]></change>
 					<change><![CDATA[Language pack : French]]></change>
+					<change><![CDATA[Optional Add-On : Topic Previews in the UCP (display topic previews for Subscription and Bookmarked topic lists in the UCP)]]></change>
 					<change><![CDATA[Updated MODX to 1.2.6.]]></change>
 					<change><![CDATA[Updated UMIL to 1.0.5.]]></change>
 				</changelog>
@@ -152,6 +153,7 @@
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
+			<link type="contrib" href="contrib/extras/addon_ucp.xml" lang="en">Add-On: Topic Previews in the UCP</link>
 			<link type="contrib" href="contrib/extras/addon_bbcode.xml" lang="en">Add-On: Topic Preview BBcode tag</link>
 			<link type="contrib" href="contrib/extras/addon_preserve_line_breaks.xml" lang="en">Add-On: Preserve Line Breaks in Topic Previews</link>
 			<link type="contrib" href="contrib/extras/mod_precise_similar_topics.xml" lang="en">MOD Add-On: Topic Preview for Precise Similar Topics II v1.2.X</link>
