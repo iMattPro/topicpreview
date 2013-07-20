@@ -240,7 +240,7 @@ class phpbb_topic_preview
 
 		if ($this->tp_avatars)
 		{
-			$no_avatar = '<img src="' . $phpbb_root_path . 'styles/topic_preview/no_avatar.png" width="60" height="60" alt="" />';
+			$no_avatar = '<img src="' . $phpbb_root_path . 'styles/topic_preview_assets/no_avatar.png" width="60" height="60" alt="" />';
 			$first_post_avatar = (!empty($row['first_user_avatar'])) ? get_user_avatar($row['first_user_avatar'], $row['first_user_avatar_type'], 60, 60) : $no_avatar;
 			$last_post_avatar  = (!empty($row['last_user_avatar'])) ? get_user_avatar($row['last_user_avatar'], $row['last_user_avatar_type'], 60, 60) : $no_avatar;
 		}
