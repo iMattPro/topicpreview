@@ -6,7 +6,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - BBcode Add-On]]></title>
+		<title lang="en"><![CDATA[Add-On: Topic Preview BBcode tag]]></title>
 		<description lang="en"><![CDATA[This add-on will allow you to use a [topicpreview] BBcode so users can define what part of their post they want to show in the Topic Preview - only content inside the [topicpreview][/topicpreview] tags will be shown in the Topic Preview.]]></description>
 		<author-group>
 			<author>
