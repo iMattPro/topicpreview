@@ -35,10 +35,10 @@
 					<change><![CDATA[Added an ACP option to display user's avatars in the jQuery Topic Preview theme]]></change>
 					<change><![CDATA[Added an ACP option to display both first and last posts in the new jQuery Topic Preview theme]]></change>
 					<change><![CDATA[Moved all ACP settings to the .MODs tab]]></change>
-					<change><![CDATA[Optional Add-On : Topic Preview for Top Five MOD instructions]]></change>
-					<change><![CDATA[Language pack : Czech]]></change>
-					<change><![CDATA[Language pack : French]]></change>
 					<change><![CDATA[Optional Add-On : Topic Previews in the UCP (display topic previews for Subscription and Bookmarked topic lists in the UCP)]]></change>
+					<change><![CDATA[Optional MOD Add-On : Topic Preview for Top Five MOD instructions]]></change>
+					<change><![CDATA[Language pack added : Czech]]></change>
+					<change><![CDATA[Language pack added : French]]></change>
 					<change><![CDATA[Updated MODX to 1.2.6.]]></change>
 					<change><![CDATA[Updated UMIL to 1.0.5.]]></change>
 				</changelog>
@@ -52,7 +52,7 @@
 					<change><![CDATA[Optional Add-On : Topic Preview for NV Recent]]></change>
 					<change><![CDATA[Optional Add-On : Topic Preview for Board3 Portal v2.0.X instructions]]></change>
 					<change><![CDATA[Optional Add-On : Topic Preview for Precise Similar Topics II instructions]]></change>
-					<change><![CDATA[Language pack : Polish]]></change>
+					<change><![CDATA[Language pack added : Polish]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.4]]></change>
 				</changelog>
 			</entry>
@@ -60,8 +60,8 @@
 				<date>2010-07-10</date>
 				<rev-version>1.0.9</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Language pack : German]]></change>
-					<change><![CDATA[Language pack : Italian]]></change>
+					<change><![CDATA[Language pack added : German]]></change>
+					<change><![CDATA[Language pack added : Italian]]></change>
 					<change><![CDATA[Optional add-on: Preserve Line-Breaks in Topic Previews]]></change>
 				</changelog>
 			</entry>
@@ -80,8 +80,8 @@
 				<changelog lang="en">
 					<change><![CDATA[Now all "Magic URLs" are properly stripped from Topic Preview]]></change>
 					<change><![CDATA[Optional add-on: Topic Preview BBcode tag will allow users to use a [topicpreview] BBcode so anything inside the [topicpreview][/topicpreview] tags will be used as the Topic Preview]]></change>
-					<change><![CDATA[Language pack : Spanish (thank you Ahri89)]]></change>
-					<change><![CDATA[Language pack : Romanian (thank you StoarceCreierul)]]></change>
+					<change><![CDATA[Language pack added : Spanish (thank you Ahri89)]]></change>
+					<change><![CDATA[Language pack added : Romanian (thank you StoarceCreierul)]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.2]]></change>
 					<change><![CDATA[Minor fixes]]></change>
 				</changelog>
