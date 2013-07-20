@@ -38,7 +38,7 @@
 
 			obj.hover(function() {
 				// Proceed only if there is content to display
-				if (previewText === undefined || previewText === '') {
+				if (content === undefined || content === '') {
 					return false;
 				}
 
@@ -54,8 +54,8 @@
 					// clear the timeout var after delay and function begins to execute	
 					previewTimeout = 0;
 
-					// Fill the topic_preview
-					previewContainer.html(previewText);
+					// Fill the topic preview
+					previewContainer.html(content);
 
 					// Window bottom edge detection, invert topic preview if needed 
 					var previewTop = obj.offset().top + settings.top,
@@ -63,14 +63,14 @@
 					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
 					previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight() - 8 : previewTop;
 
-					// Display the topic_preview positioned relative to the hover object
+					// Display the topic preview positioned relative to the hover object
 					previewContainer
 						.css({
 							"top"   : previewTop + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
-						.fadeIn("fast"); // display the topic_preview with a fadein
-				}, settings.delay); // Use a delay before showing in topic_preview
+						.fadeIn("fast"); // display the topic preview with a fadein
+				}, settings.delay); // Use a delay before showing in topic preview
 
 			}, function() {
 				// clear any existing timeouts
@@ -78,8 +78,8 @@
 					clearTimeout(previewTimeout);
 				}
 
-				// Remove topic_preview
-				previewContainer.stop(true, true).fadeOut("fast") // hide the topic_preview with a fadeout
+				// Remove topic preview
+				previewContainer.stop(true, true).fadeOut("fast") // hide the topic preview with a fadeout
 					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 						// animation complete
 					});
