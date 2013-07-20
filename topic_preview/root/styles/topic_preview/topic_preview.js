@@ -37,8 +37,10 @@
 				firstPostText = obj.attr("title"); // cache title attributes
 
 			hoverObject.hover(function() {
-				// Proceed only if there is content to display
+				// Grab tooltip content
 				var content = $("#topic_preview_" + obj.attr("id")).html();
+
+				// Proceed only if there is content to display
 				if (content === undefined || content === '') {
 					return false;
 				}
@@ -67,14 +69,14 @@
 					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
 					previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight() - 8 : previewTop;
 
-					// Display the topic_preview positioned relative to the hover object
+					// Display the topic preview positioned relative to the hover object
 					previewContainer
 						.css({
 							"top"   : previewTop + "px",
 							"left"  : obj.offset().left + settings.left + "px"
 						})
 						.fadeIn("fast"); // display the topic preview with a fadein
-				}, settings.delay); // Use a delay before showing in topic_preview
+				}, settings.delay); // Use a delay before showing in topic preview
 
 			}, function() {
 				// clear any existing timeouts
@@ -82,8 +84,8 @@
 					clearTimeout(previewTimeout);
 				}
 
-				// Remove topic_preview
-				previewContainer.stop(true, true).fadeOut("fast") // hide the topic_preview with a fadeout
+				// Remove topic preview
+				previewContainer.stop(true, true).fadeOut("fast") // hide the topic preview with a fadeout
 					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 						// animation complete
 					});
