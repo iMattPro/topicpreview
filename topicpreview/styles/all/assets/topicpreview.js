@@ -19,7 +19,9 @@
 			"left"  : 35,
 			"top"   : 25,
 			"drift" : 15
-		}, options );
+		}, options ),
+			previewTimeout = 0,
+			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.theme).css("width", settings.width).appendTo("body");
 
 		// Do not allow delay times less than 300ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);
@@ -29,9 +31,6 @@
 			// Replace any broken/missing avatar images in topic previews
 			$(this).attr("src", settings.noavatar);
 		});
-
-		var previewTimeout = 0,
-			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.theme).css("width", settings.width).appendTo("body");
 
 		return this.each(function() {
 			var obj = $(this),
