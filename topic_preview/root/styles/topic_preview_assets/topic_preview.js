@@ -27,7 +27,7 @@
 		settings.delay = Math.max(settings.delay, 300);
 
 		// Add rtl class for right-to-left languages to avatar images
-		$(".topic_preview_avatar").addClass((settings.dir === "rtl" ? settings.dir : "")).children("img").one("error", function() { 
+		$(".topic_preview_avatar").toggleClass("rtl", (settings.dir === "rtl")).children("img").one("error", function() { 
 			// Replace any broken/missing avatar images in topic previews
 			$(this).attr("src", settings.noavatar);
 		});
