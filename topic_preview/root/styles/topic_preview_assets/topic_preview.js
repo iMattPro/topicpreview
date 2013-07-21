@@ -26,13 +26,11 @@
 		// Do not allow delay times less than 300ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);
 
-		// Replace any broken/missing avatar images in topic previews
-		$(".topic_preview_avatar > img").one("error", function() { 
+		// Add rtl class for right-to-left languages to avatar images
+		$(".topic_preview_avatar").addClass((settings.dir === "rtl" ? settings.dir : "")).children("img").one("error", function() { 
+			// Replace any broken/missing avatar images in topic previews
 			$(this).attr("src", settings.noavatar);
 		});
-
-		// Add rtl class for right-to-left languages
-		$(".topic_preview_avatar").addClass((settings.dir === "rtl" ? settings.dir : ""));
 
 		return this.each(function() {
 			var obj = $(this),
