@@ -27,6 +27,7 @@ Features
 * User option allows users to disable the feature
 * Does not significantly impact server load (no additional db queries)
 * Prosilver and Subsilver2 compatible
+* Supports right-to-left languages
 * Supports AutoMOD installation
 
 ###Optional Add-Ons with other MODs:
