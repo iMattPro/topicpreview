@@ -1,48 +1,37 @@
 #topic_preview {
 	background: #fff;
-
 	border: 1px solid #cecece;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-
 	-webkit-box-shadow: 1px 1px 3px #cecece;
 	-moz-box-shadow: 1px 1px 3px #cecece;
 	box-shadow: 1px 1px 3px #cecece;
-
 	padding: 10px;
 	margin-left: -40px;
 	min-width: 40px;
-
 	position: absolute;
-
 	font-size: 11px;
 	text-decoration: none;
 	font-style: normal;
 	color: #333;
-
 	z-index: 10;
-
 	display: none;
 }
 
 #topic_preview:before { /* Upper Triangle */
 	content: "";
 	background: #fff;
-
 	border: 0;
 	border-top: 1px solid #cecece;
 	border-right: 1px solid #cecece;
-
 	width: 10px;
 	height: 10px;
 	margin-left: 15px;
 	margin-top: -16px;
-
 	display: block;
 	position: absolute;
-
 	-webkit-transform: rotate(-45deg);
 	-moz-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
@@ -57,20 +46,16 @@
 #topic_preview.invert:after { /* Lower Triangle */
 	content: "";
 	background: #fff;
-
 	border: 0;
 	border-bottom: 1px solid #cecece;
 	border-left: 1px solid #cecece;
-
 	width: 10px;
 	height: 10px;
 	top: 100%;
 	margin-left: 15px;
 	margin-top: -5px;
-
 	display: block;
 	position: absolute;
-
 	-webkit-transform: rotate(-45deg);
 	-moz-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
