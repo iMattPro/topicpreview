@@ -274,10 +274,11 @@ $sql_array = $topic_preview->modify_sql_array($sql_array);
 	<script type="text/javascript">
 		$(function(){
 			$("dt[title]").topicPreview({
+				"dir"   : "{S_CONTENT_DIRECTION}", // do not change
 				"style" : "light", // use "light" or "dark" topic preview theme
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
 				"width" : 360, // sets the width of topic previews (in pixels)
-				"left"  : 75, // sets the position offset from the left (in pixels)
+				"left"  : 30, // sets the position offset from the left (in pixels)
 				"drift" : 15, // sets the amount of vertical animation, use negative values to change direction (in pixels)
 				"noavatar" : "{ROOT_PATH}styles/topic_preview_assets/no_avatar.png"
 			});

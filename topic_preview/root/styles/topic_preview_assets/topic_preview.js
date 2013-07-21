@@ -12,24 +12,27 @@
 	$.fn.topicPreview = function( options ) {
 
 		var settings = $.extend( {
+			"dir"   : "ltr",
 			"style" : "light",
 			"delay" : 1500,
 			"width" : 360,
-			"left"  : 75,
+			"left"  : 30,
 			"top"   : 25,
 			"drift" : 15
-		}, options );
+		}, options ),
+			previewTimeout = 0,
+			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.style).css("width", settings.width).appendTo("body");
 
 		// Do not allow delay times less than 300ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);
 
-		// Add no avatar image to any broken/missing avatar imagess in topic previews
+		// Replace any broken/missing avatar images in topic previews
 		$(".topic_preview_avatar > img").one("error", function() { 
 			$(this).attr("src", settings.noavatar);
 		});
 
-		var previewTimeout = 0,
-			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.style).css("width", settings.width).appendTo("body");
+		// Add rtl class for right-to-left languages
+		$(".topic_preview_avatar").addClass((settings.dir === "rtl" ? settings.dir : ""));
 
 		return this.each(function() {
 			var obj = $(this),
@@ -64,16 +67,16 @@
 						.append(firstPostText);
 
 					// Window bottom edge detection, invert topic preview if needed 
-					var previewTop = obj.offset().top + settings.top,
+					var previewTop = hoverObject.offset().top + settings.top,
 						previewBottom = previewTop + previewContainer.height() + 8;
 					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
-					previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight() - 8 : previewTop;
+					previewTop = edgeDetect(previewBottom) ? hoverObject.offset().top - previewContainer.outerHeight() - 8 : previewTop;
 
 					// Display the topic preview positioned relative to the hover object
 					previewContainer
 						.css({
 							"top"   : previewTop + "px",
-							"left"  : obj.offset().left + settings.left + "px"
+							"left"  : hoverObject.offset().left + settings.left + (settings.dir === "rtl" ? (hoverObject.width() - previewContainer.width()) : 0) + "px"
 						})
 						.fadeIn("fast"); // display the topic preview with a fadein
 				}, settings.delay); // Use a delay before showing in topic preview

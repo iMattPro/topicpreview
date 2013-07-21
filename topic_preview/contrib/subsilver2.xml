@@ -37,6 +37,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$("a.topictitle").topicPreview({
+				"dir"   : "{S_CONTENT_DIRECTION}", // do not change
 				"style" : "light", // use "light" or "dark" topic preview theme
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
 				"width" : 360, // sets the width of topic previews (in pixels)
