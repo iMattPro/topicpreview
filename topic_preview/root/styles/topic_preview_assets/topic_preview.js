@@ -16,7 +16,7 @@
 			"theme" : "light",
 			"delay" : 1500,
 			"width" : 360,
-			"left"  : 30,
+			"left"  : 35,
 			"top"   : 25,
 			"drift" : 15
 		}, options ),
