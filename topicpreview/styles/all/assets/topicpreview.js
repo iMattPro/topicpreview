@@ -12,6 +12,7 @@
 	$.fn.topicPreview = function( options ) {
 
 		var settings = $.extend( {
+			"dir"   : "ltr",
 			"theme" : "light",
 			"delay" : 1500,
 			"width" : 360,
@@ -23,8 +24,9 @@
 		// Do not allow delay times less than 300ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);
 
-		// Add no avatar image to any broken/missing avatar imagess in topic previews
-		$(".topic_preview_avatar > img").one("error", function() { 
+		// Add rtl class for right-to-left languages to avatar images
+		$(".topic_preview_avatar").addClass((settings.dir === "rtl" ? settings.dir : "")).children("img").one("error", function() { 
+			// Replace any broken/missing avatar images in topic previews
 			$(this).attr("src", settings.noavatar);
 		});
 
@@ -69,7 +71,7 @@
 					previewContainer
 						.css({
 							"top"   : previewTop + "px",
-							"left"  : obj.offset().left + settings.left + "px"
+							"left"  : obj.offset().left + settings.left + (settings.dir === "rtl" ? (obj.width() - previewContainer.width()) : 0) + "px"
 						})
 						.fadeIn("fast"); // display the topic preview with a fadein
 				}, settings.delay); // Use a delay before showing in topic preview
