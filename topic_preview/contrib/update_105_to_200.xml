@@ -238,7 +238,7 @@ $sql_array = $topic_preview->modify_sql_array($sql_array);
 		$(function(){
 			$("dt[title]").topicPreview({
 				"dir"   : "{S_CONTENT_DIRECTION}", // do not change
-				"style" : "light", // use "light" or "dark" topic preview theme
+				"theme" : "light", // use "light" or "dark" topic preview theme
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
 				"width" : 360, // sets the width of topic previews (in pixels)
 				"left"  : 30, // sets the position offset from the left (in pixels)
@@ -335,7 +335,7 @@ $sql_array = $topic_preview->modify_sql_array($sql_array);
 		$(function(){
 			$("a.topictitle").topicPreview({
 				"dir"   : "{S_CONTENT_DIRECTION}", // do not change
-				"style" : "light", // use "light" or "dark" topic preview theme
+				"theme" : "light", // use "light" or "dark" topic preview theme
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
 				"width" : 360, // sets the width of topic previews (in pixels)
 				"left"  : 25, // sets the position offset from the left (in pixels)
