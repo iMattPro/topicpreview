@@ -1,5 +1,5 @@
 <!-- IF S_VIEWFORUM or S_SHOW_TOPICS -->
-	<script src="{TOPICPREVIEW_ASSETS}/topicpreview.js?assets_version={T_ASSETS_VERSION}"></script>
+	<script src="{T_TOPICPREVIEW_ASSETS}/topicpreview.js?assets_version={T_ASSETS_VERSION}"></script>
 	<script>
 		$(function() {
 			$(".topictitle").topicPreview({
@@ -10,7 +10,7 @@
 				"left"  : 35, // the position offset from the left (in pixels)
 				"top"   : 25, // the position offset from the top (in pixels)
 				"drift" : 15, // sets the amount of vertical animation, use negative values to change direction (in pixels)
-				"noavatar" : "{TOPICPREVIEW_ASSETS}/no_avatar.png"
+				"noavatar" : "{T_TOPICPREVIEW_ASSETS}/no_avatar.png"
 			});
 		});
 	</script>
