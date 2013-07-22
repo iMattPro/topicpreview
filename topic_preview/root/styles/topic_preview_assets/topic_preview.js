@@ -72,6 +72,7 @@
 
 					// Display the topic preview positioned relative to the hover object
 					previewContainer
+						.stop(true, true) // stop any running animations first
 						.css({
 							"top"   : previewTop + "px",
 							"left"  : hoverObject.offset().left + settings.left + (settings.dir === "rtl" ? (hoverObject.width() - previewContainer.width()) : 0) + "px"
@@ -86,7 +87,9 @@
 				}
 
 				// Remove topic preview
-				previewContainer.stop(true, true).fadeOut("fast") // hide the topic preview with a fadeout
+				previewContainer
+					.stop(true) // stop animation queue first
+					.fadeOut("fast") // hide the topic preview with a fadeout
 					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 						// animation complete
 					});
