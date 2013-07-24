@@ -1,23 +1,27 @@
 <!-- IF topicrow.TOPIC_PREVIEW_FP -->
 	<div class="topic_preview_content" style="display:none;">
+		<!-- IF topicrow.TOPIC_PREVIEW_LP --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
 		<!-- IF topicrow.TOPIC_PREVIEW_AVATAR_FP --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR_FP}</div><!-- ENDIF -->
-		<div class="topic_preview_first"><!-- IF topicrow.TOPIC_PREVIEW_LP --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF -->{topicrow.TOPIC_PREVIEW_FP}</div>
+		<div class="topic_preview_first">{topicrow.TOPIC_PREVIEW_FP}</div>
 		<!-- IF topicrow.TOPIC_PREVIEW_LP -->
 			<div class="topic_preview_break"></div>
+			<strong>{L_LAST_POST}</strong><hr />
 			<!-- IF topicrow.TOPIC_PREVIEW_AVATAR_LP --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR_LP}</div><!-- ENDIF -->
-			<div class="topic_preview_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_LP}</div>
+			<div class="topic_preview_last">{topicrow.TOPIC_PREVIEW_LP}</div>
 		<!-- ENDIF -->
 	</div>
 <!-- ENDIF -->
 
 <!-- IF searchresults.TOPIC_PREVIEW_FP -->
 	<div class="topic_preview_content" style="display:none;">
+		<!-- IF searchresults.TOPIC_PREVIEW_LP --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
 		<!-- IF searchresults.TOPIC_PREVIEW_AVATAR_FP --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR_FP}</div><!-- ENDIF -->
-		<div class="topic_preview_first"><!-- IF searchresults.TOPIC_PREVIEW_LP --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF -->{searchresults.TOPIC_PREVIEW_FP}</div>
+		<div class="topic_preview_first">{searchresults.TOPIC_PREVIEW_FP}</div>
 		<!-- IF searchresults.TOPIC_PREVIEW_LP -->
 			<div class="topic_preview_break"></div>
+			<strong>{L_LAST_POST}</strong><hr />
 			<!-- IF searchresults.TOPIC_PREVIEW_AVATAR_LP --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR_LP}</div><!-- ENDIF -->
-			<div class="topic_preview_last"><strong>{L_LAST_POST}:</strong><br />{searchresults.TOPIC_PREVIEW_LP}</div>
+			<div class="topic_preview_last">{searchresults.TOPIC_PREVIEW_LP}</div>
 		<!-- ENDIF -->
 	</div>
 <!-- ENDIF -->
