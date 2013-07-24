@@ -34,10 +34,10 @@
 
 		return this.each(function() {
 			var obj = $(this),
-				hoverObject = obj.parent().find(".topictitle"),
+				trigger = obj.parent().find(".topictitle"),
 				firstPostText = obj.attr("title"); // cache title attributes
 
-			hoverObject.hover(function() {
+			trigger.hover(function() {
 				// Grab tooltip content
 				var content = $("#topic_preview_" + obj.attr("id")).html();
 
@@ -65,17 +65,17 @@
 						.append(firstPostText);
 
 					// Window bottom edge detection, invert topic preview if needed 
-					var previewTop = hoverObject.offset().top + settings.top,
+					var previewTop = trigger.offset().top + settings.top,
 						previewBottom = previewTop + previewContainer.height() + 8;
 					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
-					previewTop = edgeDetect(previewBottom) ? hoverObject.offset().top - previewContainer.outerHeight() - 8 : previewTop;
+					previewTop = edgeDetect(previewBottom) ? trigger.offset().top - previewContainer.outerHeight() - 8 : previewTop;
 
 					// Display the topic preview positioned relative to the hover object
 					previewContainer
 						.stop(true, true) // stop any running animations first
 						.css({
 							"top"   : previewTop + "px",
-							"left"  : hoverObject.offset().left + settings.left + (settings.dir === "rtl" ? (hoverObject.width() - previewContainer.width()) : 0) + "px"
+							"left"  : trigger.offset().left + settings.left + (settings.dir === "rtl" ? (trigger.width() - previewContainer.width()) : 0) + "px"
 						})
 						.fadeIn("fast"); // display the topic preview with a fadein
 				}, settings.delay); // Use a delay before showing in topic preview
