@@ -59,15 +59,17 @@
 				<find><![CDATA[<dd class="mark"><input type="checkbox" name="t[{topicrow.TOPIC_ID}]" id="t{topicrow.TOPIC_ID}" /></dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
-			<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
-				<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-				<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
-				<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
-					<div class="topic_preview_break"></div>
-					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_TEXT2}</div>
-				<!-- ENDIF -->
-			</div>
+				<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
+					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"></div>
+					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
+						<div class="topic_preview_break"></div>
+						<strong>{L_LAST_POST}</strong><hr />
+						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last">{topicrow.TOPIC_PREVIEW_TEXT2}</div>
+					<!-- ENDIF -->
+				</div>
 			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
@@ -83,15 +85,17 @@
 				<find><![CDATA[<dd class="mark"><input type="checkbox" name="t[{topicrow.TOPIC_ID}]" id="t{topicrow.TOPIC_ID}" /></dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
-			<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
-				<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-				<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
-				<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
-					<div class="topic_preview_break"></div>
-					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_TEXT2}</div>
-				<!-- ENDIF -->
-			</div>
+				<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
+					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"></div>
+					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
+						<div class="topic_preview_break"></div>
+						<strong>{L_LAST_POST}</strong><hr />
+						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last">{topicrow.TOPIC_PREVIEW_TEXT2}</div>
+					<!-- ENDIF -->
+				</div>
 			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
@@ -107,15 +111,17 @@
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
-				<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
-					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-					<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
-					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
-						<div class="topic_preview_break"></div>
-						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_TEXT2}</div>
-					<!-- ENDIF -->
-				</div>
+					<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
+						<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+						<div class="topic_preview_text_first"></div>
+						<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
+							<div class="topic_preview_break"></div>
+							<strong>{L_LAST_POST}</strong><hr />
+							<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+							<div class="topic_preview_text_last">{topicrow.TOPIC_PREVIEW_TEXT2}</div>
+						<!-- ENDIF -->
+					</div>
 				<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
@@ -131,15 +137,17 @@
 				<find><![CDATA[<p class="gensmall"> [ {GOTO_PAGE_IMG}{L_GOTO_PAGE}: {topicrow.PAGINATION} ] </p>
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
-				<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
-					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-					<div class="topic_preview_text_first"><!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
-					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
-						<div class="topic_preview_break"></div>
-						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{topicrow.TOPIC_PREVIEW_TEXT2}</div>
-					<!-- ENDIF -->
-				</div>
+					<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
+						<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+						<div class="topic_preview_text_first"></div>
+						<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
+							<div class="topic_preview_break"></div>
+							<strong>{L_LAST_POST}</strong><hr />
+							<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+							<div class="topic_preview_text_last">{topicrow.TOPIC_PREVIEW_TEXT2}</div>
+						<!-- ENDIF -->
+					</div>
 				<!-- ENDIF -->]]></action>
 			</edit>
 		</open>

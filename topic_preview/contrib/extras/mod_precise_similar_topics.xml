@@ -63,15 +63,17 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 				</dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF similar.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
-			<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
-				<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-				<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
-				<!-- IF similar.TOPIC_PREVIEW_TEXT2 -->
-					<div class="topic_preview_break"></div>
-					<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-					<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br /><{similar.TOPIC_PREVIEW_TEXT2}</div>
-				<!-- ENDIF -->
-			</div>
+				<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
+					<!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+					<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"></div>
+					<!-- IF similar.TOPIC_PREVIEW_TEXT2 -->
+						<div class="topic_preview_break"></div>
+						<strong>{L_LAST_POST}</strong><hr />
+						<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last">{similar.TOPIC_PREVIEW_TEXT2}</div>
+					<!-- ENDIF -->
+				</div>
 			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
@@ -88,16 +90,18 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles (ie: we_clearblue and we_universal)]]></comment>
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{similar.U_VIEW_FORUM}">{similar.FORUM_TITLE}</a></p>]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF similar.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
-				<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
-					<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
-					<div class="topic_preview_text_first"><!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}:</strong><br /><!-- ENDIF --></div>
-					<!-- IF similar.TOPIC_PREVIEW_TEXT2 -->
-						<div class="topic_preview_break"></div>
-						<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
-						<div class="topic_preview_text_last"><strong>{L_LAST_POST}:</strong><br />{similar.TOPIC_PREVIEW_TEXT2}</div>
-					<!-- ENDIF -->
-				</div>
-			<!-- ENDIF -->]]></action>
+					<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
+						<!-- IF similar.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+						<!-- IF similar.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+						<div class="topic_preview_text_first"></div>
+						<!-- IF similar.TOPIC_PREVIEW_TEXT2 -->
+							<div class="topic_preview_break"></div>
+							<strong>{L_LAST_POST}</strong><hr />
+							<!-- IF similar.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+							<div class="topic_preview_text_last">{similar.TOPIC_PREVIEW_TEXT2}</div>
+						<!-- ENDIF -->
+					</div>
+				<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<diy-instructions lang="en"><![CDATA[Purge your style templates]]></diy-instructions>
