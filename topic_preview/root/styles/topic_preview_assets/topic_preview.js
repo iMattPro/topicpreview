@@ -99,7 +99,7 @@
 		});
 	};
 
-	// Check if y coord extends beyond bottom edge of window (with 100px of pad)
+	// Check if y coord is within 100 pixels of bottom edge of browser window
 	function edgeDetect(y) {
 		return ( y >= ($(window).scrollTop() + $(window).height() - 100) );
 	}
