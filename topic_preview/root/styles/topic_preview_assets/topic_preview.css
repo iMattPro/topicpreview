@@ -124,29 +124,3 @@
 	margin: 0;
 	font-size: 0;
 }
-
-/* custom color theme
-#topic_preview.custom {
-	background: #fafad2;
-	border-color: #daa520;
-	color: #333333;
-}
-
-#topic_preview.custom:before {
-	background: #fafad2;
-	border-color: #daa520;
-}
-
-#topic_preview.custom.invert:after {
-	background: #fafad2;
-	border-color: #daa520;
-}
-
-#topic_preview.custom hr {
-	border-color: #daa520;
-}
-
-#topic_preview.custom .topic_preview_avatar {
-	border-color: #daa520;
-}
-*/
