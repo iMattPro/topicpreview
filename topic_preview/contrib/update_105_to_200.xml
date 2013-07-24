@@ -102,8 +102,8 @@ IMPORTANT: If you have installed any of the contrib/extras add-ons from previous
 			if(!class_exists('phpbb_topic_preview'))
 			{
 				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-				$topic_preview = new phpbb_topic_preview();
 			}
+			$topic_preview = new phpbb_topic_preview();
 			$sql_from 	= $topic_preview->modify_sql_join($sql_from);
 			$sql_select = $topic_preview->modify_sql_select($sql_select);
 			// END Topic Preview Mod
@@ -158,8 +158,8 @@ if ($config['topic_preview_limit'])
 if(!class_exists('phpbb_topic_preview'))
 {
 	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-	$topic_preview = new phpbb_topic_preview();
 }
+$topic_preview = new phpbb_topic_preview();
 $sql_array = $topic_preview->modify_sql_array($sql_array);
 // END Topic Preview Mod
 ]]></action>

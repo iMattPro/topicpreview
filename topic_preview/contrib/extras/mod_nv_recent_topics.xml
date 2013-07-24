@@ -37,8 +37,8 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 	if(!class_exists('phpbb_topic_preview'))
 	{
 		include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-		$topic_preview = new phpbb_topic_preview();
 	}
+	$topic_preview = new phpbb_topic_preview();
 	$sql_query_array = $topic_preview->modify_sql_array($sql_query_array);
 	// END Topic Preview Mod]]></action>
 			</edit>

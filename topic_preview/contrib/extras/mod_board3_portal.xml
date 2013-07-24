@@ -157,8 +157,8 @@
 if(!class_exists('phpbb_topic_preview'))
 {
 	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-	$topic_preview = new phpbb_topic_preview();
 }
+$topic_preview = new phpbb_topic_preview();
 // END Topic Preview Mod]]></action>
 			</edit>
 			<edit>

@@ -38,8 +38,8 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 		if(!class_exists('phpbb_topic_preview'))
 		{
 			include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-			$topic_preview = new phpbb_topic_preview();
 		}
+		$topic_preview = new phpbb_topic_preview();
 		$sql_array = $topic_preview->modify_sql_array($sql_array);
 		// END Topic Preview Mod]]></action>
 			</edit>
