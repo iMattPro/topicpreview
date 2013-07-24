@@ -34,7 +34,6 @@ Features
 * Add-on for Precise Similar Topics II MOD (optional)
 * Add-on for Board3 Portal MOD (optional)
 * Add-on for NV Recent Topics MOD (optional)
-* Add-on for Top Five MOD (optional)
 
 ###Languages supported:
 * English
