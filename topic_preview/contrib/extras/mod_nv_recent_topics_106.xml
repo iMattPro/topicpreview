@@ -60,7 +60,7 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 				</inline-edit>
 			</edit>
 			<edit>
-				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles (ie: Aero style)]]></comment>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles]]></comment>
 				<find><![CDATA[</dd>
 			</dl>]]></find>
 				<action type="after-add"><![CDATA[			<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
@@ -88,7 +88,7 @@ Note: All changes will be made to NV Recent Topics MOD files. Please back up you
 				</inline-edit>
 			</edit>
 			<edit>
-				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles (ie: we_clearblue and we_universal)]]></comment>
+				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles]]></comment>
 				<find><![CDATA[<!-- IF recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED -->]]></find>
 				<action type="before-add"><![CDATA[					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 						<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">

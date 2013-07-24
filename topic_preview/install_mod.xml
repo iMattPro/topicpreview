@@ -156,7 +156,7 @@
 			<link type="contrib" href="contrib/extras/addon_bbcode.xml" lang="en">Add-On: Topic Preview BBcode tag</link>
 			<link type="contrib" href="contrib/extras/addon_preserve_line_breaks.xml" lang="en">Add-On: Preserve Line Breaks in Topic Previews</link>
 			<link type="contrib" href="contrib/extras/mod_precise_similar_topics.xml" lang="en">MOD Add-On: Topic Preview for Precise Similar Topics II v1.2.X</link>
-			<link type="contrib" href="contrib/extras/mod_nv_recent_topics.xml" lang="en">MOD Add-On: Topic Preview for NV Recent Topics v1.0.6</link>
+			<link type="contrib" href="contrib/extras/mod_nv_recent_topics.xml_106" lang="en">MOD Add-On: Topic Preview for NV Recent Topics v1.0.6</link>
 			<link type="contrib" href="contrib/extras/mod_board3_portal.xml" lang="en">MOD Add-On: Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/update_105_to_200.xml" lang="en">Upgrade: from 1.0.5 to 2.0.0</link>
 			<link type="contrib" href="contrib/update_106_to_200.xml" lang="en">Upgrade: from 1.0.6 to 2.0.0</link>
