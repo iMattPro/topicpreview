@@ -58,7 +58,7 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 				<action type="replace-with"><![CDATA[<dt <!-- IF similar.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{similar.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --><!-- IF similar.TOPIC_PREVIEW_TEXT --> title="{similar.TOPIC_PREVIEW_TEXT}" id="t{similar.TOPIC_ID}"<!-- ENDIF -->>]]></action>
 			</edit>
 			<edit>
-				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles (ie: Aero style)]]></comment>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles]]></comment>
 				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{similar.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{similar.LAST_POST_TIME}<br /> </span>
 				</dd>
 			</dl>]]></find>
@@ -87,7 +87,7 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 				</inline-edit>
 			</edit>
 			<edit>
-				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles (ie: we_clearblue and we_universal)]]></comment>
+				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles]]></comment>
 				<find><![CDATA[<p class="gensmall">{L_IN} <a href="{similar.U_VIEW_FORUM}">{similar.FORUM_TITLE}</a></p>]]></find>
 				<action type="after-add"><![CDATA[				<!-- IF similar.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
 					<div id="topic_preview_t{similar.TOPIC_ID}" style="display:none;">
