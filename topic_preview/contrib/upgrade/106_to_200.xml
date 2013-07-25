@@ -6,8 +6,8 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - Update 1.0.10 to 2.0.0]]></title>
-		<description lang="en"><![CDATA[Update from version 1.0.10 to 2.0.0]]></description>
+		<title lang="en"><![CDATA[Topic Preview - Upgrade 1.0.6 to 2.0.0]]></title>
+		<description lang="en"><![CDATA[Upgrade from version 1.0.6 to 2.0.0]]></description>
 		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the jQuery Topic Preview theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.
 
 IMPORTANT: If you have installed any of the contrib/extras add-ons from previous versions of Topic Preview MOD, then you should uninstall those add-ons (following their instructions from THE OLD version of Topic Preview in reverse) and then it should be safe to re-install add-ons using the updated instructions included within this version's contrib/extras folder.]]></author-notes>
@@ -25,7 +25,7 @@ IMPORTANT: If you have installed any of the contrib/extras add-ons from previous
 			<target-version>3.0.12</target-version>
 		</installation>
 		<link-group>
-			<link type="parent" href="../install_mod.xml" lang="en">Topic Preview Install Instructions</link>
+			<link type="parent" href="../../install_mod.xml" lang="en">Topic Preview Install Instructions</link>
 		</link-group>
 	</header>
 	<action-group>
@@ -67,7 +67,7 @@ IMPORTANT: If you have installed any of the contrib/extras add-ons from previous
 			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 			{
 				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-				$sql_select .= ', p.post_text AS first_post_preview_text';
+            	$sql_select .= ', p.post_text AS first_post_preview_text';
 			}
 			// END Topic Preview Mod
 ]]></remove>
@@ -89,10 +89,7 @@ IMPORTANT: If you have installed any of the contrib/extras add-ons from previous
 				<remove><![CDATA[				// BEGIN Topic Preview Mod
 				if (!empty($row['first_post_preview_text']))
 				{
-					if(!function_exists('trim_topic_preview'))
-					{
-						include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-					}
+					include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 					$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
 				}
 				// END Topic Preview Mod
@@ -168,10 +165,7 @@ $sql_array = $topic_preview->modify_sql_array($sql_array);
 				<remove><![CDATA[		// BEGIN Topic Preview Mod
 		if (!empty($row['first_post_preview_text']) && $auth->acl_get('f_read', $forum_id))
 		{
-			if(!function_exists('trim_topic_preview'))
-			{
-				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-			}
+			include_once($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 			$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
 		}
 		// END Topic Preview Mod
@@ -276,6 +270,12 @@ $sql_array = $topic_preview->modify_sql_array($sql_array);
 					<!-- ENDIF -->
 				</div>
 			<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/ucp_prefs_view.html">
+			<edit>
+				<find><![CDATA[				<dt><label for="text_hover1">{L_DISPLAY_TOPIC_PREVIEW}:</label></dt>]]></find>
+				<action type="replace-with"><![CDATA[				<dt><label for="topic_preview1">{L_DISPLAY_TOPIC_PREVIEW}:</label></dt>]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/overall_footer.html">
