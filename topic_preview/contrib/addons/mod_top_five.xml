@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Topic Preview for Top Five]]></title>
+		<description lang="en"><![CDATA[Gives the Topic Preview effect to the Top Five MOD
+
+* All changes will be made to Top Five MOD files. Please back up your original files before modifying them.
+** Topic Preview's "jQuery Topic Preview" theme will not work with Top Five. Only the default native Topic Preview functionality will work with Top Five.]]></description>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Top Five v1.0.1d" and "Topic Preview 2.0.0" on your forum.]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Matt Friedman]]></realname>
+				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
+			</author>
+		</author-group>
+		<mod-version>2.0.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>300</time>
+			<target-version>3.0.12</target-version>
+		</installation>
+		<link-group>
+			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.0</link>
+			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/top_five/" lang="en">Top Five v1.0.1d</link>
+		</link-group>
+	</header>
+	<action-group>
+		<open src="includes/top_five.php">
+			<edit>
+				<find><![CDATA[	$result = $db->sql_query_limit($db->sql_build_query('SELECT', $sql_ary), 5);]]></find>
+				<action type="before-add"><![CDATA[	// BEGIN Topic Preview Mod
+	if(!class_exists('phpbb_topic_preview'))
+	{
+		include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+	}
+	$topic_preview = new phpbb_topic_preview();
+	$sql_ary['SELECT'] .= ', t.topic_first_post_id';
+	$sql_ary = $topic_preview->modify_sql_array($sql_ary);
+	// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[       		'TOPIC_TITLE' 	=> $user->lang['IN'] . ' ' . $topic_title));]]></find>
+				<action type="after-add"><![CDATA[		// BEGIN Topic Preview Mod
+		$topic_preview->display_topic_preview($row, 'top_five_topic');
+		// END Topic Preview Mod]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/top_five_body.html">
+			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles]]></comment>
+				<find><![CDATA[<td valign="top"><!-- BEGIN top_five_topic --><!-- IF top_five_topic.NO_TOPIC_TITLE-->{top_five_topic.NO_TOPIC_TITLE}<!-- ELSE --><a href="{top_five_topic.U_TOPIC}">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<a href="{top_five_topic.U_TOPIC}">]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[<a href="{top_five_topic.U_TOPIC}"<!-- IF top_five_topic.TOPIC_PREVIEW_TEXT --> title="{top_five_topic.TOPIC_PREVIEW_TEXT}" class="topicpreview"<!-- ENDIF -->>]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/top_five_body.html">
+			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all subsilver2-based styles]]></comment>
+				<find><![CDATA[<td class="row1" valign="top"><!-- BEGIN top_five_topic --><span class="genmed"><!-- IF top_five_topic.NO_TOPIC_TITLE-->{top_five_topic.NO_TOPIC_TITLE}<!-- ELSE --><a href="{top_five_topic.U_TOPIC}">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<a href="{top_five_topic.U_TOPIC}">]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[<a href="{top_five_topic.U_TOPIC}"<!-- IF top_five_topic.TOPIC_PREVIEW_TEXT --> title="{top_five_topic.TOPIC_PREVIEW_TEXT}" class="topicpreview"<!-- ENDIF -->>]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Clear your cache and test it out!]]></diy-instructions>
+	</action-group>
+</mod>
