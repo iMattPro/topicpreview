@@ -30,12 +30,12 @@
 				<rev-version>2.0.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Total overhaul/re-write of code base]]></change>
-					<change><![CDATA[Replaced qTip2 and TipTip add-ons with a new integrated jQuery Topic Preview theme]]></change>
+					<change><![CDATA[Replaced qTip2 and TipTip add-ons with a new integrated jQuery Topic Preview theme option]]></change>
 					<change><![CDATA[Added an ACP option to use native browser tooltips or the new jQuery Topic Preview theme]]></change>
-					<change><![CDATA[Added an ACP option to display user's avatars in the jQuery Topic Preview theme]]></change>
-					<change><![CDATA[Added an ACP option to display both first and last posts in the new jQuery Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display user's avatars (only in the new jQuery Topic Preview theme)]]></change>
+					<change><![CDATA[Added an ACP option to also display the last post text (only in the new jQuery Topic Preview theme)]]></change>
 					<change><![CDATA[Moved all ACP settings to the .MODs tab]]></change>
-					<change><![CDATA[Optional Add-On : Topic Previews in the UCP (display topic previews for Subscription and Bookmarked topic lists in the UCP)]]></change>
+					<change><![CDATA[Optional Add-On : Topic Previews in the UCP (display topic previews for Subscription and Bookmark topic lists in the UCP)]]></change>
 					<change><![CDATA[MOD Add-On : Topic Previews for Top Five instructions]]></change>
 					<change><![CDATA[Language pack added : Czech]]></change>
 					<change><![CDATA[Language pack added : French]]></change>
@@ -49,9 +49,9 @@
 				<changelog lang="en">
 					<change><![CDATA[Optional Add-On : qTip2 jQuery plug-in for Topic Preview]]></change>
 					<change><![CDATA[Optional Add-On : TipTip jQuery plug-in for Topic Preview]]></change>
-					<change><![CDATA[Optional Add-On : Topic Preview for NV Recent]]></change>
-					<change><![CDATA[Optional Add-On : Topic Preview for Board3 Portal v2.0.X instructions]]></change>
-					<change><![CDATA[Optional Add-On : Topic Preview for Precise Similar Topics II instructions]]></change>
+					<change><![CDATA[MOD Add-On : Topic Preview for NV Recent Topics]]></change>
+					<change><![CDATA[MOD Add-On : Topic Preview for Board3 Portal v2.0.X instructions]]></change>
+					<change><![CDATA[MOD Add-On : Topic Preview for Precise Similar Topics II instructions]]></change>
 					<change><![CDATA[Language pack added : Polish]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.4]]></change>
 				</changelog>
@@ -70,7 +70,7 @@
 				<rev-version>1.0.8</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Minor speed improvement (suggested by MOD team)]]></change>
-					<change><![CDATA[Optional add-on: Topic Preview integration for Board3 Portal instructions]]></change>
+					<change><![CDATA[MOD add-on: Topic Preview integration for Board3 Portal instructions]]></change>
 					<change><![CDATA[Note: This version was not released to the public]]></change>
 				</changelog>
 			</entry>
