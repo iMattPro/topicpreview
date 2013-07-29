@@ -90,6 +90,9 @@
 						// animation complete
 					});
 				obj.closest("dt").attr("title", originalTitle); // reinstate original title attributes
+			}).on("click", function () {
+				// Remove topic preview immediately on click as failsafe
+				previewContainer.hide();
 			});
 		});
 	};
