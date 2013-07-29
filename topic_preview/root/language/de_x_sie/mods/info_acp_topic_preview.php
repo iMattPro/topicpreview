@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* topic_preview [German (Casual Honorifics)]
+* topic_preview [German (Formal Honorifics)]
 *
 * @package Topic Preview
 * @version $Id$

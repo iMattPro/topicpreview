@@ -148,7 +148,8 @@
 			<link type="language" href="contrib/languages/cs.xml" lang="en">Czech Language Pack</link>
 			<link type="language" href="contrib/languages/nl.xml" lang="en">Dutch Language Pack</link>
 			<link type="language" href="contrib/languages/fr.xml" lang="en">French Language Pack</link>
-			<link type="language" href="contrib/languages/de.xml" lang="en">German Language Pack</link>
+			<link type="language" href="contrib/languages/de.xml" lang="en">German (Casual Honorifics) Language Pack</link>
+			<link type="language" href="contrib/languages/de_x_sie.xml" lang="en">German (Formal Honorifics) Language Pack</link>
 			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>

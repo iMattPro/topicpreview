@@ -6,7 +6,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview [German (Casual Honorifics)‎ Language]]]></title>
+		<title lang="en"><![CDATA[Topic Preview [German (Formal Honorifics) Language]]]></title>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -26,7 +26,7 @@
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/language/de/mods/info_acp_topic_preview.php" to="language/de/mods/info_acp_topic_preview.php"/>
+			<file from="root/language/de_x_sie/mods/info_acp_topic_preview.php" to="language/de_x_sie/mods/info_acp_topic_preview.php"/>
 		</copy>
 	</action-group>
 </mod>
