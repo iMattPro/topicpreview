@@ -40,12 +40,12 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 		return array(
 			'core.user_setup'			=> 'setup',
 
-			'core.viewforum_get_topic_data'			=> 'modify_sql_array', // need to request
-			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_statement', // need to request
+			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
+			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_statement',
 			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',
 
-			'core.search_get_topic_data_where'		=> 'modify_sql_events', // need to request
-			'core.search_modify_tpl_ary'			=> 'display_topic_previews', // need to request
+			'core.search_get_topic_data'			=> 'modify_sql_events',
+			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
 		);
 	}
 
