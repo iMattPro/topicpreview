@@ -38,7 +38,7 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'			=> 'setup',
+			'core.user_setup'						=> 'setup',
 
 			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
 			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_statement',
@@ -46,6 +46,9 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 
 			'core.search_get_topic_data'			=> 'modify_sql_events',
 			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
+
+			'core.ucp_prefs_view_data'				=> 'ucp_prefs_get_data', // need to request
+			'core.ucp_prefs_view_update_data'		=> 'ucp_prefs_set_data', // need to request
 		);
 	}
 
@@ -110,5 +113,46 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	{
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';
 		$event[$block] = $this->manager->display_topic_preview($event['row'], $event[$block]);
+	}
+
+	/**
+	* Get user's Topic Preview option and display it in UCP Prefs View page
+	*
+	* @param Event $event Event object
+	* @return null
+	*/
+	public function ucp_prefs_get_data($event)
+	{
+		global $config, $user, $template;
+
+		// Request the user option vars and add them to the data array
+		$event['data'] = array_merge($event['data'], array(
+			'topic_preview'	=> request_var('topic_preview', (int) $user->data['user_topic_preview']),
+		));
+
+		// Output the data vars to the template (except on form submit)
+		if (!$event['submit'])
+		{
+			$data = $event['data'];
+			$user->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
+			$template->assign_vars(array(
+				'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
+				'S_TOPIC_PREVIEW'			=> $config['topic_preview_limit'],
+			));
+		}
+	}
+
+	/**
+	* Add user's Topic Preview option state into the sql_array
+	*
+	* @param Event $event Event object
+	* @return null
+	*/
+	public function ucp_prefs_set_data($event)
+	{
+		$data = $event['data'];
+		$event['sql_ary'] = array_merge($event['sql_ary'], array(
+			'user_topic_preview' => $data['topic_preview'],
+		));
 	}
 }
