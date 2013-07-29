@@ -1,10 +1,10 @@
 <?php
 /**
 *
-* topic_preview [English]
+* topic_preview [Română]
 * 
 * @package language
-* @copyright (c) 2013 Matt Friedman
+* @copyright (c) 2013 Matt Friedman (translated by Baros http://www.stoarcecreierul.ro/)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */

@@ -1,10 +1,10 @@
 <?php
 /**
 *
-* topic_preview [English]
+* topic_preview [Dutch]
 * 
 * @package language
-* @copyright (c) 2013 Matt Friedman
+* @copyright (c) 2013 Matt Friedman - Erik Frèrejean ( erikfrerejean@phpbb.com ) http://www.erikfrerejean.nl
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* topic_preview [English]
+* topic_preview [Italian]
 * 
 * @package language
 * @copyright (c) 2013 Matt Friedman
