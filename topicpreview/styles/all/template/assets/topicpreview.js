@@ -7,19 +7,19 @@
  * http://www.opensource.org/licenses/GPL-2.0
  */
 
-;(function ( $, window, document, undefined ) {
+;(function ($, window, document, undefined) {
 
-	$.fn.topicPreview = function( options ) {
+	$.fn.topicPreview = function (options) {
 
-		var settings = $.extend( {
-			"dir"   : "ltr",
-			"theme" : "light",
-			"delay" : 1500,
-			"width" : 360,
-			"left"  : 35,
-			"top"   : 25,
-			"drift" : 15
-		}, options ),
+		var settings = $.extend({
+			"dir": "ltr",
+			"theme": "light",
+			"delay": 1500,
+			"width": 360,
+			"left": 35,
+			"top": 25,
+			"drift": 15
+		}, options),
 			previewTimeout = 0,
 			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.theme).css("width", settings.width).appendTo("body");
 
@@ -27,16 +27,16 @@
 		settings.delay = Math.max(settings.delay, 300);
 
 		// Add rtl class for right-to-left languages to avatar images
-		$(".topic_preview_avatar").toggleClass("rtl", (settings.dir === "rtl")).children("img").one("error", function() { 
+		$(".topic_preview_avatar").toggleClass("rtl", (settings.dir === "rtl")).children("img").one("error", function () {
 			// Replace any broken/missing avatar images in topic previews
 			$(this).attr("src", settings.noavatar);
 		});
 
-		return this.each(function() {
+		return this.each(function () {
 			var obj = $(this),
 				originalTitle = obj.closest("dt").attr("title"); // cache original title attributes
 
-			obj.hover(function() {
+			obj.hover(function () {
 				// Grab tooltip content
 				var content = obj.closest("li").find(".topic_preview_content").html() || obj.closest("tr").find(".topic_preview_content").html();
 
@@ -53,7 +53,7 @@
 				// remove original titles to prevent overlap
 				obj.attr("title", "").closest("dt").attr("title", "");
 
-				previewTimeout = setTimeout(function() {
+				previewTimeout = setTimeout(function () {
 					// clear the timeout var after delay and function begins to execute	
 					previewTimeout = 0;
 
@@ -70,13 +70,13 @@
 					previewContainer
 						.stop(true, true) // stop any running animations first
 						.css({
-							"top"   : previewTop + "px",
-							"left"  : obj.offset().left + settings.left + (settings.dir === "rtl" ? (obj.width() - previewContainer.width()) : 0) + "px"
+							"top": previewTop + "px",
+							"left": obj.offset().left + settings.left + (settings.dir === "rtl" ? (obj.width() - previewContainer.width()) : 0) + "px"
 						})
 						.fadeIn("fast"); // display the topic preview with a fadein
 				}, settings.delay); // Use a delay before showing in topic preview
 
-			}, function() {
+			}, function () {
 				// clear any existing timeouts
 				if (previewTimeout !== 0) {
 					clearTimeout(previewTimeout);
@@ -86,7 +86,7 @@
 				previewContainer
 					.stop(true) // stop animation queue first
 					.fadeOut("fast") // hide the topic preview with a fadeout
-					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
+					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function () {
 						// animation complete
 					});
 				obj.closest("dt").attr("title", originalTitle); // reinstate original title attributes
@@ -99,7 +99,7 @@
 
 	// Check if y coord is within 100 pixels of bottom edge of browser window
 	function edgeDetect(y) {
-		return ( y >= ($(window).scrollTop() + $(window).height() - 100) );
+		return (y >= ($(window).scrollTop() + $(window).height() - 100));
 	}
 
-})( jQuery, window, document );
+})(jQuery, window, document);
