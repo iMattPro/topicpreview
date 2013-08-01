@@ -10,22 +10,22 @@
 	<fieldset>
 		<legend>{L_TOPIC_PREVIEW_SETTINGS}</legend>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_LENGTH}:</label><br /><span>{L_TOPIC_PREVIEW_LENGTH_EXPLAIN}</span></dt>
+		<dt><label>{L_TOPIC_PREVIEW_LENGTH}{L_COLON}</label><br /><span>{L_TOPIC_PREVIEW_LENGTH_EXPLAIN}</span></dt>
 		<dd><input name="topic_preview_limit" type="text" size="3" maxlength="3" value="{TOPIC_PREVIEW_LIMIT}" /> {L_CHARS}</dd>
 	</dl>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_STRIP}:</label><br /><span>{L_TOPIC_PREVIEW_STRIP_EXPLAIN}</span></dt>
+		<dt><label>{L_TOPIC_PREVIEW_STRIP}{L_COLON}</label><br /><span>{L_TOPIC_PREVIEW_STRIP_EXPLAIN}</span></dt>
 		<dd><input name="topic_preview_strip_bbcodes" type="text" size="30" maxlength="255" value="{TOPIC_PREVIEW_STRIP}" /></dd>
 	</dl>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_AVATARS}:</label></dt>
+		<dt><label>{L_TOPIC_PREVIEW_AVATARS}{L_COLON}</label></dt>
 		<dd>
 			<input type="radio" class="radio" name="topic_preview_avatars" value="1"<!-- IF S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /><label> {L_YES}</label>
 			<input type="radio" class="radio" name="topic_preview_avatars" value="0"<!-- IF not S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /><label> {L_NO}</label>
 		</dd>
 	</dl>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_LAST_POST}:</label></dt>
+		<dt><label>{L_TOPIC_PREVIEW_LAST_POST}{L_COLON}</label></dt>
 		<dd>
 			<input type="radio" class="radio" name="topic_preview_last_post" value="1"<!-- IF S_TOPIC_PREVIEW_LAST_POST --> checked="checked"<!-- ENDIF --> /><label> {L_YES}</label>
 			<input type="radio" class="radio" name="topic_preview_last_post" value="0"<!-- IF not S_TOPIC_PREVIEW_LAST_POST --> checked="checked"<!-- ENDIF --> /><label> {L_NO}</label>
