@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Topic Preview for Top Stats]]></title>
+		<description lang="en"><![CDATA[Gives the Topic Preview effect to the Top Stats MOD
+
+* All changes will be made to Top Stats MOD files. Please back up your original files before modifying them.]]></description>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Top Stats MOD v1.0.10" and "Topic Preview 2.0.0" on your forum.]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Matt Friedman]]></realname>
+				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
+			</author>
+		</author-group>
+		<mod-version>2.0.0</mod-version>
+		<installation>
+			<level>intermediate</level>
+			<time>600</time>
+			<target-version>3.0.12</target-version>
+		</installation>
+		<link-group>
+			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.0</link>
+			<link type="dependency" href="https://www.phpbb.com/customise/db/mod/top_stats" lang="en">Top Stats v1.0.10</link>
+		</link-group>
+	</header>
+	<action-group>
+		<open src="includes/functions_top_stats.php">
+			<edit>
+				<find><![CDATA[// Recent Active Topics]]></find>
+				<action type="before-add"><![CDATA[	// BEGIN Topic Preview Mod
+	if(!class_exists('phpbb_topic_preview'))
+	{
+		include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+	}
+	$topic_preview = new phpbb_topic_preview();
+	// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	$sql = 'SELECT t.forum_id, t.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_poster, t.topic_replies, t.topic_first_poster_name, t.topic_first_poster_colour, t.topic_last_post_id, t.topic_last_poster_name, t.topic_last_poster_colour, t.topic_last_post_time, t.topic_last_view_time, t.topic_last_poster_id, f.forum_name, f.forum_image]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[f.forum_image]]></inline-find>
+					<inline-action type="after-add"><![CDATA[, t.topic_first_post_id, t.topic_last_post_id' . $topic_preview->tp_sql_select . ']]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[		LEFT JOIN ' . FORUMS_TABLE . ' f ON (t.forum_id = f.forum_id)]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[f.forum_id)]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ ' . $topic_preview->tp_sql_join . ']]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[		$template->assign_block_vars('recent_active', array(]]></find>
+				<action type="after-add"><![CDATA[			'TOPIC_ID'						=> $row['topic_id'],]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'FORUM_URL'						=> $view_viewforum_url,
+		));]]></find>
+				<action type="after-add"><![CDATA[		// BEGIN Topic Preview Mod
+		$topic_preview->display_topic_preview($row, 'recent_active');
+		// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	$sql = 'SELECT topic_id, forum_id, topic_title, topic_views, topic_time, topic_first_poster_name, topic_first_poster_colour, topic_poster, topic_last_poster_id
+		FROM ' . TOPICS_TABLE . ' WHERE ' . $db->sql_in_set('forum_id', $flist) . '
+		ORDER BY topic_views DESC';]]></find>
+				<action type="replace-with"><![CDATA[	$sql = 'SELECT t.topic_id, t.forum_id, t.topic_title, t.topic_views, t.topic_time, t.topic_first_poster_name, t.topic_first_poster_colour, t.topic_poster, t.topic_last_poster_id, t.topic_first_post_id, t.topic_last_post_id' . $topic_preview->tp_sql_select . '
+		FROM ' . TOPICS_TABLE . ' t ' . $topic_preview->tp_sql_join . '
+		WHERE ' . $db->sql_in_set('t.forum_id', $flist) . '
+		ORDER BY t.topic_views DESC';]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'USERNAME_LAST'					=> $view_last_poster,
+		));]]></find>
+				<action type="after-add"><![CDATA[		// BEGIN Topic Preview Mod
+		$topic_preview->display_topic_preview($row, 'most_viewed');
+		// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	$sql = 'SELECT topic_id, forum_id, topic_title, topic_replies, topic_time, topic_first_poster_name, topic_first_poster_colour, topic_poster, topic_last_poster_id 
+		FROM ' . TOPICS_TABLE . ' WHERE ' . $db->sql_in_set('forum_id', $flist) . '
+		ORDER BY topic_replies DESC';]]></find>
+				<action type="replace-with"><![CDATA[	$sql = 'SELECT t.topic_id, t.forum_id, t.topic_title, t.topic_replies, t.topic_time, t.topic_first_poster_name, t.topic_first_poster_colour, t.topic_poster, t.topic_last_poster_id, t.topic_first_post_id, t.topic_last_post_id' . $topic_preview->tp_sql_select . '
+		FROM ' . TOPICS_TABLE . ' t ' . $topic_preview->tp_sql_join . '
+		WHERE ' . $db->sql_in_set('t.forum_id', $flist) . '
+		ORDER BY t.topic_replies DESC';]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'USERNAME_LAST'					=> $view_last_poster,
+		));]]></find>
+				<action type="after-add"><![CDATA[		// BEGIN Topic Preview Mod
+		$topic_preview->display_topic_preview($row, 'most_replied');
+		// END Topic Preview Mod]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/recent_active_body.html">
+			<edit>
+				<find><![CDATA[		<dt>
+		   <a href="{recent_active.U_FIRST_TOPIC}" class="forumtitle">{recent_active.TOPIC_TITLE}</a><br />]]></find>
+				<action type="replace-with"><![CDATA[		<dt <!-- IF recent_active.TOPIC_PREVIEW_TEXT -->title="{recent_active.TOPIC_PREVIEW_TEXT}" id="t{recent_active.TOPIC_ID}"<!-- ENDIF -->>
+		   <a href="{recent_active.U_FIRST_TOPIC}" class="forumtitle topictitle">{recent_active.TOPIC_TITLE}</a><br />]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		</dd>
+		</dl>]]></find>
+				<action type="after-add"><![CDATA[		<!-- IF recent_active.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
+			<div id="topic_preview_t{recent_active.TOPIC_ID}" style="display:none;">
+				<!-- IF recent_active.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+				<!-- IF recent_active.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{recent_active.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"></div>
+				<!-- IF recent_active.TOPIC_PREVIEW_TEXT2 -->
+					<div class="topic_preview_break"></div>
+					<strong>{L_LAST_POST}</strong><hr />
+					<!-- IF recent_active.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{recent_active.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last">{recent_active.TOPIC_PREVIEW_TEXT2}</div>
+				<!-- ENDIF -->
+			</div>
+		<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/top_stats_body.html">
+			<edit>
+				<find><![CDATA[				<dt style="width:70%;"><a style="font-size:1.1em; font-weight:bold;" href="{most_viewed.U_FIRST_TOPIC}">{most_viewed.TOPIC_TITLE}</a><br />{L_POST_BY_AUTHOR} <a style="font-weight:bold; color: #{most_viewed.TOPIC_FIRST_POSTER_COLOUR};" href="{most_viewed.USERNAME_FIRST}">{most_viewed.TOPIC_FIRST_POSTER_NAME}</a> {L_POSTED_ON_DATE} {most_viewed.TOPIC_TIME}</dt>]]></find>
+				<action type="replace-with"><![CDATA[				<dt style="width:70%;" <!-- IF most_viewed.TOPIC_PREVIEW_TEXT -->title="{most_viewed.TOPIC_PREVIEW_TEXT}" id="t{most_viewed.TOPIC_ID}"<!-- ENDIF -->><a class="topictitle" style="font-size:1.2em; font-weight:bold;" href="{most_viewed.U_FIRST_TOPIC}">{most_viewed.TOPIC_TITLE}</a><br />{L_POST_BY_AUTHOR} <a style="font-weight:bold; color: #{most_viewed.TOPIC_FIRST_POSTER_COLOUR};" href="{most_viewed.USERNAME_FIRST}">{most_viewed.TOPIC_FIRST_POSTER_NAME}</a> {L_POSTED_ON_DATE} {most_viewed.TOPIC_TIME}</dt>]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			</li>
+			<!-- END most_viewed -->]]></find>
+				<action type="before-add"><![CDATA[		<!-- IF most_viewed.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
+			<div id="topic_preview_t{most_viewed.TOPIC_ID}" style="display:none;">
+				<!-- IF most_viewed.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+				<!-- IF most_viewed.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{most_viewed.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"></div>
+				<!-- IF most_viewed.TOPIC_PREVIEW_TEXT2 -->
+					<div class="topic_preview_break"></div>
+					<strong>{L_LAST_POST}</strong><hr />
+					<!-- IF most_viewed.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{most_viewed.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last">{most_viewed.TOPIC_PREVIEW_TEXT2}</div>
+				<!-- ENDIF -->
+			</div>
+		<!-- ENDIF -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[				<dt style="width:70%;"><a style="font-size:1.1em; font-weight:bold;" href="{most_replied.U_FIRST_TOPIC}">{most_replied.TOPIC_TITLE}</a><br />{L_POST_BY_AUTHOR} <a style="font-weight:bold; color: #{most_replied.TOPIC_FIRST_POSTER_COLOUR};" href="{most_replied.USERNAME_FIRST}">{most_replied.TOPIC_FIRST_POSTER_NAME}</a> {L_POSTED_ON_DATE} {most_replied.TOPIC_TIME}</dt>]]></find>
+				<action type="replace-with"><![CDATA[				<dt style="width:70%;" <!-- IF most_replied.TOPIC_PREVIEW_TEXT -->title="{most_replied.TOPIC_PREVIEW_TEXT}" id="t{most_replied.TOPIC_ID}"<!-- ENDIF -->><a class="topictitle" style="font-size:1.2em; font-weight:bold;" href="{most_replied.U_FIRST_TOPIC}">{most_replied.TOPIC_TITLE}</a><br />{L_POST_BY_AUTHOR} <a style="font-weight:bold; color: #{most_replied.TOPIC_FIRST_POSTER_COLOUR};" href="{most_replied.USERNAME_FIRST}">{most_replied.TOPIC_FIRST_POSTER_NAME}</a> {L_POSTED_ON_DATE} {most_replied.TOPIC_TIME}</dt>]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			</li>
+			<!-- END most_replied -->]]></find>
+				<action type="before-add"><![CDATA[		<!-- IF most_replied.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
+			<div id="topic_preview_t{most_replied.TOPIC_ID}" style="display:none;">
+				<!-- IF most_replied.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+				<!-- IF most_replied.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{most_replied.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+				<div class="topic_preview_text_first"></div>
+				<!-- IF most_replied.TOPIC_PREVIEW_TEXT2 -->
+					<div class="topic_preview_break"></div>
+					<strong>{L_LAST_POST}</strong><hr />
+					<!-- IF most_replied.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{most_replied.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+					<div class="topic_preview_text_last">{most_replied.TOPIC_PREVIEW_TEXT2}</div>
+				<!-- ENDIF -->
+			</div>
+		<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Clear your cache and test it out!]]></diy-instructions>
+	</action-group>
+</mod>
