@@ -25,3 +25,17 @@
 		<!-- ENDIF -->
 	</div>
 <!-- ENDIF -->
+
+<!-- IF similar.TOPIC_PREVIEW_FP -->
+	<div class="topic_preview_content" style="display:none;">
+		<!-- IF similar.TOPIC_PREVIEW_LP --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+		<!-- IF similar.TOPIC_PREVIEW_AVATAR_FP --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR_FP}</div><!-- ENDIF -->
+		<div class="topic_preview_first">{similar.TOPIC_PREVIEW_FP}</div>
+		<!-- IF similar.TOPIC_PREVIEW_LP -->
+			<div class="topic_preview_break"></div>
+			<strong>{L_LAST_POST}</strong><hr />
+			<!-- IF similar.TOPIC_PREVIEW_AVATAR_LP --><div class="topic_preview_avatar">{similar.TOPIC_PREVIEW_AVATAR_LP}</div><!-- ENDIF -->
+			<div class="topic_preview_last">{similar.TOPIC_PREVIEW_LP}</div>
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
