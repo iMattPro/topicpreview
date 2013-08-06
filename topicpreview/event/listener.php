@@ -60,11 +60,12 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function setup($event)
 	{
-		global $phpbb_container, $template, $phpbb_root_path;
+		global $phpbb_container, $phpbb_root_path;
 
-		$this->manager = $phpbb_container->get('topicpreview.manager');
+		$this->container = $phpbb_container;
+		$this->manager = $this->container->get('topicpreview.manager');
 
-		$template->assign_vars(array(
+		$this->container->get('template')->assign_vars(array(
 			'T_TOPICPREVIEW_ASSETS'	=> $phpbb_root_path . 'ext/vse/topicpreview/styles/all/template/assets',
 		));
 	}
@@ -123,19 +124,18 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function ucp_prefs_get_data($event)
 	{
-		global $config, $user, $template;
-
 		// Request the user option vars and add them to the data array
 		$event['data'] = array_merge($event['data'], array(
-			'topic_preview'	=> request_var('topic_preview', (int) $user->data['user_topic_preview']),
+			'topic_preview'	=> request_var('topic_preview', (int) $this->container->get('user')->data['user_topic_preview']),
 		));
 
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'])
 		{
+			$config = $this->container->get('config');
 			$data = $event['data'];
-			$user->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
-			$template->assign_vars(array(
+			$this->container->get('user')->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
+			$this->container->get('template')->assign_vars(array(
 				'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
 				'S_TOPIC_PREVIEW'			=> $config['topic_preview_limit'],
 			));
