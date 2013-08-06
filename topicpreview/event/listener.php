@@ -64,8 +64,10 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 
 		$this->container = $phpbb_container;
 		$this->manager = $this->container->get('topicpreview.manager');
+		$config = $this->container->get('config');
 
 		$this->container->get('template')->assign_vars(array(
+			'S_TOPICPREVIEW'		=> $config['topic_preview_limit'],
 			'T_TOPICPREVIEW_ASSETS'	=> $phpbb_root_path . 'ext/vse/topicpreview/styles/all/template/assets',
 		));
 	}
@@ -132,12 +134,10 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'])
 		{
-			$config = $this->container->get('config');
 			$data = $event['data'];
 			$this->container->get('user')->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
 			$this->container->get('template')->assign_vars(array(
 				'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
-				'S_TOPIC_PREVIEW'			=> $config['topic_preview_limit'],
 			));
 		}
 	}
