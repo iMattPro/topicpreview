@@ -64,7 +64,14 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function setup($event)
 	{
-		global $phpbb_container, $phpbb_root_path;
+		global $phpbb_container, $phpbb_root_path, $user, $phpEx;
+
+		// Only load topic previews where needed
+		$allowed_pages = array("search.$phpEx", "viewforum.$phpEx", "viewtopic.$phpEx", "ucp.$phpEx");
+		if (!in_array($user->page['page_name'], $allowed_pages))
+		{
+			return;
+		}
 
 		$this->container = $phpbb_container;
 		$this->manager = $this->container->get('topicpreview.manager');
