@@ -20,7 +20,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	/**
 	* Are topic previews enabled?
 	*/
-	private $is_active		= true;
+	public $is_active		= true;
 
 	/**
 	* The max number of characters in the topic preview text
