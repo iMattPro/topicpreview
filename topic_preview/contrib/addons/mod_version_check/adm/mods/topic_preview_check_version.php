@@ -26,7 +26,7 @@ class topic_preview_check_version
 			'title'		=> 'Topic Preview',
 			'tag'		=> 'topic_preview',
 			'version'	=> '2.0.0',
-			'file'		=> array('orcamx.vlexofree.com', 'software', 'mods.xml'),
+			'file'		=> array('mattfriedman.me', 'software', 'mods.xml'),
 		);
 	}
 }
