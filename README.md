@@ -1,14 +1,14 @@
-![Topic Preview](http://orcamx.vlexofree.com/forum/images/search.png "Topic Preview") Topic Preview for phpBB3
+![Topic Preview](http://mattfriedman.me/forum/images/search.png "Topic Preview") Topic Preview for phpBB3
 ========================
 
 This is a MOD for phpBB3 that will display a short excerpt of text from the first post of a topic when the user hovers their mouse over the topic's title. 
 
 ## Browser support
-![Chrome 4+](http://orcamx.vlexofree.com/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
-![Firefox 3.5+](http://orcamx.vlexofree.com/software/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
-![Safari 3+](http://orcamx.vlexofree.com/software/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
-![Internet Explorer 6+](http://orcamx.vlexofree.com/software/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
-![Opera 10.5+](http://orcamx.vlexofree.com/software/browsericons/opera.png "Opera 10.5+")10.5+
+![Chrome 4+](http://mattfriedman.me/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
+![Firefox 3.5+](http://mattfriedman.me/software/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
+![Safari 3+](http://mattfriedman.me/software/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
+![Internet Explorer 6+](http://mattfriedman.me/software/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
+![Opera 10.5+](http://mattfriedman.me/software/browsericons/opera.png "Opera 10.5+")10.5+
 
 ## Stable releases
 Grab the latest release from phpBB: ([Download it here](https://www.phpbb.com/customise/db/mod/topic_preview/)) 
