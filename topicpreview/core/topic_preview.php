@@ -17,79 +17,51 @@ if (!defined('IN_PHPBB'))
 
 class phpbb_ext_vse_topicpreview_core_topic_preview
 {
-	/**
-	* Are topic previews enabled?
-	*/
-	public $is_active		= true;
+	public $is_active;
 
-	/**
-	* The max number of characters in the topic preview text
-	*/
-	private $preview_limit	= 150;
+	protected $config;
+	protected $db;
+	protected $user;
+	protected $phpbb_root_path;
 
-	/**
-	* List of BBcodes whose text is to be stripped from topic previews
-	*/
-	private $strip_bbcodes	= '';
-
-	/**
-	* The default SQL SELECT statement injection
-	*/
-	private $tp_sql_select	= '';
-
-	/**
-	* The default SQL LEFT JOIN statement injection
-	*/
-	private $tp_sql_join	= '';
-
-	/**
-	* Get avatars for topic previews?
-	*/
-	private $tp_avatars		= true;
-
-	/**
-	* Get the last post's text for topic previews?
-	*/
-	private $tp_last_post	= false;
-
-	/**
-	* Add-On: Preserve line breaks?
-	*/
-//	private $tp_line_breaks	= false;
-
-	/**
-	* Add-On: [topicpreview] bbcode support?
-	*/
-//	private $tp_bbcode		= false;
+	private $tp_avatars;
+	private $tp_last_post;
+	private $preview_limit;
+	private $tp_sql_select;
+	private $tp_sql_join;
+//	private $tp_line_breaks;
+//	private $tp_bbcode;
 
 	/**
 	* Topic Preview class constructor method
 	*/
-	public function __construct()
+	public function __construct(phpbb_config $config, phpbb_db_driver $db, phpbb_user $user, $root_path)
 	{
-		global $config, $user;
+		$this->config = $config;
+		$this->db = $db;
+		$this->user = $user;
+		$this->root_path = $root_path;
 
 		// config parameters
-		$this->is_active     = (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview'])) ? true : false;
-		$this->tp_avatars    = (!empty($config['topic_preview_avatars']) && $config['allow_avatar']) ? true : false;
-		$this->tp_last_post  = (!empty($config['topic_preview_last_post'])) ? true : false;
-		$this->preview_limit = (int) $config['topic_preview_limit'];
-		$this->strip_bbcodes = (string) $config['topic_preview_strip_bbcodes'];
+		$this->is_active     = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
+		$this->tp_avatars    = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
+		$this->tp_last_post  = (!empty($this->config['topic_preview_last_post'])) ? true : false;
+		$this->preview_limit = (int) $this->config['topic_preview_limit'];
 
 		// statement parameters
-		$this->tp_sql_select = ', fp.post_text AS first_post_preview_text' . (($this->tp_last_post) ? ', lp.post_text AS last_post_preview_text' : '');
-		$this->tp_sql_join   = ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' . (($this->tp_last_post) ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '');
+		$this->tp_sql_select = ', fp.post_text AS first_post_preview_text' . ($this->tp_last_post ? ', lp.post_text AS last_post_preview_text' : '');
+		$this->tp_sql_join   = ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' . ($this->tp_last_post ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '');
 
 		if ($this->tp_avatars)
 		{
-			$this->tp_sql_select .= ', fpu.user_avatar AS first_user_avatar, fpu.user_avatar_type AS first_user_avatar_type' . (($this->tp_last_post) ? ', lpu.user_avatar AS last_user_avatar, lpu.user_avatar_type AS last_user_avatar_type' : '');
-			$this->tp_sql_join   .= ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' . (($this->tp_last_post) ? ' LEFT JOIN ' . USERS_TABLE . ' lpu ON (lpu.user_id = t.topic_last_poster_id)' : '');
+			$this->tp_sql_select .= ', fpu.user_avatar AS first_user_avatar, fpu.user_avatar_type AS first_user_avatar_type' . ($this->tp_last_post ? ', lpu.user_avatar AS last_user_avatar, lpu.user_avatar_type AS last_user_avatar_type' : '');
+			$this->tp_sql_join   .= ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' . ($this->tp_last_post ? ' LEFT JOIN ' . USERS_TABLE . ' lpu ON (lpu.user_id = t.topic_last_poster_id)' : '');
 		}
 
 		// Load our language file if needed
 		if ($this->tp_last_post)
 		{
-			$user->add_lang_ext('vse/topicpreview', 'topic_preview');
+			$this->user->add_lang_ext('vse/topicpreview', 'topic_preview');
 		}
 	}
 
@@ -153,11 +125,11 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 			return $sql;
 		}
 
-		global $db, $shadow_topic_list;
+		global $shadow_topic_list;
 
 		$sql = 'SELECT t.*' . $this->tp_sql_select . '
 			FROM ' . TOPICS_TABLE . ' t ' . $this->tp_sql_join . '
-			WHERE ' . $db->sql_in_set('t.topic_id', array_keys($shadow_topic_list));
+			WHERE ' . $this->db->sql_in_set('t.topic_id', array_keys($shadow_topic_list));
 
 		return $sql;
 	}
@@ -221,12 +193,10 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 		{
 			$last_post_preview_text = $this->trim_topic_preview($row['last_post_preview_text'], $this->preview_limit);
 		}
-	
-		global $user, $phpbb_root_path;
 
 		if ($this->tp_avatars)
 		{
-			$no_avatar = '<img src="' . $phpbb_root_path . 'ext/vse/topicpreview/styles/all/template/assets/no_avatar.png" width="60" height="60" alt="" />';
+			$no_avatar = '<img src="' . $this->root_path . 'ext/vse/topicpreview/styles/all/template/assets/no_avatar.png" width="60" height="60" alt="" />';
 			$first_post_avatar = (!empty($row['first_user_avatar'])) ? get_user_avatar($row['first_user_avatar'], $row['first_user_avatar_type'], 60, 60) : $no_avatar;
 			$last_post_avatar  = (!empty($row['last_user_avatar'])) ? get_user_avatar($row['last_user_avatar'], $row['last_user_avatar_type'], 60, 60) : $no_avatar;
 		}
@@ -234,8 +204,8 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 		$block = array_merge(array(
 			'TOPIC_PREVIEW_FP'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
 			'TOPIC_PREVIEW_LP'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
-			'TOPIC_PREVIEW_AVATAR_FP'	=> (isset($first_post_avatar) && $user->optionget('viewavatars')) ? $first_post_avatar : '',
-			'TOPIC_PREVIEW_AVATAR_LP'	=> (isset($last_post_avatar) && $user->optionget('viewavatars')) ? $last_post_avatar : '',
+			'TOPIC_PREVIEW_AVATAR_FP'	=> (isset($first_post_avatar) && $this->user->optionget('viewavatars')) ? $first_post_avatar : '',
+			'TOPIC_PREVIEW_AVATAR_LP'	=> (isset($last_post_avatar) && $this->user->optionget('viewavatars')) ? $last_post_avatar : '',
 		), $block);
 
 		// modify existing vars, only works for prosilver
@@ -295,7 +265,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 		$text = smiley_text($text, true); // display smileys as text :)
 //		$text = ($this->tp_line_breaks ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
 
-		$bbcode_strip = (empty($this->strip_bbcodes) ? 'flash' : 'flash|' . trim($this->strip_bbcodes));
+		$bbcode_strip = (empty($this->config['topic_preview_strip_bbcodes']) ? 'flash' : 'flash|' . trim($this->config['topic_preview_strip_bbcodes']));
 
 		if (empty($patterns))
 		{

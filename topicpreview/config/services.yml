@@ -1,3 +1,8 @@
 services:
     topicpreview.manager:
         class: phpbb_ext_vse_topicpreview_core_topic_preview
+        arguments:
+            - @config
+            - @dbal.conn
+            - @user
+            - %core.root_path%
