@@ -7,7 +7,7 @@ STATUS
 ------
 * ACP module is complete
 * Migrations is complete
-* To-do: UCP module or UCP events are needed
+* UCP events is complete
 * To-do: Complete language translation updates
 
 Requirements

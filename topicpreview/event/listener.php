@@ -50,8 +50,8 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
 
 			// ucp_prefs.php events
-			'core.ucp_prefs_view_data'				=> 'ucp_prefs_get_data', // need to request
-			'core.ucp_prefs_view_update_data'		=> 'ucp_prefs_set_data', // need to request
+			'core.ucp_prefs_view_data'				=> 'ucp_prefs_get_data',
+			'core.ucp_prefs_view_update_data'		=> 'ucp_prefs_set_data',
 
 			// These are custom events for integration with Precise Similar Topics
 			'similartopics.similar_topic_data'		=> 'modify_sql_array',
