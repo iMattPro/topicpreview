@@ -38,8 +38,6 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'						=> 'setup',
-
 			// viewform.php events
 			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
 			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_statement',
@@ -61,20 +59,10 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 
 	/**
 	* Set up the environment
-	*
-	* @param Event $event Event object
-	* @return null
 	*/
-	public function setup($event)
+	public function setup()
 	{
-		global $phpbb_container, $phpbb_root_path, $user, $phpEx;
-
-		// Only load topic previews where needed
-		$allowed_pages = array("search.$phpEx", "viewforum.$phpEx", "viewtopic.$phpEx", "ucp.$phpEx");
-		if (!in_array($user->page['page_name'], $allowed_pages))
-		{
-			return;
-		}
+		global $phpbb_container, $phpbb_root_path;
 
 		$this->container = $phpbb_container;
 		$this->manager = $this->container->get('topicpreview.manager');
@@ -93,6 +81,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function modify_sql_array($event)
 	{
+		if (!$this->manager)
+		{
+			$this->setup();
+		}
+		
 		$event['sql_array'] = $this->manager->modify_sql_array($event['sql_array']);
 	}
 
@@ -104,6 +97,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function modify_sql_statement($event)
 	{
+		if (!$this->manager)
+		{
+			$this->setup();
+		}
+		
 		$event['sql'] = $this->manager->modify_sql($event['sql']);
 	}
 
@@ -115,6 +113,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function modify_sql_events($event)
 	{
+		if (!$this->manager)
+		{
+			$this->setup();
+		}
+		
 		$event['sql_from'] = $this->manager->modify_sql_join($event['sql_from']);
 		$event['sql_select'] = $this->manager->modify_sql_select($event['sql_select']);		
 	}
@@ -127,6 +130,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function display_topic_previews($event)
 	{
+		if (!$this->manager)
+		{
+			$this->setup();
+		}
+		
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';
 		$event[$block] = $this->manager->display_topic_preview($event['row'], $event[$block]);
 	}
@@ -139,6 +147,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function ucp_prefs_get_data($event)
 	{
+		if (!$this->manager)
+		{
+			$this->setup();
+		}
+		
 		// Request the user option vars and add them to the data array
 		$event['data'] = array_merge($event['data'], array(
 			'topic_preview'	=> request_var('topic_preview', (int) $this->container->get('user')->data['user_topic_preview']),
@@ -165,6 +178,11 @@ class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterf
 	*/
 	public function ucp_prefs_set_data($event)
 	{
+		if (!$this->manager)
+		{
+			$this->setup();
+		}
+		
 		$data = $event['data'];
 		$event['sql_ary'] = array_merge($event['sql_ary'], array(
 			'user_topic_preview' => $data['topic_preview'],
