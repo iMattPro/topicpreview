@@ -7,13 +7,18 @@
 *
 */
 
-namespace vse\topicpreview\migrations;
+namespace vse\topicpreview\migrations\v1xx;
 
-class v1_0_6 extends \phpbb\db\migration\migration
+class release_1_0_6 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
 		return isset($this->config['topic_preview_version']) && version_compare($this->config['topic_preview_version'], '1.0.6', '>=');
+	}
+
+	static public function depends_on()
+	{
+		return array('\phpbb\db\migration\data\v310\dev');
 	}
 
 	public function update_schema()

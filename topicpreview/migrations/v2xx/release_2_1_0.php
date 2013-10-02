@@ -7,9 +7,9 @@
 *
 */
 
-namespace vse\topicpreview\migrations;
+namespace vse\topicpreview\migrations\v2xx;
 
-class v2_1_0 extends \phpbb\db\migration\migration
+class release_2_1_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
@@ -18,7 +18,7 @@ class v2_1_0 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array('\vse\topicpreview\migrations\v2_0_0');
+		return array('\vse\topicpreview\migrations\v2xx\release_2_0_0');
 	}
 
 	public function update_data()
