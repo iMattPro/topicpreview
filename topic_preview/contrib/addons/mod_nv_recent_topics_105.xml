@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Topic Preview for NV Recent Topics v1.0.5]]></title>
+		<description lang="en"><![CDATA[Gives the Topic Preview effect to the NV Recent Topics MOD v1.0.5
+
+Note: All changes will be made to NV Recent Topics MOD files. Please back up your original files before modifying them.]]></description>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "NV Recent Topics MOD v1.0.5" and "Topic Preview 2.0.0" on your forum.]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Matt Friedman]]></realname>
+				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
+			</author>
+		</author-group>
+		<mod-version>2.0.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>300</time>
+			<target-version>3.0.12</target-version>
+		</installation>
+		<link-group>
+			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.0</link>
+			<link type="dependency" href="https://www.phpbb.com/customise/db/mod/nv_recent_topics" lang="en">NV recent topics v1.0.5</link>
+		</link-group>
+	</header>
+	<action-group>
+		<open src="includes/functions_recenttopics.php">
+			<edit>
+				<find><![CDATA[	// Now only pull the data of the requested topics]]></find>
+				<action type="before-add"><![CDATA[	// BEGIN Topic Preview Mod
+	$sql_from = $sql_select = '';
+	if(!class_exists('phpbb_topic_preview'))
+	{
+		include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
+	}
+	$topic_preview = new phpbb_topic_preview();
+	$sql_from 	= $topic_preview->modify_sql_join($sql_from);
+	$sql_select = $topic_preview->modify_sql_select($sql_select);
+	// END Topic Preview Mod]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	$sql = 'SELECT t.*, i.icons_url, i.icons_width, i.icons_height, tp.topic_posted, f.forum_name]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[f.forum_name]]></inline-find>
+					<inline-action type="after-add"><![CDATA[' . $sql_select . ']]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[		WHERE ' . $db->sql_in_set('t.topic_id', $topic_ids) . ']]></find>
+				<action type="before-add"><![CDATA[		' . $sql_from . ']]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'U_MCP_QUEUE'			=> $u_mcp_queue,
+		));]]></find>
+				<action type="after-add"><![CDATA[		// BEGIN Topic Preview Mod
+		$topic_preview->display_topic_preview($row, $tpl_loopname);
+		// END Topic Preview Mod]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/recent_topics_body.html">
+			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles]]></comment>
+				<find><![CDATA[				<dt style="<!-- IF recent_topics.TOPIC_ICON_IMG -->background-image: url({T_ICONS_PATH}{recent_topics.TOPIC_ICON_IMG}); background-repeat: no-repeat;<!-- ENDIF -->" title="{recent_topics.TOPIC_FOLDER_IMG_ALT}">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{recent_topics.TOPIC_FOLDER_IMG_ALT}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->title="{recent_topics.TOPIC_PREVIEW_TEXT}" id="t{recent_topics.TOPIC_ID}"<!-- ELSE -->title="{recent_topics.TOPIC_FOLDER_IMG_ALT}"<!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for prosilver and all prosilver-based styles]]></comment>
+				<find><![CDATA[</dd>
+			</dl>]]></find>
+				<action type="after-add"><![CDATA[			<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
+				<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
+					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+					<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"></div>
+					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
+						<div class="topic_preview_break"></div>
+						<strong>{L_LAST_POST}</strong><hr />
+						<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last">{recent_topics.TOPIC_PREVIEW_TEXT2}</div>
+					<!-- ENDIF -->
+				</div>
+			<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/recent_topics_body.html">
+			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles]]></comment>
+				<find><![CDATA[					{recent_topics.ATTACH_ICON_IMG} <!-- IF recent_topics.S_HAS_POLL or recent_topics.S_TOPIC_MOVED --><b>{recent_topics.TOPIC_TYPE}</b> <!-- ENDIF --><a title="{L_POSTED}: {recent_topics.FIRST_POST_TIME}" href="{recent_topics.U_VIEW_TOPIC}" class="topictitle">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[title="{L_POSTED}: {recent_topics.FIRST_POST_TIME}"]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[<!-- IF recent_topics.TOPIC_PREVIEW_TEXT -->title="{recent_topics.TOPIC_PREVIEW_TEXT}" id="t{recent_topics.TOPIC_ID}"<!-- ELSE -->title="{L_POSTED}: {recent_topics.FIRST_POST_TIME}"<!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<comment lang="en"><![CDATA[Note: This edit is required for subsilver2 and all subsilver2-based styles]]></comment>
+				<find><![CDATA[<!-- IF recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED -->]]></find>
+				<action type="before-add"><![CDATA[					<!-- IF recent_topics.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
+						<div id="topic_preview_t{recent_topics.TOPIC_ID}" style="display:none;">
+							<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+							<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+							<div class="topic_preview_text_first"></div>
+							<!-- IF recent_topics.TOPIC_PREVIEW_TEXT2 -->
+								<div class="topic_preview_break"></div>
+								<strong>{L_LAST_POST}</strong><hr />
+								<!-- IF recent_topics.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+								<div class="topic_preview_text_last">{recent_topics.TOPIC_PREVIEW_TEXT2}</div>
+							<!-- ENDIF -->
+						</div>
+					<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Clear your cache and test it out!]]></diy-instructions>
+	</action-group>
+</mod>
