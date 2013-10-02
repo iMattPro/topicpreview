@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<?xml-stylesheet type="text/xsl" href="./contrib/modx.prosilver.en.xsl"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
 <!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
-<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Displays an excerpt from the first post of a topic when the user hovers their mouse over the topic title, using the browser's built-in tooltip ability. The amount of text shown can be defined in the ACP, and the mod can also be turned off. It's much more simplified than other similar mods (no javascript or css needed), this version is designed to mimic the vbulletin method.
-
-		Note: this MOD was inspired by a similar MOD by RMcGirr83.]]></description>
+		<description lang="en"><![CDATA[Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a pretty jQuery theme with options to also show user's avatars, and both the first and last posts from the topic. Topic Preview is customizable to get the right look for each style in your board.		
+		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
+		<github><![CDATA[https://github.com/VSEphpbb/topic_preview]]></github>
+		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the "jQuery Topic Preview" theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -17,19 +18,30 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.10</mod-version>
+		<mod-version>2.0.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
-			<target-version>3.0.9</target-version>
+			<target-version>3.0.12</target-version>
 		</installation>
 		<history>
 			<entry>
-				<date>2012-XX-XX</date>
-				<rev-version>1.0.XX</rev-version>
+				<date>2013-08-04</date>
+				<rev-version>2.0.0</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Optional Add-On : Topic Preview for Precise Similar Topics II v1.1.7 instructions]]></change>
-					<change><![CDATA[Added Czech language pack]]></change>
+					<change><![CDATA[Total overhaul/re-write of code base]]></change>
+					<change><![CDATA[Replaced qTip2 and TipTip add-ons with a new integrated jQuery Topic Preview theme option]]></change>
+					<change><![CDATA[Added an ACP option to use native browser tooltips or the new jQuery Topic Preview theme]]></change>
+					<change><![CDATA[Added an ACP option to display user's avatars (only in the new jQuery Topic Preview theme)]]></change>
+					<change><![CDATA[Added an ACP option to also display the last post text (only in the new jQuery Topic Preview theme)]]></change>
+					<change><![CDATA[Moved all ACP settings to the .MODs tab]]></change>
+					<change><![CDATA[Optional Add-On : Topic Previews in the UCP (display topic previews for Subscription and Bookmark topic lists in the UCP)]]></change>
+					<change><![CDATA[MOD Add-On : Topic Previews for Top Stats instructions]]></change>
+					<change><![CDATA[MOD Add-On : Topic Previews for Top Five instructions]]></change>
+					<change><![CDATA[Language pack added : Czech]]></change>
+					<change><![CDATA[Language pack added : French]]></change>
+					<change><![CDATA[Updated MODX to 1.2.6.]]></change>
+					<change><![CDATA[Updated UMIL to 1.0.5.]]></change>
 				</changelog>
 			</entry>
 			<entry>
@@ -38,10 +50,10 @@
 				<changelog lang="en">
 					<change><![CDATA[Optional Add-On : qTip2 jQuery plug-in for Topic Preview]]></change>
 					<change><![CDATA[Optional Add-On : TipTip jQuery plug-in for Topic Preview]]></change>
-					<change><![CDATA[Optional Add-On : Topic Preview for NV Recent Topics 1.0.5 and v1.0.6]]></change>
-					<change><![CDATA[Optional Add-On : Topic Preview for Board3 Portal v2.0.X instructions]]></change>
-					<change><![CDATA[Optional Add-On : Topic Preview for Precise Similar Topics II instructions]]></change>
-					<change><![CDATA[Added Polish language pack]]></change>
+					<change><![CDATA[MOD Add-On : Topic Preview for NV Recent Topics]]></change>
+					<change><![CDATA[MOD Add-On : Topic Preview for Board3 Portal v2.0.X instructions]]></change>
+					<change><![CDATA[MOD Add-On : Topic Preview for Precise Similar Topics II instructions]]></change>
+					<change><![CDATA[Language pack added : Polish]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.4]]></change>
 				</changelog>
 			</entry>
@@ -49,8 +61,8 @@
 				<date>2010-07-10</date>
 				<rev-version>1.0.9</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Added German and Italian language packs]]></change>
-					<change><![CDATA[Added non-English language pack install instructions]]></change>
+					<change><![CDATA[Language pack added : German]]></change>
+					<change><![CDATA[Language pack added : Italian]]></change>
 					<change><![CDATA[Optional add-on: Preserve Line-Breaks in Topic Previews]]></change>
 				</changelog>
 			</entry>
@@ -59,7 +71,7 @@
 				<rev-version>1.0.8</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Minor speed improvement (suggested by MOD team)]]></change>
-					<change><![CDATA[Optional add-on: Topic Preview integration for Board3 Portal instructions]]></change>
+					<change><![CDATA[MOD add-on: Topic Preview integration for Board3 Portal instructions]]></change>
 					<change><![CDATA[Note: This version was not released to the public]]></change>
 				</changelog>
 			</entry>
@@ -69,8 +81,8 @@
 				<changelog lang="en">
 					<change><![CDATA[Now all "Magic URLs" are properly stripped from Topic Preview]]></change>
 					<change><![CDATA[Optional add-on: Topic Preview BBcode tag will allow users to use a [topicpreview] BBcode so anything inside the [topicpreview][/topicpreview] tags will be used as the Topic Preview]]></change>
-					<change><![CDATA[Spanish language translation added (thank you Ahri89)]]></change>
-					<change><![CDATA[Romanian language translation added (thank you StoarceCreierul)]]></change>
+					<change><![CDATA[Language pack added : Spanish (thank you Ahri89)]]></change>
+					<change><![CDATA[Language pack added : Romanian (thank you StoarceCreierul)]]></change>
 					<change><![CDATA[Upgraded UMIL package to 1.0.2]]></change>
 					<change><![CDATA[Minor fixes]]></change>
 				</changelog>
@@ -136,67 +148,61 @@
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
 			<link type="language" href="contrib/languages/cs.xml" lang="en">Czech Language Pack</link>
 			<link type="language" href="contrib/languages/nl.xml" lang="en">Dutch Language Pack</link>
-			<link type="language" href="contrib/languages/de.xml" lang="en">German Language Pack</link>
+			<link type="language" href="contrib/languages/fr.xml" lang="en">French Language Pack</link>
+			<link type="language" href="contrib/languages/de.xml" lang="en">German (Casual Honorifics) Language Pack</link>
+			<link type="language" href="contrib/languages/de_x_sie.xml" lang="en">German (Formal Honorifics) Language Pack</link>
 			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
-			<link type="contrib" href="contrib/extras/bbcode_add_on.xml" lang="en">Add-On : Topic Preview BBcode tag</link>
-			<link type="contrib" href="contrib/extras/preserve_line_breaks.xml" lang="en">Add-On : Preserve Line Breaks in Topic Previews</link>
-			<link type="contrib" href="contrib/extras/Precise_Similar_Topics_Integration/precise_similar_topics_integration_1.1.7.xml" lang="en">Add-On : Precise Similar Topics II Integration v1.1.7 or later</link>
-			<link type="contrib" href="contrib/extras/Precise_Similar_Topics_Integration/precise_similar_topics_integration_1.1.6.xml" lang="en">Add-On : Precise Similar Topics II Integration v1.1.0 - v1.1.6</link>
-			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v1.0.X.xml" lang="en">Add-On : Board3 Portal v1.0.X Integration</link>
-			<link type="contrib" href="contrib/extras/Board3_Portal_integration/Board3_Portal_integration_v2.0.X.xml" lang="en">Add-On : Board3 Portal v2.0.X Integration</link>
-			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.5_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.5 Integration</link>
-			<link type="contrib" href="contrib/extras/NV_recent_topics_integration/nv_recent_topics_1.0.6_integration.xml" lang="en">Add-On : NV Recent Topics v1.0.6 Integration</link>
-			<link type="contrib" href="contrib/extras/qTip2/qTip2_install.xml" lang="en">Add-On : qTip2 jQuery plug-in for Topic Preview</link>
-			<link type="contrib" href="contrib/extras/tipTip/tipTip_install.xml" lang="en">Add-On : TipTip jQuery plug-in for Topic Preview</link>
-			<link type="contrib" href="contrib/update_105_to_1010.xml" lang="en">Upgrade : from 1.0.5 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_106_to_1010.xml" lang="en">Upgrade : from 1.0.6 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_107_to_1010.xml" lang="en">Upgrade : from 1.0.7 to 1.0.10</link>
-			<link type="contrib" href="contrib/update_109_to_1010.xml" lang="en">Upgrade : from 1.0.9 to 1.0.10</link>
-			<link type="uninstall" href="contrib/extras/uninstall_v1010.xml" lang="en">Uninstall Topic Preview</link>
+			<link type="contrib" href="contrib/addons/addon_ucp.xml" lang="en">Add-On: Topic Previews in the UCP</link>
+			<link type="contrib" href="contrib/addons/addon_bbcode.xml" lang="en">Add-On: Topic Preview BBcode tag</link>
+			<link type="contrib" href="contrib/addons/addon_preserve_line_breaks.xml" lang="en">Add-On: Preserve Line Breaks in Topic Previews</link>
+			<link type="contrib" href="contrib/addons/mod_precise_similar_topics.xml" lang="en">MOD Add-On: Topic Preview for Precise Similar Topics II v1.2.X</link>
+			<link type="contrib" href="contrib/addons/mod_nv_recent_topics_106.xml" lang="en">MOD Add-On: Topic Preview for NV Recent Topics v1.0.6</link>
+			<link type="contrib" href="contrib/addons/mod_board3_portal.xml" lang="en">MOD Add-On: Topic Preview for Board3 Portal v2.0.X</link>
+			<link type="contrib" href="contrib/addons/mod_top_stats.xml" lang="en">MOD Add-On: Top Stats v1.0.10</link>
+			<link type="contrib" href="contrib/addons/mod_top_five.xml" lang="en">MOD Add-On: Top Five v1.0.1d</link>
+			<link type="contrib" href="contrib/upgrade/105_to_200.xml" lang="en">Upgrade: from 1.0.5 to 2.0.0</link>
+			<link type="contrib" href="contrib/upgrade/106_to_200.xml" lang="en">Upgrade: from 1.0.6 to 2.0.0</link>
+			<link type="contrib" href="contrib/upgrade/107_to_200.xml" lang="en">Upgrade: from 1.0.7 to 2.0.0</link>
+			<link type="contrib" href="contrib/upgrade/109_to_200.xml" lang="en">Upgrade: from 1.0.9 to 2.0.0</link>
+			<link type="contrib" href="contrib/upgrade/1010_to_200.xml" lang="en">Upgrade: from 1.0.10 to 2.0.0</link>
+			<link type="uninstall" href="contrib/uninstall_v200.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/language/en/mods/topic_preview.php" to="language/en/mods/topic_preview.php"/>
-			<file from="root/includes/topic_preview.php" to="includes/topic_preview.php"/>
+			<file from="root/adm/style/*.*" to="adm/style/*.*"/>
+			<file from="root/includes/*.*" to="includes/*.*"/>
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
+			<file from="root/language/en/mods/*.*" to="language/en/mods/*.*"/>
+			<file from="root/styles/topic_preview_assets/*.*" to="styles/topic_preview_assets/*.*"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>
 		<open src="search.php">
 			<edit>
-				<find><![CDATA[if ($config['load_anon_lastread'] || ($user->data['is_registered'] && !$config['load_db_lastread']))]]></find>
+				<find><![CDATA[$sql = "SELECT $sql_select]]></find>
 				<action type="before-add"><![CDATA[			// BEGIN Topic Preview Mod
-			if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+			if(!class_exists('phpbb_topic_preview'))
 			{
-				$sql_from .= ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-				$sql_select .= ', p.post_text AS first_post_preview_text';
+				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 			}
+			$topic_preview = new phpbb_topic_preview();
+			$sql_from 	= $topic_preview->modify_sql_join($sql_from);
+			$sql_select = $topic_preview->modify_sql_select($sql_select);
 			// END Topic Preview Mod
 ]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[				$tpl_ary = array(
-					'TOPIC_AUTHOR'				=>]]></find>
-				<action type="before-add"><![CDATA[				// BEGIN Topic Preview Mod
-				if (!empty($row['first_post_preview_text']))
-				{
-					if(!function_exists('trim_topic_preview'))
-					{
-						include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-					}
-					$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
-				}
-				// END Topic Preview Mod
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
-				<action type="after-add"><![CDATA[					// BEGIN Topic Preview Mod
-					'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-					// END Topic Preview Mod
+				<find><![CDATA[				'U_VIEW_POST'		=> (!empty($row['post_id'])) ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=" . $row['topic_id'] . '&amp;p=' . $row['post_id'] . (($u_hilit) ? '&amp;hilit=' . $u_hilit : '')) . '#p' . $row['post_id'] : '')
+			));]]></find>
+				<action type="after-add"><![CDATA[			// BEGIN Topic Preview Mod
+			if(isset($topic_preview))
+			{
+				$topic_preview->display_topic_preview($row, 'searchresults');
+			}
+			// END Topic Preview Mod
 ]]></action>
 			</edit>
 		</open>
@@ -204,77 +210,28 @@
 			<edit>
 				<find><![CDATA[if ($forum_data['forum_type'] == FORUM_POST)]]></find>
 				<action type="before-add"><![CDATA[// BEGIN Topic Preview Mod
-if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
+if(!class_exists('phpbb_topic_preview'))
 {
-	$sql_array['LEFT_JOIN'][] = array('FROM' => array(POSTS_TABLE => 'pt'), 'ON' => 'pt.post_id = t.topic_first_post_id');
-	$sql_array['SELECT'] .= ', pt.post_text AS first_post_preview_text';
+	include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
 }
+$topic_preview = new phpbb_topic_preview();
+$sql_array = $topic_preview->modify_sql_array($sql_array);
 // END Topic Preview Mod
 ]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[	$sql = 'SELECT *
-		FROM ' . TOPICS_TABLE . '
-		WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
-	$result = $db->sql_query($sql);
-]]></find>
-				<action type="replace-with"><![CDATA[	// BEGIN Topic Preview Mod
-	if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
-	{
-		$sql_join = ' LEFT JOIN ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id)';
-		$sql_select =  ', p.post_text AS first_post_preview_text';
-
-		$sql = 'SELECT t.* ' . $sql_select . '
-			FROM ' . TOPICS_TABLE . ' t
-			' . $sql_join . 'WHERE ' . $db->sql_in_set(' t.topic_id', array_keys($shadow_topic_list));
-		$result = $db->sql_query($sql);
-	}
-	else
-	{
-		$sql = 'SELECT *
-			FROM ' . TOPICS_TABLE . '
-			WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));
-		$result = $db->sql_query($sql);
-	}
+				<find><![CDATA[		WHERE ' . $db->sql_in_set('topic_id', array_keys($shadow_topic_list));]]></find>
+				<action type="after-add"><![CDATA[	// BEGIN Topic Preview Mod
+	$sql = $topic_preview->modify_sql($sql);
 	// END Topic Preview Mod
 ]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[// Send vars to template]]></find>
-				<action type="before-add"><![CDATA[		// BEGIN Topic Preview Mod
-		if (!empty($row['first_post_preview_text']) && $auth->acl_get('f_read', $forum_id))
-		{
-			if(!function_exists('trim_topic_preview'))
-			{
-				include($phpbb_root_path . 'includes/topic_preview.' . $phpEx);
-			}
-			$first_post_preview_text = trim_topic_preview($row['first_post_preview_text'], $config['topic_preview_limit']);
-		}
+				<find><![CDATA[			'S_TOPIC_TYPE_SWITCH'	=> ($s_type_switch == $s_type_switch_test) ? -1 : $s_type_switch_test)
+		);]]></find>
+				<action type="after-add"><![CDATA[		// BEGIN Topic Preview Mod
+		$topic_preview->display_topic_preview($row, 'topicrow');
 		// END Topic Preview Mod
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),]]></find>
-				<action type="after-add"><![CDATA[			// BEGIN Topic Preview Mod
-			'TOPIC_PREVIEW_TEXT'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-			// END Topic Preview Mod
-]]></action>
-			</edit>
-		</open>
-		<open src="includes/acp/acp_board.php">
-			<edit>
-				<find><![CDATA[$user->add_lang('acp/board');]]></find>
-				<action type="after-add"><![CDATA[ 		// BEGIN Topic Preview Mod
-		$user->add_lang('mods/topic_preview');
-		// END Topic Preview Mod
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA['load_cpf_viewtopic'	=> array('lang' => 'LOAD_CPF_VIEWTOPIC',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></find>
-				<action type="after-add"><![CDATA[						// BEGIN Topic Preview Mod
-						'topic_preview_limit'			=> array('lang' => 'TOPIC_PREVIEW',	'validate' => 'int',	'type' => 'text:3:3', 'explain' => true, 'append' => ' ' . $user->lang['CHARS']),
-						'topic_preview_strip_bbcodes'	=> array('lang' => 'TOPIC_PREVIEW_STRIP',	'validate' => 'string',	'type' => 'text:30:255', 'explain' => true),
-						// END Topic Preview Mod
 ]]></action>
 			</edit>
 		</open>
@@ -282,7 +239,7 @@ if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 			<edit>
 				<find><![CDATA[				add_form_key('ucp_prefs_view');]]></find>
 				<action type="after-add"><![CDATA[				// BEGIN Topic Preview Mod
-				$user->add_lang('mods/topic_preview');
+				$user->add_lang('mods/info_acp_topic_preview');
 				// END Topic Preview Mod
 ]]></action>
 			</edit>
@@ -309,13 +266,63 @@ if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 ]]></action>
 			</edit>
 		</open>
+		<open src="styles/prosilver/template/overall_footer.html">
+			<edit>
+				<find><![CDATA[</body>]]></find>
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
+	<script type="text/javascript">
+		window.jQuery || document.write(unescape('%3Cscript src="{ROOT_PATH}styles/topic_preview_assets/jquery.min.js" type="text/javascript"%3E%3C/script%3E'));
+	</script>
+	<script src="{ROOT_PATH}styles/topic_preview_assets/topic_preview.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("dt[title]").topicPreview({
+				"dir"   : "{S_CONTENT_DIRECTION}", // do not change
+				"theme" : "light", // use "light" or "dark" topic preview theme
+				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
+				"width" : 360, // sets the width of topic previews (in pixels)
+				"left"  : 35, // sets the position offset from the left (in pixels)
+				"drift" : 15, // sets the amount of vertical animation, use negative values to change direction (in pixels)
+				"noavatar" : "{ROOT_PATH}styles/topic_preview_assets/no_avatar.png"
+			});
+		});
+	</script>
+<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/overall_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- IF S_JQUERY_TOPIC_PREVIEW -->
+	<link href="{ROOT_PATH}styles/topic_preview_assets/topic_preview.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
 		<open src="styles/prosilver/template/search_results.html">
 			<edit>
 				<find><![CDATA[<dt <!-- IF searchresults.TOPIC_ICON_IMG -->style="background-image: url({T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF -->>]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[background-repeat: no-repeat;"<!-- ENDIF -->]]></inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}"<!-- ENDIF -->]]></inline-action>
+					<inline-action type="after-add"><![CDATA[<!-- IF searchresults.TOPIC_PREVIEW_TEXT --> title="{searchresults.TOPIC_PREVIEW_TEXT}" id="t{searchresults.TOPIC_ID}"<!-- ENDIF -->]]></inline-action>
 				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{searchresults.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{searchresults.LAST_POST_TIME}<br /> </span>
+					</dd>
+				</dl>]]></find>
+				<action type="after-add"><![CDATA[				<!-- IF searchresults.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
+					<div id="topic_preview_t{searchresults.TOPIC_ID}" style="display:none;">
+						<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+						<!-- IF searchresults.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+						<div class="topic_preview_text_first"></div>
+						<!-- IF searchresults.TOPIC_PREVIEW_TEXT2 -->
+							<div class="topic_preview_break"></div>
+							<strong>{L_LAST_POST}</strong><hr />
+							<!-- IF searchresults.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{searchresults.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+							<div class="topic_preview_text_last">{searchresults.TOPIC_PREVIEW_TEXT2}</div>
+						<!-- ENDIF -->
+					</div>
+				<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/ucp_prefs_view.html">
@@ -338,11 +345,31 @@ if ($config['topic_preview_limit'] && $user->data['user_topic_preview'])
 				<find><![CDATA[<dt<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}">]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[title="{topicrow.TOPIC_FOLDER_IMG_ALT}"]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"]]></inline-action>
+					<inline-action type="replace-with"><![CDATA[id="t{topicrow.TOPIC_ID}" title="<!-- IF topicrow.TOPIC_PREVIEW_TEXT -->{topicrow.TOPIC_PREVIEW_TEXT}<!-- ELSE -->{topicrow.TOPIC_FOLDER_IMG_ALT}<!-- ENDIF -->"]]></inline-action>
 				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>
+				</dd>
+			</dl>]]></find>
+				<action type="after-add"><![CDATA[			<!-- IF topicrow.TOPIC_PREVIEW_TEXT and S_JQUERY_TOPIC_PREVIEW -->
+				<div id="topic_preview_t{topicrow.TOPIC_ID}" style="display:none;">
+					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+					<!-- IF topicrow.TOPIC_PREVIEW_AVATAR --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR}</div><!-- ENDIF -->
+					<div class="topic_preview_text_first"></div>
+					<!-- IF topicrow.TOPIC_PREVIEW_TEXT2 -->
+						<div class="topic_preview_break"></div>
+						<strong>{L_LAST_POST}</strong><hr />
+						<!-- IF topicrow.TOPIC_PREVIEW_AVATAR2 --><div class="topic_preview_avatar">{topicrow.TOPIC_PREVIEW_AVATAR2}</div><!-- ENDIF -->
+						<div class="topic_preview_text_last">{topicrow.TOPIC_PREVIEW_TEXT2}</div>
+					<!-- ENDIF -->
+				</div>
+			<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<php-installer><![CDATA[install_topic_preview.php]]></php-installer>
-		<diy-instructions lang="en"><![CDATA[Point your browser to yourforum/install_topic_preview.php to complete installation.]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Once all the files have been modified and uploaded to your site, point your browser to the "install_topic_preview.php" script
+(or click the highlighted link above if you are using AutoMOD) and follow the instructions. Once that is complete,
+you can delete the "install_topic_preview.php" script.]]></diy-instructions>
 	</action-group>
 </mod>
