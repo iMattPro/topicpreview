@@ -7,6 +7,8 @@
 *
 */
 
+namespace vse\topicpreview\acp;
+
 /**
 * @ignore
 */
@@ -18,7 +20,7 @@ if (!defined('IN_PHPBB'))
 /**
 * @package acp
 */
-class phpbb_ext_vse_topicpreview_acp_topic_preview_module
+class topic_preview_module
 {
 	var $u_action;
 

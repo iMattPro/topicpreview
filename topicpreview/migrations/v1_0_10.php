@@ -7,7 +7,9 @@
 *
 */
 
-class phpbb_ext_vse_topicpreview_migrations_1_0_10 extends phpbb_db_migration
+namespace vse\topicpreview\migrations;
+
+class v1_0_10 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
@@ -16,7 +18,7 @@ class phpbb_ext_vse_topicpreview_migrations_1_0_10 extends phpbb_db_migration
 
 	static public function depends_on()
 	{
-		return array('phpbb_ext_vse_topicpreview_migrations_1_0_9');
+		return array('\vse\topicpreview\migrations\v1_0_9');
 	}
 
 	public function update_data()

@@ -7,22 +7,24 @@
 *
 */
 
-class phpbb_ext_vse_topicpreview_migrations_1_0_9 extends phpbb_db_migration
+namespace vse\topicpreview\migrations;
+
+class v1_0_7 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return version_compare($this->config['topic_preview_version'], '1.0.9', '>=');
+		return version_compare($this->config['topic_preview_version'], '1.0.7', '>=');
 	}
 
 	static public function depends_on()
 	{
-		return array('phpbb_ext_vse_topicpreview_migrations_1_0_7');
+		return array('\vse\topicpreview\migrations\v1_0_6');
 	}
 
 	public function update_data()
 	{
 		return array(
-			array('config.update', array('topic_preview_version', '1.0.9')),
+			array('config.update', array('topic_preview_version', '1.0.7')),
 		);
 	}
 }

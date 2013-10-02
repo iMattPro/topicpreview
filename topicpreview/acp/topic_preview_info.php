@@ -7,6 +7,8 @@
 *
 */
 
+namespace vse\topicpreview\acp;
+
 /**
 * @ignore
 */
@@ -18,12 +20,12 @@ if (!defined('IN_PHPBB'))
 /**
 * @package module_install
 */
-class phpbb_ext_vse_topicpreview_acp_topic_preview_info
+class topic_preview_info
 {
 	function module()
 	{
 		return array(
-			'filename'	=> 'phpbb_ext_vse_topicpreview_acp_topic_preview_module',
+			'filename'	=> '\vse\topicpreview\acp\topic_preview_module',
 			'title'		=> 'TOPIC_PREVIEW',
 			'version'	=> '2.1.0',
 			'modes'		=> array(

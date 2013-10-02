@@ -7,6 +7,8 @@
 *
 */
 
+namespace vse\topicpreview\event;
+
 /**
 * @ignore
 */
@@ -21,7 +23,7 @@ if (!defined('IN_PHPBB'))
 */
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class phpbb_ext_vse_topicpreview_event_listener implements EventSubscriberInterface
+class listener implements EventSubscriberInterface
 {
 	/**
 	* Topic Preview manager object

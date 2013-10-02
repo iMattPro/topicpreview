@@ -7,6 +7,8 @@
 *
 */
 
+namespace vse\topicpreview\core;
+
 /**
 * @ignore
 */
@@ -15,7 +17,7 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-class phpbb_ext_vse_topicpreview_core_topic_preview
+class topic_preview
 {
 	public $is_active;
 
@@ -35,7 +37,7 @@ class phpbb_ext_vse_topicpreview_core_topic_preview
 	/**
 	* Topic Preview class constructor method
 	*/
-	public function __construct(phpbb_config $config, phpbb_db_driver $db, phpbb_user $user, $root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\user $user, $root_path)
 	{
 		$this->config = $config;
 		$this->db = $db;

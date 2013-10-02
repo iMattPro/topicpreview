@@ -1,6 +1,6 @@
 services:
     topicpreview.manager:
-        class: phpbb_ext_vse_topicpreview_core_topic_preview
+        class: vse\topicpreview\core\topic_preview
         arguments:
             - @config
             - @dbal.conn

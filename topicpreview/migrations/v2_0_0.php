@@ -7,7 +7,9 @@
 *
 */
 
-class phpbb_ext_vse_topicpreview_migrations_2_0_0 extends phpbb_db_migration
+namespace vse\topicpreview\migrations;
+
+class v2_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
@@ -16,7 +18,7 @@ class phpbb_ext_vse_topicpreview_migrations_2_0_0 extends phpbb_db_migration
 
 	static public function depends_on()
 	{
-		return array('phpbb_ext_vse_topicpreview_migrations_1_0_10');
+		return array('\vse\topicpreview\migrations\v1_0_10');
 	}
 
 	public function update_data()
@@ -32,7 +34,7 @@ class phpbb_ext_vse_topicpreview_migrations_2_0_0 extends phpbb_db_migration
 				'acp',
 				'TOPIC_PREVIEW',
 				array(
-					'module_basename'	=> 'phpbb_ext_vse_topicpreview_acp_topic_preview_module',
+					'module_basename'	=> '\vse\topicpreview\acp\topic_preview_module',
 					'modes'				=> array('settings'),
 				),
 			)),
