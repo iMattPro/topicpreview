@@ -1,11 +1,11 @@
 {
     "name": "vse/topicpreview",
-    "type": "phpbb3-extension",
+    "type": "phpbb-extension",
     "description": "An extension for phpBB 3.1 that will display a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.",
     "homepage": "https://github.com/VSEphpbb/topic_preview",
     "version": "2.1.0",
-    "time": "2013-07-20",
-    "licence": "GPLv2",
+    "time": "2013-10-04",
+    "licence": "GPL-2.0",
     "authors": [
         {
             "name": "Matt Friedman (VSE)",
@@ -14,8 +14,8 @@
         }
     ],
     "require": {
-        "phpbb": "3.1.0-dev",
-        "php": "5.3.0"
+        "php": ">=5.3",
+        "phpbb": "3.1.*@dev"
     },
     "extra": {
         "display-name": "Topic Preview"
