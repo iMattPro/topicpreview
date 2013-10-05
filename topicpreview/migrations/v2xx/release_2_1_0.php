@@ -43,7 +43,7 @@ class release_2_1_0 extends \phpbb\db\migration\migration
 		$new_module_basename = '\vse\topicpreview\acp\topic_preview_module';
 		
 		$sql = 'UPDATE ' . $this->table_prefix . "modules
-			SET module_basename = '$new_module_basename'
+			SET module_basename = '" . $this->db->sql_escape($new_module_basename) . "'
 			WHERE module_basename = '$old_module_basename'";
 		$this->db->sql_query($sql);
 	}
