@@ -71,7 +71,7 @@ class listener implements EventSubscriberInterface
 
 		$this->container->get('template')->assign_vars(array(
 			'S_TOPICPREVIEW'		=> $this->manager->is_active,
-			'T_TOPICPREVIEW_AVATAR'	=> $phpbb_root_path . 'ext/vse/topicpreview/images/no_avatar.png',
+			'T_TOPICPREVIEW_AVATAR'	=> $phpbb_root_path . 'ext/vse/topicpreview/styles/all/theme/images/no_avatar.png',
 		));
 	}
 
