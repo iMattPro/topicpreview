@@ -42,13 +42,6 @@ Awards
 
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
 
-Status
-------
-* ACP module is complete
-* Migrations is complete
-* UCP events is complete
-* To-do: Complete language translation updates
-
 Requirements
 ------------
 
