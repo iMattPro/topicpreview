@@ -31,8 +31,6 @@ class topic_preview
 	private $preview_limit;
 	private $tp_sql_select;
 	private $tp_sql_join;
-//	private $tp_line_breaks;
-//	private $tp_bbcode;
 
 	/**
 	* Topic Preview class constructor method
@@ -60,7 +58,7 @@ class topic_preview
 			$this->tp_sql_join   .= ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' . ($this->tp_last_post ? ' LEFT JOIN ' . USERS_TABLE . ' lpu ON (lpu.user_id = t.topic_last_poster_id)' : '');
 		}
 
-		// Load our language file if needed
+		// Load our language file (only needed if showing last post text)
 		if ($this->tp_last_post)
 		{
 			$this->user->add_lang_ext('vse/topicpreview', 'topic_preview');
@@ -210,10 +208,6 @@ class topic_preview
 			'TOPIC_PREVIEW_AVATAR_LP'	=> (isset($last_post_avatar) && $this->user->optionget('viewavatars')) ? $last_post_avatar : '',
 		), $block);
 
-		// modify existing vars, only works for prosilver
-//		$block['TOPIC_FOLDER_IMG_ALT'] = (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '';
-//		$block['U_LAST_POST'] .= (isset($last_post_preview_text)) ? '" title="' . censor_text($last_post_preview_text) : '';
-
 		return $block;
 	}
 
@@ -243,10 +237,6 @@ class topic_preview
 	/**
 	* Strip bbcodes and links for topic preview text
 	*
-	* NOTE: These RegEx patterns were originally written by RMcGirr83 for
-	* his Topic Text Hover Mod, and Modified by Matt Friedman to display
-	* smileys as text, strip URLs, custom BBcodes and trim whitespace.
-	*
 	* @param	string	$text 	topic preview text
 	* @return	string	topic preview text
 	* @access private
@@ -255,22 +245,20 @@ class topic_preview
 	{
 		static $patterns = array();
 
-// 		if ($this->tp_bbcode)
-// 		{
-// 			// use text inside [topicpreview] bbcode as the topic preview
-// 			if (preg_match('#\[(topicpreview[^\[\]]+)\].*\[/\1\]#Usi', $text, $matches))
-// 			{
-// 				$text = $matches[0];
-// 			}
-// 		}
+		// use text inside [topicpreview] bbcode as the topic preview
+		if (preg_match('#\[(topicpreview[^\[\]]+)\].*\[/\1\]#Usi', $text, $matches))
+		{
+			$text = $matches[0];
+		}
 
 		$text = smiley_text($text, true); // display smileys as text :)
-//		$text = ($this->tp_line_breaks ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
+		//$text = ($this->tp_linebreaks) ? str_replace("\n", '&#13;&#10;', $text) : $text; // preserve line breaks
 
 		$bbcode_strip = (empty($this->config['topic_preview_strip_bbcodes']) ? 'flash' : 'flash|' . trim($this->config['topic_preview_strip_bbcodes']));
 
 		if (empty($patterns))
 		{
+			// RegEx patterns based on Topic Text Hover Mod by RMcGirr83
 			$patterns = array(
 				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Strip magic URLs			
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
