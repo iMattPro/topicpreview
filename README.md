@@ -1,7 +1,7 @@
 ![Topic Preview](http://mattfriedman.me/forum/images/search.png "Topic Preview") Topic Preview for phpBB3
 ========================
 
-This is an extension for phpBB 3.1 that will display a short excerpt of text from the first post of a topic when the user hovers their mouse over the topic title, in the form of a pretty jQuery Tooltip.
+This is an extension for phpBB 3.1 that will display a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
 ## Browser support
 ![Chrome 4+](http://mattfriedman.me/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
@@ -14,13 +14,13 @@ Features
 --------
 
 * Let your visitors peek at what's inside a topic before they click on it
-* Options to display user avatars and text previews from the first and last posts
-* The last word in the topic preview will not be cut off and is followed by an ellipsis
-* Smileys are displayed as text :)
-* BBcode tags and URL links are removed for a cleaner text-only appearance
+* Admin options to display user avatars and text previews from the first and last posts
 * Admin option to set the length of text shown in the preview (or disable the MOD)
 * Admin option to define BBcodes whose contents you want removed from the topic preview
 * User option allows users to disable the feature
+* The last word in the topic preview will be followed by an ellipsis and is not cut off
+* BBcode tags and URL links are removed for a cleaner text-only appearance
+* Smileys are displayed as text :)
 * Does not significantly impact server load (no additional db queries)
 * Prosilver and Subsilver2 compatible
 * Supports right-to-left languages
@@ -60,7 +60,7 @@ You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](h
 Uninstallation
 --------------
 
-Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click `Purge`.
+Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click Purge.
 
 License
 -------
