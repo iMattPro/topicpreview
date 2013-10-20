@@ -27,6 +27,7 @@ class topic_preview
 	protected $phpbb_root_path;
 
 	private $tp_avatars;
+	private $tp_avatar_fallback;
 	private $tp_last_post;
 	private $preview_limit;
 	private $tp_sql_select;
@@ -56,6 +57,7 @@ class topic_preview
 		{
 			$this->tp_sql_select .= ', fpu.user_avatar AS first_user_avatar, fpu.user_avatar_type AS first_user_avatar_type' . ($this->tp_last_post ? ', lpu.user_avatar AS last_user_avatar, lpu.user_avatar_type AS last_user_avatar_type' : '');
 			$this->tp_sql_join   .= ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' . ($this->tp_last_post ? ' LEFT JOIN ' . USERS_TABLE . ' lpu ON (lpu.user_id = t.topic_last_poster_id)' : '');
+			$this->tp_avatar_fallback = '<img src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif" width="60" height="60" alt="" />';
 		}
 
 		// Load our language file (only needed if showing last post text)
@@ -196,9 +198,8 @@ class topic_preview
 
 		if ($this->tp_avatars)
 		{
-			$no_avatar = '<img src="' . $this->root_path . 'ext/vse/topicpreview/styles/all/theme/images/no_avatar.png" width="60" height="60" alt="" />';
-			$first_post_avatar = (!empty($row['first_user_avatar'])) ? get_user_avatar($row['first_user_avatar'], $row['first_user_avatar_type'], 60, 60) : $no_avatar;
-			$last_post_avatar  = (!empty($row['last_user_avatar'])) ? get_user_avatar($row['last_user_avatar'], $row['last_user_avatar_type'], 60, 60) : $no_avatar;
+			$first_post_avatar = (!empty($row['first_user_avatar'])) ? get_user_avatar($row['first_user_avatar'], $row['first_user_avatar_type'], 60, 60) : $this->tp_avatar_fallback;
+			$last_post_avatar  = (!empty($row['last_user_avatar'])) ? get_user_avatar($row['last_user_avatar'], $row['last_user_avatar_type'], 60, 60) : $this->tp_avatar_fallback;
 		}
 
 		$block = array_merge(array(
