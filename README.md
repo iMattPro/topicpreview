@@ -48,7 +48,23 @@ Requirements
 * phpBB 3.1-dev or higher
 * PHP 5.3 or higher
 
+Installation
+------------
+
+You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](https://github.com/phpbb/phpbb3)) by following the steps below:
+
+1. Copy the `topicpreview` folder to `phpBB/ext/vse/`
+2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
+3. Click Enable.
+
+Uninstallation
+--------------
+
+Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click `Purge`.
+
 License
 -------
 
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
+
+© 2013 - Matt Friedman (VSE)
