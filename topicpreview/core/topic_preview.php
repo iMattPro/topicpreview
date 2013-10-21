@@ -222,7 +222,7 @@ class topic_preview
 	*/
 	private function trim_topic_preview($text, $limit)
 	{
-		$text = $this->bbcode_strip($text);
+		$text = $this->strip_bbcodes_tags($text);
 
 		if (utf8_strlen($text) >= $limit)
 		{
@@ -236,36 +236,29 @@ class topic_preview
 	}
 
 	/**
-	* Strip bbcodes and links for topic preview text
+	* Strip bbcodes, tags and links for topic preview text
 	*
 	* @param	string	$text 	topic preview text
 	* @return	string	topic preview text
 	* @access private
 	*/
-	private function bbcode_strip($text)
+	private function strip_bbcodes_tags($text)
 	{
 		static $patterns = array();
 
-		// use text inside [topicpreview] bbcode as the topic preview
-		if (preg_match('#\[(topicpreview[^\[\]]+)\].*\[/\1\]#Usi', $text, $matches))
-		{
-			$text = $matches[0];
-		}
-
 		$text = smiley_text($text, true); // display smileys as text :)
-		//$text = ($this->tp_linebreaks) ? str_replace("\n", '&#13;&#10;', $text) : $text; // preserve line breaks
 
-		$bbcode_strip = (empty($this->config['topic_preview_strip_bbcodes']) ? 'flash' : 'flash|' . trim($this->config['topic_preview_strip_bbcodes']));
+		$strip_bbcodes = (empty($this->config['topic_preview_strip_bbcodes']) ? 'flash' : 'flash|' . trim($this->config['topic_preview_strip_bbcodes']));
 
 		if (empty($patterns))
 		{
 			// RegEx patterns based on Topic Text Hover Mod by RMcGirr83
 			$patterns = array(
-				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Strip magic URLs			
+				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Magic URLs			
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[(' . $bbcode_strip . ')[^\[\]]+\].*\[/(' . $bbcode_strip . ')[^\[\]]+\]#Usi', // bbcode to strip
-				'#\[/?[^\[\]]+\]#mi', // Strip all bbcode tags
-				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Strip remaining URLs
+				'#\[(' . $strip_bbcodes . ')[^\[\]]+\].*\[/(' . $strip_bbcodes . ')[^\[\]]+\]#Usi', // bbcode content to strip
+				'#\[/?[^\[\]]+\]#mi', // All bbcode tags
+				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Remaining URLs
 				'#"#', // Possible quotes from older board conversions
 				'#[\s]+#' // Multiple spaces
 			);
