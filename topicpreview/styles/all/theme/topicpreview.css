@@ -146,3 +146,10 @@
 	border-color: #cecece;
 }
 */
+
+/* responsive design */
+@media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {
+	#topic_preview {
+		width: 300px !important;
+	}
+}
