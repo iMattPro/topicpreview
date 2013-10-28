@@ -64,7 +64,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function setup()
 	{
-		global $phpbb_container, $phpbb_root_path;
+		global $phpbb_container;
 
 		$this->container = $phpbb_container;
 		$this->manager = $this->container->get('topicpreview.manager');
