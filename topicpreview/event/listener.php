@@ -77,7 +77,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Modify an SQL array to get post text for topic previews (viewforum)
 	*
-	* @param Event $event Event object
+	* @param object $event The event object
 	* @return null
 	*/
 	public function modify_sql_array($event)
@@ -93,7 +93,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Modify an SQL statement to get post text for topic previews (shadow topics)
 	*
-	* @param Event $event Event object
+	* @param object $event The event object
 	* @return null
 	*/
 	public function modify_sql_statement($event)
@@ -109,7 +109,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Modify SQL from and select to get post text for topic previews (search results )
 	*
-	* @param Event $event Event object
+	* @param object $event The event object
 	* @return null
 	*/
 	public function modify_sql_events($event)
@@ -126,7 +126,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Modify template vars to display topic previews
 	*
-	* @param Event $event Event object
+	* @param object $event The event object
 	* @return null
 	*/
 	public function display_topic_previews($event)
@@ -143,7 +143,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Get user's Topic Preview option and display it in UCP Prefs View page
 	*
-	* @param Event $event Event object
+	* @param object $event The event object
 	* @return null
 	*/
 	public function ucp_prefs_get_data($event)
@@ -174,7 +174,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Add user's Topic Preview option state into the sql_array
 	*
-	* @param Event $event Event object
+	* @param object $event The event object
 	* @return null
 	*/
 	public function ucp_prefs_set_data($event)
