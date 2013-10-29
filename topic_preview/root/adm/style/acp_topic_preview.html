@@ -10,43 +10,43 @@
 	<fieldset>
 		<legend>{L_TOPIC_PREVIEW_SETTINGS}</legend>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_LENGTH}:</label><br /><span>{L_TOPIC_PREVIEW_LENGTH_EXPLAIN}</span></dt>
-		<dd><input name="topic_preview_limit" type="text" size="3" maxlength="3" value="{TOPIC_PREVIEW_LIMIT}" /> {L_CHARS}</dd>
+		<dt><label for="topic_preview_limit">{L_TOPIC_PREVIEW_LENGTH}:</label><br /><span>{L_TOPIC_PREVIEW_LENGTH_EXPLAIN}</span></dt>
+		<dd><input name="topic_preview_limit" id="topic_preview_limit" type="text" size="3" maxlength="3" value="{TOPIC_PREVIEW_LIMIT}" /> {L_CHARS}</dd>
 	</dl>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_STRIP}:</label><br /><span>{L_TOPIC_PREVIEW_STRIP_EXPLAIN}</span></dt>
-		<dd><input name="topic_preview_strip_bbcodes" type="text" size="30" maxlength="255" value="{TOPIC_PREVIEW_STRIP}" /></dd>
+		<dt><label for="topic_preview_strip_bbcodes">{L_TOPIC_PREVIEW_STRIP}:</label><br /><span>{L_TOPIC_PREVIEW_STRIP_EXPLAIN}</span></dt>
+		<dd><input name="topic_preview_strip_bbcodes" id="topic_preview_strip_bbcodes" type="text" size="30" maxlength="255" value="{TOPIC_PREVIEW_STRIP}" /></dd>
 	</dl>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_JQUERY}:</label></dt>
+		<dt><label for="topic_preview_jquery">{L_TOPIC_PREVIEW_JQUERY}:</label></dt>
 		<dd>
-			<input type="radio" class="radio" name="topic_preview_jquery" value="1"<!-- IF S_TOPIC_PREVIEW_JQUERY --> checked="checked"<!-- ENDIF --> /><label> {L_YES}</label>
-			<input type="radio" class="radio" name="topic_preview_jquery" value="0"<!-- IF not S_TOPIC_PREVIEW_JQUERY --> checked="checked"<!-- ENDIF --> /><label> {L_NO}</label>
+			<label><input type="radio" class="radio" name="topic_preview_jquery" id="topic_preview_jquery" value="1"<!-- IF S_TOPIC_PREVIEW_JQUERY --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="topic_preview_jquery" value="0"<!-- IF not S_TOPIC_PREVIEW_JQUERY --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</dd>
 	</dl>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_AVATARS}:</label></dt>
+		<dt><label for="topic_preview_avatars">{L_TOPIC_PREVIEW_AVATARS}:</label></dt>
 		<dd>
-			<input type="radio" class="radio" name="topic_preview_avatars" value="1"<!-- IF S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /><label> {L_YES}</label>
-			<input type="radio" class="radio" name="topic_preview_avatars" value="0"<!-- IF not S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /><label> {L_NO}</label>
+			<label><input type="radio" class="radio" name="topic_preview_avatars" id="topic_preview_avatars" value="1"<!-- IF S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="topic_preview_avatars" value="0"<!-- IF not S_TOPIC_PREVIEW_AVATARS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</dd>
 	</dl>
 	<dl>
-		<dt><label>{L_TOPIC_PREVIEW_LAST_POST}:</label></dt>
+		<dt><label for="topic_preview_last_post">{L_TOPIC_PREVIEW_LAST_POST}:</label></dt>
 		<dd>
-			<input type="radio" class="radio" name="topic_preview_last_post" value="1"<!-- IF S_TOPIC_PREVIEW_LAST_POST --> checked="checked"<!-- ENDIF --> /><label> {L_YES}</label>
-			<input type="radio" class="radio" name="topic_preview_last_post" value="0"<!-- IF not S_TOPIC_PREVIEW_LAST_POST --> checked="checked"<!-- ENDIF --> /><label> {L_NO}</label>
+			<label><input type="radio" class="radio" name="topic_preview_last_post" id="topic_preview_last_post" value="1"<!-- IF S_TOPIC_PREVIEW_LAST_POST --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="topic_preview_last_post" value="0"<!-- IF not S_TOPIC_PREVIEW_LAST_POST --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</dd>
 	</dl>
 	</fieldset>
 
 	<fieldset>
 		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
-	<p class="submit-buttons">
-		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
-		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
-	</p>
-	{S_FORM_TOKEN}
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+		{S_FORM_TOKEN}
 	</fieldset>
 
 </form>
