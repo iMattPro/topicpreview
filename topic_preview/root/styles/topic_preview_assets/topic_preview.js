@@ -70,7 +70,7 @@
 					var previewTop = trigger.offset().top + settings.top,
 						previewBottom = previewTop + previewContainer.height() + 8;
 					previewContainer.toggleClass("invert", edgeDetect(previewBottom));
-					previewTop = edgeDetect(previewBottom) ? trigger.offset().top - previewContainer.outerHeight() - 8 : previewTop;
+					previewTop = edgeDetect(previewBottom) ? trigger.offset().top - previewContainer.outerHeight(true) - 8 : previewTop;
 
 					// Display the topic preview positioned relative to the hover object
 					previewContainer
