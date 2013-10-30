@@ -26,6 +26,15 @@
 		</installation>
 		<history>
 			<entry>
+				<date>2013-10-30</date>
+				<rev-version>2.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fix an issue that could cause topic previews to appear in the wrong position with some older versions of jQuery]]></change>
+					<change><![CDATA[Replace $ with jQuery (for compatibility with other jQuery MODs)]]></change>
+					<change><![CDATA[Use correct label attributes in the HTML markup of the ACP settings page]]></change>
+				</changelog>
+			</entry>
+			<entry>
 				<date>2013-08-04</date>
 				<rev-version>2.0.0</rev-version>
 				<changelog lang="en">
@@ -168,6 +177,7 @@
 			<link type="contrib" href="contrib/upgrade/107_to_200.xml" lang="en">Upgrade: from 1.0.7 to 2.0.0</link>
 			<link type="contrib" href="contrib/upgrade/109_to_200.xml" lang="en">Upgrade: from 1.0.9 to 2.0.0</link>
 			<link type="contrib" href="contrib/upgrade/1010_to_200.xml" lang="en">Upgrade: from 1.0.10 to 2.0.0</link>
+			<link type="contrib" href="contrib/upgrade/200_to_201.xml" lang="en">Upgrade: from 2.0.0 to 2.0.1</link>
 			<link type="uninstall" href="contrib/uninstall.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
