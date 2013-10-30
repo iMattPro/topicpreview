@@ -172,12 +172,12 @@
 			<link type="contrib" href="contrib/addons/mod_board3_portal.xml" lang="en">MOD Add-On: Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/addons/mod_top_stats.xml" lang="en">MOD Add-On: Top Stats v1.0.10</link>
 			<link type="contrib" href="contrib/addons/mod_top_five.xml" lang="en">MOD Add-On: Top Five v1.0.1d</link>
-			<link type="contrib" href="contrib/upgrade/105_to_200.xml" lang="en">Upgrade: from 1.0.5 to 2.0.0</link>
-			<link type="contrib" href="contrib/upgrade/106_to_200.xml" lang="en">Upgrade: from 1.0.6 to 2.0.0</link>
-			<link type="contrib" href="contrib/upgrade/107_to_200.xml" lang="en">Upgrade: from 1.0.7 to 2.0.0</link>
-			<link type="contrib" href="contrib/upgrade/109_to_200.xml" lang="en">Upgrade: from 1.0.9 to 2.0.0</link>
-			<link type="contrib" href="contrib/upgrade/1010_to_200.xml" lang="en">Upgrade: from 1.0.10 to 2.0.0</link>
-			<link type="contrib" href="contrib/upgrade/200_to_201.xml" lang="en">Upgrade: from 2.0.0 to 2.0.1</link>
+			<link type="contrib" href="contrib/upgrade/1_0_5_to_2_0_1.xml" lang="en">Upgrade: from 1.0.5 to 2.0.1</link>
+			<link type="contrib" href="contrib/upgrade/1_0_6_to_2_0_1.xml" lang="en">Upgrade: from 1.0.6 to 2.0.1</link>
+			<link type="contrib" href="contrib/upgrade/1_0_7_to_2_0_1.xml" lang="en">Upgrade: from 1.0.7 to 2.0.1</link>
+			<link type="contrib" href="contrib/upgrade/1_0_9_to_2_0_1.xml" lang="en">Upgrade: from 1.0.9 to 2.0.1</link>
+			<link type="contrib" href="contrib/upgrade/1_0_10_to_2_0_1.xml" lang="en">Upgrade: from 1.0.10 to 2.0.1</link>
+			<link type="contrib" href="contrib/upgrade/2_0_0_to_2_0_1.xml" lang="en">Upgrade: from 2.0.0 to 2.0.1</link>
 			<link type="uninstall" href="contrib/uninstall.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
