@@ -6,8 +6,8 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Topic Preview - Upgrade 1.0.9 to 2.0.0]]></title>
-		<description lang="en"><![CDATA[Upgrade from version 1.0.9 to 2.0.0]]></description>
+		<title lang="en"><![CDATA[Topic Preview - Upgrade 1.0.9 to 2.0.1]]></title>
+		<description lang="en"><![CDATA[Upgrade from version 1.0.9 to 2.0.1]]></description>
 		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the jQuery Topic Preview theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.
 
 IMPORTANT: If you have installed any of the contrib/extras add-ons from previous versions of Topic Preview MOD, then you should uninstall those add-ons (following their instructions from THE OLD version of Topic Preview in reverse) and then it should be safe to re-install add-ons using the updated instructions included within this version's contrib/extras folder.]]></author-notes>
@@ -18,7 +18,7 @@ IMPORTANT: If you have installed any of the contrib/extras add-ons from previous
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>2.0.0</mod-version>
+		<mod-version>2.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -201,8 +201,8 @@ $sql_array = $topic_preview->modify_sql_array($sql_array);
 	</script>
 	<script src="{ROOT_PATH}styles/topic_preview_assets/topic_preview.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		$(function(){
-			$("dt[title]").topicPreview({
+		jQuery(function(){
+			jQuery("dt[title]").topicPreview({
 				"dir"   : "{S_CONTENT_DIRECTION}", // do not change
 				"theme" : "light", // use "light" or "dark" topic preview theme
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
@@ -287,8 +287,8 @@ $sql_array = $topic_preview->modify_sql_array($sql_array);
 	</script>
 	<script src="{ROOT_PATH}styles/topic_preview_assets/topic_preview.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		$(function(){
-			$("a.topictitle").topicPreview({
+		jQuery(function(){
+			jQuery("a.topictitle").topicPreview({
 				"dir"   : "{S_CONTENT_DIRECTION}", // do not change
 				"theme" : "light", // use "light" or "dark" topic preview theme
 				"delay" : 1500, // sets the delay before showing topic previews (in milliseconds)
