@@ -18,7 +18,7 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>2.0.0</mod-version>
+		<mod-version>2.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -168,7 +168,7 @@
 			<link type="contrib" href="contrib/upgrade/107_to_200.xml" lang="en">Upgrade: from 1.0.7 to 2.0.0</link>
 			<link type="contrib" href="contrib/upgrade/109_to_200.xml" lang="en">Upgrade: from 1.0.9 to 2.0.0</link>
 			<link type="contrib" href="contrib/upgrade/1010_to_200.xml" lang="en">Upgrade: from 1.0.10 to 2.0.0</link>
-			<link type="uninstall" href="contrib/uninstall_v200.xml" lang="en">Uninstall Topic Preview</link>
+			<link type="uninstall" href="contrib/uninstall.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>
 	<action-group>

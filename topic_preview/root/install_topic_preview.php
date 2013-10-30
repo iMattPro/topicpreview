@@ -70,7 +70,11 @@ $versions = array(
 				),
 			),
 		),
+	),
 
+	// Version 2.0.1
+	'2.0.1' => array(
+	
 		'cache_purge' => '',	
 	),
 

@@ -14,7 +14,7 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>2.0.0</mod-version>
+		<mod-version>2.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
