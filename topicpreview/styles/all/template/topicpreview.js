@@ -12,13 +12,13 @@
 	$.fn.topicPreview = function (options) {
 
 		var settings = $.extend({
-			"dir": "ltr",
-			"theme": "light",
-			"delay": 1500,
-			"width": 360,
-			"left": 35,
-			"top": 25,
-			"drift": 15
+			dir: "ltr",
+			theme: "light",
+			delay: 1500,
+			width: 360,
+			left: 35,
+			top: 25,
+			drift: 15
 		}, options),
 			previewTimeout = 0,
 			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.theme).css("width", settings.width).appendTo("body");
