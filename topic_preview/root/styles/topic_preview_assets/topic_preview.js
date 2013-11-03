@@ -90,7 +90,7 @@
 
 				// Remove topic preview
 				previewContainer
-					.stop(true) // stop animation queue first
+					.stop(true, true) // stop any running animations first
 					.fadeOut("fast") // hide the topic preview with a fadeout
 					.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function() {
 						// animation complete
