@@ -10,14 +10,6 @@
 namespace vse\topicpreview\acp;
 
 /**
-* @ignore
-*/
-if (!defined('IN_PHPBB'))
-{
-	exit;
-}
-
-/**
 * @package acp
 */
 class topic_preview_module

@@ -10,13 +10,8 @@
 namespace vse\topicpreview\core;
 
 /**
-* @ignore
+* Topic preview core class
 */
-if (!defined('IN_PHPBB'))
-{
-	exit;
-}
-
 class topic_preview
 {
 	public $is_active;

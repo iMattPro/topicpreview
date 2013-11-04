@@ -9,20 +9,11 @@
 
 namespace vse\topicpreview\event;
 
-/**
-* @ignore
-*/
-
-if (!defined('IN_PHPBB'))
-{
-    exit;
-}
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
 * Event listener
 */
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
 class listener implements EventSubscriberInterface
 {
 	/**

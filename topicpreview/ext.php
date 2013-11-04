@@ -10,14 +10,6 @@
 namespace vse\topicpreview;
 
 /**
-* @ignore
-*/
-if (!defined('IN_PHPBB'))
-{
-	exit;
-}
-
-/**
 * Main extension class for this extension.
 */
 class ext extends \phpbb\extension\base
