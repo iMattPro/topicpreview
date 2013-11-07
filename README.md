@@ -53,7 +53,7 @@ Installation
 
 You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](https://github.com/phpbb/phpbb3)) by following the steps below:
 
-1. Copy the `topicpreview` folder to `phpBB/ext/vse/`
+1. Copy the entire contents of this repo to to `phpBB/ext/vse/topicpreview/`
 2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
 3. Click `Enable`.
 
