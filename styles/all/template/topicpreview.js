@@ -93,6 +93,7 @@
 			}).on("click", function () {
 				// Remove topic preview immediately on click as failsafe
 				previewContainer.hide();
+				clearTimeout(previewTimeout); // Safari 7 bug, clear all timeouts
 			});
 		});
 	};
