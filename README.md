@@ -15,9 +15,9 @@ Features
 
 * Let your visitors peek at what's inside a topic before they click on it
 * Admin options to display user avatars and text previews from the first and last posts
-* Admin option to set the length of text shown in the preview (or disable the MOD)
+* Admin option to set the length of text shown in the preview
 * Admin option to define BBcodes whose contents you want removed from the topic preview
-* User option allows users to disable the feature
+* User option allows users to disable topic previews
 * The last word in the topic preview will be followed by an ellipsis and is not cut off
 * BBcode tags and URL links are removed for a cleaner text-only appearance
 * Smileys are displayed as text :)
@@ -62,7 +62,9 @@ Note: This extension is in development. Installation is only recommended for tes
 Uninstallation
 --------------
 
-Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click `Purge`.
+Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click `Disable`.
+
+To permanently uninstall, click `Delete Data` and then you can safely delete the `/ext/vse/topicpreview` folder.
 
 License
 -------
