@@ -35,7 +35,7 @@ Features
 * Italian (translation incomplete)
 * Polish
 * Romanian (translation incomplete)
-* Spanish (translation incomplete)
+* Spanish
 
 Awards
 ------

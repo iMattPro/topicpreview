@@ -43,7 +43,7 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Introduce el número de caracteres que se mostrarán en la descripción (por defecto es 150). Ajustando el valor a 0 desactiva esta función.',
 	'TOPIC_PREVIEW_STRIP'			=> 'BBcodes a ocultar en Topic Preview',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista de BBcodes con contenido que desea eliminar de la vista previa (BBcodes spoiler y texto oculto, por ejemplo). Separar múltiples BBcodes usando el caracter |, por ejemplo: spoiler|hide|code',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Mostrar avatares en topic preview',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Include “Last post” text in topic previews',
+	'TOPIC_PREVIEW_AVATARS'			=> 'Mostrar avatares en Topic Preview',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Incluir texto del “Último mensaje” en Topic Preview',
 	'CHARS'							=> 'Caracteres',
 ));
