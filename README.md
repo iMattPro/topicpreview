@@ -35,6 +35,7 @@ Features
 * French
 * German
 * Italian (translation incomplete)
+* Persian (translation incomplete)
 * Polish
 * Romanian (translation incomplete)
 * Spanish
