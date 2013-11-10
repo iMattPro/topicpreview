@@ -46,4 +46,14 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_AVATARS'			=> 'Zeige Nutzeravatare (in jQuery-Themenvorschau)',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Zeige “Letzter Beitrag”-Text (in jQuery-Themenvorschau)',
 	'CHARS'							=> 'Zeichen',
+
+	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Themenvorschau Style-Einstellungen',
+	'TOPIC_PREVIEW_WIDTH'			=> 'Themenvorschau Breite (in Pixeln)',
+	'TOPIC_PREVIEW_DELAY'			=> 'Verzögerung vor zeigt Vorschauen Thema (in Millisekunden)',
+	'TOPIC_PREVIEW_DRIFT'			=> 'Animierte Drift Wirkung (in Pixeln)',
+	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Anzahl der vertikalen Animation auf fadeout (negative Werte verwenden, um die Richtung zu ändern).',
+	'TOPIC_PREVIEW_THEME'			=> 'Theme für %s',
+	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Wählen Sie ein Thema für Themenvorschau %s.',
+	'THEME'							=> 'Thema',
+	'MILLISECOND'					=> 'ms',
 ));

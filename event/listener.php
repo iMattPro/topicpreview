@@ -62,6 +62,10 @@ class listener implements EventSubscriberInterface
 
 		$this->container->get('template')->assign_vars(array(
 			'S_TOPICPREVIEW'		=> $this->manager->is_active,
+			'TOPICPREVIEW_DELAY'	=> $this->manager->preview_delay,
+			'TOPICPREVIEW_DRIFT'	=> $this->manager->preview_drift,
+			'TOPICPREVIEW_WIDTH'	=> $this->manager->preview_width,
+			'TOPICPREVIEW_THEME'	=> $this->manager->preview_theme,
 		));
 	}
 

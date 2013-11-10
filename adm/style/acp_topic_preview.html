@@ -32,6 +32,27 @@
 		</dd>
 	</dl>
 	</fieldset>
+	<fieldset>
+		<legend>{L_TOPIC_PREVIEW_STYLE_SETTINGS}</legend>
+	<dl>
+		<dt><label for="topic_preview_width">{L_TOPIC_PREVIEW_WIDTH}{L_COLON}</label></dt>
+		<dd><input name="topic_preview_width" id="topic_preview_width" type="text" size="3" maxlength="4" value="{TOPIC_PREVIEW_WIDTH}" /> {L_PIXEL}</dd>
+	</dl>
+	<dl>
+		<dt><label for="topic_preview_delay">{L_TOPIC_PREVIEW_DELAY}{L_COLON}</label></dt>
+		<dd><input name="topic_preview_delay" id="topic_preview_delay" type="text" size="3" maxlength="4" value="{TOPIC_PREVIEW_DELAY}" /> {L_MILLISECOND}</dd>
+	</dl>
+	<dl>
+		<dt><label for="topic_preview_drift">{L_TOPIC_PREVIEW_DRIFT}{L_COLON}</label><br /><span>{L_TOPIC_PREVIEW_DRIFT_EXPLAIN}</span></dt>
+		<dd><input name="topic_preview_drift" id="topic_preview_drift" type="text" size="3" maxlength="5" value="{TOPIC_PREVIEW_DRIFT}" /> {L_PIXEL}</dd>
+	</dl>
+	<!-- BEGIN styles -->
+		<dl>
+			<dt><label for="{styles.STYLE_NAME}">{styles.THEME_STYLE}{L_COLON}</label><br /><span>{styles.THEME_STYLE_EXPLAIN}</span></dt>
+			<dd><select name="{styles.STYLE_NAME}" id="{styles.STYLE_NAME}">{styles.THEME_OPTIONS}</select></dd>
+		</dl>
+	<!-- END styles -->
+	</fieldset>
 
 	<fieldset>
 		<legend>{L_ACP_SUBMIT_CHANGES}</legend>

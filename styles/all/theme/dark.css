@@ -1,0 +1,129 @@
+/*
+* Topic Preview - Dark Theme
+*
+* Color schema:
+* backgrounds: #1e1e1e
+* borders:     #cecece
+* box shadows: #808080
+* font colors: #cecece
+*/
+
+#topic_preview {
+	background: #1e1e1e;
+	border: 1px solid #cecece;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 1px 1px 3px #808080;
+	-moz-box-shadow: 1px 1px 3px #808080;
+	box-shadow: 1px 1px 3px #808080;
+	padding: 10px;
+	margin-left: -40px;
+	min-width: 40px;
+	position: absolute;
+	font-size: 11px;
+	text-decoration: none;
+	font-style: normal;
+	color: #cecece;
+	z-index: 10;
+	display: none;
+}
+
+#topic_preview:before {
+	/* Upper Triangle */
+	content: "";
+	background: #1e1e1e;
+	border: 0;
+	border-top: 1px solid #cecece;
+	border-right: 1px solid #cecece;
+	width: 10px;
+	height: 10px;
+	margin-left: 15px;
+	margin-top: -16px;
+	display: block;
+	position: absolute;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+
+	display /*\**/: none\9;
+	*display: none !important;
+	*display: none;
+}
+
+#topic_preview.invert:after {
+	/* Lower Triangle */
+	content: "";
+	background: #1e1e1e;
+	border: 0;
+	border-bottom: 1px solid #cecece;
+	border-left: 1px solid #cecece;
+	width: 10px;
+	height: 10px;
+	top: 100%;
+	margin-left: 15px;
+	margin-top: -5px;
+	display: block;
+	position: absolute;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+
+	display /*\**/: none\9;
+	*display: none !important;
+	*display: none;
+}
+
+#topic_preview.invert:before {
+	/* Hide upper triangle */
+	content: "";
+	display: none;
+}
+
+#topic_preview hr {
+	margin: 5px 0;
+}
+
+/* Avatars and Text */
+.topic_preview_avatar {
+	float: left;
+	position: relative;
+	margin: 0 10px 0 0;
+	border: solid 1px #cecece;
+	width: 60px;
+	height: 60px;
+}
+
+.topic_preview_avatar.rtl {
+	/* rtl languages */
+	float: right;
+	margin: 0 0 0 10px;
+}
+
+.topic_preview_first,
+.topic_preview_last {
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.topic_preview_break {
+	clear: both;
+	display: block;
+	width: 100%;
+	height: 0;
+	padding: 5px 0;
+	margin: 0;
+	font-size: 0;
+}
+
+/* responsive design */
+@media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {
+	#topic_preview {
+		width: 300px !important;
+	}
+}

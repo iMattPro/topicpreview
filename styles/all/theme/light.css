@@ -1,3 +1,13 @@
+/*
+* Topic Preview - Light Theme
+*
+* Color schema:
+* backgrounds: #fff
+* borders:     #cecece
+* box shadows: #cecece
+* font colors: #333
+*/
+
 #topic_preview {
 	background: #fff;
 	border: 1px solid #cecece;
@@ -79,20 +89,6 @@
 	margin: 5px 0;
 }
 
-/* dark theme */
-#topic_preview.dark {
-	background: #1e1e1e;
-	-webkit-box-shadow: 1px 1px 3px #808080;
-	-moz-box-shadow: 1px 1px 3px #808080;
-	box-shadow: 1px 1px 3px #808080;
-	color: #cecece;
-}
-
-#topic_preview.dark:before,
-#topic_preview.dark.invert:after {
-	background: #1e1e1e;
-}
-
 /* Avatars and Text */
 .topic_preview_avatar {
 	float: left;
@@ -124,28 +120,6 @@
 	margin: 0;
 	font-size: 0;
 }
-
-/* custom colors theme
-#topic_preview.custom {
-	background: #fff;
-	border-color: #cecece;
-	-webkit-box-shadow: 1px 1px 3px #cecece;
-	-moz-box-shadow: 1px 1px 3px #cecece;
-	box-shadow: 1px 1px 3px #cecece;
-	color: #333;
-}
-
-#topic_preview.custom:before,
-#topic_preview.custom.invert:after {
-	background: #fff;
-	border-color: #cecece;
-}
-
-#topic_preview.custom hr,
-#topic_preview.custom .topic_preview_avatar {
-	border-color: #cecece;
-}
-*/
 
 /* responsive design */
 @media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {

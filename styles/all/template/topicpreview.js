@@ -13,7 +13,6 @@
 
 		var settings = $.extend({
 			dir: "ltr",
-			theme: "light",
 			delay: 1500,
 			width: 360,
 			left: 35,
@@ -21,7 +20,7 @@
 			drift: 15
 		}, options),
 			previewTimeout = 0,
-			previewContainer = $('<div id="topic_preview"></div>').addClass(settings.theme).css("width", settings.width).appendTo("body");
+			previewContainer = $('<div id="topic_preview"></div>').css("width", settings.width).appendTo("body");
 
 		// Do not allow delay times less than 300ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);

@@ -46,4 +46,14 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_AVATARS'			=> 'Wyświetl awatary w Podglądzie Tematu',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Wyświetl fragment ostatniego postu w Podglądzie Tematu',
 	'CHARS'							=> 'Znaki',
+
+	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Ustawienia podglądu stylu temat',
+	'TOPIC_PREVIEW_WIDTH'			=> 'Szerokość preview temat (w pikselach)',
+	'TOPIC_PREVIEW_DELAY'			=> 'Opóźnienie przed pokazano podgląd temat (w milisekundach)',
+	'TOPIC_PREVIEW_DRIFT'			=> 'Animowany efekt dryf (w pikselach)',
+	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Kwota pionowej animacji na fadeout (zastosować wartości ujemne zmiany kierunku).',
+	'TOPIC_PREVIEW_THEME'			=> 'Tematem %s',
+	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Wybierz motyw preview temat na %s.',
+	'THEME'							=> 'motyw',
+	'MILLISECOND'					=> 'ms',
 ));

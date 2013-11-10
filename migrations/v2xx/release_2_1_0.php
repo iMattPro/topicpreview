@@ -21,6 +21,28 @@ class release_2_1_0 extends \phpbb\db\migration\migration
 		return array('\vse\topicpreview\migrations\v2xx\release_2_0_0');
 	}
 
+	public function update_schema()
+	{
+		return array(
+			'add_columns'	=> array(
+				$this->table_prefix . 'styles'	=> array(
+					'topic_preview_theme'	=> array('VCHAR_UNI', 'light'),
+				),
+			),
+		);
+	}
+
+	public function revert_schema()
+	{
+		return array(
+			'drop_columns'	=> array(
+				$this->table_prefix . 'styles'	=> array(
+					'topic_preview_theme',
+				),
+			),
+		);
+	}
+
 	public function update_data()
 	{
 		return array(
@@ -31,8 +53,11 @@ class release_2_1_0 extends \phpbb\db\migration\migration
 				array('config.remove', array('topic_preview_jquery')),
 			)),
 
-			array('config.update', array('topic_preview_avatars', '1')),
+			array('config.add', array('topic_preview_delay', '1500')),
+			array('config.add', array('topic_preview_drift', '15')),
+			array('config.add', array('topic_preview_width', '360')),
 
+			array('config.update', array('topic_preview_avatars', '1')),
 			array('config.update', array('topic_preview_version', '2.1.0')),
 		);
 	}

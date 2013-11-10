@@ -46,4 +46,14 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Include “Last post” text in topic previews',
 	'CHARS'							=> 'Characters',
+
+	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Topic preview style settings',
+	'TOPIC_PREVIEW_WIDTH'			=> 'Width of topic previews (in pixels)',
+	'TOPIC_PREVIEW_DELAY'			=> 'Delay before showing topic previews (in milliseconds)',
+	'TOPIC_PREVIEW_DRIFT'			=> 'Animated drift effect (in pixels)',
+	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Amount of vertical animation on fadeout (use negative values to change direction).',
+	'TOPIC_PREVIEW_THEME'			=> 'Theme for %s',
+	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Choose a topic preview theme for %s.',
+	'THEME'							=> 'theme',
+	'MILLISECOND'					=> 'ms',
 ));

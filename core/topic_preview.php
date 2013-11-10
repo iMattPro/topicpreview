@@ -43,6 +43,10 @@ class topic_preview
 		$this->tp_avatars    = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
 		$this->tp_last_post  = (!empty($this->config['topic_preview_last_post'])) ? true : false;
 		$this->preview_limit = (int) $this->config['topic_preview_limit'];
+		$this->preview_delay = (!empty($this->config['topic_preview_delay'])) ? $this->config['topic_preview_delay'] : 1500;
+		$this->preview_drift = (!empty($this->config['topic_preview_drift'])) ? $this->config['topic_preview_drift'] : 15;
+		$this->preview_width = (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360;
+		$this->preview_theme = (!empty($this->user->style['topic_preview_theme'])) ? $this->user->style['topic_preview_theme'] : 'light';
 
 		// statement parameters
 		$this->tp_sql_select = ', fp.post_text AS first_post_preview_text' . ($this->tp_last_post ? ', lp.post_text AS last_post_preview_text' : '');
