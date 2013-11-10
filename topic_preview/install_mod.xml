@@ -26,13 +26,14 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2013-11-03</date>
+				<date>2013-11-09</date>
 				<rev-version>2.0.1</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Fix an issue that could cause topic previews to lose their opacity]]></change>
 					<change><![CDATA[Fix an issue that could cause topic previews to appear in the wrong position with some older versions of jQuery]]></change>
 					<change><![CDATA[Replace $ with jQuery (for compatibility with other jQuery MODs)]]></change>
 					<change><![CDATA[Use correct label attributes in the HTML markup of the ACP settings page]]></change>
+					<change><![CDATA[Language pack added : Persian]]></change>
 				</changelog>
 			</entry>
 			<entry>
@@ -162,6 +163,7 @@
 			<link type="language" href="contrib/languages/de.xml" lang="en">German (Casual Honorifics) Language Pack</link>
 			<link type="language" href="contrib/languages/de_x_sie.xml" lang="en">German (Formal Honorifics) Language Pack</link>
 			<link type="language" href="contrib/languages/it.xml" lang="en">Italian Language Pack</link>
+			<link type="language" href="contrib/languages/fa.xml" lang="en">Persian Language Pack</link>
 			<link type="language" href="contrib/languages/pl.xml" lang="en">Polish Language Pack</link>
 			<link type="language" href="contrib/languages/ro.xml" lang="en">Romanian Language Pack</link>
 			<link type="language" href="contrib/languages/es.xml" lang="en">Spanish Language Pack</link>
