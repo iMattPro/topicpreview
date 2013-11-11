@@ -148,18 +148,22 @@ class listener implements EventSubscriberInterface
 			$this->setup();
 		}
 		
+		$config = $this->container->get('config');
+		$request = $this->container->get('request');
+		$template = $this->container->get('template');
+		$user = $this->container->get('user');
+		
 		// Request the user option vars and add them to the data array
 		$event['data'] = array_merge($event['data'], array(
-			'topic_preview'	=> request_var('topic_preview', (int) $this->container->get('user')->data['user_topic_preview']),
+			'topic_preview'	=> $request->variable('topic_preview', (int) $user->data['user_topic_preview']),
 		));
 
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'])
 		{
 			$data = $event['data'];
-			$config = $this->container->get('config');
-			$this->container->get('user')->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
-			$this->container->get('template')->assign_vars(array(
+			$user->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
+			$template->assign_vars(array(
 				'S_TOPIC_PREVIEW'			=> $config['topic_preview_limit'],
 				'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
 			));
