@@ -15,6 +15,10 @@ namespace vse\topicpreview\core;
 class topic_preview
 {
 	public $is_active;
+	public $preview_delay;
+	public $preview_drift;
+	public $preview_width;
+	public $preview_theme;
 
 	protected $config;
 	protected $db;
