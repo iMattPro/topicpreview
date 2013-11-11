@@ -53,25 +53,25 @@ class topic_preview_module
 			}
 
 			$topic_preview_limit = $this->request->variable('topic_preview_limit', 0);
-			set_config('topic_preview_limit', abs($topic_preview_limit));
+			$this->config->set('topic_preview_limit', abs($topic_preview_limit));
 
 			$topic_preview_strip_bbcodes = $this->request->variable('topic_preview_strip_bbcodes', '');
-			set_config('topic_preview_strip_bbcodes', $topic_preview_strip_bbcodes);
+			$this->config->set('topic_preview_strip_bbcodes', $topic_preview_strip_bbcodes);
 
 			$topic_preview_avatars = $this->request->variable('topic_preview_avatars', 0);
-			set_config('topic_preview_avatars', $topic_preview_avatars);
+			$this->config->set('topic_preview_avatars', $topic_preview_avatars);
 
 			$topic_preview_last_post = $this->request->variable('topic_preview_last_post', 0);
-			set_config('topic_preview_last_post', $topic_preview_last_post);
+			$this->config->set('topic_preview_last_post', $topic_preview_last_post);
 
 			$topic_preview_width = $this->request->variable('topic_preview_width', 0);
-			set_config('topic_preview_width', abs($topic_preview_width));
+			$this->config->set('topic_preview_width', abs($topic_preview_width));
 
 			$topic_preview_delay = $this->request->variable('topic_preview_delay', 0);
-			set_config('topic_preview_delay', abs($topic_preview_delay));
+			$this->config->set('topic_preview_delay', abs($topic_preview_delay));
 
 			$topic_preview_drift = $this->request->variable('topic_preview_drift', 0);
-			set_config('topic_preview_drift', $topic_preview_drift);
+			$this->config->set('topic_preview_drift', $topic_preview_drift);
 
 			$styles = $this->get_styles();
 			foreach ($styles as $row)
