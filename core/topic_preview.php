@@ -28,9 +28,10 @@ class topic_preview
 	private $tp_avatars;
 	private $tp_avatar_fallback;
 	private $tp_last_post;
-	private $preview_limit;
 	private $tp_sql_select;
 	private $tp_sql_join;
+	private $tp_length;
+	private $tp_bbcodes;
 
 	/**
 	* Topic Preview class constructor method
@@ -46,7 +47,8 @@ class topic_preview
 		$this->is_active     = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
 		$this->tp_avatars    = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
 		$this->tp_last_post  = (!empty($this->config['topic_preview_last_post'])) ? true : false;
-		$this->preview_limit = (int) $this->config['topic_preview_limit'];
+		$this->tp_length     = (int) $this->config['topic_preview_limit'];
+		$this->tp_bbcodes    = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 		$this->preview_delay = (!empty($this->config['topic_preview_delay'])) ? $this->config['topic_preview_delay'] : 1500;
 		$this->preview_drift = (!empty($this->config['topic_preview_drift'])) ? $this->config['topic_preview_drift'] : 15;
 		$this->preview_width = (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360;
@@ -191,12 +193,12 @@ class topic_preview
 
 		if (!empty($row['first_post_preview_text']))
 		{
-			$first_post_preview_text = $this->trim_topic_preview($row['first_post_preview_text'], $this->preview_limit);
+			$first_post_preview_text = $this->trim_topic_preview($row['first_post_preview_text']);
 		}
 
 		if (!empty($row['last_post_preview_text']) && $row['topic_first_post_id'] != $row['topic_last_post_id'])
 		{
-			$last_post_preview_text = $this->trim_topic_preview($row['last_post_preview_text'], $this->preview_limit);
+			$last_post_preview_text = $this->trim_topic_preview($row['last_post_preview_text']);
 		}
 
 		if ($this->tp_avatars)
@@ -206,8 +208,8 @@ class topic_preview
 		}
 
 		$block = array_merge(array(
-			'TOPIC_PREVIEW_FP'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-			'TOPIC_PREVIEW_LP'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
+			'TOPIC_PREVIEW_FP'			=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
+			'TOPIC_PREVIEW_LP'			=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
 			'TOPIC_PREVIEW_AVATAR_FP'	=> (isset($first_post_avatar) && $this->user->optionget('viewavatars')) ? $first_post_avatar : '',
 			'TOPIC_PREVIEW_AVATAR_LP'	=> (isset($last_post_avatar) && $this->user->optionget('viewavatars')) ? $last_post_avatar : '',
 		), $block);
@@ -216,42 +218,47 @@ class topic_preview
 	}
 
 	/**
-	* Truncate and clean topic preview text
+	* Trim and clean topic preview text
 	*
-	* @param	string	$text 	topic preview text
-	* @param	int		$limit 	number of characters to allow
-	* @return	string	topic preview text
-	* @access private
+	* @param	string	$text Topic preview text
+	* @return	string	Trimmed topic preview text
+	* @access	private
 	*/
-	private function trim_topic_preview($text, $limit)
+	private function trim_topic_preview($text)
 	{
-		$text = $this->strip_bbcodes_tags($text);
+		$text = $this->remove_markup($text);
 
-		if (utf8_strlen($text) >= $limit)
+		if (utf8_strlen($text) <= $this->tp_length)
 		{
-			$text = (utf8_strlen($text) > $limit) ? utf8_substr($text, 0, $limit) : $text;
-			// use last space before the character limit as the break-point, if one exists
-			$new_limit = utf8_strrpos($text, ' ') != false ? utf8_strrpos($text, ' ') : $limit;
-			return utf8_substr($text, 0, $new_limit) . '...';
+			return $text;
 		}
 
-		return $text;
+		// trim the text
+		$text = utf8_substr($text, 0, $this->tp_length);
+
+		// re-trim to last space to prevent cut-off words
+		$last_space = utf8_strrpos($text, ' ');
+
+		if ($last_space != false)
+		{
+			$text = utf8_substr($text, 0, $last_space);
+		}
+
+		return $text . '...';
 	}
 
 	/**
 	* Strip bbcodes, tags and links for topic preview text
 	*
-	* @param	string	$text 	topic preview text
-	* @return	string	topic preview text
-	* @access private
+	* @param	string	$text	Topic preview text
+	* @return	string	Stripped topic preview text
+	* @access	private
 	*/
-	private function strip_bbcodes_tags($text)
+	private function remove_markup($text)
 	{
-		static $patterns = array();
-
 		$text = smiley_text($text, true); // display smileys as text :)
 
-		$strip_bbcodes = (empty($this->config['topic_preview_strip_bbcodes']) ? 'flash' : 'flash|' . trim($this->config['topic_preview_strip_bbcodes']));
+		static $patterns = array();
 
 		if (empty($patterns))
 		{
@@ -259,10 +266,10 @@ class topic_preview
 			$patterns = array(
 				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Magic URLs			
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[(' . $strip_bbcodes . ')[^\[\]]+\].*\[/(' . $strip_bbcodes . ')[^\[\]]+\]#Usi', // bbcode content to strip
+				'#\[(' . $this->tp_bbcodes . ')[^\[\]]+\].*\[/(' . $this->tp_bbcodes . ')[^\[\]]+\]#Usi', // bbcode content to strip
 				'#\[/?[^\[\]]+\]#mi', // All bbcode tags
 				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Remaining URLs
-				'#"#', // Possible quotes from older board conversions
+				'#"#', // Possible un-encoded quotes from older board conversions
 				'#[\s]+#' // Multiple spaces
 			);
 		}
