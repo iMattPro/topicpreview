@@ -75,8 +75,8 @@ class topic_preview
 	/**
 	* Modify SQL array to get post text for viewforum topics
 	*
-	* @param	array	$sql_array 	SQL statement array
-	* @return	array	SQL statement array
+	* @param array $sql_array SQL statement array
+	* @return array SQL statement array
 	*/
 	public function modify_sql_array($sql_array)
 	{
@@ -122,8 +122,8 @@ class topic_preview
 	/**
 	* Modify SQL statement to get post text for viewforum shadowtopics
 	*
-	* @param	string	$sql 	SQL statement
-	* @return	string	SQL statement
+	* @param string $sql SQL statement
+	* @return string SQL statement
 	*/
 	public function modify_sql($sql)
 	{
@@ -144,8 +144,8 @@ class topic_preview
 	/**
 	* Modify SQL SELECT statement to get post text for searchresults
 	*
-	* @param	string	$sql_select 	SQL SELECT statement
-	* @return	string	SQL SELECT statement
+	* @param string $sql_select SQL SELECT statement
+	* @return string SQL SELECT statement
 	*/
 	public function modify_sql_select($sql_select)
 	{
@@ -162,8 +162,8 @@ class topic_preview
 	/**
 	* Modify SQL JOIN statement to get post text for searchresults
 	*
-	* @param	string	$sql_join 	SQL JOIN statement
-	* @return	string	SQL JOIN statement
+	* @param string $sql_join SQL JOIN statement
+	* @return string SQL JOIN statement
 	*/
 	public function modify_sql_join($sql_join)
 	{
@@ -180,9 +180,9 @@ class topic_preview
 	/**
 	* Inject topic preview text into the template
 	*
-	* @param	array	$row 	row data
-	* @param	array	$block 	template vars array
-	* @return	array	template vars array
+	* @param array $row row data
+	* @param array $block template vars array
+	* @return array template vars array
 	*/
 	public function display_topic_preview($row, $block)
 	{
@@ -220,9 +220,9 @@ class topic_preview
 	/**
 	* Trim and clean topic preview text
 	*
-	* @param	string	$text Topic preview text
-	* @return	string	Trimmed topic preview text
-	* @access	private
+	* @param string $text Topic preview text
+	* @return string Trimmed topic preview text
+	* @access private
 	*/
 	private function trim_topic_preview($text)
 	{
@@ -250,9 +250,9 @@ class topic_preview
 	/**
 	* Strip bbcodes, tags and links for topic preview text
 	*
-	* @param	string	$text	Topic preview text
-	* @return	string	Stripped topic preview text
-	* @access	private
+	* @param string $text Topic preview text
+	* @return string Stripped topic preview text
+	* @access private
 	*/
 	private function remove_markup($text)
 	{
