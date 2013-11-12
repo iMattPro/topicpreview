@@ -220,8 +220,8 @@ class topic_preview
 	/**
 	* Trim and clean topic preview text
 	*
-	* @param string $text Topic preview text
-	* @return string Trimmed topic preview text
+	* @param string $text topic preview text
+	* @return string trimmed topic preview text
 	* @access private
 	*/
 	private function trim_topic_preview($text)
@@ -250,8 +250,8 @@ class topic_preview
 	/**
 	* Strip bbcodes, tags and links for topic preview text
 	*
-	* @param string $text Topic preview text
-	* @return string Stripped topic preview text
+	* @param string $text topic preview text
+	* @return string stripped topic preview text
 	* @access private
 	*/
 	private function remove_markup($text)
