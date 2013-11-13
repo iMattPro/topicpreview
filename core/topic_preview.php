@@ -76,17 +76,17 @@ class topic_preview
 
 		// config parameters
 		$this->is_active     = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
-		$this->tp_avatars    = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
-		$this->tp_last_post  = (!empty($this->config['topic_preview_last_post'])) ? true : false;
-		$this->tp_length     = (int) $this->config['topic_preview_limit'];
-		$this->tp_bbcodes    = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 		$this->preview_delay = (!empty($this->config['topic_preview_delay'])) ? $this->config['topic_preview_delay'] : 1500;
 		$this->preview_drift = (!empty($this->config['topic_preview_drift'])) ? $this->config['topic_preview_drift'] : 15;
 		$this->preview_width = (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360;
 		$this->preview_theme = (!empty($this->user->style['topic_preview_theme'])) ? $this->user->style['topic_preview_theme'] : 'light';
+		$this->tp_avatars    = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
+		$this->tp_last_post  = (!empty($this->config['topic_preview_last_post'])) ? true : false;
+		$this->tp_bbcodes    = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
+		$this->tp_length     = (int) $this->config['topic_preview_limit'];
 
-		$this->tp_sql_select = ', fp.post_text AS first_post_preview_text' . ($this->tp_last_post ? ', lp.post_text AS last_post_preview_text' : '');
 		// SQL statement parameters
+		$this->tp_sql_select = ', fp.post_text AS first_post_text' . ($this->tp_last_post ? ', lp.post_text AS last_post_text' : '');
 		$this->tp_sql_join   = ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' . ($this->tp_last_post ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '');
 
 		if ($this->tp_avatars)
@@ -222,14 +222,14 @@ class topic_preview
 			return $block;
 		}
 
-		if (!empty($row['first_post_preview_text']))
+		if (!empty($row['first_post_text']))
 		{
-			$first_post_preview_text = $this->trim_topic_preview($row['first_post_preview_text']);
+			$first_post_preview_text = $this->trim_topic_preview($row['first_post_text']);
 		}
 
-		if (!empty($row['last_post_preview_text']) && $row['topic_first_post_id'] != $row['topic_last_post_id'])
+		if (!empty($row['last_post_text']) && $row['topic_first_post_id'] != $row['topic_last_post_id'])
 		{
-			$last_post_preview_text = $this->trim_topic_preview($row['last_post_preview_text']);
+			$last_post_preview_text = $this->trim_topic_preview($row['last_post_text']);
 		}
 
 		if ($this->tp_avatars)
@@ -239,10 +239,10 @@ class topic_preview
 		}
 
 		$block = array_merge(array(
-			'TOPIC_PREVIEW_FP'			=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-			'TOPIC_PREVIEW_LP'			=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
-			'TOPIC_PREVIEW_AVATAR_FP'	=> (isset($first_post_avatar) && $this->user->optionget('viewavatars')) ? $first_post_avatar : '',
-			'TOPIC_PREVIEW_AVATAR_LP'	=> (isset($last_post_avatar) && $this->user->optionget('viewavatars')) ? $last_post_avatar : '',
+			'TOPIC_PREVIEW_FIRST_POST'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
+			'TOPIC_PREVIEW_LAST_POST'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
+			'TOPIC_PREVIEW_FIRST_AVATAR'=> (isset($first_post_avatar) && $this->user->optionget('viewavatars')) ? $first_post_avatar : '',
+			'TOPIC_PREVIEW_LAST_AVATAR'	=> (isset($last_post_avatar) && $this->user->optionget('viewavatars')) ? $last_post_avatar : '',
 		), $block);
 
 		return $block;
