@@ -9,32 +9,63 @@
 
 namespace vse\topicpreview\core;
 
-/**
-* Topic preview core class
-*/
 class topic_preview
 {
-	public $is_active;
-	public $preview_delay;
-	public $preview_drift;
-	public $preview_width;
-	public $preview_theme;
-
+	/** @var \phpbb\config\config */
 	protected $config;
+
+	/** @var \phpbb\db\driver\driver */
 	protected $db;
+
+	/** @var \phpbb\user */
 	protected $user;
+
+	/** @var string phpBB root path */
 	protected $phpbb_root_path;
 
+	/** @var bool Topic Preview enabled */
+	public $is_active;
+
+	/** @var int Topic Preview delay time */
+	public $preview_delay;
+
+	/** @var int Topic Preview drift effect amount */
+	public $preview_drift;
+
+	/** @var int Topic Preview width */
+	public $preview_width;
+
+	/** @var string Topic Preview css theme */
+	public $preview_theme;
+
+	/** @var bool Show avatars */
 	private $tp_avatars;
+
+	/** @var string phpBB no_avatar.jpg img */
 	private $tp_avatar_fallback;
+
+	/** @var bool Show last post */
 	private $tp_last_post;
+
+	/** @var string SQL SELECT stmt */
 	private $tp_sql_select;
+
+	/** @var string SQL JOIN stmt */
 	private $tp_sql_join;
+
+	/** @var int Topic Preview character length */
 	private $tp_length;
+
+	/** @var string BBcodes blacklist */
 	private $tp_bbcodes;
 
 	/**
-	* Topic Preview class constructor method
+	* Constructor
+	* 
+	* @param \phpbb\config\config $config
+	* @param \phpbb\db\driver\driver $db
+	* @param \phpbb\user $user
+	* @param string $root_path
 	*/
 	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\user $user, $root_path)
 	{
@@ -54,8 +85,8 @@ class topic_preview
 		$this->preview_width = (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360;
 		$this->preview_theme = (!empty($this->user->style['topic_preview_theme'])) ? $this->user->style['topic_preview_theme'] : 'light';
 
-		// statement parameters
 		$this->tp_sql_select = ', fp.post_text AS first_post_preview_text' . ($this->tp_last_post ? ', lp.post_text AS last_post_preview_text' : '');
+		// SQL statement parameters
 		$this->tp_sql_join   = ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' . ($this->tp_last_post ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '');
 
 		if ($this->tp_avatars)
