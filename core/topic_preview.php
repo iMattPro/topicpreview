@@ -21,7 +21,7 @@ class topic_preview
 	protected $user;
 
 	/** @var string phpBB root path */
-	protected $phpbb_root_path;
+	protected $root_path;
 
 	/** @var bool Topic Preview enabled */
 	public $is_active;
