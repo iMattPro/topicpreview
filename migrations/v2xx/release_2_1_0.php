@@ -46,7 +46,21 @@ class release_2_1_0 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			array('custom', array(array($this, 'update_module_basename'))),
+			// remove module if updating
+			array('if', array(
+				array('module.exists', array('acp', 'TOPIC_PREVIEW', 'TOPIC_PREVIEW_SETTINGS')),
+				array('module.remove', array('acp', 'TOPIC_PREVIEW', 'TOPIC_PREVIEW_SETTINGS')),
+			)),
+
+			// re-add module if updating
+			array('module.add', array(
+				'acp',
+				'TOPIC_PREVIEW',
+				array(
+					'module_basename'	=> '\vse\topicpreview\acp\topic_preview_module',
+					'modes'				=> array('settings'),
+				),
+			)),
 
 			array('if', array(
 				($this->config['topic_preview_jquery']),
@@ -60,16 +74,5 @@ class release_2_1_0 extends \phpbb\db\migration\migration
 			array('config.update', array('topic_preview_avatars', '1')),
 			array('config.update', array('topic_preview_version', '2.1.0')),
 		);
-	}
-
-	public function update_module_basename()
-	{
-		$old_module_basename = 'acp_topic_preview';
-		$new_module_basename = '\vse\topicpreview\acp\topic_preview_module';
-		
-		$sql = 'UPDATE ' . $this->table_prefix . "modules
-			SET module_basename = '" . $this->db->sql_escape($new_module_basename) . "'
-			WHERE module_basename = '$old_module_basename'";
-		$this->db->sql_query($sql);
 	}
 }
