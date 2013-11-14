@@ -58,7 +58,7 @@ class listener implements EventSubscriberInterface
 		global $phpbb_container;
 
 		$this->container = $phpbb_container;
-		$this->manager = $this->container->get('topicpreview.manager');
+		$this->manager = $this->container->get('vse.topicpreview.manager');
 
 		$this->container->get('template')->assign_vars(array(
 			'S_TOPICPREVIEW'		=> $this->manager->is_active,

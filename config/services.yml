@@ -1,8 +1,12 @@
 services:
-    topicpreview.manager:
+    vse.topicpreview.manager:
         class: vse\topicpreview\core\topic_preview
         arguments:
             - @config
             - @dbal.conn
             - @user
             - %core.root_path%
+    vse.topicpreview.listener:
+        class: vse\topicpreview\event\listener
+        tags:
+            - { name: event.listener }
