@@ -43,7 +43,7 @@ class topic_preview_module
 		$form_key = 'acp_topic_preview';
 		add_form_key($form_key);
 
-		if ($request->is_set_post('submit'))
+		if ($this->request->is_set_post('submit'))
 		{
 			if (!check_form_key($form_key))
 			{
