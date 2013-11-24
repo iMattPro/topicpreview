@@ -66,6 +66,7 @@ class topic_preview
 	* @param \phpbb\db\driver\driver $db
 	* @param \phpbb\user $user
 	* @param string $root_path
+	* @access public
 	*/
 	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\user $user, $root_path)
 	{
@@ -108,6 +109,7 @@ class topic_preview
 	*
 	* @param array $sql_array SQL statement array
 	* @return array SQL statement array
+	* @access public
 	*/
 	public function modify_sql_array($sql_array)
 	{
@@ -155,6 +157,7 @@ class topic_preview
 	*
 	* @param string $sql SQL statement
 	* @return string SQL statement
+	* @access public
 	*/
 	public function modify_sql($sql)
 	{
@@ -177,6 +180,7 @@ class topic_preview
 	*
 	* @param string $sql_select SQL SELECT statement
 	* @return string SQL SELECT statement
+	* @access public
 	*/
 	public function modify_sql_select($sql_select)
 	{
@@ -195,6 +199,7 @@ class topic_preview
 	*
 	* @param string $sql_join SQL JOIN statement
 	* @return string SQL JOIN statement
+	* @access public
 	*/
 	public function modify_sql_join($sql_join)
 	{
@@ -214,6 +219,7 @@ class topic_preview
 	* @param array $row row data
 	* @param array $block template vars array
 	* @return array template vars array
+	* @access public
 	*/
 	public function display_topic_preview($row, $block)
 	{
