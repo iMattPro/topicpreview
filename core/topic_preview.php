@@ -77,8 +77,8 @@ class topic_preview
 
 		// config parameters
 		$this->is_active     = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
-		$this->preview_delay = (!empty($this->config['topic_preview_delay'])) ? $this->config['topic_preview_delay'] : 1500;
-		$this->preview_drift = (!empty($this->config['topic_preview_drift'])) ? $this->config['topic_preview_drift'] : 15;
+		$this->preview_delay = (isset($this->config['topic_preview_delay'])) ? $this->config['topic_preview_delay'] : 1500;
+		$this->preview_drift = (isset($this->config['topic_preview_drift'])) ? $this->config['topic_preview_drift'] : 15;
 		$this->preview_width = (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360;
 		$this->preview_theme = (!empty($this->user->style['topic_preview_theme'])) ? $this->user->style['topic_preview_theme'] : 'light';
 		$this->tp_avatars    = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
