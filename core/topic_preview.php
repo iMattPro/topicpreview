@@ -303,7 +303,7 @@ class topic_preview
 			$patterns = array(
 				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Magic URLs			
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[(' . $this->tp_bbcodes . ')[^\[\]]+\].*\[/(' . $this->tp_bbcodes . ')[^\[\]]+\]#Usi', // bbcode content to strip
+				'#\[(' . $this->tp_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // bbcode content to strip
 				'#\[/?[^\[\]]+\]#mi', // All bbcode tags
 				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Remaining URLs
 				'#"#', // Possible un-encoded quotes from older board conversions
