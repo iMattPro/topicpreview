@@ -127,3 +127,9 @@
 		width: 300px !important;
 	}
 }
+
+@media only screen and (max-width: 360px), only screen and (max-device-width: 360px) {
+	#topic_preview {
+		width: 220px !important;
+	}
+}
