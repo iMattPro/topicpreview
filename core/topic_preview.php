@@ -240,15 +240,15 @@ class topic_preview
 
 		if ($this->tp_avatars)
 		{
-			$first_post_avatar = (!empty($row['first_user_avatar'])) ? get_user_avatar($row['first_user_avatar'], $row['first_user_avatar_type'], 60, 60) : $this->tp_avatar_fallback;
-			$last_post_avatar  = (!empty($row['last_user_avatar'])) ? get_user_avatar($row['last_user_avatar'], $row['last_user_avatar_type'], 60, 60) : $this->tp_avatar_fallback;
+			$first_poster_avatar = (!empty($row['first_user_avatar'])) ? get_user_avatar($row['first_user_avatar'], $row['first_user_avatar_type'], 60, 60) : $this->tp_avatar_fallback;
+			$last_poster_avatar = (!empty($row['last_user_avatar'])) ? get_user_avatar($row['last_user_avatar'], $row['last_user_avatar_type'], 60, 60) : $this->tp_avatar_fallback;
 		}
 
 		$block = array_merge(array(
-			'TOPIC_PREVIEW_FIRST_POST'	=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
-			'TOPIC_PREVIEW_LAST_POST'	=> (isset($last_post_preview_text))  ? censor_text($last_post_preview_text)  : '',
-			'TOPIC_PREVIEW_FIRST_AVATAR'=> (isset($first_post_avatar) && $this->user->optionget('viewavatars')) ? $first_post_avatar : '',
-			'TOPIC_PREVIEW_LAST_AVATAR'	=> (isset($last_post_avatar) && $this->user->optionget('viewavatars')) ? $last_post_avatar : '',
+			'TOPIC_PREVIEW_FIRST_POST'		=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
+			'TOPIC_PREVIEW_FIRST_AVATAR'	=> (isset($first_poster_avatar) && $this->user->optionget('viewavatars')) ? $first_poster_avatar : '',
+			'TOPIC_PREVIEW_LAST_POST'		=> (isset($last_post_preview_text)) ? censor_text($last_post_preview_text) : '',
+			'TOPIC_PREVIEW_LAST_AVATAR'		=> (isset($last_poster_avatar) && $this->user->optionget('viewavatars')) ? $last_poster_avatar : '',
 		), $block);
 
 		return $block;
