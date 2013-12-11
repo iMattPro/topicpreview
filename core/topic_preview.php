@@ -56,7 +56,7 @@ class topic_preview
 	/** @var int Topic Preview character length */
 	private $tp_length;
 
-	/** @var string BBcodes blacklist */
+	/** @var string BBCodes blacklist */
 	private $tp_bbcodes;
 
 	/**
@@ -285,7 +285,7 @@ class topic_preview
 	}
 
 	/**
-	* Strip bbcodes, tags and links for topic preview text
+	* Strip BBCodes, tags and links for topic preview text
 	*
 	* @param string $text topic preview text
 	* @return string stripped topic preview text
@@ -303,8 +303,8 @@ class topic_preview
 			$patterns = array(
 				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Magic URLs			
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[(' . $this->tp_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // bbcode content to strip
-				'#\[/?[^\[\]]+\]#mi', // All bbcode tags
+				'#\[(' . $this->tp_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // BBCode content to strip
+				'#\[/?[^\[\]]+\]#mi', // All BBCode tags
 				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Remaining URLs
 				'#"#', // Possible un-encoded quotes from older board conversions
 				'#[\s]+#' // Multiple spaces

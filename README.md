@@ -13,13 +13,13 @@ This is an extension for phpBB 3.1 that will display a short excerpt of text fro
 * Let your visitors peek at what's inside a topic before they click on it
 * Admin options to display user avatars and text previews from the first and last posts
 * Admin option to set the length of text shown in the preview
-* Admin option to define BBcodes whose contents you want removed from the topic preview
+* Admin option to define BBCodes whose contents you want removed from the topic preview
 * Admin options to customize the appearance and assign different themes to board styles
 * Ships with two themes. Additional custom themes can be added using css files.
 * User option allows users to disable topic previews
 * Previews are smart: They are aware of browser window edges and they are responsive
 * The last word in the topic preview will be followed by an ellipsis and is not cut off
-* BBcode tags and URL links are removed for a cleaner text-only appearance
+* BBCode tags and URL links are removed for a cleaner text-only appearance
 * Smileys are displayed as text :)
 * Supports right-to-left languages
 * Does not significantly impact server load (no additional db queries)
