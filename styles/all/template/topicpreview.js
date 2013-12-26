@@ -1,11 +1,11 @@
-/*
- * jQuery ToolTips for Topic Preview
- * https://github.com/VSEphpbb/topic_preview
- *
- * Copyright 2013, Matt Friedman
- * Licensed under the GPL Version 2 license.
- * http://www.opensource.org/licenses/GPL-2.0
- */
+/**
+* jQuery ToolTips for Topic Preview
+* https://github.com/VSEphpbb/topic_preview
+*
+* Copyright 2013, Matt Friedman
+* Licensed under the GPL Version 2 license.
+* http://www.opensource.org/licenses/GPL-2.0
+*/
 
 ;(function ($, window, document, undefined) {
 

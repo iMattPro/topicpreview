@@ -105,7 +105,7 @@ class topic_preview_module
 		));
 	}
 
-	/*
+	/**
 	* Update topic_preview_theme setting in the styles table
 	*
 	* @param	string	$style 	name of the board style
@@ -123,7 +123,7 @@ class topic_preview_module
 		$this->cache->destroy('sql', STYLES_TABLE);
 	}
 
-	/*
+	/**
 	* Get style data from the styles table
 	*
 	* @return	Array of style data
@@ -141,7 +141,7 @@ class topic_preview_module
 		return $rows;
 	}
 
-	/*
+	/**
 	* Get file paths/names from Topic Preview's CSS files
 	*
 	* @return	Array of file data from ext/vse/topicpreview/styles/all/theme/
@@ -159,7 +159,7 @@ class topic_preview_module
 			->find_from_extension('topicpreview', $this->phpbb_root_path . 'ext/vse/topicpreview');
 	}
 
-	/*
+	/**
 	* Create <option> tags for each Topic Preview theme
 	*
 	* @param	string	$theme	name of the Topic Preview theme stored in the db
