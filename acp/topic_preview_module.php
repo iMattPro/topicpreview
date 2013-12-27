@@ -74,8 +74,8 @@ class topic_preview_module
 			$styles = $this->get_styles();
 			foreach ($styles as $row)
 			{
-				$topic_preview_theme = $this->request->variable($row['style_name'], '');
-				$this->set_style_theme($row['style_name'], $topic_preview_theme);
+				$topic_preview_theme = $this->request->variable('style_' . $row['style_id'], '');
+				$this->set_style_theme($row['style_id'], $topic_preview_theme);
 			}
 
 			trigger_error($this->user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
@@ -85,10 +85,10 @@ class topic_preview_module
 		foreach ($styles as $row)
 		{
 			$this->template->assign_block_vars('styles', array(
-				'STYLE_NAME'			=> $row['style_name'],
+				'STYLE_ID'				=> $row['style_id'],
+				'STYLE_THEME'			=> sprintf($this->user->lang['TOPIC_PREVIEW_THEME'], $row['style_name']),
+				'STYLE_THEME_EXPLAIN'	=> sprintf($this->user->lang['TOPIC_PREVIEW_THEME_EXPLAIN'], $row['style_name']),
 				'THEME_OPTIONS'			=> $this->theme_options((!empty($row['topic_preview_theme'])) ? $row['topic_preview_theme'] : 'light'),
-				'THEME_STYLE'			=> sprintf($this->user->lang['TOPIC_PREVIEW_THEME'], $row['style_name']),
-				'THEME_STYLE_EXPLAIN'	=> sprintf($this->user->lang['TOPIC_PREVIEW_THEME_EXPLAIN'], $row['style_name']),
 			));
 		}
 		
@@ -108,15 +108,15 @@ class topic_preview_module
 	/**
 	* Update topic_preview_theme setting in the styles table
 	*
-	* @param	string	$style 	name of the board style
-	* @param	string	$theme	name of the selected theme
+	* @param	int		$style_id 	id of the board style
+	* @param	string	$theme		name of the selected theme
 	* @access	protected
 	*/
-	protected function set_style_theme($style, $theme)
+	protected function set_style_theme($style_id, $theme)
 	{
 		$sql = 'UPDATE ' . STYLES_TABLE . "
 			SET topic_preview_theme = '" . $this->db->sql_escape($theme) . "'
-			WHERE style_name = '" . $this->db->sql_escape($style) . "'";
+			WHERE style_id = " . (int) $style_id;
 
 		$result = $this->db->sql_query($sql);
 
