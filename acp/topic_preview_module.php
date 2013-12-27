@@ -132,7 +132,8 @@ class topic_preview_module
 	protected function get_styles()
 	{
 		$sql = 'SELECT style_id, style_name, topic_preview_theme
-			FROM ' . STYLES_TABLE;
+			FROM ' . STYLES_TABLE . '
+			WHERE style_active = 1';
 		$result = $this->db->sql_query($sql);
 
 		$rows = $this->db->sql_fetchrowset($result);
