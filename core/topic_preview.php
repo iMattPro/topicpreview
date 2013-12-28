@@ -267,7 +267,7 @@ class topic_preview
 
 		if (utf8_strlen($text) <= $this->tp_length)
 		{
-			return $text;
+			return $this->tp_nl2br($text);
 		}
 
 		// trim the text
@@ -281,7 +281,7 @@ class topic_preview
 			$text = utf8_substr($text, 0, $last_space);
 		}
 
-		return $text . '...';
+		return $this->tp_nl2br($text) . '...';
 	}
 
 	/**
@@ -307,10 +307,24 @@ class topic_preview
 				'#\[/?[^\[\]]+\]#mi', // All BBCode tags
 				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Remaining URLs
 				'#"#', // Possible un-encoded quotes from older board conversions
-				'#[\s]+#' // Multiple spaces
+				'#[ \t]{2,}#' // Multiple spaces #[\s]+#
 			);
 		}
 
 		return trim(preg_replace($patterns, ' ', $text));
+	}
+	
+	/**
+	* Convert and preserve line breaks
+	*
+	* @param string $text Topic preview text
+	* @return string Topic preview text with line breaks
+	* @access private
+	*/
+	private function tp_nl2br($text)
+	{
+		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
+		$text = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $text);
+		return nl2br($text);
 	}
 }
