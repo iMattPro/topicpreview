@@ -16,11 +16,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
+	/** @var \vse\topicpreview\core\topic_preview */
+	protected $topicpreview;
+
 	/**
-	* Topic Preview manager object
-	* @var phpbb_ext_vse_topicpreview_core_manager
+	* Constructor
+	* 
+	* @param \vse\topicpreview\core\topic_preview    $topicpreview  Topic Preview object
+	* @return \vse\topicpreview\event\listener
+	* @access public
 	*/
-	private $manager;
+	public function __construct(\vse\topicpreview\core\topic_preview $topicpreview)
+	{
+		$this->topicpreview = $topicpreview;
+	}
 
 	/**
 	* Assign functions defined in this class to event listeners in the core
@@ -52,25 +61,6 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Set up the environment
-	*/
-	public function setup()
-	{
-		global $phpbb_container;
-
-		$this->container = $phpbb_container;
-		$this->manager = $this->container->get('vse.topicpreview.manager');
-
-		$this->container->get('template')->assign_vars(array(
-			'S_TOPICPREVIEW'		=> $this->manager->is_active,
-			'TOPICPREVIEW_DELAY'	=> $this->manager->preview_delay,
-			'TOPICPREVIEW_DRIFT'	=> $this->manager->preview_drift,
-			'TOPICPREVIEW_WIDTH'	=> $this->manager->preview_width,
-			'TOPICPREVIEW_THEME'	=> $this->manager->preview_theme,
-		));
-	}
-
-	/**
 	* Modify an SQL array to get post text for topic previews (viewforum)
 	*
 	* @param object $event The event object
@@ -78,12 +68,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function modify_sql_array($event)
 	{
-		if (!$this->manager)
-		{
-			$this->setup();
-		}
-		
-		$event['sql_array'] = $this->manager->modify_sql_array($event['sql_array']);
+		$event['sql_array'] = $this->topicpreview->modify_sql_array($event['sql_array']);
 	}
 
 	/**
@@ -94,12 +79,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function modify_shadowtopic_sql($event)
 	{
-		if (!$this->manager)
-		{
-			$this->setup();
-		}
-		
-		$event['sql'] = $this->manager->modify_shadowtopic_sql($event['sql']);
+		$event['sql'] = $this->topicpreview->modify_shadowtopic_sql($event['sql']);
 	}
 
 	/**
@@ -110,13 +90,8 @@ class listener implements EventSubscriberInterface
 	*/
 	public function modify_sql_events($event)
 	{
-		if (!$this->manager)
-		{
-			$this->setup();
-		}
-		
-		$event['sql_from'] = $this->manager->modify_sql_join($event['sql_from']);
-		$event['sql_select'] = $this->manager->modify_sql_select($event['sql_select']);		
+		$event['sql_from'] = $this->topicpreview->modify_sql_join($event['sql_from']);
+		$event['sql_select'] = $this->topicpreview->modify_sql_select($event['sql_select']);		
 	}
 
 	/**
@@ -127,13 +102,8 @@ class listener implements EventSubscriberInterface
 	*/
 	public function display_topic_previews($event)
 	{
-		if (!$this->manager)
-		{
-			$this->setup();
-		}
-		
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';
-		$event[$block] = $this->manager->display_topic_preview($event['row'], $event[$block]);
+		$event[$block] = $this->topicpreview->display_topic_preview($event['row'], $event[$block]);
 	}
 
 	/**
@@ -144,29 +114,15 @@ class listener implements EventSubscriberInterface
 	*/
 	public function ucp_prefs_get_data($event)
 	{
-		if (!$this->manager)
-		{
-			$this->setup();
-		}
-		
-		$config = $this->container->get('config');
-		$request = $this->container->get('request');
-		$template = $this->container->get('template');
-		$user = $this->container->get('user');
-		
 		// Request the user option vars and add them to the data array
 		$event['data'] = array_merge($event['data'], array(
-			'topic_preview'	=> $request->variable('topic_preview', (int) $user->data['user_topic_preview']),
+			'topic_preview'	=> $this->topicpreview->request_ucp_setting(),
 		));
 
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'])
 		{
-			$user->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
-			$template->assign_vars(array(
-				'S_TOPIC_PREVIEW'			=> $config['topic_preview_limit'],
-				'S_DISPLAY_TOPIC_PREVIEW'	=> $event['data']['topic_preview'],
-			));
+			$this->topicpreview->display_ucp_setting($event['data']);
 		}
 	}
 
@@ -178,11 +134,6 @@ class listener implements EventSubscriberInterface
 	*/
 	public function ucp_prefs_set_data($event)
 	{
-		if (!$this->manager)
-		{
-			$this->setup();
-		}
-		
 		$event['sql_ary'] = array_merge($event['sql_ary'], array(
 			'user_topic_preview' => $event['data']['topic_preview'],
 		));

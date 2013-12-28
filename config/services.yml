@@ -4,9 +4,13 @@ services:
         arguments:
             - @config
             - @dbal.conn
+            - @request
+            - @template
             - @user
             - %core.root_path%
     vse.topicpreview.listener:
         class: vse\topicpreview\event\listener
+        arguments:
+            - @vse.topicpreview.manager
         tags:
             - { name: event.listener }
