@@ -79,7 +79,7 @@ class topic_preview
 		$this->tp_setup = true;
 		$this->tp_enabled = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
 		$this->tp_avatars = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
-		$this->tp_last_post	= (!empty($this->config['topic_preview_last_post'])) ? true : false;
+		$this->tp_last_post = (!empty($this->config['topic_preview_last_post'])) ? true : false;
 
 		// Load our language file (only needed if showing last post text)
 		if ($this->tp_last_post)
