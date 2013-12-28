@@ -159,7 +159,7 @@ class topic_preview
 	* @return string SQL statement
 	* @access public
 	*/
-	public function modify_sql($sql)
+	public function modify_shadowtopic_sql($sql)
 	{
 		if (!$this->is_active)
 		{
@@ -216,9 +216,9 @@ class topic_preview
 	/**
 	* Inject topic preview text into the template
 	*
-	* @param array $row row data
-	* @param array $block template vars array
-	* @return array template vars array
+	* @param array $row Row data
+	* @param array $block Template vars array
+	* @return array Template vars array
 	* @access public
 	*/
 	public function display_topic_preview($row, $block)
@@ -257,8 +257,8 @@ class topic_preview
 	/**
 	* Trim and clean topic preview text
 	*
-	* @param string $text topic preview text
-	* @return string trimmed topic preview text
+	* @param string $text Topic preview text
+	* @return string Trimmed topic preview text
 	* @access private
 	*/
 	private function trim_topic_preview($text)
@@ -287,8 +287,8 @@ class topic_preview
 	/**
 	* Strip BBCodes, tags and links for topic preview text
 	*
-	* @param string $text topic preview text
-	* @return string stripped topic preview text
+	* @param string $text Topic preview text
+	* @return string Stripped topic preview text
 	* @access private
 	*/
 	private function remove_markup($text)

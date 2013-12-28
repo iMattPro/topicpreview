@@ -23,17 +23,18 @@ class listener implements EventSubscriberInterface
 	private $manager;
 
 	/**
-	* Get subscribed events
+	* Assign functions defined in this class to event listeners in the core
 	*
 	* @return array
 	* @static
+	* @access public
 	*/
 	static public function getSubscribedEvents()
 	{
 		return array(
 			// viewform.php events
 			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
-			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_statement',
+			'core.viewforum_get_shadowtopic_data'	=> 'modify_shadowtopic_sql',
 			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',
 
 			// search.php events
@@ -91,14 +92,14 @@ class listener implements EventSubscriberInterface
 	* @param object $event The event object
 	* @return null
 	*/
-	public function modify_sql_statement($event)
+	public function modify_shadowtopic_sql($event)
 	{
 		if (!$this->manager)
 		{
 			$this->setup();
 		}
 		
-		$event['sql'] = $this->manager->modify_sql($event['sql']);
+		$event['sql'] = $this->manager->modify_shadowtopic_sql($event['sql']);
 	}
 
 	/**
