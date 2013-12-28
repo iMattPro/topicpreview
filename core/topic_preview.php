@@ -270,16 +270,8 @@ class topic_preview
 			return $this->tp_nl2br($text);
 		}
 
-		// trim the text
-		$text = utf8_substr($text, 0, $this->tp_length);
-
-		// re-trim to last space to prevent cut-off words
-		$last_space = utf8_strrpos($text, ' ');
-
-		if ($last_space != false)
-		{
-			$text = utf8_substr($text, 0, $last_space);
-		}
+		// trim the text to the last whitespace character before the cut-off
+		$text = preg_replace('/\s+?(\S+)?$/', '', utf8_substr($text, 0, $this->tp_length));
 
 		return $this->tp_nl2br($text) . '...';
 	}
