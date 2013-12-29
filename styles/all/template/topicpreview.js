@@ -25,12 +25,15 @@
 		// Do not allow delay times less than 300ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);
 
-		// Add rtl class for right-to-left languages to avatar images
-		$(".topic_preview_avatar").toggleClass("rtl", (settings.dir === "rtl")).children("img").one("error", function () {
+		$(".topic_preview_avatar")
+			// Add rtl class for right-to-left languages to avatar images
+			.toggleClass("rtl", (settings.dir === "rtl"))
 			// Replace any broken/missing avatar images in topic previews
-			$(this).attr("src", settings.noavatar);
-		});
+			.children("img").one("error", function () {
+				$(this).attr("src", settings.noavatar);
+			});
 
+		// Display the topic preview tooltip
 		var showTopicPreview = function () {
 			var obj = $(this);
 
@@ -78,6 +81,7 @@
 			}, settings.delay); // Use a delay before showing in topic preview
 		};
 
+		// Hide the topic preview tooltip
 		var hideTopicPreview = function () {
 			var obj = $(this);
 
@@ -96,6 +100,11 @@
 			obj.closest("dt").attr("title", obj.closest("dt").data("title")); // reinstate original title attributes
 		};
 
+		// Check if y coord is within 100 pixels of bottom edge of browser window
+		var edgeDetect = function (y) {
+			return (y >= ($(window).scrollTop() + $(window).height() - 100));
+		};
+
 		return this.each(function () {
 			$(this).hover(showTopicPreview, hideTopicPreview).on("click", function () {
 				// Remove topic preview immediately on click as failsafe
@@ -107,10 +116,5 @@
 			});
 		});
 	};
-
-	// Check if y coord is within 100 pixels of bottom edge of browser window
-	function edgeDetect(y) {
-		return (y >= ($(window).scrollTop() + $(window).height() - 100));
-	}
 
 })(jQuery, window, document);
