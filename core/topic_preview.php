@@ -398,7 +398,7 @@ class topic_preview
 	}
 	
 	/**
-	* Retruns the Topic Preview option from UCP Prefs View form
+	* Returns the Topic Preview option from UCP Prefs View form
 	*
 	* @return int UCP Display Topic Preview form setting
 	* @access public

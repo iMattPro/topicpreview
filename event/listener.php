@@ -65,6 +65,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param object $event The event object
 	* @return null
+	* @access public
 	*/
 	public function modify_sql_array($event)
 	{
@@ -76,6 +77,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param object $event The event object
 	* @return null
+	* @access public
 	*/
 	public function modify_shadowtopic_sql($event)
 	{
@@ -87,6 +89,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param object $event The event object
 	* @return null
+	* @access public
 	*/
 	public function modify_sql_events($event)
 	{
@@ -99,6 +102,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param object $event The event object
 	* @return null
+	* @access public
 	*/
 	public function display_topic_previews($event)
 	{
@@ -111,6 +115,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param object $event The event object
 	* @return null
+	* @access public
 	*/
 	public function ucp_prefs_get_data($event)
 	{
@@ -131,6 +136,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param object $event The event object
 	* @return null
+	* @access public
 	*/
 	public function ucp_prefs_set_data($event)
 	{
