@@ -365,7 +365,7 @@ class topic_preview
 
 		return trim(preg_replace($patterns, ' ', $text));
 	}
-	
+
 	/**
 	* Convert and preserve line breaks
 	*
@@ -390,13 +390,13 @@ class topic_preview
 	public function display_ucp_setting($data)
 	{
 		// Output the data vars to the template (except on form submit)
-		$this->user->add_lang_ext('vse/topicpreview', 'acp/info_acp_topic_preview');
+		$this->user->add_lang_ext('vse/topicpreview', 'info_acp_topic_preview');
 		$this->template->assign_vars(array(
 			'S_TOPIC_PREVIEW'			=> $this->config['topic_preview_limit'],
 			'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
 		));
 	}
-	
+
 	/**
 	* Returns the Topic Preview option from UCP Prefs View form
 	*
