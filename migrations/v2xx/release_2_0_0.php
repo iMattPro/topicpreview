@@ -18,7 +18,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array('\vse\topicpreview\migrations\v1xx\release_1_0_10');
+		return array('\vse\topicpreview\migrations\v1xx\release_1_0_6_data');
 	}
 
 	public function update_data()
@@ -39,10 +39,12 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 				),
 			)),
 
+			// Add new configs
 			array('config.add', array('topic_preview_last_post', '0')),
 			array('config.add', array('topic_preview_avatars', '0')),
 			array('config.add', array('topic_preview_jquery', '0')),
 
+			// Update exisiting configs
 			array('config.update', array('topic_preview_version', '2.0.0')),
 		);
 	}

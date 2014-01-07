@@ -9,7 +9,7 @@
 
 namespace vse\topicpreview\migrations\v1xx;
 
-class release_1_0_6 extends \phpbb\db\migration\migration
+class release_1_0_6_data extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
@@ -18,37 +18,15 @@ class release_1_0_6 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array('\phpbb\db\migration\data\v310\dev');
-	}
-
-	public function update_schema()
-	{
-		return array(
-			'add_columns'	=> array(
-				$this->table_prefix . 'users'	=> array(
-					'user_topic_preview'	=> array('BOOL', 1),
-				),
-			),
-		);
-	}
-
-	public function revert_schema()
-	{
-		return array(
-			'drop_columns'	=> array(
-				$this->table_prefix . 'users'	=> array(
-					'user_topic_preview',
-				),
-			),
-		);
+		return array('\vse\topicpreview\migrations\v1xx\release_1_0_6_schema');
 	}
 
 	public function update_data()
 	{
 		return array(
+			// Add new configs
 			array('config.add', array('topic_preview_limit', '150')),
 			array('config.add', array('topic_preview_strip_bbcodes', '')),
-
 			array('config.add', array('topic_preview_version', '1.0.6')),
 		);
 	}
