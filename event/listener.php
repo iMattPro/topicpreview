@@ -55,7 +55,7 @@ class listener implements EventSubscriberInterface
 			'core.ucp_prefs_view_update_data'		=> 'ucp_prefs_set_data',
 
 			// These are custom events for integration with Precise Similar Topics
-			'similartopics.similar_topic_data'		=> 'modify_sql_array',
+			'similartopics.get_topic_data'			=> 'modify_sql_array',
 			'similartopics.modify_topicrow'			=> 'display_topic_previews',
 		);
 	}
