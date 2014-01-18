@@ -38,7 +38,7 @@ class topic_preview_module
 
 		$this->user->add_lang('acp/common');
 		$this->tpl_name = 'acp_topic_preview';
-		$this->page_title = $this->user->lang['TOPIC_PREVIEW'];
+		$this->page_title = $this->user->lang('TOPIC_PREVIEW');
 
 		$form_key = 'acp_topic_preview';
 		add_form_key($form_key);
@@ -78,7 +78,7 @@ class topic_preview_module
 				$this->set_style_theme($row['style_id'], $topic_preview_theme);
 			}
 
-			trigger_error($this->user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
+			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
 		$styles = $this->get_styles();
@@ -86,8 +86,8 @@ class topic_preview_module
 		{
 			$this->template->assign_block_vars('styles', array(
 				'STYLE_ID'				=> $row['style_id'],
-				'STYLE_THEME'			=> sprintf($this->user->lang['TOPIC_PREVIEW_THEME'], $row['style_name']),
-				'STYLE_THEME_EXPLAIN'	=> sprintf($this->user->lang['TOPIC_PREVIEW_THEME_EXPLAIN'], $row['style_name']),
+				'STYLE_THEME'			=> $this->user->lang('TOPIC_PREVIEW_THEME', $row['style_name']),
+				'STYLE_THEME_EXPLAIN'	=> $this->user->lang('TOPIC_PREVIEW_THEME_EXPLAIN', $row['style_name']),
 				'THEME_OPTIONS'			=> $this->theme_options((!empty($row['topic_preview_theme'])) ? $row['topic_preview_theme'] : 'light'),
 			));
 		}
@@ -181,7 +181,7 @@ class topic_preview_module
 		{
 			$name = basename($name, '.css');
 			$selected = ($theme == $name) ? ' selected="selected"' : '';
-			$theme_options .= '<option value="' . $name . '"' . $selected . '>' . ucwords($name) . ' ' . $this->user->lang['THEME'] . '</option>';
+			$theme_options .= '<option value="' . $name . '"' . $selected . '>' . ucwords($name) . ' ' . $this->user->lang('THEME') . '</option>';
 		}
 		
 		return $theme_options;
