@@ -43,11 +43,11 @@ class listener implements EventSubscriberInterface
 		return array(
 			// viewform.php events
 			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
-			'core.viewforum_get_shadowtopic_data'	=> 'modify_shadowtopic_sql',
+			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_array',
 			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',
 
 			// search.php events
-			'core.search_get_topic_data'			=> 'modify_sql_events',
+			'core.search_get_topic_data'			=> 'modify_sql_string',
 			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
 
 			// ucp_prefs.php events
@@ -61,7 +61,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Modify an SQL array to get post text for topic previews (viewforum)
+	* Modify an SQL array to get post text for topic previews
 	*
 	* @param object $event The event object
 	* @return null
@@ -73,28 +73,16 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Modify an SQL statement to get post text for topic previews (shadow topics)
+	* Modify SQL strings to get post text for topic previews (search results )
 	*
 	* @param object $event The event object
 	* @return null
 	* @access public
 	*/
-	public function modify_shadowtopic_sql($event)
+	public function modify_sql_string($event)
 	{
-		$event['sql'] = $this->topicpreview->modify_shadowtopic_sql($event['sql']);
-	}
-
-	/**
-	* Modify SQL from and select to get post text for topic previews (search results )
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
-	public function modify_sql_events($event)
-	{
-		$event['sql_from'] = $this->topicpreview->modify_sql_join($event['sql_from']);
-		$event['sql_select'] = $this->topicpreview->modify_sql_select($event['sql_select']);		
+		$event['sql_select'] = $this->topicpreview->modify_sql_string($event['sql_select'], 'SELECT');		
+		$event['sql_from'] = $this->topicpreview->modify_sql_string($event['sql_from'], 'JOIN');
 	}
 
 	/**

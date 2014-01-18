@@ -192,13 +192,14 @@ class topic_preview
 	}
 
 	/**
-	* Modify SQL statement to get post text for viewforum shadowtopics
+	* Modify SQL string to get post text
 	*
-	* @param string $sql SQL statement
-	* @return string SQL statement
+	* @param string $sql SQL statement string
+	* @param string $type SQL statement type: SELECT or JOIN
+	* @return string SQL statement string
 	* @access public
 	*/
-	public function modify_shadowtopic_sql($sql)
+	public function modify_sql_string($sql, $type)
 	{
 		if (!$this->tp_setup)
 		{
@@ -210,61 +211,9 @@ class topic_preview
 			return $sql;
 		}
 
-		global $shadow_topic_list;
-
-		$sql = 'SELECT t.*' . $this->tp_sql_select() . '
-			FROM ' . TOPICS_TABLE . ' t ' . $this->tp_sql_join() . '
-			WHERE ' . $this->db->sql_in_set('t.topic_id', array_keys($shadow_topic_list));
+		$sql .= ($type == 'SELECT') ? $this->tp_sql_select() : $this->tp_sql_join();
 
 		return $sql;
-	}
-
-	/**
-	* Modify SQL SELECT statement to get post text for searchresults
-	*
-	* @param string $sql_select SQL SELECT statement
-	* @return string SQL SELECT statement
-	* @access public
-	*/
-	public function modify_sql_select($sql_select)
-	{
-		if (!$this->tp_setup)
-		{
-			$this->setup();
-		}
-
-		if (!$this->tp_enabled)
-		{
-			return $sql_select;
-		}
-
-		$sql_select .= $this->tp_sql_select();
-
-		return $sql_select;
-	}
-
-	/**
-	* Modify SQL JOIN statement to get post text for searchresults
-	*
-	* @param string $sql_join SQL JOIN statement
-	* @return string SQL JOIN statement
-	* @access public
-	*/
-	public function modify_sql_join($sql_join)
-	{
-		if (!$this->tp_setup)
-		{
-			$this->setup();
-		}
-
-		if (!$this->tp_enabled)
-		{
-			return $sql_join;
-		}
-
-		$sql_join .= $this->tp_sql_join();
-
-		return $sql_join;
 	}
 
 	/**
