@@ -38,9 +38,6 @@ class topic_preview
 	/** @var bool Show last post */
 	private $tp_last_post;
 
-	/** @var bool Topic Preview setup */
-	private $tp_setup;
-
 	/**
 	* Constructor
 	* 
@@ -69,14 +66,15 @@ class topic_preview
 	*/
 	public function setup()
 	{
+		static $is_loaded = false;
+
 		// Make sure we only run setup once
-		if ($this->tp_setup === true)
+		if ($is_loaded)
 		{
 			return;
 		}
 
 		// environment parameters
-		$this->tp_setup = true;
 		$this->tp_enabled = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
 		$this->tp_avatars = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
 		$this->tp_last_post = (!empty($this->config['topic_preview_last_post'])) ? true : false;
@@ -95,6 +93,9 @@ class topic_preview
 			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360,
 			'TOPICPREVIEW_THEME'	=> (!empty($this->user->style['topic_preview_theme'])) ? $this->user->style['topic_preview_theme'] : 'light',
 		));
+
+		// So the setup is only run once
+		$is_loaded = true;
 	}
 
 	/**
@@ -147,10 +148,7 @@ class topic_preview
 	*/
 	public function modify_sql_array($sql_array)
 	{
-		if (!$this->tp_setup)
-		{
-			$this->setup();
-		}
+		$this->setup();
 
 		if (!$this->tp_enabled)
 		{
@@ -201,10 +199,7 @@ class topic_preview
 	*/
 	public function modify_sql_string($sql, $type)
 	{
-		if (!$this->tp_setup)
-		{
-			$this->setup();
-		}
+		$this->setup();
 
 		if (!$this->tp_enabled)
 		{
@@ -226,11 +221,6 @@ class topic_preview
 	*/
 	public function display_topic_preview($row, $block)
 	{
-		if (!$this->tp_setup)
-		{
-			$this->setup();
-		}
-
 		if (!$this->tp_enabled)
 		{
 			return $block;
