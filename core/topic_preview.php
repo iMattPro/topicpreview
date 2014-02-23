@@ -43,6 +43,8 @@ class topic_preview
 	* 
 	* @param \phpbb\config\config $config
 	* @param \phpbb\db\driver\driver $db
+	* @param \phpbb\request\request $request
+	* @param \phpbb\template\template $template
 	* @param \phpbb\user $user
 	* @param string $root_path
 	* @return \vse\topicpreview\core\topic_preview

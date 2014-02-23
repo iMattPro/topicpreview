@@ -73,7 +73,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Modify SQL strings to get post text for topic previews (search results )
+	* Modify SQL strings to get post text for topic previews (search results)
 	*
 	* @param object $event The event object
 	* @return null
