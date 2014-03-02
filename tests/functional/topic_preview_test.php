@@ -23,8 +23,6 @@ class phpbb_functional_topic_preview_test extends extension_functional_test_case
 
 	public function test_preview_new_topic()
 	{
-		$this->login();
-
 		// Test creating topic
 		$post = $this->create_topic(2, 'Test Topic 1', 'This is a test topic posted by the testing framework.');
 
