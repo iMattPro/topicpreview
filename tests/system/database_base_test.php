@@ -7,7 +7,7 @@
 *
 */
 
-class extension_system_database_base_test extends phpbb_database_test_case
+class extension_system_database_base_test extends extension_database_test_case
 {
 	public function getDataSet()
 	{
