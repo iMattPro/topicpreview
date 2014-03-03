@@ -19,6 +19,18 @@ class phpbb_functional_topic_preview_test extends extension_functional_test_case
 		$this->admin_login();
 		$this->set_extension('vse', 'topicpreview', 'Topic Preview');
 		$this->enable_extension();
+		$this->enable_avatars();
+	}
+
+	public function enable_avatars()
+	{
+		$this->get_db();
+
+		$sql = "UPDATE phpbb_config
+			SET config_value = 1
+			WHERE config_name = 'topic_preview_avatars'";
+
+		$this->db->sql_query($sql);
 	}
 
 	public function test_topic_previews()
@@ -34,8 +46,13 @@ class phpbb_functional_topic_preview_test extends extension_functional_test_case
 		$this->assertContains('This is a second test topic :) posted by the testing framework.', $crawler->filter('html')->text());
 
 		// Create and preview a topic with a bbcode
-		$post2 = $this->create_topic(2, 'Test Topic 3', 'This is a third [b]test topic[/b] posted by the testing framework.');
+		$post3 = $this->create_topic(2, 'Test Topic 3', 'This is a third [b]test topic[/b] posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertContains('This is a third test topic posted by the testing framework.', $crawler->filter('html')->text());
+
+		// Test topic preview avatars
+		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
+		$this->assertGreaterThan(0, $crawler->filter('.topic_preview_avatar')->count());
+		$this->assertContains('no_avatar.gif', $crawler->filter('.topic_preview_avatar > img')->attr('src'));
 	}
 }
