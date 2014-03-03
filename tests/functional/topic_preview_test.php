@@ -19,7 +19,21 @@ class phpbb_functional_topic_preview_test extends extension_functional_test_case
 		$this->admin_login();
 		$this->set_extension('vse', 'topicpreview', 'Topic Preview');
 		$this->enable_extension();
+		$this->enable_last_post_preview();
 		$this->enable_avatars();
+	}
+
+	public function enable_last_post_preview()
+	{
+		$this->get_db();
+
+		$sql = "UPDATE phpbb_config
+			SET config_value = 1
+			WHERE config_name = 'topic_preview_last_post'";
+
+		$this->db->sql_query($sql);
+
+		$this->purge_cache();
 	}
 
 	public function enable_avatars()
@@ -31,6 +45,8 @@ class phpbb_functional_topic_preview_test extends extension_functional_test_case
 			WHERE config_name = 'topic_preview_avatars'";
 
 		$this->db->sql_query($sql);
+
+		$this->purge_cache();
 	}
 
 	public function test_topic_previews()
@@ -40,13 +56,18 @@ class phpbb_functional_topic_preview_test extends extension_functional_test_case
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertContains('This is a test topic posted by the testing framework.', $crawler->filter('html')->text());
 
+		// Test creating a reply
+		$post2 = $this->create_post(2, $post['topic_id'], 'Re: Test Topic 1', 'This is a test post posted by the testing framework.');
+		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
+		$this->assertContains('This is a test post posted by the testing framework.', $crawler->filter('html')->text());
+
 		// Create and preview a topic with a smiley
-		$post2 = $this->create_topic(2, 'Test Topic 2', 'This is a second test topic :) posted by the testing framework.');
+		$post3 = $this->create_topic(2, 'Test Topic 2', 'This is a second test topic :) posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertContains('This is a second test topic :) posted by the testing framework.', $crawler->filter('html')->text());
 
 		// Create and preview a topic with a bbcode
-		$post3 = $this->create_topic(2, 'Test Topic 3', 'This is a third [b]test topic[/b] posted by the testing framework.');
+		$post4 = $this->create_topic(2, 'Test Topic 3', 'This is a third [b]test topic[/b] posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertContains('This is a third test topic posted by the testing framework.', $crawler->filter('html')->text());
 
