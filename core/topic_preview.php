@@ -161,14 +161,14 @@ class topic_preview
 
 		$sql_array['LEFT_JOIN'][] = array(
 			'FROM'	=> array(POSTS_TABLE => 'fp'),
-			'ON'	=> "fp.post_id = t.topic_first_post_id"
+			'ON'	=> 'fp.post_id = t.topic_first_post_id'
 		);
 
 		if ($this->tp_avatars)
 		{
 			$sql_array['LEFT_JOIN'][] = array(
 				'FROM'	=> array(USERS_TABLE => 'fpu'),
-				'ON'	=> "fpu.user_id = t.topic_poster"
+				'ON'	=> 'fpu.user_id = t.topic_poster'
 			);
 		}
 
@@ -176,14 +176,14 @@ class topic_preview
 		{
 			$sql_array['LEFT_JOIN'][] = array(
 				'FROM'	=> array(POSTS_TABLE => 'lp'),
-				'ON'	=> "lp.post_id = t.topic_last_post_id"
+				'ON'	=> 'lp.post_id = t.topic_last_post_id'
 			);
 
 			if ($this->tp_avatars)
 			{
 				$sql_array['LEFT_JOIN'][] = array(
 					'FROM'	=> array(USERS_TABLE => 'lpu'),
-					'ON'	=> "lpu.user_id = t.topic_last_poster_id"
+					'ON'	=> 'lpu.user_id = t.topic_last_poster_id'
 				);
 			}
 		}
