@@ -317,8 +317,7 @@ class topic_preview
 	private function tp_nl2br($text)
 	{
 		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
-		$text = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $text);
-		return nl2br($text);
+		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $text));
 	}
 
 	/**
