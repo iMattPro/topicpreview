@@ -58,13 +58,13 @@
 				.removeAttr("title");
 
 			previewTimeout = setTimeout(function () {
-				// clear the timeout var after delay and function begins to execute	
+				// clear the timeout var after delay and function begins to execute
 				previewTimeout = undefined;
 
 				// Fill the topic preview
 				previewContainer.html(content);
 
-				// Window bottom edge detection, invert topic preview if needed 
+				// Window bottom edge detection, invert topic preview if needed
 				var previewTop = obj.offset().top + settings.top,
 					previewBottom = previewTop + previewContainer.height() + 8;
 				previewContainer.toggleClass("invert", edgeDetect(previewBottom));

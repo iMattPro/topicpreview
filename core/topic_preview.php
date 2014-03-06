@@ -40,7 +40,7 @@ class topic_preview
 
 	/**
 	* Constructor
-	* 
+	*
 	* @param \phpbb\config\config $config
 	* @param \phpbb\db\driver\driver $db
 	* @param \phpbb\request\request $request
@@ -109,9 +109,9 @@ class topic_preview
 	*/
 	public function tp_sql_select()
 	{
-		return ', fp.post_text AS first_post_text' . 
-			($this->tp_last_post ? ', lp.post_text AS last_post_text' : '') . 
-			($this->tp_avatars ? ', fpu.user_avatar AS first_poster_avatar, fpu.user_avatar_type AS first_poster_avatar_type' . 
+		return ', fp.post_text AS first_post_text' .
+			($this->tp_last_post ? ', lp.post_text AS last_post_text' : '') .
+			($this->tp_avatars ? ', fpu.user_avatar AS first_poster_avatar, fpu.user_avatar_type AS first_poster_avatar_type' .
 			($this->tp_last_post ? ', lpu.user_avatar AS last_poster_avatar, lpu.user_avatar_type AS last_poster_avatar_type' : '') : '');
 	}
 
@@ -124,9 +124,9 @@ class topic_preview
 	*/
 	public function tp_sql_join()
 	{
-		return ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' . 
-			($this->tp_last_post ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '') . 
-			($this->tp_avatars ? ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' . 
+		return ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' .
+			($this->tp_last_post ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '') .
+			($this->tp_avatars ? ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' .
 			($this->tp_last_post ? ' LEFT JOIN ' . USERS_TABLE . ' lpu ON (lpu.user_id = t.topic_last_poster_id)' : '') : '');
 	}
 
@@ -294,7 +294,7 @@ class topic_preview
 			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 			// RegEx patterns based on Topic Text Hover Mod by RMcGirr83
 			$patterns = array(
-				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Magic URLs			
+				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Magic URLs
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
 				'#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // BBCode content to strip
 				'#\[/?[^\[\]]+\]#mi', // All BBCode tags

@@ -2,7 +2,7 @@
 /**
 *
 * topic_preview [Čeština]
-* 
+*
 * @package language
 * @copyright (c) 2013 Matt Friedman (Pro nahlášení chyb v překladu a podporu překladu použijte stránky http://www.skolaponetu.cz. Děkujeme)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2

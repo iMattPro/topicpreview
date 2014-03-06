@@ -21,7 +21,7 @@ class listener implements EventSubscriberInterface
 
 	/**
 	* Constructor
-	* 
+	*
 	* @param \vse\topicpreview\core\topic_preview    $topicpreview  Topic Preview object
 	* @return \vse\topicpreview\event\listener
 	* @access public
@@ -81,7 +81,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function modify_sql_string($event)
 	{
-		$event['sql_select'] = $this->topicpreview->modify_sql_string($event['sql_select'], 'SELECT');		
+		$event['sql_select'] = $this->topicpreview->modify_sql_string($event['sql_select'], 'SELECT');
 		$event['sql_from'] = $this->topicpreview->modify_sql_string($event['sql_from'], 'JOIN');
 	}
 

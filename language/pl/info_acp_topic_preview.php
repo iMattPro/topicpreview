@@ -2,7 +2,7 @@
 /**
 *
 * info_acp_topic_preview [Polski]
-* 
+*
 * @package language
 * @copyright (c) 2013 Matt Friedman (translated by Pico88)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2

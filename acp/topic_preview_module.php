@@ -91,7 +91,7 @@ class topic_preview_module
 				'THEME_OPTIONS'			=> $this->theme_options((!empty($row['topic_preview_theme'])) ? $row['topic_preview_theme'] : 'light'),
 			));
 		}
-		
+
 		$this->template->assign_vars(array(
 			'TOPIC_PREVIEW_LIMIT'		=> isset($this->config['topic_preview_limit']) ? $this->config['topic_preview_limit'] : '',
 			'TOPIC_PREVIEW_STRIP'		=> isset($this->config['topic_preview_strip_bbcodes']) ? $this->config['topic_preview_strip_bbcodes'] : '',
@@ -108,7 +108,7 @@ class topic_preview_module
 	/**
 	* Update topic_preview_theme setting in the styles table
 	*
-	* @param	int		$style_id 	id of the board style
+	* @param	int		$style_id	id of the board style
 	* @param	string	$theme		name of the selected theme
 	* @access	protected
 	*/
@@ -170,7 +170,7 @@ class topic_preview_module
 	protected function theme_options($theme)
 	{
 		static $themes = array();
-		
+
 		if (empty($themes))
 		{
 			$themes = $this->get_themes();
@@ -183,7 +183,7 @@ class topic_preview_module
 			$selected = ($theme == $name) ? ' selected="selected"' : '';
 			$theme_options .= '<option value="' . $name . '"' . $selected . '>' . ucwords($name) . ' ' . $this->user->lang('THEME') . '</option>';
 		}
-		
+
 		return $theme_options;
 	}
 }

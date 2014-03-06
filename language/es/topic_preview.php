@@ -2,7 +2,7 @@
 /**
 *
 * topic_preview [Spanish]
-* 
+*
 * @package language
 * @copyright (c) 2013 Matt Friedman
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2

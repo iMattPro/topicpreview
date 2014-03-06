@@ -2,7 +2,7 @@
 /**
 *
 * info_acp_topic_preview [German]
-* 
+*
 * @package language
 * @copyright (c) 2013 Matt Friedman - author AmigoJack
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
