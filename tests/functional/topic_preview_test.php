@@ -56,7 +56,7 @@ class phpbb_functional_topic_preview_test extends extension_functional_test_case
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertContains('This is a test topic posted by the testing framework.', $crawler->filter('html')->text());
 
-		// Test creating a reply
+		// Create a second post and test last post previews
 		$post2 = $this->create_post(2, $post['topic_id'], 'Re: Test Topic 1', 'This is a test post posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertContains('This is a test post posted by the testing framework.', $crawler->filter('html')->text());
