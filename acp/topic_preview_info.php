@@ -21,7 +21,7 @@ class topic_preview_info
 			'title'		=> 'TOPIC_PREVIEW',
 			'version'	=> '2.1.0',
 			'modes'		=> array(
-				'settings'	=> array('title' => 'TOPIC_PREVIEW_SETTINGS', 'auth' => 'ext_vse/topicpreview', 'cat' => array('TOPIC_PREVIEW')),
+				'settings'	=> array('title' => 'TOPIC_PREVIEW_SETTINGS', 'auth' => 'ext_vse/topicpreview && acl_a_board', 'cat' => array('TOPIC_PREVIEW')),
 			),
 		);
 	}
