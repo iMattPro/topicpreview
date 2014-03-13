@@ -289,7 +289,7 @@ class topic_preview
 			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 			// RegEx patterns based on Topic Text Hover Mod by RMcGirr83
 			$patterns = array(
-				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Magic URLs
+				'#<!-- m --><a class="postlink[^>]*>(.*<\/a[^>]*>)?<!-- m -->#Usi', // Magic URLs
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
 				'#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // BBCode content to strip
 				'#\[/?[^\[\]]+\]#mi', // All BBCode tags
