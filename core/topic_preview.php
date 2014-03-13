@@ -68,10 +68,8 @@ class topic_preview
 	*/
 	public function setup()
 	{
-		static $is_loaded = false;
-
 		// Make sure we only run setup once
-		if ($is_loaded)
+		if (isset($this->tp_enabled))
 		{
 			return;
 		}
@@ -95,9 +93,6 @@ class topic_preview
 			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360,
 			'TOPICPREVIEW_THEME'	=> (!empty($this->user->style['topic_preview_theme'])) ? $this->user->style['topic_preview_theme'] : 'light',
 		));
-
-		// So the setup is only run once
-		$is_loaded = true;
 	}
 
 	/**
