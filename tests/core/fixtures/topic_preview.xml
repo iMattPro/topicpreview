@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	<table name="phpbb_posts">
+		<column>post_id</column>
+		<column>topic_id</column>
+		<column>post_text</column>
+		<row>
+			<value>1</value>
+			<value>1</value>
+			<value>First message</value>
+		</row>
+		<row>
+			<value>2</value>
+			<value>2</value>
+			<value>Second message</value>
+		</row>
+		<row>
+			<value>3</value>
+			<value>2</value>
+			<value>Third message</value>
+		</row>
+		<row>
+			<value>4</value>
+			<value>3</value>
+			<value>Fourth message</value>
+		</row>
+	</table>
+	<table name="phpbb_topics">
+		<column>topic_id</column>
+		<column>forum_id</column>
+		<column>topic_first_post_id</column>
+		<column>topic_last_post_id</column>
+		<column>topic_poster</column>
+		<column>topic_last_poster_id</column>
+		<column>topic_time</column>
+		<row>
+			<value>1</value>
+			<value>2</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+		</row>
+		<row>
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+			<value>3</value>
+			<value>2</value>
+			<value>3</value>
+			<value>2</value>
+		</row>
+		<row>
+			<value>3</value>
+			<value>2</value>
+			<value>4</value>
+			<value>4</value>
+			<value>3</value>
+			<value>3</value>
+			<value>3</value>
+		</row>
+	</table>
+	<table name="phpbb_users">
+		<column>user_id</column>
+		<column>username_clean</column>
+		<column>user_avatar</column>
+		<column>user_avatar_type</column>
+		<column>user_permissions</column>
+		<column>user_sig</column>
+		<row>
+			<value>1</value>
+			<value>anonymous1</value>
+			<value>avatar1.jpg</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+		</row>
+		<row>
+			<value>2</value>
+			<value>anonymous2</value>
+			<value>avatar2.jpg</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+		</row>
+		<row>
+			<value>3</value>
+			<value>anonymous3</value>
+			<value></value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+		</row>
+	</table>
+</dataset>
