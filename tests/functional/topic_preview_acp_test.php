@@ -21,7 +21,7 @@ class extension_functional_topic_preview_acp_test extends extension_functional_t
 		$this->enable_extension();
 	}
 
-	public function test_acp_pages($mode)
+	public function test_acp_pages()
 	{
 		$crawler = self::request('GET', 'adm/index.php?i=\vse\topicpreview\acp\topic_preview_module&amp;mode=settings&sid=' . $this->sid);
 	}
