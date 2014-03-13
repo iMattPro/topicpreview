@@ -16,7 +16,7 @@ before_script:
 
   # clone test framework
   - git clone "git://github.com/phpbb-extensions/test-framework.git" "./../../test-framework"
-  
+
   # run the prepare-travis.sh file from the cloned repo to finish the setup
   - ./../../test-framework/prepare-travis.sh "$VENDOR" "$NAME" "$DB"
 
