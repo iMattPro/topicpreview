@@ -26,10 +26,10 @@ class display_topic_preview_test extends topic_preview_base
 					'topic_last_post_id' => 1,
 				),
 				array(
-					'TOPIC_PREVIEW_FIRST_POST'		=> 'First message',
-					'TOPIC_PREVIEW_FIRST_AVATAR'	=> '',
-					'TOPIC_PREVIEW_LAST_POST'		=> '',
-					'TOPIC_PREVIEW_LAST_AVATAR'		=> '',
+					'TOPIC_PREVIEW_FIRST_POST' => 'First message',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_POST' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
 				),
 			),
 			array(
@@ -44,10 +44,10 @@ class display_topic_preview_test extends topic_preview_base
 					'topic_last_post_id' => 3,
 				),
 				array(
-					'TOPIC_PREVIEW_FIRST_POST'		=> 'Second message with bold text :) and smiley',
-					'TOPIC_PREVIEW_FIRST_AVATAR'	=> '',
-					'TOPIC_PREVIEW_LAST_POST'		=> str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR'		=> '',
+					'TOPIC_PREVIEW_FIRST_POST' => 'Second message with bold text :) and smiley',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
 				),
 			),
 			array(
@@ -62,10 +62,28 @@ class display_topic_preview_test extends topic_preview_base
 					'topic_last_post_id' => 5,
 				),
 				array(
-					'TOPIC_PREVIEW_FIRST_POST'		=> 'Third message with magic url and test@google.com email',
-					'TOPIC_PREVIEW_FIRST_AVATAR'	=> '',
-					'TOPIC_PREVIEW_LAST_POST'		=> str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR'		=> '',
+					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+				),
+			),
+			array(
+				array(
+					'first_post_text' => '',
+					'first_poster_avatar' => '',
+					'first_poster_avatar_type' => 0,
+					'topic_first_post_id' => 6,
+					'last_post_text' => '',
+					'last_poster_avatar' => '',
+					'last_poster_avatar_type' => 0,
+					'topic_last_post_id' => 7,
+				),
+				array(
+					'TOPIC_PREVIEW_FIRST_POST' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_POST' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
 				),
 			),
 		);
