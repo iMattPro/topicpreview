@@ -21,7 +21,7 @@ class extension_functional_topic_preview_ucp_test extends extension_functional_t
 		$this->enable_extension();
 	}
 
-	public function test_ucp_pages($mode)
+	public function test_ucp_pages()
 	{
 		//$this->add_lang_ext('info_acp_topic_preview');
 
