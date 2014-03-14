@@ -23,10 +23,9 @@ class extension_functional_topic_preview_ucp_test extends extension_functional_t
 
 	public function test_ucp_pages()
 	{
-		//$this->add_lang_ext('info_acp_topic_preview');
+		$this->add_lang_ext('info_acp_topic_preview');
 
 		$crawler = self::request('GET', 'ucp.php?i=ucp_prefs&mode=view&sid=' . $this->sid);
-		$this->assertContains('Display topic previews', $crawler->filter('#cp-main')->text());
-		//$this->assertContains($this->lang('TOPIC_PREVIEW_DISPLAY'), $crawler->filter('#cp-main')->text());
+		$this->assertContains($this->lang('TOPIC_PREVIEW_DISPLAY'), $crawler->filter('#cp-main')->text());
 	}
 }
