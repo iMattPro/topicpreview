@@ -11,6 +11,16 @@ namespace vse\topicpreview\tests\core;
 
 class display_topic_preview_test extends topic_preview_base
 {
+	public function setUp()
+	{
+		parent::setUp();
+
+		$this->user->expects($this->any())
+			->method('optionget')
+			->with($this->anything())
+			->will($this->returnValueMap(array(array('viewavatars', false, true), array('viewcensors', false, false))));
+	}
+
 	public static function topic_preview_display_data()
 	{
 		return array(
@@ -102,6 +112,9 @@ class display_topic_preview_test extends topic_preview_base
 
 		// Make sure setup has been run
 		$topic_preview_manager->setup();
+
+		// Set the expected avatar data here
+		$expected['TOPIC_PREVIEW_FIRST_AVATAR'] = $expected['TOPIC_PREVIEW_LAST_AVATAR'] = $topic_preview_manager->tp_avatar_fallback();
 
 		// Update the block array with topic preview data
 		$block = $topic_preview_manager->display_topic_preview($data, $block);
