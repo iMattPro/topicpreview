@@ -30,13 +30,13 @@ class topic_preview
 	protected $root_path;
 
 	/** @var bool Topic Preview config enabled */
-	private $tp_enabled;
+	protected $tp_enabled;
 
 	/** @var bool Show avatars */
-	private $tp_avatars;
+	protected $tp_avatars;
 
 	/** @var bool Show last post */
-	private $tp_last_post;
+	protected $tp_last_post;
 
 	/**
 	* Constructor
@@ -114,46 +114,11 @@ class topic_preview
 	* Return additional params for an SQL JOIN statement to get data needed
 	* for topic previews
 	*
-	* @return string SQL JOIN appendage
+	* @return array SQL JOIN params
 	* @access public
 	*/
 	public function tp_sql_join()
 	{
-		return ' LEFT JOIN ' . POSTS_TABLE . ' fp ON (fp.post_id = t.topic_first_post_id)' .
-			($this->tp_last_post ? ' LEFT JOIN ' . POSTS_TABLE . ' lp ON (lp.post_id = t.topic_last_post_id)' : '') .
-			($this->tp_avatars ? ' LEFT JOIN ' . USERS_TABLE . ' fpu ON (fpu.user_id = t.topic_poster)' .
-			($this->tp_last_post ? ' LEFT JOIN ' . USERS_TABLE . ' lpu ON (lpu.user_id = t.topic_last_poster_id)' : '') : '');
-	}
-
-	/**
-	* Return an img link to the board's default no avatar image
-	*
-	* @return string img link to the board's default no avatar image
-	* @access public
-	*/
-	public function tp_avatar_fallback()
-	{
-		return '<img src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif" width="60" height="60" alt="" />';
-	}
-
-	/**
-	* Modify SQL array to get post text
-	*
-	* @param array $sql_array SQL statement array
-	* @return array SQL statement array
-	* @access public
-	*/
-	public function modify_sql_array($sql_array)
-	{
-		$this->setup();
-
-		if (!$this->tp_enabled)
-		{
-			return $sql_array;
-		}
-
-		$sql_array['SELECT'] .= $this->tp_sql_select();
-
 		$sql_array['LEFT_JOIN'][] = array(
 			'FROM'	=> array(POSTS_TABLE => 'fp'),
 			'ON'	=> 'fp.post_id = t.topic_first_post_id'
@@ -187,25 +152,59 @@ class topic_preview
 	}
 
 	/**
-	* Modify SQL string to get post text
+	* Return an img link to the board's default no avatar image
 	*
-	* @param string $sql SQL statement string
-	* @param string $type SQL statement type: SELECT or JOIN
-	* @return string SQL statement string
+	* @return string img link to the board's default no avatar image
 	* @access public
 	*/
-	public function modify_sql_string($sql, $type)
+	public function tp_avatar_fallback()
+	{
+		return '<img src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif" width="60" height="60" alt="" />';
+	}
+
+	/**
+	* Modify SQL string|array to get post text
+	*
+	* @param string|array $sql_stmt SQL string or array to be modified
+	* @return string|array SQL statement string or array
+	* @access public
+	*/
+	public function modify_sql($sql_stmt, $type = 'SELECT')
 	{
 		$this->setup();
 
 		if (!$this->tp_enabled)
 		{
-			return $sql;
+			return $sql_stmt;
 		}
 
-		$sql .= ($type == 'SELECT') ? $this->tp_sql_select() : $this->tp_sql_join();
+		if (is_array($sql_stmt))
+		{
+			$array = $this->tp_sql_join();
+			foreach ($array['LEFT_JOIN'] as $join)
+			{
+				$sql_stmt['LEFT_JOIN'][] = $join;
+			}
 
-		return $sql;
+			$sql_stmt['SELECT'] .= $this->tp_sql_select();
+		}
+		else
+		{
+			if ($type == 'SELECT')
+			{
+				$sql_stmt .= $this->tp_sql_select();
+			}
+			else
+			{
+				$array = $this->tp_sql_join();
+				foreach ($array['LEFT_JOIN'] as $join)
+				{
+					$sql_stmt .= ' LEFT JOIN ' . key($join['FROM']) . ' ' . current($join['FROM']) . ' ON (' . $join['ON'] . ')';
+				}
+			}
+		}
+
+		return $sql_stmt;
 	}
 
 	/**
@@ -254,9 +253,9 @@ class topic_preview
 	*
 	* @param string $text Topic preview text
 	* @return string Trimmed topic preview text
-	* @access private
+	* @access protected
 	*/
-	private function trim_topic_preview($text)
+	protected function trim_topic_preview($text)
 	{
 		$text = $this->remove_markup($text);
 
@@ -276,9 +275,9 @@ class topic_preview
 	*
 	* @param string $text Topic preview text
 	* @return string Stripped topic preview text
-	* @access private
+	* @access protected
 	*/
-	private function remove_markup($text)
+	protected function remove_markup($text)
 	{
 		$text = smiley_text($text, true); // display smileys as text :)
 
@@ -307,9 +306,9 @@ class topic_preview
 	*
 	* @param string $text Topic preview text
 	* @return string Topic preview text with line breaks
-	* @access private
+	* @access protected
 	*/
-	private function tp_nl2br($text)
+	protected function tp_nl2br($text)
 	{
 		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
 		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $text));

@@ -69,7 +69,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function modify_sql_array($event)
 	{
-		$event['sql_array'] = $this->topicpreview->modify_sql_array($event['sql_array']);
+		$event['sql_array'] = $this->topicpreview->modify_sql($event['sql_array']);
 	}
 
 	/**
@@ -81,8 +81,8 @@ class listener implements EventSubscriberInterface
 	*/
 	public function modify_sql_string($event)
 	{
-		$event['sql_select'] = $this->topicpreview->modify_sql_string($event['sql_select'], 'SELECT');
-		$event['sql_from'] = $this->topicpreview->modify_sql_string($event['sql_from'], 'JOIN');
+		$event['sql_select'] = $this->topicpreview->modify_sql($event['sql_select'], 'SELECT');
+		$event['sql_from'] = $this->topicpreview->modify_sql($event['sql_from'], 'JOIN');
 	}
 
 	/**
