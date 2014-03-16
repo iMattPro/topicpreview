@@ -45,6 +45,10 @@ class topic_preview_base extends \extension_database_test_case
 		$this->request = $this->getMock('\phpbb\request\request');
 
 		$user = $this->user = $this->getMock('\phpbb\user');
+		$this->user->expects($this->any())
+			->method('optionget')
+			->with($this->anything())
+			->will($this->returnValueMap(array(array('viewavatars', false, true), array('viewcensors', false, false))));
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
 

@@ -11,16 +11,6 @@ namespace vse\topicpreview\tests\core;
 
 class display_topic_preview_test extends topic_preview_base
 {
-	public function setUp()
-	{
-		parent::setUp();
-
-		$this->user->expects($this->any())
-			->method('optionget')
-			->with($this->anything())
-			->will($this->returnValueMap(array(array('viewavatars', false, true), array('viewcensors', false, false))));
-	}
-
 	public static function topic_preview_display_data()
 	{
 		return array(

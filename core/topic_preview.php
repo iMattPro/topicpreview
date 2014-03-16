@@ -76,7 +76,7 @@ class topic_preview
 
 		// environment parameters
 		$this->tp_enabled = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
-		$this->tp_avatars = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar']) ? true : false;
+		$this->tp_avatars = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar'] && $this->user->optionget('viewavatars')) ? true : false;
 		$this->tp_last_post = (!empty($this->config['topic_preview_last_post'])) ? true : false;
 
 		// Load our language file (only needed if showing last post text)
@@ -232,7 +232,7 @@ class topic_preview
 			$last_post_preview_text = $this->trim_topic_preview($row['last_post_text']);
 		}
 
-		if ($this->tp_avatars && $this->user->optionget('viewavatars'))
+		if ($this->tp_avatars)
 		{
 			$first_poster_avatar = (!empty($row['first_poster_avatar'])) ? phpbb_get_avatar(array($row['first_poster_avatar'], $row['first_poster_avatar_type'], 60, 60)) : $this->tp_avatar_fallback();
 			$last_poster_avatar = (!empty($row['last_poster_avatar'])) ? phpbb_get_avatar(array($row['last_poster_avatar'], $row['last_poster_avatar_type'], 60, 60)) : $this->tp_avatar_fallback();
