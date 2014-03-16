@@ -30,6 +30,7 @@
 				<rev-version>2.0.1</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Smarter and more efficient post text trimming]]></change>
+					<change><![CDATA[Fix an where content between multiple magic URLs could be removed from the preview]]></change>
 					<change><![CDATA[Fix an issue that could cause topic previews to lose their opacity]]></change>
 					<change><![CDATA[Fix an issue that could cause topic previews to appear in the wrong position with some older versions of jQuery]]></change>
 					<change><![CDATA[Replace $ with jQuery (for compatibility with other jQuery MODs)]]></change>

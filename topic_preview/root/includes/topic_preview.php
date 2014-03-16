@@ -312,14 +312,13 @@ class phpbb_topic_preview
 		$text = smiley_text($text, true); // display smileys as text :)
 		$text = ($this->tp_line_breaks ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
 
-		$bbcode_strip = (empty($this->strip_bbcodes) ? 'flash' : 'flash|' . trim($this->strip_bbcodes));
-
 		if (empty($patterns))
 		{
+			$strip_bbcodes = (!empty($this->strip_bbcodes)) ? 'flash|' . trim($this->strip_bbcodes) : 'flash';
 			$patterns = array(
-				'#<a class="postlink[^>]*>(.*<\/a[^>]*>)?#', // Strip magic URLs			
+				'#<!-- m --><a class="postlink[^>]*>(.*<\/a[^>]*>)?<!-- m -->#Usi', // Magic URLs
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[(' . $bbcode_strip . ')[^\[\]]+\].*\[/(' . $bbcode_strip . ')[^\[\]]+\]#Usi', // bbcode to strip
+				'#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // BBCode content to strip
 				'#\[/?[^\[\]]+\]#mi', // Strip all bbcode tags
 				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Strip remaining URLs
 				'#"#', // Possible quotes from older board conversions
