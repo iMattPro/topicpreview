@@ -273,15 +273,16 @@ class phpbb_topic_preview
 	{
 		$text = $this->_bbcode_strip($text);
 
-		if (utf8_strlen($text) >= $limit)
+		if (utf8_strlen($text) <= $limit)
 		{
-			$text = (utf8_strlen($text) > $limit) ? utf8_substr($text, 0, $limit) : $text;
-			// use last space before the character limit as the break-point, if one exists
-			$new_limit = utf8_strrpos($text, ' ') != false ? utf8_strrpos($text, ' ') : $limit;
-			return utf8_substr($text, 0, $new_limit) . '...';
+			return $text;
 		}
 
-		return $text;
+		// trim the text to the last whitespace character before the cut-off
+		$text = preg_replace('/\s+?(\S+)?$/', '', utf8_substr($text, 0, $limit));
+
+		return $text . '...';
+
 	}
 
 	/**

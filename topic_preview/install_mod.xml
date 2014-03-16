@@ -29,6 +29,7 @@
 				<date>2013-11-09</date>
 				<rev-version>2.0.1</rev-version>
 				<changelog lang="en">
+					<change><![CDATA[Smarter and more efficient post text trimming]]></change>
 					<change><![CDATA[Fix an issue that could cause topic previews to lose their opacity]]></change>
 					<change><![CDATA[Fix an issue that could cause topic previews to appear in the wrong position with some older versions of jQuery]]></change>
 					<change><![CDATA[Replace $ with jQuery (for compatibility with other jQuery MODs)]]></change>
