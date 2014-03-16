@@ -29,7 +29,7 @@
 	<action-group>
 		<copy>
 			<file from="root/adm/style/acp_topic_preview.html" to="adm/style/acp_topic_preview.html"/>
-			<file from="root/includes/acp/acp_topic_preview.php" to="includes/acp/acp_topic_preview.php"/>
+			<file from="root/includes/acp/*.*" to="includes/acp/*.*"/>
 			<file from="root/install_topic_preview.php" to="install_topic_preview.php"/>
 			<file from="root/styles/topic_preview_assets/topic_preview.js" to="styles/topic_preview_assets/topic_preview.js"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>

@@ -28,7 +28,7 @@ class acp_topic_preview_info
 			'title'		=> 'TOPIC_PREVIEW',
 			'version'	=> '2.0.1',
 			'modes'		=> array(
-				'settings'	=> array('title' => 'TOPIC_PREVIEW_SETTINGS', 'auth' => 'acl_a_board', 'cat' => array('TOPIC_PREVIEW_SETTINGS')),
+				'settings'	=> array('title' => 'TOPIC_PREVIEW_SETTINGS', 'auth' => 'acl_a_board', 'cat' => array('TOPIC_PREVIEW')),
 			),
 		);
 	}
