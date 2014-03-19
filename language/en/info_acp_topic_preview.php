@@ -44,7 +44,7 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCodes to hide in topic previews',
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'List BBCodes with content you want removed from the preview (spoiler and hidden text BBCodes, for example). Separate multiple BBCodes using the | character, for example: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Include “Last post” text in topic previews',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text in topic previews',
 	'CHARS'							=> 'Characters',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Topic preview style settings',
