@@ -2,7 +2,7 @@
 
 This is an extension for phpBB 3.1 that will display a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
-[![Build Status](https://travis-ci.org/VSEphpbb/topic_preview.png?branch=extension)](https://travis-ci.org/VSEphpbb/topic_preview)
+[![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.png?branch=extension)](https://travis-ci.org/VSEphpbb/topicpreview)
 
 ## Browser support
 ![Chrome 4+](http://mattfriedman.me/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
@@ -58,7 +58,7 @@ You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](h
 **Git CLI:**
 
 1. From the board root run the following git command:
-`git clone -b extension https://github.com/VSEphpbb/topic_preview.git phpBB/ext/vse/topicpreview`
+`git clone -b extension https://github.com/VSEphpbb/topicpreview.git phpBB/ext/vse/topicpreview`
 2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
 3. Click `Enable`.
 
