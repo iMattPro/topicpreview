@@ -316,7 +316,7 @@ class phpbb_topic_preview
 		{
 			$strip_bbcodes = (!empty($this->strip_bbcodes)) ? 'flash|' . trim($this->strip_bbcodes) : 'flash';
 			$patterns = array(
-				'#<!-- m --><a class="postlink[^>]*>(.*<\/a[^>]*>)?<!-- m -->#Usi', // Magic URLs
+				'#<!-- [lmw] --><a class="postlink[^>]*>(.*<\/a[^>]*>)?<!-- [lmw] -->#Usi', // Magic URLs
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
 				'#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // BBCode content to strip
 				'#\[/?[^\[\]]+\]#mi', // Strip all bbcode tags
