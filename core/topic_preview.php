@@ -234,8 +234,8 @@ class topic_preview
 
 		if ($this->tp_avatars)
 		{
-			$first_poster_avatar = (!empty($row['first_poster_avatar'])) ? phpbb_get_avatar(array($row['first_poster_avatar'], $row['first_poster_avatar_type'], 60, 60)) : $this->tp_avatar_fallback();
-			$last_poster_avatar = (!empty($row['last_poster_avatar'])) ? phpbb_get_avatar(array($row['last_poster_avatar'], $row['last_poster_avatar_type'], 60, 60)) : $this->tp_avatar_fallback();
+			$first_poster_avatar = (!empty($row['first_poster_avatar'])) ? $this->get_user_avatar_helper($row['first_poster_avatar'], $row['first_poster_avatar_type']) : $this->tp_avatar_fallback();
+			$last_poster_avatar = (!empty($row['last_poster_avatar'])) ? $this->get_user_avatar_helper($row['last_poster_avatar'], $row['last_poster_avatar_type']) : $this->tp_avatar_fallback();
 		}
 
 		$block = array_merge($block, array(
@@ -312,6 +312,27 @@ class topic_preview
 	{
 		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
 		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $text));
+	}
+
+	/**
+	* Get user avatar helper function
+	*
+	* @param string $avatar Users assigned avatar name
+	* @param int $avatar_type Type of avatar
+	* @return string Avatar image
+	* @access protected
+	*/
+	protected function get_user_avatar_helper($avatar, $avatar_type)
+	{
+		// map arguments to new function phpbb_get_avatar()
+		$row = array(
+			'avatar'		=> $avatar,
+			'avatar_type'	=> $avatar_type,
+			'avatar_width'	=> 60,
+			'avatar_height'	=> 60,
+		);
+
+		return phpbb_get_avatar($row, 'USER_AVATAR');
 	}
 
 	/**
