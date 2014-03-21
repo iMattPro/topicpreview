@@ -15,9 +15,8 @@
 			dir: "ltr",
 			delay: 1500,
 			width: 360,
-			left: 35,
-			top: 25,
-			drift: 15
+			drift: 15,
+			position: {left: 35, top: 25}
 		}, options),
 			previewTimeout,
 			previewContainer = $('<div id="topic_preview"></div>').css("width", settings.width).appendTo("body");
@@ -65,7 +64,7 @@
 				previewContainer.html(content);
 
 				// Window bottom edge detection, invert topic preview if needed
-				var previewTop = obj.offset().top + settings.top,
+				var previewTop = obj.offset().top + settings.position.top,
 					previewBottom = previewTop + previewContainer.height() + 8;
 				previewContainer.toggleClass("invert", edgeDetect(previewBottom));
 				previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight(true) - 8 : previewTop;
@@ -75,7 +74,7 @@
 					.stop(true, true) // stop any running animations first
 					.css({
 						"top": previewTop + "px",
-						"left": obj.offset().left + settings.left + (settings.dir === "rtl" ? (obj.width() - previewContainer.width()) : 0) + "px"
+						"left": obj.offset().left + settings.position.left + (settings.dir === "rtl" ? (obj.width() - previewContainer.width()) : 0) + "px"
 					})
 					.fadeIn("fast"); // display the topic preview with a fadein
 			}, settings.delay); // Use a delay before showing in topic preview
