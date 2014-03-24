@@ -2,9 +2,9 @@
     "name": "vse/topicpreview",
     "type": "phpbb-extension",
     "description": "Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.",
-    "homepage": "https://github.com/VSEphpbb/topic_preview",
+    "homepage": "https://github.com/VSEphpbb/topicpreview",
     "version": "2.1.0",
-    "time": "2013-10-04",
+    "keywords": ["phpbb", "extension", "topic", "preview"],
     "licence": "GPL-2.0",
     "authors": [
         {
