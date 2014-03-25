@@ -1,0 +1,71 @@
+/**
+* Topic Preview - Mac OS Theme
+*
+* Color schema:
+* backgrounds: #ffffc2
+* borders:     #989898
+* box shadows: #888
+* font colors: #000
+*/
+
+#topic_preview {
+	background: #ffffc2;
+	border: 1px solid #989898;
+	-webkit-box-shadow: 0 4px 8px #888;
+	-moz-box-shadow: 0 4px 8px #888;
+	box-shadow: 0 4px 8px #888;
+	padding: 4px;
+	margin-left: -40px;
+	min-width: 40px;
+	position: absolute;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	font-style: normal;
+	color: #000;
+	z-index: 10;
+	display: none;
+}
+
+#topic_preview hr {
+	margin: 5px 0;
+}
+
+/* Avatars and Text */
+.topic_preview_avatar {
+	float: left;
+	position: relative;
+	margin: 0 10px 0 0;
+	border: solid 1px #989898;
+	width: 60px;
+	height: 60px;
+}
+
+.topic_preview_first,
+.topic_preview_last {
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.topic_preview_break {
+	clear: both;
+	display: block;
+	width: 100%;
+	height: 0;
+	padding: 5px 0;
+	margin: 0;
+	font-size: 0;
+}
+
+/* responsive design */
+@media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {
+	#topic_preview {
+		width: 300px !important;
+	}
+}
+
+@media only screen and (max-width: 360px), only screen and (max-device-width: 360px) {
+	#topic_preview {
+		width: 220px !important;
+	}
+}
