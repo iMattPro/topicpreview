@@ -48,12 +48,12 @@ $lang = array_merge($lang, array(
 	'CHARS'					=> 'Caractere',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'		=> 'Topic preview style settings',
-	'TOPIC_PREVIEW_WIDTH'			=> 'Width of topic previews (in pixels)',
-	'TOPIC_PREVIEW_DELAY'			=> 'Delay before showing topic previews (in milliseconds)',
-	'TOPIC_PREVIEW_DRIFT'			=> 'Animated drift effect (in pixels)',
+	'TOPIC_PREVIEW_WIDTH'			=> 'Width of topic previews ( in pixels )',
+	'TOPIC_PREVIEW_DELAY'			=> 'Delay before showing topic previews ( in milliseconds )',
+	'TOPIC_PREVIEW_DRIFT'			=> 'Animated drift effect ( in pixels )',
 	'TOPIC_PREVIEW_DRIFT_EXPLAIN'		=> 'Amount of vertical animation on fadeout (use negative values to change direction).',
-	'TOPIC_PREVIEW_THEME'			=> 'Theme for %s',
-	'TOPIC_PREVIEW_THEME_EXPLAIN'		=> 'Choose a topic preview theme for %s.',
-	'THEME'					=> 'theme',
+	'TOPIC_PREVIEW_THEME'			=> 'Stil pentru %s',
+	'TOPIC_PREVIEW_THEME_EXPLAIN'		=> 'Alege un stil pentru previzualizarea subiectului %s.',
+	'THEME'					=> 'Stil',
 	'MILLISECOND'				=> 'ms',
 ));
