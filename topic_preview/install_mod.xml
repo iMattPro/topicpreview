@@ -9,7 +9,7 @@
 		<title lang="en"><![CDATA[Topic Preview]]></title>
 		<description lang="en"><![CDATA[Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a pretty jQuery theme with options to also show user's avatars, and both the first and last posts from the topic. Topic Preview is customizable to get the right look for each style in your board.		
 		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
-		<github><![CDATA[https://github.com/VSEphpbb/topicpreview]]></github>
+		<github><![CDATA[https://github.com/VSEphpbb/topicpreview/tree/master]]></github>
 		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the "jQuery Topic Preview" theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
@@ -26,7 +26,7 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2014-03-16</date>
+				<date>2014-03-25</date>
 				<rev-version>2.0.1</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Smarter and more efficient post text trimming]]></change>
