@@ -1,6 +1,6 @@
 /*
  * jQuery ToolTips for Topic Preview
- * https://github.com/VSEphpbb/topic_preview
+ * https://github.com/VSEphpbb/topicpreview
  *
  * Copyright 2013, Matt Friedman
  * Licensed under the GPL Version 2 license.

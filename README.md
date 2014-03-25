@@ -54,7 +54,7 @@ Awards
 Support
 -------
 
-* Report any bugs or problems you encounter to the issue tracker: https://github.com/VSEphpbb/topic_preview/issues
+* Report any bugs or problems you encounter to the issue tracker: https://github.com/VSEphpbb/topicpreview/issues
 * Support is also available at phpBB: https://www.phpbb.com/customise/db/mod/topic_preview/support
 
 Requirements
