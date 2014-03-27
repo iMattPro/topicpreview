@@ -14,7 +14,7 @@
 	-webkit-box-shadow: 0 4px 8px #888;
 	-moz-box-shadow: 0 4px 8px #888;
 	box-shadow: 0 4px 8px #888;
-	padding: 4px;
+	padding: 10px;
 	margin-left: -40px;
 	min-width: 40px;
 	position: absolute;
@@ -24,6 +24,61 @@
 	font-style: normal;
 	color: #000;
 	z-index: 10;
+	display: none;
+}
+
+#topic_preview:before {
+	/* Upper Triangle */
+	content: "";
+	background: #ffffc2;
+	border: 0;
+	border-top: 1px solid #989898;
+	border-right: 1px solid #989898;
+	width: 10px;
+	height: 10px;
+	margin-left: 15px;
+	margin-top: -16px;
+	display: block;
+	position: absolute;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+
+	display /*\**/: none\9;
+	*display: none !important;
+	*display: none;
+}
+
+#topic_preview.invert:after {
+	/* Lower Triangle */
+	content: "";
+	background: #ffffc2;
+	border: 0;
+	border-bottom: 1px solid #989898;
+	border-left: 1px solid #989898;
+	width: 10px;
+	height: 10px;
+	top: 100%;
+	margin-left: 15px;
+	margin-top: -5px;
+	display: block;
+	position: absolute;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+
+	display /*\**/: none\9;
+	*display: none !important;
+	*display: none;
+}
+
+#topic_preview.invert:before {
+	/* Hide upper triangle */
+	content: "";
 	display: none;
 }
 
