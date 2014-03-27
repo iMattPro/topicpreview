@@ -41,6 +41,12 @@
 	height: 60px;
 }
 
+.topic_preview_avatar.rtl {
+	/* rtl languages */
+	float: right;
+	margin: 0 0 0 10px;
+}
+
 .topic_preview_first,
 .topic_preview_last {
 	word-wrap: break-word;
