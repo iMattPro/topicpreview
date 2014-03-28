@@ -36,7 +36,7 @@ This is an extension for phpBB 3.1 that will display a short excerpt of text fro
 * Italian (translation incomplete)
 * Persian (translation incomplete)
 * Polish
-* Romanian (translation incomplete)
+* Romanian
 * Spanish
 
 ## Awards
