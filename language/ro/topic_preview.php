@@ -4,7 +4,7 @@
 * topic_preview [Română]
 *
 * @package language
-* @copyright (c) 2013 Matt Friedman (translated by Baros http://www.stoarcecreierul.ro/)
+* @copyright (c) 2014 Matt Friedman ( translated by cybernet http://xDNS.ro )
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -35,5 +35,5 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'FIRST_POST'	=> 'First post',
+	'FIRST_POST'	=> 'Primul mesaj',
 ));
