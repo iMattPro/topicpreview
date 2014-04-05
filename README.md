@@ -51,7 +51,7 @@ You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](h
 
 **Manual:**
 
-1. Copy the entire contents of this repo to to `phpBB/ext/vse/topicpreview/`
+1. Copy the entire contents of this repo to `phpBB/ext/vse/topicpreview/`
 2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
 3. Click `Enable`.
 
