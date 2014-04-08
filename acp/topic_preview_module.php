@@ -100,7 +100,7 @@ class topic_preview_module
 			'TOPIC_PREVIEW_WIDTH'		=> isset($this->config['topic_preview_width']) ? $this->config['topic_preview_width'] : '',
 			'TOPIC_PREVIEW_DELAY'		=> isset($this->config['topic_preview_delay']) ? $this->config['topic_preview_delay'] : '',
 			'TOPIC_PREVIEW_DRIFT'		=> isset($this->config['topic_preview_drift']) ? $this->config['topic_preview_drift'] : '',
-			'TOPIC_PREVIEW_VERSION'		=> isset($this->config['topic_preview_version']) ? 'v' . $this->config['topic_preview_version'] : '',
+			'TOPIC_PREVIEW_VERSION'		=> isset($this->config['topic_preview_version']) ? $this->config['topic_preview_version'] : '',
 			'U_ACTION'					=> $this->u_action,
 		));
 	}
