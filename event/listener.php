@@ -57,6 +57,10 @@ class listener implements EventSubscriberInterface
 			// These are custom events for integration with Precise Similar Topics
 			'similartopics.get_topic_data'			=> 'modify_sql_array',
 			'similartopics.modify_topicrow'			=> 'display_topic_previews',
+
+			// These are custom events for integration with Recent Topics
+			'recenttopics.sql_pull_topics_data'		=> 'modify_sql_array',
+			'recenttopics.modify_tpl_ary'			=> 'display_topic_previews',
 		);
 	}
 

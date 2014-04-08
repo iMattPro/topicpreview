@@ -39,3 +39,17 @@
 		<!-- ENDIF -->
 	</div>
 <!-- ENDIF -->
+
+<!-- IF recent_topics.TOPIC_PREVIEW_FIRST_POST -->
+	<div class="topic_preview_content" style="display:none;">
+		<!-- IF recent_topics.TOPIC_PREVIEW_LAST_POST --><strong>{L_FIRST_POST}</strong><hr /><!-- ENDIF -->
+		<!-- IF recent_topics.TOPIC_PREVIEW_FIRST_AVATAR --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_FIRST_AVATAR}</div><!-- ENDIF -->
+		<div class="topic_preview_first">{recent_topics.TOPIC_PREVIEW_FIRST_POST}</div>
+		<!-- IF recent_topics.TOPIC_PREVIEW_LAST_POST -->
+			<div class="topic_preview_break"></div>
+			<strong>{L_LAST_POST}</strong><hr />
+			<!-- IF recent_topics.TOPIC_PREVIEW_LAST_AVATAR --><div class="topic_preview_avatar">{recent_topics.TOPIC_PREVIEW_LAST_AVATAR}</div><!-- ENDIF -->
+			<div class="topic_preview_last">{recent_topics.TOPIC_PREVIEW_LAST_POST}</div>
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
