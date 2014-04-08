@@ -59,8 +59,8 @@ class listener implements EventSubscriberInterface
 			'similartopics.modify_topicrow'			=> 'display_topic_previews',
 
 			// These are custom events for integration with Recent Topics
-			'recenttopics.sql_pull_topics_data'		=> 'modify_sql_array',
-			'recenttopics.modify_tpl_ary'			=> 'display_topic_previews',
+			'paybas.recenttopics.sql_pull_topics_data'	=> 'modify_sql_array',
+			'paybas.recenttopics.modify_tpl_ary'		=> 'display_topic_previews',
 		);
 	}
 
