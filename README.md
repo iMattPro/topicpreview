@@ -17,7 +17,7 @@ This is an extension for phpBB 3.1 that will display a short excerpt of text fro
 * Admin option to set the length of text shown in the preview
 * Admin option to define BBCodes whose contents you want removed from the topic preview
 * Admin options to customize the appearance and assign different themes to board styles
-* Ships with two themes. Additional custom themes can be added using css files.
+* Ships with four themes. Additional custom themes can be added using CSS files.
 * User option allows users to disable topic previews
 * Previews are smart: They are aware of browser window edges and they are responsive
 * The last word in the topic preview will be followed by an ellipsis and is not cut off
@@ -25,7 +25,7 @@ This is an extension for phpBB 3.1 that will display a short excerpt of text fro
 * Smileys are displayed as text :)
 * Supports right-to-left languages
 * Does not significantly impact server load (no additional db queries)
-* Built-in support for integration with the "Precise Similar Topics II" extension
+* Built-in support for "[Precise Similar Topics](https://github.com/VSEphpbb/similartopics)" and "[Recent Topics](https://github.com/PayBas/RecentTopics)" extensions
 
 ### Languages supported:
 * English
