@@ -96,6 +96,11 @@
 	height: 60px;
 }
 
+.topic_preview_avatar img {
+	width: 60px;
+	height: 60px;
+}
+
 .topic_preview_avatar.rtl {
 	/* rtl languages */
 	float: right;
