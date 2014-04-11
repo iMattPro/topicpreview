@@ -121,6 +121,7 @@
 .topic_preview_last {
 	word-wrap: break-word;
 	overflow: hidden;
+	max-height: 200px;
 }
 
 .topic_preview_break {
