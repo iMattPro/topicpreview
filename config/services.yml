@@ -4,6 +4,7 @@ services:
         arguments:
             - @config
             - @dbal.conn
+            - @dispatcher
             - @request
             - @template
             - @user
