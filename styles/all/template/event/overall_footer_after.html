@@ -1,4 +1,4 @@
-<!-- IF S_TOPICPREVIEW -->
+<!-- IF S_TOPICPREVIEW and TOPICPREVIEW_THEME neq 'no' -->
 	<!-- INCLUDEJS @vse_topicpreview/topicpreview.js -->
 	<script>
 		jQuery(function() {
@@ -9,6 +9,14 @@
 				drift: {TOPICPREVIEW_DRIFT},
 				position: {left: 35, top: 25},
 				noavatar: "{T_THEME_PATH}/images/no_avatar.gif"
+			});
+		});
+	</script>
+<!-- ELSEIF S_TOPICPREVIEW and TOPICPREVIEW_THEME eq 'no' -->
+	<script>
+		jQuery(function() {
+			jQuery(".topictitle").attr("title", function() {
+				return jQuery(this).closest("li, tr").find(".topic_preview_first").text() || undefined;
 			});
 		});
 	</script>

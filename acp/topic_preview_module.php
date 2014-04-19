@@ -176,6 +176,9 @@ class topic_preview_module
 			$themes = $this->get_themes();
 		}
 
+		// add option for native browser tooltip
+		$themes['no'] = '';
+
 		$theme_options = '';
 		foreach($themes as $name => $ext)
 		{

@@ -37,7 +37,7 @@
 			var obj = $(this);
 
 			// Grab tooltip content
-			var content = obj.closest("li").find(".topic_preview_content").html() || obj.closest("tr").find(".topic_preview_content").html();
+			var content = obj.closest("li, tr").find(".topic_preview_content").html();
 
 			// Proceed only if there is content to display
 			if (content === undefined || content === '') {
