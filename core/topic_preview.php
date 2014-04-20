@@ -332,7 +332,7 @@ class topic_preview
 			'avatar_height'	=> 60,
 		);
 
-		return phpbb_get_avatar($row, 'USER_AVATAR');
+		return phpbb_get_user_avatar($row);
 	}
 
 	/**
