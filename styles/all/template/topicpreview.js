@@ -99,9 +99,9 @@
 			obj.closest("dt").attr("title", obj.closest("dt").data("title")); // reinstate original title attributes
 		};
 
-		// Check if y coord is within 100 pixels of bottom edge of browser window
+		// Check if y coord is within 50 pixels of bottom edge of browser window
 		var edgeDetect = function (y) {
-			return (y >= ($(window).scrollTop() + $(window).height() - 100));
+			return (y >= ($(window).scrollTop() + $(window).height() - 50));
 		};
 
 		return this.each(function () {
