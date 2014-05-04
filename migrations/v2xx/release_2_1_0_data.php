@@ -42,7 +42,7 @@ class release_2_1_0_data extends \phpbb\db\migration\migration
 			)),
 
 			// Add new configs
-			array('config.add', array('topic_preview_delay', '1500')),
+			array('config.add', array('topic_preview_delay', '1000')),
 			array('config.add', array('topic_preview_drift', '15')),
 			array('config.add', array('topic_preview_width', '360')),
 

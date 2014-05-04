@@ -13,7 +13,7 @@
 
 		var settings = $.extend({
 			dir: "ltr",
-			delay: 1500,
+			delay: 1000,
 			width: 360,
 			drift: 15,
 			position: {left: 35, top: 25}
