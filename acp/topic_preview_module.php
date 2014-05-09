@@ -47,7 +47,7 @@ class topic_preview_module
 		{
 			if (!check_form_key($form_key))
 			{
-				trigger_error('FORM_INVALID');
+				trigger_error($user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
 			$topic_preview_limit = $this->request->variable('topic_preview_limit', 0);
