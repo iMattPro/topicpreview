@@ -159,7 +159,12 @@ class topic_preview
 	*/
 	public function tp_avatar_fallback()
 	{
-		return '<img src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif" width="60" height="60" alt="" />';
+		static $no_avatar = '';
+		if (empty($no_avatar))
+		{
+			$no_avatar = $this->get_user_avatar_helper($this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif', 'avatar.driver.remote');
+		}
+		return $no_avatar;
 	}
 
 	/**

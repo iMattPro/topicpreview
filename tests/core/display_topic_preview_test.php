@@ -11,6 +11,15 @@ namespace vse\topicpreview\tests\core;
 
 class display_topic_preview_test extends topic_preview_base
 {
+	public function setUp()
+	{
+		parent::setUp();
+
+		global $config, $phpbb_container;
+		$phpbb_container = new \phpbb_mock_container_builder();
+		$phpbb_container->set('avatar.manager', new \phpbb\avatar\manager($config, array()));
+	}
+
 	public static function topic_preview_display_data()
 	{
 		return array(
