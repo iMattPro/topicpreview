@@ -43,7 +43,7 @@ class topic_preview_base extends \extension_database_test_case
 			));
 		set_config(null, null, null, $config);
 
-		$this->dispatcher = new \phpbb_mock_event_dispatcher();
+		$this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 		$this->request = $this->getMock('\phpbb\request\request');
 
 		$user = $this->user = $this->getMock('\phpbb\user');
