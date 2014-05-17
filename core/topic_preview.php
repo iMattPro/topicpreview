@@ -171,6 +171,7 @@ class topic_preview
 	* Modify SQL string|array to get post text
 	*
 	* @param string|array $sql_stmt SQL string or array to be modified
+	* @param string $type Type of SQL statement SELECT|JOIN
 	* @return string|array SQL statement string or array
 	* @access public
 	*/
