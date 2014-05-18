@@ -17,6 +17,9 @@ class topic_preview
 	/** @var \phpbb\db\driver\driver */
 	protected $db;
 
+	/** @var \phpbb\event\dispatcher */
+	protected $dispatcher;
+
 	/** @var \phpbb\request\request */
 	protected $request;
 
@@ -43,6 +46,7 @@ class topic_preview
 	*
 	* @param \phpbb\config\config $config
 	* @param \phpbb\db\driver\driver $db
+	* @param \phpbb\event\dispatcher $dispatcher
 	* @param \phpbb\request\request $request
 	* @param \phpbb\template\template $template
 	* @param \phpbb\user $user
@@ -50,10 +54,11 @@ class topic_preview
 	* @return \vse\topicpreview\core\topic_preview
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, $root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\event\dispatcher $dispatcher, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, $root_path)
 	{
 		$this->config = $config;
 		$this->db = $db;
+		$this->dispatcher = $dispatcher;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
@@ -250,6 +255,20 @@ class topic_preview
 			'TOPIC_PREVIEW_LAST_POST'		=> (isset($last_post_preview_text)) ? censor_text($last_post_preview_text) : '',
 			'TOPIC_PREVIEW_LAST_AVATAR'		=> (isset($last_poster_avatar)) ? $last_poster_avatar : '',
 		));
+
+		$tp_avatars = $this->tp_avatars;
+
+		/**
+		* Modify the topic preview display output before it gets inserted in the template block
+		*
+		* @event vse.topicpreview.display_topic_preview
+		* @var array $row Row data
+		* @var array $block Template vars array
+		* @var int $tp_avatars Display avatars setting
+		* @since 2.1.0
+		*/
+		$vars = array('row', 'block', 'tp_avatars');
+		extract($this->dispatcher->trigger_event('vse.topicpreview.display_topic_preview', compact($vars)));
 
 		return $block;
 	}

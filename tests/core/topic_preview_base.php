@@ -16,6 +16,7 @@ class topic_preview_base extends \extension_database_test_case
 {
 	protected $config;
 	protected $db;
+	protected $dispatcher;
 	protected $request;
 	protected $template;
 	protected $user;
@@ -42,6 +43,7 @@ class topic_preview_base extends \extension_database_test_case
 			));
 		set_config(null, null, null, $config);
 
+		$this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 		$this->request = $this->getMock('\phpbb\request\request');
 
 		$user = $this->user = $this->getMock('\phpbb\user');
@@ -68,6 +70,6 @@ class topic_preview_base extends \extension_database_test_case
 
 	protected function topic_preview_manager()
 	{
-		return new \vse\topicpreview\core\topic_preview($this->config, $this->db, $this->request, $this->template, $this->user, $this->root_path);
+		return new \vse\topicpreview\core\topic_preview($this->config, $this->db, $this->dispatcher, $this->request, $this->template, $this->user, $this->root_path);
 	}
 }
