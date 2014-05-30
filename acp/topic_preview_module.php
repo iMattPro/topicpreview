@@ -14,26 +14,39 @@ namespace vse\topicpreview\acp;
 */
 class topic_preview_module
 {
-	public $u_action;
-
-	protected $db;
+	/** @var \phpbb\cache\driver\driver_interface */
 	protected $cache;
-	protected $user;
-	protected $template;
-	protected $request;
+
+	/** @var \phpbb\config\config */
 	protected $config;
+
+	/** @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
+	/** @var \phpbb\request\request */
+	protected $request;
+
+	/** @var \phpbb\template\template */
+	protected $template;
+
+	/** @var \phpbb\user */
+	protected $user;
+
+	/** @var string */
 	protected $phpbb_root_path;
+
+	public $u_action;
 
 	public function main($id, $mode)
 	{
-		global $db, $cache, $user, $template, $request, $config, $phpbb_root_path;
+		global $cache, $config, $db, $request,  $template, $user,$phpbb_root_path;
 
-		$this->db = $db;
 		$this->cache = $cache;
-		$this->user = $user;
-		$this->template = $template;
-		$this->request = $request;
 		$this->config = $config;
+		$this->db = $db;
+		$this->request = $request;
+		$this->template = $template;
+		$this->user = $user;
 		$this->phpbb_root_path = $phpbb_root_path;
 
 		$this->user->add_lang('acp/common');
