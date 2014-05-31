@@ -170,7 +170,7 @@ class topic_preview_module
 		return $finder
 			->extension_suffix('.css')
 			->extension_directory('/styles/all/theme')
-			->find_from_extension('topicpreview', $this->phpbb_root_path . 'ext/vse/topicpreview');
+			->find_from_extension('topicpreview', $this->phpbb_root_path . 'ext/vse/topicpreview/');
 	}
 
 	/**
