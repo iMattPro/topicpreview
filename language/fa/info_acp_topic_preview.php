@@ -2,6 +2,7 @@
 /**
 *
 * info_acp_topic_preview [Persian]
+* Persian Translator: Meisam Noubari from IRAN in php-bb.ir
 *
 * @package language
 * @copyright (c) 2013 Matt Friedman
@@ -47,13 +48,13 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LAST_POST'		=> 'نمایش آخرین پست موضوع در جی کوئری',
 	'CHARS'							=> 'کاراکتر',
 
-	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Topic preview style settings',
-	'TOPIC_PREVIEW_WIDTH'			=> 'Width of topic previews (in pixels)',
-	'TOPIC_PREVIEW_DELAY'			=> 'Delay before showing topic previews (in milliseconds)',
-	'TOPIC_PREVIEW_DRIFT'			=> 'Animated drift effect (in pixels)',
-	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Amount of vertical animation on fadeout (use negative values to change direction).',
-	'TOPIC_PREVIEW_THEME'			=> 'Theme for %s',
-	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Choose a topic preview theme for %s.',
-	'THEME'							=> 'theme',
-	'MILLISECOND'					=> 'ms',
+	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'تنظیمات قالب افزونه"پیش نمایش پست"',
+	'TOPIC_PREVIEW_WIDTH'			=> 'عرض جدول ( بر حسب پیکسل )',
+	'TOPIC_PREVIEW_DELAY'			=> 'تاخیر در نمایش ( بر حسب میلی ثانیه )',
+	'TOPIC_PREVIEW_DRIFT'			=> 'جلوه انیمیشن ( بر حسب پیکسل )',
+	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> ' مقدار انیمیشن عمودی(استفاده از مقادیر منفی برای تغییر جهت).',
+	'TOPIC_PREVIEW_THEME'			=> 'قالب برای %s',
+	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'انتخاب قالب برای %s',
+	'THEME'							=> 'قالب',
+	'MILLISECOND'					=> 'میلی ثانیه',
 ));

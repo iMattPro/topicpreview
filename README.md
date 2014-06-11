@@ -34,7 +34,7 @@ This is an extension for phpBB 3.1 that will display a short excerpt of text fro
 * French
 * German
 * Italian (translation incomplete)
-* Persian (translation incomplete)
+* Persian
 * Polish
 * Romanian
 * Spanish
