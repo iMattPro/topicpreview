@@ -7,22 +7,20 @@
 *
 */
 
+namespace vse\topicpreview\tests\functional;
+
 /**
 * @group functional
 */
-class extension_functional_topic_preview_acp_test extends extension_functional_test_case
+class topic_preview_acp_test extends \phpbb_functional_test_case
 {
-	public function setUp()
+	static protected function setup_extensions()
 	{
-		parent::setUp();
-		$this->login();
-		$this->admin_login();
-		$this->set_extension('vse', 'topicpreview', 'Topic Preview');
-		$this->enable_extension();
+		return array('vse/topicpreview');
 	}
 
 	public function test_acp_pages()
 	{
-		$crawler = self::request('GET', 'adm/index.php?i=\vse\topicpreview\acp\topic_preview_module&amp;mode=settings&sid=' . $this->sid);
+		self::request('GET', 'adm/index.php?i=\vse\topicpreview\acp\topic_preview_module&amp;mode=settings&sid=' . $this->sid);
 	}
 }
