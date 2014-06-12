@@ -16,6 +16,11 @@ class release_1_0_6_schema extends \phpbb\db\migration\migration
 		return isset($this->config['topic_preview_version']) && version_compare($this->config['topic_preview_version'], '1.0.6', '>=');
 	}
 
+	static public function depends_on()
+	{
+		return array('\phpbb\db\migration\data\v310\beta4');
+	}
+
 	public function update_schema()
 	{
 		return array(
