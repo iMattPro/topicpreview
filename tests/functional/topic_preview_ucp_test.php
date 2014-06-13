@@ -7,23 +7,23 @@
 *
 */
 
+namespace vse\topicpreview\tests\functional;
+
 /**
 * @group functional
 */
-class extension_functional_topic_preview_ucp_test extends extension_functional_test_case
+class topic_preview_ucp_test extends \phpbb_functional_test_case
 {
-	public function setUp()
+	static protected function setup_extensions()
 	{
-		parent::setUp();
-		$this->login();
-		$this->admin_login();
-		$this->set_extension('vse', 'topicpreview', 'Topic Preview');
-		$this->enable_extension();
+		return array('vse/topicpreview');
 	}
 
 	public function test_ucp_pages()
 	{
-		$this->add_lang_ext('info_acp_topic_preview');
+		$this->login();
+
+		$this->add_lang_ext('vse/topicpreview', 'info_acp_topic_preview');
 
 		$crawler = self::request('GET', 'ucp.php?i=ucp_prefs&mode=view&sid=' . $this->sid);
 		$this->assertContains($this->lang('TOPIC_PREVIEW_DISPLAY'), $crawler->filter('#cp-main')->text());

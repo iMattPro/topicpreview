@@ -7,18 +7,21 @@
 *
 */
 
+namespace vse\topicpreview\tests\functional;
+
 /**
 * @group functional
 */
-class extension_functional_topic_preview_test extends extension_functional_test_case
+class topic_preview_test extends \phpbb_functional_test_case
 {
+	static protected function setup_extensions()
+	{
+		return array('vse/topicpreview');
+	}
+
 	public function setUp()
 	{
 		parent::setUp();
-		$this->login();
-		$this->admin_login();
-		$this->set_extension('vse', 'topicpreview', 'Topic Preview');
-		$this->enable_extension();
 		$this->enable_last_post_preview();
 		$this->enable_avatars();
 	}
@@ -51,6 +54,8 @@ class extension_functional_topic_preview_test extends extension_functional_test_
 
 	public function test_topic_previews()
 	{
+		$this->login();
+
 		// Create and preview a basic topic
 		$post = $this->create_topic(2, 'Test Topic 1', 'This is a test topic posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");

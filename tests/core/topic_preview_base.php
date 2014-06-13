@@ -9,11 +9,17 @@
 
 namespace vse\topicpreview\tests\core;
 
+require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
 require_once dirname(__FILE__) . '/../../../../../includes/functions_content.php';
 require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
 
-class topic_preview_base extends \extension_database_test_case
+class topic_preview_base extends \phpbb_database_test_case
 {
+	static protected function setup_extensions()
+	{
+		return array('vse/topicpreview');
+	}
+
 	protected $config;
 	protected $db;
 	protected $dispatcher;
@@ -31,9 +37,10 @@ class topic_preview_base extends \extension_database_test_case
 	{
 		parent::setUp();
 
-		global $config, $user, $phpbb_path_helper, $phpbb_root_path, $phpEx;
+		global $cache, $config, $user, $phpbb_path_helper, $phpbb_root_path, $phpEx;
 
 		$this->db = $this->new_dbal();
+		$cache = new \phpbb_mock_cache;
 
 		$config = $this->config = new \phpbb\config\config(array(
 			'topic_preview_limit'		=> 150,
