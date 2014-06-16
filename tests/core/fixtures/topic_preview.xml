@@ -66,6 +66,8 @@
 		<column>username_clean</column>
 		<column>user_avatar</column>
 		<column>user_avatar_type</column>
+		<column>user_avatar_width</column>
+		<column>user_avatar_height</column>
 		<column>user_permissions</column>
 		<column>user_sig</column>
 		<row>
@@ -73,6 +75,8 @@
 			<value>anonymous1</value>
 			<value>avatar1.jpg</value>
 			<value>0</value>
+			<value>60</value>
+			<value>60</value>
 			<value></value>
 			<value></value>
 		</row>
@@ -81,6 +85,8 @@
 			<value>anonymous2</value>
 			<value>avatar2.jpg</value>
 			<value>0</value>
+			<value>100</value>
+			<value>100</value>
 			<value></value>
 			<value></value>
 		</row>
@@ -88,6 +94,8 @@
 			<value>3</value>
 			<value>anonymous3</value>
 			<value></value>
+			<value>0</value>
+			<value>0</value>
 			<value>0</value>
 			<value></value>
 			<value></value>
