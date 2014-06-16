@@ -1,11 +1,11 @@
 <?php
 /**
 *
-* info_acp_topic_preview [Română]
+* Topic Preview [Română]
+* Translated by cybernet http://xDNS.ro
 *
-* @package language
-* @copyright (c) 2014 Matt Friedman ( translated by cybernet http://xDNS.ro )
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @copyright (c) 2013 Matt Friedman
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 

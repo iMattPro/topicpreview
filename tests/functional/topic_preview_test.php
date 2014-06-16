@@ -1,9 +1,10 @@
 <?php
 /**
 *
-* @package Topic Preview testing
+* Topic Preview
+*
 * @copyright (c) 2014 Matt Friedman
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 

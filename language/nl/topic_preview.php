@@ -1,11 +1,11 @@
 <?php
 /**
 *
-* topic_preview [Dutch]
+* Topic Preview [Dutch]
+* Translated by Erik Frèrejean ( erikfrerejean@phpbb.com ) http://www.erikfrerejean.nl
 *
-* @package language
-* @copyright (c) 2013 Matt Friedman - Erik Frèrejean ( erikfrerejean@phpbb.com ) http://www.erikfrerejean.nl
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @copyright (c) 2013 Matt Friedman
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 

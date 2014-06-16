@@ -1,11 +1,11 @@
 <?php
 /**
 *
-* topic_preview [Polski]
+* Topic Preview [Polski]
+* Translated by Pico88
 *
-* @package language
-* @copyright (c) 2013 Matt Friedman (translated by Pico88)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @copyright (c) 2013 Matt Friedman
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
