@@ -90,21 +90,23 @@
 .topic_preview_avatar {
 	float: left;
 	position: relative;
-	margin: 0 10px 0 0;
-	border: solid 1px #989898;
+	margin: 0 12px 2px 0;
 	width: 60px;
 	height: 60px;
 }
 
 .topic_preview_avatar img {
-	width: 60px;
-	height: 60px;
+	border: solid 1px #989898;
+	max-width: 60px;
+	max-height: 60px;
+	width: auto !important;
+	height: auto !important;
 }
 
 .topic_preview_avatar.rtl {
 	/* rtl languages */
 	float: right;
-	margin: 0 0 0 10px;
+	margin: 0 0 2px 12px;
 }
 
 .topic_preview_first,

@@ -19,18 +19,18 @@ class modify_sql_test extends topic_preview_base
 				array(
 					// First post by user 1, no last post
 					1 => array(
-						'First message', 'avatar1.jpg', 0,
-						'First message', 'avatar1.jpg', 0,
+						'First message', 'avatar1.jpg', 0, 60, 60,
+						'First message', 'avatar1.jpg', 0, 60, 60,
 					),
 					// First post by user 2, last post by user 3
 					2 => array(
-						'Second message', 'avatar2.jpg', 0,
-						'Third message', '', 0,
+						'Second message', 'avatar2.jpg', 0, 100, 100,
+						'Third message', '', 0, 0, 0,
 					),
 					// First post by user 3, no last post
 					3 => array(
-						'Fourth message', '', 0,
-						'Fourth message', '', 0,
+						'Fourth message', '', 0, 0, 0,
+						'Fourth message', '', 0, 0, 0,
 					),
 				),
 			),
@@ -100,11 +100,15 @@ class modify_sql_test extends topic_preview_base
 		{
 			$rowset[$row['topic_id']] = array(
 				$row['first_post_text'],
-				$row['first_poster_avatar'],
-				$row['first_poster_avatar_type'],
+				$row['fp_avatar'],
+				$row['fp_avatar_type'],
+				$row['fp_avatar_width'],
+				$row['fp_avatar_height'],
 				$row['last_post_text'],
-				$row['last_poster_avatar'],
-				$row['last_poster_avatar_type'],
+				$row['lp_avatar'],
+				$row['lp_avatar_type'],
+				$row['lp_avatar_width'],
+				$row['lp_avatar_height'],
 			);
 		}
 		$this->db->sql_freeresult($result);

@@ -112,8 +112,8 @@ class topic_preview
 	{
 		return ', fp.post_text AS first_post_text' .
 			($this->tp_last_post ? ', lp.post_text AS last_post_text' : '') .
-			($this->tp_avatars ? ', fpu.user_avatar AS first_poster_avatar, fpu.user_avatar_type AS first_poster_avatar_type' .
-			($this->tp_last_post ? ', lpu.user_avatar AS last_poster_avatar, lpu.user_avatar_type AS last_poster_avatar_type' : '') : '');
+			($this->tp_avatars ? ', fpu.user_avatar AS fp_avatar, fpu.user_avatar_type AS fp_avatar_type, fpu.user_avatar_width AS fp_avatar_width, fpu.user_avatar_height AS fp_avatar_height' .
+			($this->tp_last_post ? ', lpu.user_avatar AS lp_avatar, lpu.user_avatar_type AS lp_avatar_type, lpu.user_avatar_width AS lp_avatar_width, lpu.user_avatar_height AS lp_avatar_height' : '') : '');
 	}
 
 	/**
@@ -246,8 +246,8 @@ class topic_preview
 
 		if ($this->tp_avatars)
 		{
-			$first_poster_avatar = (!empty($row['first_poster_avatar'])) ? $this->get_user_avatar_helper($row['first_poster_avatar'], $row['first_poster_avatar_type']) : $this->tp_avatar_fallback();
-			$last_poster_avatar = (!empty($row['last_poster_avatar'])) ? $this->get_user_avatar_helper($row['last_poster_avatar'], $row['last_poster_avatar_type']) : $this->tp_avatar_fallback();
+			$first_poster_avatar = (!empty($row['fp_avatar'])) ? $this->get_user_avatar_helper($row['fp_avatar'], $row['fp_avatar_type'], $row['fp_avatar_width'], $row['fp_avatar_height']) : $this->tp_avatar_fallback();
+			$last_poster_avatar = (!empty($row['lp_avatar'])) ? $this->get_user_avatar_helper($row['lp_avatar'], $row['lp_avatar_type'], $row['lp_avatar_width'], $row['lp_avatar_height']) : $this->tp_avatar_fallback();
 		}
 
 		$block = array_merge($block, array(
@@ -345,17 +345,19 @@ class topic_preview
 	*
 	* @param string $avatar Users assigned avatar name
 	* @param int $avatar_type Type of avatar
+	* @param int $avatar_width Width of avatar
+	* @param int $avatar_height Height of avatar
 	* @return string Avatar image
 	* @access protected
 	*/
-	protected function get_user_avatar_helper($avatar, $avatar_type)
+	protected function get_user_avatar_helper($avatar, $avatar_type, $avatar_width = 60, $avatar_height = 60)
 	{
 		// map arguments to new function phpbb_get_avatar()
 		$row = array(
 			'avatar'		=> $avatar,
 			'avatar_type'	=> $avatar_type,
-			'avatar_width'	=> 60,
-			'avatar_height'	=> 60,
+			'avatar_width'	=> $avatar_width,
+			'avatar_height'	=> $avatar_height,
 		);
 
 		return phpbb_get_user_avatar($row);
