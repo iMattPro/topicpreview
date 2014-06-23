@@ -79,10 +79,11 @@ class ucp_listener implements EventSubscriberInterface
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'])
 		{
+			$data = $event['data'];
 			$this->user->add_lang_ext('vse/topicpreview', 'info_acp_topic_preview');
 			$this->template->assign_vars(array(
 				'S_TOPIC_PREVIEW'			=> $this->config['topic_preview_limit'],
-				'S_DISPLAY_TOPIC_PREVIEW'	=> $event['data']['topic_preview'],
+				'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
 			));
 		}
 	}
@@ -96,8 +97,9 @@ class ucp_listener implements EventSubscriberInterface
 	*/
 	public function ucp_prefs_set_data($event)
 	{
+		$data = $event['data'];
 		$event['sql_ary'] = array_merge($event['sql_ary'], array(
-			'user_topic_preview' => $event['data']['topic_preview'],
+			'user_topic_preview' => $data['topic_preview'],
 		));
 	}
 }
