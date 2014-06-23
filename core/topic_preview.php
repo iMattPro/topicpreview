@@ -21,9 +21,6 @@ class topic_preview
 	/** @var \phpbb\event\dispatcher */
 	protected $dispatcher;
 
-	/** @var \phpbb\request\request */
-	protected $request;
-
 	/** @var \phpbb\template\template */
 	protected $template;
 
@@ -48,19 +45,17 @@ class topic_preview
 	* @param \phpbb\config\config $config
 	* @param \phpbb\db\driver\driver $db
 	* @param \phpbb\event\dispatcher $dispatcher
-	* @param \phpbb\request\request $request
 	* @param \phpbb\template\template $template
 	* @param \phpbb\user $user
 	* @param string $root_path
 	* @return \vse\topicpreview\core\topic_preview
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\event\dispatcher $dispatcher, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, $root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\event\dispatcher $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path)
 	{
 		$this->config = $config;
 		$this->db = $db;
 		$this->dispatcher = $dispatcher;
-		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
 		$this->root_path = $root_path;
@@ -361,33 +356,5 @@ class topic_preview
 		);
 
 		return phpbb_get_user_avatar($row);
-	}
-
-	/**
-	* Display user's Topic Preview option in UCP Prefs View page
-	*
-	* @param array $data The $data array from the event object
-	* @return null
-	* @access public
-	*/
-	public function display_ucp_setting($data)
-	{
-		// Output the data vars to the template (except on form submit)
-		$this->user->add_lang_ext('vse/topicpreview', 'info_acp_topic_preview');
-		$this->template->assign_vars(array(
-			'S_TOPIC_PREVIEW'			=> $this->config['topic_preview_limit'],
-			'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
-		));
-	}
-
-	/**
-	* Returns the Topic Preview option from UCP Prefs View form
-	*
-	* @return int UCP Display Topic Preview form setting
-	* @access public
-	*/
-	public function request_ucp_setting()
-	{
-		return $this->request->variable('topic_preview', (int) $this->user->data['user_topic_preview']);
 	}
 }

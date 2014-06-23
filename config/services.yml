@@ -5,7 +5,6 @@ services:
             - @config
             - @dbal.conn
             - @dispatcher
-            - @request
             - @template
             - @user
             - %core.root_path%
@@ -13,5 +12,14 @@ services:
         class: vse\topicpreview\event\listener
         arguments:
             - @vse.topicpreview.manager
+        tags:
+            - { name: event.listener }
+    vse.topicpreview.ucp_listener:
+        class: vse\topicpreview\event\ucp_listener
+        arguments:
+            - @config
+            - @request
+            - @template
+            - @user
         tags:
             - { name: event.listener }

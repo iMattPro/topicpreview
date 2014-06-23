@@ -51,10 +51,6 @@ class listener implements EventSubscriberInterface
 			'core.search_get_topic_data'			=> 'modify_sql_string',
 			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
 
-			// ucp_prefs.php events
-			'core.ucp_prefs_view_data'				=> 'ucp_prefs_get_data',
-			'core.ucp_prefs_view_update_data'		=> 'ucp_prefs_set_data',
-
 			// These are custom events for integration with Precise Similar Topics
 			'vse.similartopics.get_topic_data'			=> 'modify_sql_array',
 			'vse.similartopics.modify_topicrow'			=> 'display_topic_previews',
@@ -101,40 +97,5 @@ class listener implements EventSubscriberInterface
 	{
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';
 		$event[$block] = $this->topicpreview->display_topic_preview($event['row'], $event[$block]);
-	}
-
-	/**
-	* Get user's Topic Preview option and display it in UCP Prefs View page
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
-	public function ucp_prefs_get_data($event)
-	{
-		// Request the user option vars and add them to the data array
-		$event['data'] = array_merge($event['data'], array(
-			'topic_preview'	=> $this->topicpreview->request_ucp_setting(),
-		));
-
-		// Output the data vars to the template (except on form submit)
-		if (!$event['submit'])
-		{
-			$this->topicpreview->display_ucp_setting($event['data']);
-		}
-	}
-
-	/**
-	* Add user's Topic Preview option state into the sql_array
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
-	public function ucp_prefs_set_data($event)
-	{
-		$event['sql_ary'] = array_merge($event['sql_ary'], array(
-			'user_topic_preview' => $event['data']['topic_preview'],
-		));
 	}
 }
