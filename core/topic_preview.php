@@ -15,7 +15,7 @@ class topic_preview
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\db\driver\driver */
+	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
 	/** @var \phpbb\event\dispatcher */
@@ -43,7 +43,7 @@ class topic_preview
 	* Constructor
 	*
 	* @param \phpbb\config\config $config
-	* @param \phpbb\db\driver\driver $db
+	* @param \phpbb\db\driver\driver_interface $db
 	* @param \phpbb\event\dispatcher $dispatcher
 	* @param \phpbb\template\template $template
 	* @param \phpbb\user $user
@@ -51,7 +51,7 @@ class topic_preview
 	* @return \vse\topicpreview\core\topic_preview
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver $db, \phpbb\event\dispatcher $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\event\dispatcher $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path)
 	{
 		$this->config = $config;
 		$this->db = $db;
