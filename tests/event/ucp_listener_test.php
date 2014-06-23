@@ -12,7 +12,7 @@ namespace vse\topicpreview\tests\event;
 
 class ucp_listener_test extends \phpbb_test_case
 {
-	/** @var \vse\abbc3\event\listener */
+	/** @var \vse\topicpreview\event\listener */
 	protected $listener;
 
 	/**
@@ -27,7 +27,7 @@ class ucp_listener_test extends \phpbb_test_case
 		// Load/Mock classes required by the event listener class
 		$this->config = new \phpbb\config\config(array('topic_preview_limit' => 1));
 		$this->request = $this->getMock('\phpbb\request\request');
-		$this->template = new \vse\abbc3\tests\mock\template();
+		$this->template = new \vse\topicpreview\tests\mock\template();
 		$this->user = $this->getMock('\phpbb\user');
 	}
 
