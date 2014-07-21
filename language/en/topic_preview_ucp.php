@@ -1,8 +1,7 @@
 <?php
 /**
 *
-* Topic Preview [French]
-* Translated by darky (http://www.foruminfopc.fr/)
+* Topic Preview [English]
 *
 * @copyright (c) 2013 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -35,6 +34,5 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'TOPIC_PREVIEW'					=> 'Aperçu des Sujets',
-	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_DISPLAY'			=> 'Display topic previews',
 ));

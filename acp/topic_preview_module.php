@@ -51,6 +51,7 @@ class topic_preview_module
 		$this->phpbb_root_path = $phpbb_root_path;
 
 		$this->user->add_lang('acp/common');
+		$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
 		$this->tpl_name = 'acp_topic_preview';
 		$this->page_title = $this->user->lang('TOPIC_PREVIEW');
 

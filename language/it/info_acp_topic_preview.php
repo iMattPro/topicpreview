@@ -35,24 +35,5 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Anteprima dei Topic',
-	'TOPIC_PREVIEW_EXPLAIN'			=> 'Mostrer‡ una porzione del topic quando il mouse passer‡ sopra il titolo del topic.',
 	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
-	'TOPIC_PREVIEW_DISPLAY'			=> 'Mostra anteprima del topic',
-	'TOPIC_PREVIEW_LENGTH'			=> 'Lunghezza dell’anteprima',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Inserisci il numero di caratteri da mostrare (default is 150). Se metti 0 disabiliti questa funzione.',
-	'TOPIC_PREVIEW_STRIP'			=> 'BBCode da nascondere nell’anteprima',
-	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista dei BBCode con i contenuti da rimuovere dall’anteprima. Separa i BBCode multipli usando il carattere |, ad esempio: spoiler|hide|code',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Include “Last post” text in topic previews',
-	'CHARS'							=> 'Caratteri',
-
-	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Topic preview style settings',
-	'TOPIC_PREVIEW_WIDTH'			=> 'Width of topic previews (in pixels)',
-	'TOPIC_PREVIEW_DELAY'			=> 'Delay before showing topic previews (in milliseconds)',
-	'TOPIC_PREVIEW_DRIFT'			=> 'Animated drift effect (in pixels)',
-	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Amount of vertical animation on fadeout (use negative values to change direction).',
-	'TOPIC_PREVIEW_THEME'			=> 'Theme for %s',
-	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Choose a topic preview theme for %s.',
-	'THEME'							=> 'theme',
-	'MILLISECOND'					=> 'ms',
 ));

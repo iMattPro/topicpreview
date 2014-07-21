@@ -36,24 +36,5 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Themenvorschau',
-	'TOPIC_PREVIEW_EXPLAIN'			=> 'Fährt man mit der Maus über den Thementitel, wird im Browser ein Textausschnitt des ersten Beitrags angezeigt.',
 	'TOPIC_PREVIEW_SETTINGS'		=> 'Einstellungen Themenvorschau',
-	'TOPIC_PREVIEW_DISPLAY'			=> 'Zeige Themenvorschau',
-	'TOPIC_PREVIEW_LENGTH'			=> 'Länge des Vorschautextes',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Maximal auszugebene Zeichen des Textes (Standard sind 150). Die Angabe “0” deaktiviert den Vorschautext gänzlich.',
-	'TOPIC_PREVIEW_STRIP'			=> 'Aus Themenvorschau zu entfernende BBCodes',
-	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Aufzählung aller BBCodes, die (mitsamt deren Inhalt) nicht im Vorschautext erscheinen sollen (z.B. für Spoiler oder versteckte Texte). Mehrere BBCodes müssen mit “|” getrennt werden - Beispiel: “spoiler|hide|code”.',
-	'TOPIC_PREVIEW_AVATARS'			=> 'Zeige Nutzeravatare (in jQuery-Themenvorschau)',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Zeige “Letzter Beitrag”-Text (in jQuery-Themenvorschau)',
-	'CHARS'							=> 'Zeichen',
-
-	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Themenvorschau Style-Einstellungen',
-	'TOPIC_PREVIEW_WIDTH'			=> 'Themenvorschau Breite (in Pixeln)',
-	'TOPIC_PREVIEW_DELAY'			=> 'Verzögerung vor zeigt Vorschauen Thema (in Millisekunden)',
-	'TOPIC_PREVIEW_DRIFT'			=> 'Animierte Drift Wirkung (in Pixeln)',
-	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Anzahl der vertikalen Animation auf fadeout (negative Werte verwenden, um die Richtung zu ändern).',
-	'TOPIC_PREVIEW_THEME'			=> 'Theme für %s',
-	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Wählen Sie ein Thema für Themenvorschau %s.',
-	'THEME'							=> 'Thema',
-	'MILLISECOND'					=> 'ms',
 ));

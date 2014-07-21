@@ -25,7 +25,7 @@ class topic_preview_acp_test extends \phpbb_functional_test_case
 		$this->login();
 		$this->admin_login();
 
-		$this->add_lang_ext('vse/topicpreview', 'info_acp_topic_preview');
+		$this->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
 
 		$crawler = self::request('GET', 'adm/index.php?i=\vse\topicpreview\acp\topic_preview_module&amp;mode=settings&sid=' . $this->sid);
 		$this->assertContainsLang('TOPIC_PREVIEW', $crawler->text());

@@ -80,7 +80,7 @@ class ucp_listener implements EventSubscriberInterface
 		if (!$event['submit'])
 		{
 			$data = $event['data'];
-			$this->user->add_lang_ext('vse/topicpreview', 'info_acp_topic_preview');
+			$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_ucp');
 			$this->template->assign_vars(array(
 				'S_TOPIC_PREVIEW'			=> $this->config['topic_preview_limit'],
 				'S_DISPLAY_TOPIC_PREVIEW'	=> $data['topic_preview'],
