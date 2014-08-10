@@ -53,7 +53,7 @@ class topic_preview_base extends \phpbb_database_test_case
 
 		$this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 
-		$user = $this->user = $this->getMock('\phpbb\user');
+		$user = $this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
 		$this->user->expects($this->any())
 			->method('optionget')
 			->with($this->anything())
