@@ -24,7 +24,6 @@ class topic_preview_base extends \phpbb_database_test_case
 	protected $config;
 	protected $db;
 	protected $dispatcher;
-	protected $request;
 	protected $template;
 	protected $user;
 	protected $root_path;
@@ -38,7 +37,7 @@ class topic_preview_base extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $cache, $config, $user, $phpbb_path_helper, $phpbb_root_path, $phpEx;
+		global $cache, $config, $user, $phpbb_root_path;
 
 		$this->root_path = $phpbb_root_path;
 
@@ -61,16 +60,6 @@ class topic_preview_base extends \phpbb_database_test_case
 			->will($this->returnValueMap(array(array('viewavatars', false, true), array('viewcensors', false, false))));
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
-
-		$phpbb_path_helper = new \phpbb\path_helper(
-			new \phpbb\symfony_request(
-				new \phpbb_mock_request()
-			),
-			new \phpbb\filesystem(),
-			$this->getMock('\phpbb\request\request'),
-			$this->root_path,
-			$phpEx
-		);
 
 		$this->template = new \vse\topicpreview\tests\mock\template();
 	}
