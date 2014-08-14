@@ -105,7 +105,7 @@ class topic_preview
 	public function tp_sql_select()
 	{
 		$sql = ', fp.post_text AS first_post_text';
-		
+
 		if ($this->tp_last_post)
 		{
 			$sql .= ', lp.post_text AS last_post_text';
@@ -117,7 +117,7 @@ class topic_preview
 				fpu.user_avatar_type AS fp_avatar_type,
 				fpu.user_avatar_width AS fp_avatar_width,
 				fpu.user_avatar_height AS fp_avatar_height';
-			
+
 			if ($this->tp_last_post)
 			{
 				$sql .= ', lpu.user_avatar AS lp_avatar,
