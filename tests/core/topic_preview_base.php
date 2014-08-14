@@ -40,6 +40,8 @@ class topic_preview_base extends \phpbb_database_test_case
 
 		global $cache, $config, $user, $phpbb_path_helper, $phpbb_root_path, $phpEx;
 
+		$this->root_path = $phpbb_root_path;
+
 		$this->db = $this->new_dbal();
 		$cache = new \phpbb_mock_cache;
 
@@ -48,8 +50,7 @@ class topic_preview_base extends \phpbb_database_test_case
 			'topic_preview_avatars'		=> 1,
 			'topic_preview_last_post'	=> 1,
 			'allow_avatar'				=> 1,
-			));
-		set_config(null, null, null, $config);
+		));
 
 		$this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 
@@ -67,13 +68,11 @@ class topic_preview_base extends \phpbb_database_test_case
 			),
 			new \phpbb\filesystem(),
 			$this->getMock('\phpbb\request\request'),
-			$phpbb_root_path,
+			$this->root_path,
 			$phpEx
 		);
 
-		$this->template = new \phpbb\template\twig\twig($phpbb_path_helper, $this->config, $this->user, new \phpbb\template\context());
-
-		$this->root_path = $phpbb_root_path;
+		$this->template = new \vse\topicpreview\tests\mock\template();
 	}
 
 	protected function topic_preview_manager()
