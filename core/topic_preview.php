@@ -97,29 +97,49 @@ class topic_preview
 	}
 
 	/**
-	* Return additional params for an SQL SELECT statement to get data needed
-	* for topic previews
+	* Update an SQL SELECT statement to get data needed for topic previews
 	*
 	* @return string SQL SELECT appendage
 	* @access public
 	*/
 	public function tp_sql_select()
 	{
-		return ', fp.post_text AS first_post_text' .
-			($this->tp_last_post ? ', lp.post_text AS last_post_text' : '') .
-			($this->tp_avatars ? ', fpu.user_avatar AS fp_avatar, fpu.user_avatar_type AS fp_avatar_type, fpu.user_avatar_width AS fp_avatar_width, fpu.user_avatar_height AS fp_avatar_height' .
-			($this->tp_last_post ? ', lpu.user_avatar AS lp_avatar, lpu.user_avatar_type AS lp_avatar_type, lpu.user_avatar_width AS lp_avatar_width, lpu.user_avatar_height AS lp_avatar_height' : '') : '');
+		$sql = ', fp.post_text AS first_post_text';
+		
+		if ($this->tp_last_post)
+		{
+			$sql .= ', lp.post_text AS last_post_text';
+		}
+
+		if ($this->tp_avatars)
+		{
+			$sql .= ', fpu.user_avatar AS fp_avatar,
+				fpu.user_avatar_type AS fp_avatar_type,
+				fpu.user_avatar_width AS fp_avatar_width,
+				fpu.user_avatar_height AS fp_avatar_height';
+			
+			if ($this->tp_last_post)
+			{
+				$sql .= ', lpu.user_avatar AS lp_avatar,
+					lpu.user_avatar_type AS lp_avatar_type,
+					lpu.user_avatar_width AS lp_avatar_width,
+					lpu.user_avatar_height AS lp_avatar_height';
+			}
+		}
+
+		return $sql;
 	}
 
 	/**
-	* Return additional params for an SQL JOIN statement to get data needed
-	* for topic previews
+	* Update an SQL JOIN statement to get data needed for topic previews
 	*
 	* @return array SQL JOIN params
 	* @access public
 	*/
 	public function tp_sql_join()
 	{
+		$sql_array = array();
+
 		$sql_array['LEFT_JOIN'][] = array(
 			'FROM'	=> array(POSTS_TABLE => 'fp'),
 			'ON'	=> 'fp.post_id = t.topic_first_post_id'
@@ -161,10 +181,12 @@ class topic_preview
 	public function tp_avatar_fallback()
 	{
 		static $no_avatar = '';
+
 		if (empty($no_avatar))
 		{
 			$no_avatar = $this->get_user_avatar_helper($this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif', 'avatar.driver.remote');
 		}
+
 		return $no_avatar;
 	}
 
@@ -255,7 +277,7 @@ class topic_preview
 		$tp_avatars = $this->tp_avatars;
 
 		/**
-		* Modify the topic preview display output before it gets inserted in the template block
+		* EVENT to modify the topic preview display output before it gets inserted in the template block
 		*
 		* @event vse.topicpreview.display_topic_preview
 		* @var array $row Row data
