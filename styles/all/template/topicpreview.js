@@ -7,113 +7,115 @@
 * http://www.opensource.org/licenses/GPL-2.0
 */
 
-;(function ($, window, document, undefined) {
+(function($) { // Avoid conflicts with other libraries
 
-	$.fn.topicPreview = function (options) {
+'use strict';
 
-		var settings = $.extend({
-			dir: "ltr",
-			delay: 1000,
-			width: 360,
-			drift: 15,
-			position: {left: 35, top: 25}
-		}, options),
-			previewTimeout,
-			previewContainer = $('<div id="topic_preview"></div>').css("width", settings.width).appendTo("body");
+$.fn.topicPreview = function (options) {
 
-		// Do not allow delay times less than 300ms to prevent tooltip madness
-		settings.delay = Math.max(settings.delay, 300);
+	var settings = $.extend({
+		dir: 'ltr',
+		delay: 1000,
+		width: 360,
+		drift: 15,
+		position: {left: 35, top: 25}
+	}, options),
+		previewTimeout,
+		previewContainer = $('<div id="topic_preview"></div>').css('width', settings.width).appendTo('body');
 
-		$(".topic_preview_avatar")
-			// Add rtl class for right-to-left languages to avatar images
-			.toggleClass("rtl", (settings.dir === "rtl"))
-			// Replace any broken/missing avatar images in topic previews
-			.children("img").one("error", function () {
-				$(this).attr("src", settings.noavatar);
-			});
+	// Do not allow delay times less than 300ms to prevent tooltip madness
+	settings.delay = Math.max(settings.delay, 300);
 
-		// Display the topic preview tooltip
-		var showTopicPreview = function () {
-			var obj = $(this);
+	$('.topic_preview_avatar')
+		// Add rtl class for right-to-left languages to avatar images
+		.toggleClass('rtl', (settings.dir === 'rtl'))
+		// Replace any broken/missing avatar images in topic previews
+		.children('img').one('error', function () {
+			$(this).attr('src', settings.noavatar);
+		});
 
-			// Grab tooltip content
-			var content = obj.closest("li, tr").find(".topic_preview_content").html();
+	// Display the topic preview tooltip
+	var showTopicPreview = function () {
+		var obj = $(this);
 
-			// Proceed only if there is content to display
-			if (content === undefined || content === '') {
-				return false;
-			}
+		// Grab tooltip content
+		var content = obj.closest('li, tr').find('.topic_preview_content').html();
 
-			// clear any existing timeouts
-			if (previewTimeout) {
-				previewTimeout = clearTimeout(previewTimeout);
-			}
+		// Proceed only if there is content to display
+		if (content === undefined || content === '') {
+			return false;
+		}
 
-			// remove original titles to prevent overlap
-			obj.removeAttr("title")
-				.closest("dt") // cache and remove <dt> titles (prosilver)
-				.data("title", obj.closest("dt")
-				.attr("title"))
-				.removeAttr("title");
+		// clear any existing timeouts
+		if (previewTimeout) {
+			previewTimeout = clearTimeout(previewTimeout);
+		}
 
-			previewTimeout = setTimeout(function () {
-				// clear the timeout var after delay and function begins to execute
-				previewTimeout = undefined;
+		// remove original titles to prevent overlap
+		obj.removeAttr('title')
+			.closest('dt') // cache and remove <dt> titles (prosilver)
+			.data('title', obj.closest('dt')
+			.attr('title'))
+			.removeAttr('title');
 
-				// Fill the topic preview
-				previewContainer.html(content);
+		previewTimeout = setTimeout(function () {
+			// clear the timeout var after delay and function begins to execute
+			previewTimeout = undefined;
 
-				// Window bottom edge detection, invert topic preview if needed
-				var previewTop = obj.offset().top + settings.position.top,
-					previewBottom = previewTop + previewContainer.height() + 8;
-				previewContainer.toggleClass("invert", edgeDetect(previewBottom));
-				previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight(true) - 8 : previewTop;
+			// Fill the topic preview
+			previewContainer.html(content);
 
-				// Display the topic preview positioned relative to the hover object
-				previewContainer
-					.stop(true, true) // stop any running animations first
-					.css({
-						"top": previewTop + "px",
-						"left": obj.offset().left + settings.position.left + (settings.dir === "rtl" ? (obj.width() - previewContainer.width()) : 0) + "px"
-					})
-					.fadeIn("fast"); // display the topic preview with a fadein
-			}, settings.delay); // Use a delay before showing in topic preview
-		};
+			// Window bottom edge detection, invert topic preview if needed
+			var previewTop = obj.offset().top + settings.position.top,
+				previewBottom = previewTop + previewContainer.height() + 8;
+			previewContainer.toggleClass('invert', edgeDetect(previewBottom));
+			previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight(true) - 8 : previewTop;
 
-		// Hide the topic preview tooltip
-		var hideTopicPreview = function () {
-			var obj = $(this);
-
-			// clear any existing timeouts
-			if (previewTimeout) {
-				previewTimeout = clearTimeout(previewTimeout);
-			}
-
-			// Remove topic preview
+			// Display the topic preview positioned relative to the hover object
 			previewContainer
 				.stop(true, true) // stop any running animations first
-				.fadeOut("fast") // hide the topic preview with a fadeout
-				.animate({"top": "-=" + settings.drift + "px"}, {duration: "fast", queue: false}, function () {
-					// animation complete
-				});
-			obj.closest("dt").attr("title", obj.closest("dt").data("title")); // reinstate original title attributes
-		};
-
-		// Check if y coord is within 50 pixels of bottom edge of browser window
-		var edgeDetect = function (y) {
-			return (y >= ($(window).scrollTop() + $(window).height() - 50));
-		};
-
-		return this.each(function () {
-			$(this).hover(showTopicPreview, hideTopicPreview).on("click", function () {
-				// Remove topic preview immediately on click as failsafe
-				previewContainer.hide();
-				// clear any existing timeouts
-				if (previewTimeout) {
-					previewTimeout = clearTimeout(previewTimeout);
-				}
-			});
-		});
+				.css({
+					'top': previewTop + 'px',
+					'left': obj.offset().left + settings.position.left + (settings.dir === 'rtl' ? (obj.width() - previewContainer.width()) : 0) + 'px'
+				})
+				.fadeIn('fast'); // display the topic preview with a fadein
+		}, settings.delay); // Use a delay before showing in topic preview
 	};
 
-})(jQuery, window, document);
+	// Hide the topic preview tooltip
+	var hideTopicPreview = function () {
+		var obj = $(this);
+
+		// clear any existing timeouts
+		if (previewTimeout) {
+			previewTimeout = clearTimeout(previewTimeout);
+		}
+
+		// Remove topic preview
+		previewContainer
+			.stop(true, true) // stop any running animations first
+			.fadeOut('fast') // hide the topic preview with a fadeout
+			.animate({'top': '-=' + settings.drift + 'px'}, {duration: 'fast', queue: false}, function () {
+				// animation complete
+			});
+		obj.closest('dt').attr('title', obj.closest('dt').data('title')); // reinstate original title attributes
+	};
+
+	// Check if y coord is within 50 pixels of bottom edge of browser window
+	var edgeDetect = function (y) {
+		return (y >= ($(window).scrollTop() + $(window).height() - 50));
+	};
+
+	return this.each(function () {
+		$(this).hover(showTopicPreview, hideTopicPreview).on('click', function () {
+			// Remove topic preview immediately on click as failsafe
+			previewContainer.hide();
+			// clear any existing timeouts
+			if (previewTimeout) {
+				previewTimeout = clearTimeout(previewTimeout);
+			}
+		});
+	});
+};
+
+})(jQuery); // Avoid conflicts with other libraries
