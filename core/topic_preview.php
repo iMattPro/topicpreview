@@ -280,9 +280,9 @@ class topic_preview
 		* EVENT to modify the topic preview display output before it gets inserted in the template block
 		*
 		* @event vse.topicpreview.display_topic_preview
-		* @var	array	row			Row data
-		* @var	array	block		Template vars array
-		* @var	bool	tp_avatars	Display avatars setting
+		* @var array $row Row data
+		* @var array $block Template vars array
+		* @var bool $tp_avatars Display avatars setting
 		* @since 2.1.0
 		*/
 		$vars = array('row', 'block', 'tp_avatars');

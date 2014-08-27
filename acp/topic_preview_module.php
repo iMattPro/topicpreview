@@ -40,11 +40,12 @@ class topic_preview_module
 
 	public function main($id, $mode)
 	{
-		global $cache, $config, $db, $request,  $template, $user,$phpbb_root_path;
+		global $cache, $config, $db, $phpbb_extension_manager, $request,  $template, $user,$phpbb_root_path;
 
 		$this->cache = $cache;
 		$this->config = $config;
 		$this->db = $db;
+		$this->ext_manager = $phpbb_extension_manager;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
@@ -165,9 +166,7 @@ class topic_preview_module
 	*/
 	protected function get_themes()
 	{
-		global $phpbb_extension_manager;
-
-		$finder = $phpbb_extension_manager->get_finder();
+		$finder = $this->ext_manager->get_finder();
 
 		return $finder
 			->extension_suffix('.css')
