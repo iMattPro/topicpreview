@@ -194,7 +194,7 @@ class topic_preview_module
 		$themes['no'] = '';
 
 		$theme_options = '';
-		foreach($themes as $name => $ext)
+		foreach ($themes as $name => $ext)
 		{
 			$name = basename($name, '.css');
 			$selected = ($theme == $name) ? ' selected="selected"' : '';
