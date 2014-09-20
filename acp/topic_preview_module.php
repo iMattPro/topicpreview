@@ -24,6 +24,9 @@ class topic_preview_module
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
+	/** @var \phpbb\extension\manager */
+	protected $ext_manager;
+
 	/** @var \phpbb\request\request */
 	protected $request;
 
@@ -134,7 +137,7 @@ class topic_preview_module
 			SET topic_preview_theme = '" . $this->db->sql_escape($theme) . "'
 			WHERE style_id = " . (int) $style_id;
 
-		$result = $this->db->sql_query($sql);
+		$this->db->sql_query($sql);
 
 		$this->cache->destroy('sql', STYLES_TABLE);
 	}
