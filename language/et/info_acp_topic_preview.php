@@ -3,7 +3,7 @@
 *
 * Topic Preview [Estonian]
 *
-* @copyright (c) 2013 Matt Friedman; Estonian translation (c) 2014/09 phpbbeesti.com
+* @copyright (c) 2013 Matt Friedman; Estonian language pack 09/2014 by phpbbeesti.com
 * @license GNU General Public License, version 2 (GPL-2.0)
 */
 
