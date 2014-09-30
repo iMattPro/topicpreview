@@ -39,6 +39,7 @@ class topic_preview_module
 	/** @var string */
 	protected $phpbb_root_path;
 
+	/** @var string */
 	public $u_action;
 
 	public function main($id, $mode)
