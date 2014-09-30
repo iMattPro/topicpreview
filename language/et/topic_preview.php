@@ -3,8 +3,9 @@
 *
 * Topic Preview [Estonian]
 *
-* @copyright (c) 2013 Matt Friedman; Estonian language pack 09/2014 by phpbbeesti.com
+* @copyright (c) 2013 Matt Friedman, (c) 2014 phpbbeesti.com
 * @license GNU General Public License, version 2 (GPL-2.0)
+*
 */
 
 /**
