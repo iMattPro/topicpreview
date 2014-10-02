@@ -27,8 +27,8 @@
 		},
 		"version-check": {
 			"host": "vsephpbb.github.io",
-			"directory": "/topicpreview",
-			"filename": "version.json"
+			"directory": "/version",
+			"filename": "topicpreview.json"
 		}
 	}
 }
