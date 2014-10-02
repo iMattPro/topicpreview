@@ -44,7 +44,7 @@ class topic_preview_module
 
 	public function main($id, $mode)
 	{
-		global $cache, $config, $db, $phpbb_extension_manager, $request,  $template, $user,$phpbb_root_path;
+		global $cache, $config, $db, $phpbb_extension_manager, $request,  $template, $user, $phpbb_root_path;
 
 		$this->cache = $cache;
 		$this->config = $config;
