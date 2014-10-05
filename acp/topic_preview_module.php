@@ -57,6 +57,7 @@ class topic_preview_module
 
 		$this->user->add_lang('acp/common');
 		$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
+
 		$this->tpl_name = 'acp_topic_preview';
 		$this->page_title = $this->user->lang('TOPIC_PREVIEW');
 
@@ -194,7 +195,7 @@ class topic_preview_module
 			$themes = $this->get_themes();
 		}
 
-		// add option for native browser tooltip
+		// add option for native browser tooltip (aka no theme)
 		$themes['no'] = '';
 
 		$theme_options = '';

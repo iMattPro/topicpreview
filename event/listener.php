@@ -51,11 +51,11 @@ class listener implements EventSubscriberInterface
 			'core.search_get_topic_data'			=> 'modify_sql_string',
 			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
 
-			// These are custom events for integration with Precise Similar Topics
+			// Custom events for integration with Precise Similar Topics
 			'vse.similartopics.get_topic_data'			=> 'modify_sql_array',
 			'vse.similartopics.modify_topicrow'			=> 'display_topic_previews',
 
-			// These are custom events for integration with Recent Topics
+			// Custom events for integration with Recent Topics
 			'paybas.recenttopics.sql_pull_topics_data'	=> 'modify_sql_array',
 			'paybas.recenttopics.modify_tpl_ary'		=> 'display_topic_previews',
 		);

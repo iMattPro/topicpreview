@@ -45,7 +45,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 			array('config.add', array('topic_preview_avatars', '0')),
 			array('config.add', array('topic_preview_jquery', '0')),
 
-			// Update exisiting configs
+			// Update existing configs
 			array('config.update', array('topic_preview_version', '2.0.0')),
 		);
 	}
