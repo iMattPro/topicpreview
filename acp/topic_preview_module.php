@@ -164,25 +164,33 @@ class topic_preview_module
 	}
 
 	/**
-	* Get file paths/names from Topic Preview's CSS files
+	* Get file names from Topic Preview's CSS files
 	*
-	* @return	Array of file data from ext/vse/topicpreview/styles/all/theme/
+	* @return	Array of file names
 	* @access	protected
 	*/
 	protected function get_themes()
 	{
 		$finder = $this->ext_manager->get_finder();
 
-		return $finder
+		// Find css files in ext/vse/topicpreview/styles/all/theme/
+		$files = $finder
 			->extension_suffix('.css')
 			->extension_directory('/styles/all/theme')
 			->find_from_extension('topicpreview', $this->phpbb_root_path . 'ext/vse/topicpreview/');
+
+		// Get just basenames of array keys
+		$files = array_map(function ($value) {
+			return basename($value, '.css');
+		}, array_keys($files));
+
+		return $files;
 	}
 
 	/**
 	* Create <option> tags for each Topic Preview theme
 	*
-	* @param	string	$theme	name of the Topic Preview theme stored in the db
+	* @param	string	$theme	Name of the Topic Preview theme stored in the db
 	* @return	string	html <option> tags for Topic Preview themes
 	* @access	protected
 	*/
@@ -192,18 +200,25 @@ class topic_preview_module
 
 		if (empty($themes))
 		{
+			// Get an array of available theme names
 			$themes = $this->get_themes();
+
+			// Add option for native browser tooltip (aka no theme)
+			$themes[] = 'no';
 		}
 
-		// add option for native browser tooltip (aka no theme)
-		$themes['no'] = '';
+		// If current theme name not available, fallback to default theme
+		if (!in_array($theme, $themes))
+		{
+			$theme = 'light';
+		}
 
 		$theme_options = '';
-		foreach ($themes as $name => $ext)
+		foreach ($themes as $name)
 		{
-			$name = basename($name, '.css');
-			$selected = ($theme == $name) ? ' selected="selected"' : '';
-			$theme_options .= '<option value="' . $name . '"' . $selected . '>' . ucwords($name) . ' ' . $this->user->lang('THEME') . '</option>';
+			$display_name = ($name == 'no') ? $this->user->lang('NO') : ucwords($name);
+			$selected = ($name == $theme) ? ' selected="selected"' : '';
+			$theme_options .= '<option value="' . $name . '"' . $selected . '>' . $display_name . ' ' . $this->user->lang('THEME') . '</option>';
 		}
 
 		return $theme_options;

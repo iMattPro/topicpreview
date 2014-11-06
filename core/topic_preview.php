@@ -92,7 +92,7 @@ class topic_preview
 			'TOPICPREVIEW_DELAY'	=> (isset($this->config['topic_preview_delay'])) ? $this->config['topic_preview_delay'] : 1000,
 			'TOPICPREVIEW_DRIFT'	=> (isset($this->config['topic_preview_drift'])) ? $this->config['topic_preview_drift'] : 15,
 			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360,
-			'TOPICPREVIEW_THEME'	=> (!empty($this->user->style['topic_preview_theme'])) ? $this->user->style['topic_preview_theme'] : 'light',
+			'TOPICPREVIEW_THEME'	=> $this->get_theme(),
 		));
 	}
 
@@ -378,5 +378,25 @@ class topic_preview
 		);
 
 		return phpbb_get_user_avatar($row);
+	}
+
+	/**
+	* Get user's style topic preview theme
+	* Fall back to default theme if expected theme not found
+	*
+	* @return string Theme name
+	* @access protected
+	*/
+	protected function get_theme()
+	{
+		if (!empty($this->user->style['topic_preview_theme']))
+		{
+			if (file_exists($this->root_path . 'ext/vse/topicpreview/styles/all/theme/' . $this->user->style['topic_preview_theme'] . '.css'))
+			{
+				return $this->user->style['topic_preview_theme'];
+			}
+		}
+
+		return 'light';
 	}
 }
