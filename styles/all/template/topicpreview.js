@@ -30,7 +30,7 @@
 			// Add rtl class for right-to-left languages to avatar images
 			.toggleClass('rtl', (settings.dir === 'rtl'))
 			.children('img')
-				.brokenImage({replacement: settings.noavatar})
+			.brokenImage({replacement: settings.noavatar})
 		;
 
 		// Display the topic preview tooltip
