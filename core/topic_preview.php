@@ -391,7 +391,7 @@ class topic_preview
 	{
 		if (!empty($this->user->style['topic_preview_theme']))
 		{
-			if (file_exists($this->root_path . 'ext/vse/topicpreview/styles/all/theme/' . $this->user->style['topic_preview_theme'] . '.css'))
+			if (file_exists($this->root_path . 'ext/vse/topicpreview/styles/all/theme/' . $this->user->style['topic_preview_theme'] . '.css') || ($this->user->style['topic_preview_theme'] == 'no'))
 			{
 				return $this->user->style['topic_preview_theme'];
 			}
