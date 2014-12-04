@@ -329,7 +329,7 @@ class topic_preview
 		$text = smiley_text($text, true); // display smileys as text :)
 
 		// Loop through text stripping inner most nested BBCodes until all have been removed
-		$regex = '#\[(' . $this->strip_bbcodes . ')[^\[\]]+\]((?:[^\[])+)\[\/\1[^\[\]]+\]#Usi';
+		$regex = '#\[(' . $this->strip_bbcodes . ')[^\[\]]+\]((?:(?!\[\1[^\[\]]+\]).)+)\[\/\1[^\[\]]+\]#Usi';
 		while(preg_match($regex, $text))
 		{
 			$text = preg_replace($regex, '', $text);
