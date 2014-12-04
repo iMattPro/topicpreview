@@ -330,7 +330,7 @@ class topic_preview
 
 		// Loop through text stripping inner most nested BBCodes until all have been removed
 		$regex = '#\[(' . $this->strip_bbcodes . ')[^\[\]]+\]((?:[^\[])+)\[\/\1[^\[\]]+\]#Usi';
-		while(preg_match($regex, $text) === 1)
+		while(preg_match($regex, $text))
 		{
 			$text = preg_replace($regex, '', $text);
 		}
