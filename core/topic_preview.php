@@ -39,6 +39,9 @@ class topic_preview
 	/** @var bool Show last post */
 	protected $tp_last_post;
 
+	/** @var string BBCodes to be stripped */
+	protected $strip_bbcodes;
+
 	/**
 	* Constructor
 	*
@@ -79,6 +82,7 @@ class topic_preview
 		$this->tp_enabled = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
 		$this->tp_avatars = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar'] && $this->user->optionget('viewavatars')) ? true : false;
 		$this->tp_last_post = (!empty($this->config['topic_preview_last_post'])) ? true : false;
+		$this->strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 
 		// Load our language file (only needed if showing last post text)
 		if ($this->tp_last_post)
@@ -324,16 +328,21 @@ class topic_preview
 	{
 		$text = smiley_text($text, true); // display smileys as text :)
 
+		// Loop through text stripping inner most nested BBCodes until all have been removed
+		$regex = '#\[(' . $this->strip_bbcodes . ')[^\[\]]+\]((?:[^\[])+)\[\/\1[^\[\]]+\]#Usi';
+		while(preg_match($regex, $text) === 1)
+		{
+			$text = preg_replace($regex, '', $text);
+		}
+
 		static $patterns = array();
 
 		if (empty($patterns))
 		{
-			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 			// RegEx patterns based on Topic Text Hover Mod by RMcGirr83
 			$patterns = array(
 				'#<!-- [lmw] --><a class="postlink[^>]*>(.*<\/a[^>]*>)?<!-- [lmw] -->#Usi', // Magic URLs
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // BBCode content to strip
 				'#\[/?[^\[\]]+\]#mi', // All BBCode tags
 				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Remaining URLs
 				'#"#', // Possible un-encoded quotes from older board conversions
