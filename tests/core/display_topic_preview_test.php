@@ -96,6 +96,24 @@ class display_topic_preview_test extends topic_preview_base
 					'TOPIC_PREVIEW_LAST_AVATAR' => '',
 				),
 			),
+			array(
+				array(
+					'first_post_text' => 'Fourth message [quote:3o8ohvlj]' . str_repeat('aaa ', 600) . '[/quote:3o8ohvlj]',
+					'first_poster_avatar' => '',
+					'first_poster_avatar_type' => 0,
+					'topic_first_post_id' => 8,
+					'last_post_text' =>'',
+					'last_poster_avatar' => '',
+					'last_poster_avatar_type' => 0,
+					'topic_last_post_id' => 8,
+				),
+				array(
+					'TOPIC_PREVIEW_FIRST_POST' => 'Fourth message',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_POST' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+				),
+			),
 		);
 	}
 
