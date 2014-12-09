@@ -42,7 +42,7 @@ class topic_preview_module
 	/** @var string */
 	public $u_action;
 
-	public function main($id, $mode)
+	public function __construct()
 	{
 		global $cache, $config, $db, $phpbb_extension_manager, $request,  $template, $user, $phpbb_root_path;
 
@@ -57,7 +57,10 @@ class topic_preview_module
 
 		$this->user->add_lang('acp/common');
 		$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
+	}
 
+	public function main($id, $mode)
+	{
 		$this->tpl_name = 'acp_topic_preview';
 		$this->page_title = $this->user->lang('TOPIC_PREVIEW');
 
@@ -68,35 +71,21 @@ class topic_preview_module
 		{
 			if (!check_form_key($form_key))
 			{
-				trigger_error($user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+				trigger_error($this->user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
-			$topic_preview_limit = $this->request->variable('topic_preview_limit', 0);
-			$this->config->set('topic_preview_limit', abs($topic_preview_limit));
-
-			$topic_preview_strip_bbcodes = $this->request->variable('topic_preview_strip_bbcodes', '');
-			$this->config->set('topic_preview_strip_bbcodes', $topic_preview_strip_bbcodes);
-
-			$topic_preview_avatars = $this->request->variable('topic_preview_avatars', 0);
-			$this->config->set('topic_preview_avatars', $topic_preview_avatars);
-
-			$topic_preview_last_post = $this->request->variable('topic_preview_last_post', 0);
-			$this->config->set('topic_preview_last_post', $topic_preview_last_post);
-
-			$topic_preview_width = $this->request->variable('topic_preview_width', 0);
-			$this->config->set('topic_preview_width', abs($topic_preview_width));
-
-			$topic_preview_delay = $this->request->variable('topic_preview_delay', 0);
-			$this->config->set('topic_preview_delay', abs($topic_preview_delay));
-
-			$topic_preview_drift = $this->request->variable('topic_preview_drift', 0);
-			$this->config->set('topic_preview_drift', $topic_preview_drift);
+			$this->config->set('topic_preview_limit', abs($this->request->variable('topic_preview_limit', 0)));
+			$this->config->set('topic_preview_width', abs($this->request->variable('topic_preview_width', 0)));
+			$this->config->set('topic_preview_delay', abs($this->request->variable('topic_preview_delay', 0)));
+			$this->config->set('topic_preview_drift', $this->request->variable('topic_preview_drift', 0));
+			$this->config->set('topic_preview_avatars', $this->request->variable('topic_preview_avatars', 0));
+			$this->config->set('topic_preview_last_post', $this->request->variable('topic_preview_last_post', 0));
+			$this->config->set('topic_preview_strip_bbcodes', $this->request->variable('topic_preview_strip_bbcodes', ''));
 
 			$styles = $this->get_styles();
 			foreach ($styles as $row)
 			{
-				$topic_preview_theme = $this->request->variable('style_' . $row['style_id'], '');
-				$this->set_style_theme($row['style_id'], $topic_preview_theme);
+				$this->set_style_theme($row['style_id'], $this->request->variable('style_' . $row['style_id'], ''));
 			}
 
 			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
@@ -114,14 +103,14 @@ class topic_preview_module
 		}
 
 		$this->template->assign_vars(array(
-			'TOPIC_PREVIEW_LIMIT'		=> isset($this->config['topic_preview_limit']) ? $this->config['topic_preview_limit'] : '',
-			'TOPIC_PREVIEW_STRIP'		=> isset($this->config['topic_preview_strip_bbcodes']) ? $this->config['topic_preview_strip_bbcodes'] : '',
-			'S_TOPIC_PREVIEW_AVATARS'	=> isset($this->config['topic_preview_avatars']) ? $this->config['topic_preview_avatars'] : false,
-			'S_TOPIC_PREVIEW_LAST_POST'	=> isset($this->config['topic_preview_last_post']) ? $this->config['topic_preview_last_post'] : false,
-			'TOPIC_PREVIEW_WIDTH'		=> isset($this->config['topic_preview_width']) ? $this->config['topic_preview_width'] : '',
-			'TOPIC_PREVIEW_DELAY'		=> isset($this->config['topic_preview_delay']) ? $this->config['topic_preview_delay'] : '',
-			'TOPIC_PREVIEW_DRIFT'		=> isset($this->config['topic_preview_drift']) ? $this->config['topic_preview_drift'] : '',
-			'TOPIC_PREVIEW_VERSION'		=> isset($this->config['topic_preview_version']) ? $this->config['topic_preview_version'] : '',
+			'TOPIC_PREVIEW_LIMIT'		=> $this->config['topic_preview_limit'],
+			'TOPIC_PREVIEW_WIDTH'		=> $this->config['topic_preview_width'],
+			'TOPIC_PREVIEW_DELAY'		=> $this->config['topic_preview_delay'],
+			'TOPIC_PREVIEW_DRIFT'		=> $this->config['topic_preview_drift'],
+			'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
+			'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
+			'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
+			'TOPIC_PREVIEW_VERSION'		=> $this->config['topic_preview_version'],
 			'U_ACTION'					=> $this->u_action,
 		));
 	}
