@@ -30,18 +30,6 @@ class topic_preview
 	/** @var string phpBB root path */
 	protected $root_path;
 
-	/** @var bool Topic Preview config enabled */
-	protected $tp_enabled;
-
-	/** @var bool Show avatars */
-	protected $tp_avatars;
-
-	/** @var bool Show last post */
-	protected $tp_last_post;
-
-	/** @var string BBCodes to be stripped */
-	protected $strip_bbcodes;
-
 	/**
 	* Constructor
 	*
@@ -65,6 +53,39 @@ class topic_preview
 	}
 
 	/**
+	 * Topic Preview Enabled
+	 *
+	 * @return bool Topic Preview is enabled
+	 * @access public
+	 */
+	public function is_enabled()
+	{
+		return (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
+	}
+
+	/**
+	 * Topic Preview Avatars Enabled
+	 *
+	 * @return bool Topic Preview avatars are enabled
+	 * @access public
+	 */
+	public function avatars_enabled()
+	{
+		return (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar'] && $this->user->optionget('viewavatars')) ? true : false;
+	}
+
+	/**
+	 * Topic Preview Last Post Text Enabled
+	 *
+	 * @return bool Topic Preview last post text is enabled
+	 * @access public
+	 */
+	public function last_post_enabled()
+	{
+		return !empty($this->config['topic_preview_last_post']);
+	}
+
+	/**
 	* Set up the environment
 	*
 	* @return null
@@ -72,32 +93,31 @@ class topic_preview
 	*/
 	public function setup()
 	{
+		static $is_setup = false;
+
 		// Make sure we only run setup once
-		if (isset($this->tp_enabled))
+		if ($is_setup)
 		{
 			return;
 		}
 
-		// environment parameters
-		$this->tp_enabled = (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
-		$this->tp_avatars = (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar'] && $this->user->optionget('viewavatars')) ? true : false;
-		$this->tp_last_post = (!empty($this->config['topic_preview_last_post'])) ? true : false;
-		$this->strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
-
 		// Load our language file (only needed if showing last post text)
-		if ($this->tp_last_post)
+		if ($this->last_post_enabled())
 		{
 			$this->user->add_lang_ext('vse/topicpreview', 'topic_preview');
 		}
 
 		// Assign our template vars
 		$this->template->assign_vars(array(
-			'S_TOPICPREVIEW'		=> $this->tp_enabled,
-			'TOPICPREVIEW_DELAY'	=> (isset($this->config['topic_preview_delay'])) ? $this->config['topic_preview_delay'] : 1000,
-			'TOPICPREVIEW_DRIFT'	=> (isset($this->config['topic_preview_drift'])) ? $this->config['topic_preview_drift'] : 15,
-			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360,
+			'S_TOPICPREVIEW'		=> $this->is_enabled(),
 			'TOPICPREVIEW_THEME'	=> $this->get_theme(),
+			'TOPICPREVIEW_DELAY'	=> $this->config['topic_preview_delay'],
+			'TOPICPREVIEW_DRIFT'	=> $this->config['topic_preview_drift'],
+			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360,
 		));
+
+		// So the setup is only loaded once
+		$is_setup = true;
 	}
 
 	/**
@@ -110,19 +130,19 @@ class topic_preview
 	{
 		$sql = ', fp.post_text AS first_post_text';
 
-		if ($this->tp_last_post)
+		if ($this->last_post_enabled())
 		{
 			$sql .= ', lp.post_text AS last_post_text';
 		}
 
-		if ($this->tp_avatars)
+		if ($this->avatars_enabled())
 		{
 			$sql .= ', fpu.user_avatar AS fp_avatar,
 				fpu.user_avatar_type AS fp_avatar_type,
 				fpu.user_avatar_width AS fp_avatar_width,
 				fpu.user_avatar_height AS fp_avatar_height';
 
-			if ($this->tp_last_post)
+			if ($this->last_post_enabled())
 			{
 				$sql .= ', lpu.user_avatar AS lp_avatar,
 					lpu.user_avatar_type AS lp_avatar_type,
@@ -149,7 +169,7 @@ class topic_preview
 			'ON'	=> 'fp.post_id = t.topic_first_post_id'
 		);
 
-		if ($this->tp_avatars)
+		if ($this->avatars_enabled())
 		{
 			$sql_array['LEFT_JOIN'][] = array(
 				'FROM'	=> array(USERS_TABLE => 'fpu'),
@@ -157,14 +177,14 @@ class topic_preview
 			);
 		}
 
-		if ($this->tp_last_post)
+		if ($this->last_post_enabled())
 		{
 			$sql_array['LEFT_JOIN'][] = array(
 				'FROM'	=> array(POSTS_TABLE => 'lp'),
 				'ON'	=> 'lp.post_id = t.topic_last_post_id'
 			);
 
-			if ($this->tp_avatars)
+			if ($this->avatars_enabled())
 			{
 				$sql_array['LEFT_JOIN'][] = array(
 					'FROM'	=> array(USERS_TABLE => 'lpu'),
@@ -206,7 +226,7 @@ class topic_preview
 	{
 		$this->setup();
 
-		if (!$this->tp_enabled)
+		if (!$this->is_enabled())
 		{
 			return $sql_stmt;
 		}
@@ -250,35 +270,28 @@ class topic_preview
 	*/
 	public function display_topic_preview($row, $block)
 	{
-		if (!$this->tp_enabled)
+		if (!$this->is_enabled())
 		{
 			return $block;
 		}
 
-		if (!empty($row['first_post_text']))
-		{
-			$first_post_preview_text = $this->trim_topic_preview($row['first_post_text']);
-		}
+		$first_post_preview_text = (!empty($row['first_post_text'])) ? censor_text($this->trim_topic_preview($row['first_post_text'])) : '';
+		$last_post_preview_text = (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_topic_preview($row['last_post_text'])) : '';
 
-		if (!empty($row['last_post_text']) && $row['topic_first_post_id'] != $row['topic_last_post_id'])
-		{
-			$last_post_preview_text = $this->trim_topic_preview($row['last_post_text']);
-		}
-
-		if ($this->tp_avatars)
+		if ($this->avatars_enabled())
 		{
 			$first_poster_avatar = (!empty($row['fp_avatar'])) ? $this->get_user_avatar_helper($row['fp_avatar'], $row['fp_avatar_type'], $row['fp_avatar_width'], $row['fp_avatar_height']) : $this->tp_avatar_fallback();
 			$last_poster_avatar = (!empty($row['lp_avatar'])) ? $this->get_user_avatar_helper($row['lp_avatar'], $row['lp_avatar_type'], $row['lp_avatar_width'], $row['lp_avatar_height']) : $this->tp_avatar_fallback();
 		}
 
 		$block = array_merge($block, array(
-			'TOPIC_PREVIEW_FIRST_POST'		=> (isset($first_post_preview_text)) ? censor_text($first_post_preview_text) : '',
+			'TOPIC_PREVIEW_FIRST_POST'		=> $first_post_preview_text,
+			'TOPIC_PREVIEW_LAST_POST'		=> $last_post_preview_text,
 			'TOPIC_PREVIEW_FIRST_AVATAR'	=> (isset($first_poster_avatar)) ? $first_poster_avatar : '',
-			'TOPIC_PREVIEW_LAST_POST'		=> (isset($last_post_preview_text)) ? censor_text($last_post_preview_text) : '',
 			'TOPIC_PREVIEW_LAST_AVATAR'		=> (isset($last_poster_avatar)) ? $last_poster_avatar : '',
 		));
 
-		$tp_avatars = $this->tp_avatars;
+		$tp_avatars = $this->avatars_enabled();
 
 		/**
 		* EVENT to modify the topic preview display output before it gets inserted in the template block
@@ -328,9 +341,16 @@ class topic_preview
 	{
 		$text = smiley_text($text, true); // display smileys as text :)
 
+		static $strip_bbcodes;
+
+		if (!isset($strip_bbcodes))
+		{
+			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';;
+		}
+
 		// Loop through text stripping inner most nested BBCodes until all have been removed
-		$regex = '#\[(' . $this->strip_bbcodes . ')[^\[\]]+\]((?:[^\[])+)\[\/\1[^\[\]]+\]#Usi';
-		while(preg_match($regex, $text) === 1)
+		$regex = '#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:(?!\[\1[^\[\]]+\]).)+)\[\/\1[^\[\]]+\]#Usi';
+		while(preg_match($regex, $text))
 		{
 			$text = preg_replace($regex, '', $text);
 		}
