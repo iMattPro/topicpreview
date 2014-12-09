@@ -53,36 +53,36 @@ class topic_preview
 	}
 
 	/**
-	 * Topic Preview Enabled
-	 *
-	 * @return bool Topic Preview is enabled
-	 * @access public
-	 */
+	* Returns whether topic preview is enabled, given current board and user configurations
+	*
+	* @return bool
+	* @access public
+	*/
 	public function is_enabled()
 	{
-		return (!empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview'])) ? true : false;
+		return (bool) !empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview']);
 	}
 
 	/**
-	 * Topic Preview Avatars Enabled
-	 *
-	 * @return bool Topic Preview avatars are enabled
-	 * @access public
-	 */
+	* Returns whether avatars should enabled, given current board and user configurations
+	*
+	* @return bool
+	* @access public
+	*/
 	public function avatars_enabled()
 	{
-		return (!empty($this->config['topic_preview_avatars']) && $this->config['allow_avatar'] && $this->user->optionget('viewavatars')) ? true : false;
+		return (bool) $this->config['topic_preview_avatars'] && $this->config['allow_avatar'] && $this->user->optionget('viewavatars');
 	}
 
 	/**
-	 * Topic Preview Last Post Text Enabled
-	 *
-	 * @return bool Topic Preview last post text is enabled
-	 * @access public
-	 */
+	* Returns whether last post text should be enabled, given current board configuration
+	*
+	* @return bool
+	* @access public
+	*/
 	public function last_post_enabled()
 	{
-		return !empty($this->config['topic_preview_last_post']);
+		return (bool) $this->config['topic_preview_last_post'];
 	}
 
 	/**
@@ -128,8 +128,10 @@ class topic_preview
 	*/
 	public function tp_sql_select()
 	{
+		// Select first post text
 		$sql = ', fp.post_text AS first_post_text';
 
+		// Select last post text if enabled
 		if ($this->last_post_enabled())
 		{
 			$sql .= ', lp.post_text AS last_post_text';
@@ -137,11 +139,13 @@ class topic_preview
 
 		if ($this->avatars_enabled())
 		{
+			// Select first poster avatar data if enabled
 			$sql .= ', fpu.user_avatar AS fp_avatar,
 				fpu.user_avatar_type AS fp_avatar_type,
 				fpu.user_avatar_width AS fp_avatar_width,
 				fpu.user_avatar_height AS fp_avatar_height';
 
+			// Select last poster avatar data if enabled
 			if ($this->last_post_enabled())
 			{
 				$sql .= ', lpu.user_avatar AS lp_avatar,
