@@ -197,24 +197,6 @@ class topic_preview
 	}
 
 	/**
-	* Return an img link to the board's default no avatar image
-	*
-	* @return string img link to the board's default no avatar image
-	* @access public
-	*/
-	public function tp_avatar_fallback()
-	{
-		static $no_avatar = '';
-
-		if (empty($no_avatar))
-		{
-			$no_avatar = $this->get_user_avatar_helper($this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif', 'avatar.driver.remote');
-		}
-
-		return $no_avatar;
-	}
-
-	/**
 	* Modify SQL string|array to get post text
 	*
 	* @param string|array $sql_stmt SQL string or array to be modified
@@ -275,20 +257,11 @@ class topic_preview
 			return $block;
 		}
 
-		$first_post_preview_text = (!empty($row['first_post_text'])) ? censor_text($this->trim_topic_preview($row['first_post_text'])) : '';
-		$last_post_preview_text = (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_topic_preview($row['last_post_text'])) : '';
-
-		if ($this->avatars_enabled())
-		{
-			$first_poster_avatar = (!empty($row['fp_avatar'])) ? $this->get_user_avatar_helper($row['fp_avatar'], $row['fp_avatar_type'], $row['fp_avatar_width'], $row['fp_avatar_height']) : $this->tp_avatar_fallback();
-			$last_poster_avatar = (!empty($row['lp_avatar'])) ? $this->get_user_avatar_helper($row['lp_avatar'], $row['lp_avatar_type'], $row['lp_avatar_width'], $row['lp_avatar_height']) : $this->tp_avatar_fallback();
-		}
-
 		$block = array_merge($block, array(
-			'TOPIC_PREVIEW_FIRST_POST'		=> $first_post_preview_text,
-			'TOPIC_PREVIEW_LAST_POST'		=> $last_post_preview_text,
-			'TOPIC_PREVIEW_FIRST_AVATAR'	=> (isset($first_poster_avatar)) ? $first_poster_avatar : '',
-			'TOPIC_PREVIEW_LAST_AVATAR'		=> (isset($last_poster_avatar)) ? $last_poster_avatar : '',
+			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim_topic_preview($row['first_post_text'])) : '',
+			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_topic_preview($row['last_post_text'])) : '',
+			'TOPIC_PREVIEW_FIRST_AVATAR'	=> $this->get_user_avatar_helper($row, 'fp'),
+			'TOPIC_PREVIEW_LAST_AVATAR'		=> $this->get_user_avatar_helper($row, 'lp'),
 		));
 
 		$tp_avatars = $this->avatars_enabled();
@@ -345,7 +318,7 @@ class topic_preview
 
 		if (!isset($strip_bbcodes))
 		{
-			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';;
+			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 		}
 
 		// Loop through text stripping inner most nested BBCodes until all have been removed
@@ -389,24 +362,36 @@ class topic_preview
 	/**
 	* Get user avatar helper function
 	*
-	* @param string $avatar Users assigned avatar name
-	* @param int $avatar_type Type of avatar
-	* @param int $avatar_width Width of avatar
-	* @param int $avatar_height Height of avatar
+	* @param string $row Usersrow data
+	* @param string $poster Type of poster, fp or lp
 	* @return string Avatar image
 	* @access protected
 	*/
-	protected function get_user_avatar_helper($avatar, $avatar_type, $avatar_width = 60, $avatar_height = 60)
+	protected function get_user_avatar_helper($row, $poster)
 	{
+		if (!$this->avatars_enabled())
+		{
+			return '';
+		}
+
+		// If user has no avatar, lets use a fallback
+		if (empty($row[$poster . '_avatar']))
+		{
+			$row[$poster . '_avatar'] = $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif';
+			$row[$poster . '_avatar_type'] = 'avatar.driver.remote';
+			$row[$poster . '_avatar_width'] = 60;
+			$row[$poster . '_avatar_height'] = 60;
+		}
+
 		// map arguments to new function phpbb_get_avatar()
-		$row = array(
-			'avatar'		=> $avatar,
-			'avatar_type'	=> $avatar_type,
-			'avatar_width'	=> $avatar_width,
-			'avatar_height'	=> $avatar_height,
+		$map = array(
+			'avatar'		=> $row[$poster . '_avatar'],
+			'avatar_type'	=> $row[$poster . '_avatar_type'],
+			'avatar_width'	=> $row[$poster . '_avatar_width'],
+			'avatar_height'	=> $row[$poster . '_avatar_height'],
 		);
 
-		return phpbb_get_user_avatar($row);
+		return phpbb_get_user_avatar($map);
 	}
 
 	/**

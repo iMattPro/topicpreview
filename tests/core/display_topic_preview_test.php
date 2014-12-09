@@ -114,7 +114,7 @@ class display_topic_preview_test extends topic_preview_base
 		$topic_preview_manager->setup();
 
 		// Set the expected avatar data here
-		$expected['TOPIC_PREVIEW_FIRST_AVATAR'] = $expected['TOPIC_PREVIEW_LAST_AVATAR'] = $topic_preview_manager->tp_avatar_fallback();
+//		$expected['TOPIC_PREVIEW_FIRST_AVATAR'] = $expected['TOPIC_PREVIEW_LAST_AVATAR'] = $topic_preview_manager->tp_avatar_fallback();
 
 		// Update the block array with topic preview data
 		$block = $topic_preview_manager->display_topic_preview($data, $block);
