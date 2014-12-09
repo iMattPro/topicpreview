@@ -362,7 +362,7 @@ class topic_preview
 	/**
 	* Get user avatar helper function
 	*
-	* @param string $row Usersrow data
+	* @param array $row User row data
 	* @param string $poster Type of poster, fp or lp
 	* @return string Avatar image
 	* @access protected
