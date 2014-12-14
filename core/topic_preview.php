@@ -107,7 +107,6 @@ class topic_preview
 			$this->user->add_lang_ext('vse/topicpreview', 'topic_preview');
 		}
 
-		// Assign our template vars
 		$this->template->assign_vars(array(
 			'S_TOPICPREVIEW'		=> $this->is_enabled(),
 			'TOPICPREVIEW_THEME'	=> $this->get_theme(),
@@ -128,10 +127,8 @@ class topic_preview
 	*/
 	public function tp_sql_select()
 	{
-		// Select first post text
 		$sql = ', fp.post_text AS first_post_text';
 
-		// Select last post text if enabled
 		if ($this->last_post_enabled())
 		{
 			$sql .= ', lp.post_text AS last_post_text';
@@ -139,13 +136,11 @@ class topic_preview
 
 		if ($this->avatars_enabled())
 		{
-			// Select first poster avatar data if enabled
 			$sql .= ', fpu.user_avatar AS fp_avatar,
 				fpu.user_avatar_type AS fp_avatar_type,
 				fpu.user_avatar_width AS fp_avatar_width,
 				fpu.user_avatar_height AS fp_avatar_height';
 
-			// Select last poster avatar data if enabled
 			if ($this->last_post_enabled())
 			{
 				$sql .= ', lpu.user_avatar AS lp_avatar,
