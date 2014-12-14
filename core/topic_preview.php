@@ -318,19 +318,7 @@ class topic_preview
 	{
 		$text = smiley_text($text, true); // display smileys as text :)
 
-		static $strip_bbcodes;
-
-		if (!isset($strip_bbcodes))
-		{
-			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
-		}
-
-		// Loop through text stripping inner most nested BBCodes until all have been removed
-		$regex = '#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:(?!\[\1[^\[\]]+\]).)+)\[\/\1[^\[\]]+\]#Usi';
-		while(preg_match($regex, $text))
-		{
-			$text = preg_replace($regex, '', $text);
-		}
+		$text = $this->strip_bbcode_contents($text);
 
 		static $patterns = array();
 
@@ -348,6 +336,32 @@ class topic_preview
 		}
 
 		return trim(preg_replace($patterns, ' ', $text));
+	}
+
+	/**
+	* Strip special BBCodes and their contents
+	* Uses recursion to handle nested BBCodes
+	*
+	* @param string $text Topic preview text
+	* @return string Topic preview text stripped
+	* @access protected
+	*/
+	protected function strip_bbcode_contents($text)
+	{
+		static $regex;
+
+		if (!isset($regex))
+		{
+			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
+			$regex = '#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:(?!\[\1[^\[\]]+\]).)+)\[\/\1[^\[\]]+\]#Usi';
+		}
+
+		if (preg_match($regex, $text))
+		{
+			return $this->strip_bbcode_contents(preg_replace($regex, '', $text));
+		}
+
+		return $text;
 	}
 
 	/**
