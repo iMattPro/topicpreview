@@ -30,6 +30,9 @@ class topic_preview
 	/** @var string phpBB root path */
 	protected $root_path;
 
+	/** @var \vse\topicpreview\core\trim_tools */
+	protected $trim_tools;
+
 	/**
 	* Constructor
 	*
@@ -39,10 +42,11 @@ class topic_preview
 	* @param \phpbb\template\template $template
 	* @param \phpbb\user $user
 	* @param string $root_path
+	* @param \vse\topicpreview\core\trim_tools $trim_tools
 	* @return \vse\topicpreview\core\topic_preview
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path, \vse\topicpreview\core\trim_tools $trim_tools)
 	{
 		$this->config = $config;
 		$this->db = $db;
@@ -50,6 +54,7 @@ class topic_preview
 		$this->template = $template;
 		$this->user = $user;
 		$this->root_path = $root_path;
+		$this->trim_tools = $trim_tools;
 	}
 
 	/**
@@ -257,8 +262,8 @@ class topic_preview
 		}
 
 		$block = array_merge($block, array(
-			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim_topic_preview($row['first_post_text'])) : '',
-			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_topic_preview($row['last_post_text'])) : '',
+			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim_tools->trim_text($row['first_post_text'])) : '',
+			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_tools->trim_text($row['last_post_text'])) : '',
 			'TOPIC_PREVIEW_FIRST_AVATAR'	=> $this->get_user_avatar_helper($row, 'fp'),
 			'TOPIC_PREVIEW_LAST_AVATAR'		=> $this->get_user_avatar_helper($row, 'lp'),
 		));
@@ -278,98 +283,6 @@ class topic_preview
 		extract($this->dispatcher->trigger_event('vse.topicpreview.display_topic_preview', compact($vars)));
 
 		return $block;
-	}
-
-	/**
-	* Trim and clean topic preview text
-	*
-	* @param string $text Topic preview text
-	* @return string Trimmed topic preview text
-	* @access protected
-	*/
-	protected function trim_topic_preview($text)
-	{
-		$text = $this->remove_markup($text);
-
-		if (utf8_strlen($text) <= $this->config['topic_preview_limit'])
-		{
-			return $this->tp_nl2br($text);
-		}
-
-		// trim the text to the last whitespace character before the cut-off
-		$text = preg_replace('/\s+?(\S+)?$/', '', utf8_substr($text, 0, $this->config['topic_preview_limit']));
-
-		return $this->tp_nl2br($text) . '...';
-	}
-
-	/**
-	* Strip BBCodes, tags and links for topic preview text
-	*
-	* @param string $text Topic preview text
-	* @return string Stripped topic preview text
-	* @access protected
-	*/
-	protected function remove_markup($text)
-	{
-		$text = smiley_text($text, true); // display smileys as text :)
-
-		$text = $this->strip_bbcode_contents($text);
-
-		static $patterns = array();
-
-		if (empty($patterns))
-		{
-			// RegEx patterns based on Topic Text Hover Mod by RMcGirr83
-			$patterns = array(
-				'#<!-- [lmw] --><a class="postlink[^>]*>(.*<\/a[^>]*>)?<!-- [lmw] -->#Usi', // Magic URLs
-				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[/?[^\[\]]+\]#mi', // All BBCode tags
-				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Remaining URLs
-				'#"#', // Possible un-encoded quotes from older board conversions
-				'#[ \t]{2,}#' // Multiple spaces #[\s]+#
-			);
-		}
-
-		return trim(preg_replace($patterns, ' ', $text));
-	}
-
-	/**
-	* Strip special BBCodes and their contents
-	* Uses recursion to handle nested BBCodes
-	*
-	* @param string $text Topic preview text
-	* @return string Topic preview text stripped
-	* @access protected
-	*/
-	protected function strip_bbcode_contents($text)
-	{
-		static $regex;
-
-		if (!isset($regex))
-		{
-			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
-			$regex = '#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:(?!\[\1[^\[\]]+\]).)+)\[\/\1[^\[\]]+\]#Usi';
-		}
-
-		if (preg_match($regex, $text))
-		{
-			return $this->strip_bbcode_contents(preg_replace($regex, '', $text));
-		}
-
-		return $text;
-	}
-
-	/**
-	* Convert and preserve line breaks
-	*
-	* @param string $text Topic preview text
-	* @return string Topic preview text with line breaks
-	* @access protected
-	*/
-	protected function tp_nl2br($text)
-	{
-		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
-		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $text));
 	}
 
 	/**
