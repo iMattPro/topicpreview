@@ -12,22 +12,6 @@ namespace vse\topicpreview\tests\core;
 
 class trim_tools_test extends \phpbb_test_case
 {
-	protected $trim_tools;
-
-	public function setUp()
-	{
-		parent::setUp();
-
-		global $config;
-
-		$config = new \phpbb\config\config(array(
-			'topic_preview_limit'			=> 150,
-			'topic_preview_strip_bbcodes'	=> 'quote',
-		));
-
-		$this->trim_tools = new \vse\topicpreview\core\trim_tools($config);
-	}
-
 	public static function trim_tools_data()
 	{
 		return array(
@@ -44,7 +28,7 @@ class trim_tools_test extends \phpbb_test_case
 				str_repeat ('á', 150) . '...',
 			),
 			array(
-				'first_post_text' => 'Second message [b:3o8ohvlj]with bold text[/b:3o8ohvlj] <!-- s:) --><img src="{SMILIES_PATH}/icon_e_smile.gif" alt=":)" title="Smile" /><!-- s:) --> and smiley',
+				'Second message [b:3o8ohvlj]with bold text[/b:3o8ohvlj] <!-- s:) --><img src="{SMILIES_PATH}/icon_e_smile.gif" alt=":)" title="Smile" /><!-- s:) --> and smiley',
 				'Second message with bold text :) and smiley',
 			),
 			array(
@@ -71,6 +55,15 @@ class trim_tools_test extends \phpbb_test_case
 	*/
 	public function test_trim_tools($message, $expected)
 	{
-		$this->assertEquals($expected, $this->trim_tools->trim_text($message));
+		global $config;
+
+		$config = new \phpbb\config\config(array(
+			'topic_preview_limit'			=> 150,
+			'topic_preview_strip_bbcodes'	=> 'quote',
+		));
+
+		$trim_tools = new \vse\topicpreview\core\trim_tools($config);
+
+		$this->assertEquals($expected, $trim_tools->trim_text($message));
 	}
 }

@@ -46,10 +46,11 @@ class topic_preview_base extends \phpbb_database_test_case
 		$cache = new \phpbb_mock_cache;
 
 		$config = $this->config = new \phpbb\config\config(array(
-			'topic_preview_limit'		=> 150,
-			'topic_preview_avatars'		=> 1,
-			'topic_preview_last_post'	=> 1,
-			'allow_avatar'				=> 1,
+			'topic_preview_strip_bbcodes'	=> 'quote',
+			'topic_preview_limit'			=> 150,
+			'topic_preview_avatars'			=> 1,
+			'topic_preview_last_post'		=> 1,
+			'allow_avatar'					=> 1,
 		));
 
 		$this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
