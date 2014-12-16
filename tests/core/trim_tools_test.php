@@ -10,6 +10,10 @@
 
 namespace vse\topicpreview\tests\core;
 
+require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
+require_once dirname(__FILE__) . '/../../../../../includes/functions_content.php';
+require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
+
 class trim_tools_test extends \phpbb_test_case
 {
 	public static function trim_tools_data()
