@@ -98,7 +98,7 @@ class topic_preview_module
 				'STYLE_ID'				=> $row['style_id'],
 				'STYLE_THEME'			=> $this->user->lang('TOPIC_PREVIEW_THEME', $row['style_name']),
 				'STYLE_THEME_EXPLAIN'	=> $this->user->lang('TOPIC_PREVIEW_THEME_EXPLAIN', $row['style_name']),
-				'THEME_OPTIONS'			=> $this->theme_options((!empty($row['topic_preview_theme'])) ? $row['topic_preview_theme'] : 'light'),
+				'THEME_OPTIONS'			=> $this->theme_options($row['topic_preview_theme']),
 			));
 		}
 
@@ -179,11 +179,11 @@ class topic_preview_module
 	/**
 	* Create <option> tags for each Topic Preview theme
 	*
-	* @param	string	$theme	Name of the Topic Preview theme stored in the db
+	* @param	string	$current	Name of the Topic Preview theme stored in the db
 	* @return	string	html <option> tags for Topic Preview themes
 	* @access	protected
 	*/
-	protected function theme_options($theme)
+	protected function theme_options($current)
 	{
 		static $themes = array();
 
@@ -197,17 +197,17 @@ class topic_preview_module
 		}
 
 		// If current theme name not available, fallback to default theme
-		if (!in_array($theme, $themes))
+		if (!in_array($current, $themes))
 		{
-			$theme = 'light';
+			$current = 'light';
 		}
 
 		$theme_options = '';
-		foreach ($themes as $name)
+		foreach ($themes as $theme)
 		{
-			$display_name = ($name == 'no') ? $this->user->lang('NO') : ucwords($name);
-			$selected = ($name == $theme) ? ' selected="selected"' : '';
-			$theme_options .= '<option value="' . $name . '"' . $selected . '>' . $display_name . ' ' . $this->user->lang('THEME') . '</option>';
+			$display_name = ($theme == 'no') ? $this->user->lang('NO') : ucwords($theme);
+			$selected = ($theme == $current) ? ' selected="selected"' : '';
+			$theme_options .= '<option value="' . $theme . '"' . $selected . '>' . $display_name . ' ' . $this->user->lang('THEME') . '</option>';
 		}
 
 		return $theme_options;
