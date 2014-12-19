@@ -110,7 +110,6 @@ class topic_preview_module
 			'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
 			'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
 			'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
-			'TOPIC_PREVIEW_VERSION'		=> $this->config['topic_preview_version'],
 			'U_ACTION'					=> $this->u_action,
 		));
 	}
