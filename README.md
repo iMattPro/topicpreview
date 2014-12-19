@@ -1,6 +1,6 @@
 # ![Topic Preview](http://mattfriedman.me/forum/images/search.png "Topic Preview") Topic Preview for phpBB3
 
-This is an extension for phpBB 3.1 that will display a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
+A phpBB 3.1 extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
 [![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.png?branch=extension)](https://travis-ci.org/VSEphpbb/topicpreview)
 
