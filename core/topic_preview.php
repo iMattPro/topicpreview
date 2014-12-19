@@ -262,8 +262,8 @@ class topic_preview
 		}
 
 		$block = array_merge($block, array(
-			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim_tools->trim_text($row['first_post_text'])) : '',
-			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_tools->trim_text($row['last_post_text'])) : '',
+			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim_tools->trim_text($row['first_post_text'], $this->config['topic_preview_limit'])) : '',
+			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_tools->trim_text($row['last_post_text'], $this->config['topic_preview_limit'])) : '',
 			'TOPIC_PREVIEW_FIRST_AVATAR'	=> $this->get_user_avatar_helper($row, 'fp'),
 			'TOPIC_PREVIEW_LAST_AVATAR'		=> $this->get_user_avatar_helper($row, 'lp'),
 		));

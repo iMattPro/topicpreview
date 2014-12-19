@@ -31,20 +31,21 @@ class trim_tools
 	* Trim and clean text
 	*
 	* @param string $message Message text
+	* @param int $length The length to trim text to
 	* @return string Trimmed message text
 	* @access protected
 	*/
-	public function trim_text($message)
+	public function trim_text($message, $length)
 	{
 		$message = $this->remove_markup($message);
 
-		if (utf8_strlen($message) <= $this->config['topic_preview_limit'])
+		if (utf8_strlen($message) <= $length)
 		{
 			return $this->tp_nl2br($message);
 		}
 
 		// trim the text to the last whitespace character before the cut-off
-		$message = preg_replace('/\s+?(\S+)?$/', '', utf8_substr($message, 0, $this->config['topic_preview_limit']));
+		$message = preg_replace('/\s+?(\S+)?$/', '', utf8_substr($message, 0, $length));
 
 		return $this->tp_nl2br($message) . '...';
 	}
