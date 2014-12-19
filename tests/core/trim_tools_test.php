@@ -16,13 +16,15 @@ require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
 
 class trim_tools_test extends \phpbb_test_case
 {
+	protected $config;
+
 	public function setUp()
 	{
 		parent::setUp();
 
 		global $config;
 
-		$config = new \phpbb\config\config(array(
+		$this->config = $config = new \phpbb\config\config(array(
 			'topic_preview_limit'			=> 150,
 			'topic_preview_strip_bbcodes'	=> 'quote',
 		));
@@ -73,6 +75,6 @@ class trim_tools_test extends \phpbb_test_case
 	*/
 	public function test_trim_tools($message, $expected)
 	{
-		$this->assertEquals($expected, $this->trim_tools->trim_text($message));
+		$this->assertEquals($expected, $this->trim_tools->trim_text($message, $this->config['topic_preview_limit']));
 	}
 }
