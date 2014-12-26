@@ -36,5 +36,5 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Aperçu des sujets',
-	'TOPIC_PREVIEW_SETTINGS'		=> 'Paramètres de l’aperçu des sujets',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Paramètres de l’aperçu',
 ));
