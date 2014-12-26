@@ -36,8 +36,8 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Aperçu des sujets',
-	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affichera dans une info-bulle une partie de texte du premier message, lorsque la souris survolera le titre du sujet. ',
-	'TOPIC_PREVIEW_SETTINGS'		=> 'Paramètres de l’aperçu',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affichera dans une infobulle une partie de texte du premier message, lorsque la souris survolera le titre du sujet. ',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Paramètres de l’aperçu sujets',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Longueur du texte de l’aperçu des sujets',
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Saisissez le nombre de caractères à afficher dans l’infobulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode à cacher dans l’aperçu des sujets',
