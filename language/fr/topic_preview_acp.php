@@ -36,7 +36,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Aperçu des sujets',
-	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affiche dans une infobulle une partie du texte du premier message du sujet, lorsque la souris survole son titre. ',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affiche dans une infobulle une partie du texte du premier message du sujet, lorsque la souris survole son titre.',
 	'TOPIC_PREVIEW_SETTINGS'		=> 'Paramètres de l’aperçu des sujets',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Longueur du texte de l’aperçu des sujets',
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Saisissez le nombre de caractères à afficher dans l’infobulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
@@ -49,8 +49,8 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Paramètres de style de l’aperçu des sujets',
 	'TOPIC_PREVIEW_WIDTH'			=> 'Largeur de l’aperçu des sujets (en pixels)',
 	'TOPIC_PREVIEW_DELAY'			=> 'Délais d’affichage de l’aperçu des sujets (en millisecondes)',
-	'TOPIC_PREVIEW_DRIFT'			=> 'Effet dérive d’animation (Animated Drift - en pixels)',
-	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Taux de l’animation verticale dans le fondu de sortie. Utilisez des valeurs négatives pour changer le sens de la direction.',
+	'TOPIC_PREVIEW_DRIFT'			=> 'Effet dérive animée (Animated Drift)',
+	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Taille de l’animation verticale en pixels lors du fondu de sortie. Utilisez des valeurs positives pour un sens montant et négatives pour un sens descendant.',
 	'TOPIC_PREVIEW_THEME'			=> 'Style pour %s',
 	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Choisissez un style d’aperçu des sujets, pour %s.',
 	'THEME'							=> 'style',
