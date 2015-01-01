@@ -128,9 +128,6 @@ class display_topic_preview_test extends topic_preview_base
 		// Get an instance of topic preview class
 		$topic_preview_manager = $this->topic_preview_manager();
 
-		// Make sure setup has been run
-		$topic_preview_manager->setup();
-
 		// Update the block array with topic preview data
 		$block = $topic_preview_manager->display_topic_preview($data, $block);
 

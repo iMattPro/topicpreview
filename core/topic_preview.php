@@ -55,6 +55,8 @@ class topic_preview
 		$this->user = $user;
 		$this->root_path = $root_path;
 		$this->trim_tools = $trim_tools;
+
+		$this->setup();
 	}
 
 	/**
@@ -91,21 +93,13 @@ class topic_preview
 	}
 
 	/**
-	* Set up the environment
+	* Set up some common components
 	*
 	* @return null
 	* @access public
 	*/
 	public function setup()
 	{
-		static $is_setup = false;
-
-		// Make sure we only run setup once
-		if ($is_setup)
-		{
-			return;
-		}
-
 		// Load our language file (only needed if showing last post text)
 		if ($this->last_post_enabled())
 		{
@@ -119,9 +113,6 @@ class topic_preview
 			'TOPICPREVIEW_DRIFT'	=> $this->config['topic_preview_drift'],
 			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360,
 		));
-
-		// So the setup is only loaded once
-		$is_setup = true;
 	}
 
 	/**
@@ -210,8 +201,6 @@ class topic_preview
 	*/
 	public function modify_sql($sql_stmt, $type = 'SELECT')
 	{
-		$this->setup();
-
 		if (!$this->is_enabled())
 		{
 			return $sql_stmt;
