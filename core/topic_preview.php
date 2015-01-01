@@ -58,7 +58,7 @@ class topic_preview
 	}
 
 	/**
-	* Returns whether topic preview is enabled, given current board and user configurations
+	* Show topic previews, given current board and user configurations
 	*
 	* @return bool
 	* @access public
@@ -69,7 +69,7 @@ class topic_preview
 	}
 
 	/**
-	* Returns whether avatars should enabled, given current board and user configurations
+	* Show avatars, given current board and user configurations
 	*
 	* @return bool
 	* @access public
@@ -80,7 +80,7 @@ class topic_preview
 	}
 
 	/**
-	* Returns whether last post text should be enabled, given current board configuration
+	* Show last post text, given current board configuration
 	*
 	* @return bool
 	* @access public
