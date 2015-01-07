@@ -12,6 +12,9 @@ namespace vse\topicpreview\core;
 
 class topic_preview
 {
+	const PREVIEW_SIZE = 360;
+	const AVATAR_SIZE = 60;
+
 	/** @var \phpbb\config\config */
 	protected $config;
 
@@ -111,7 +114,7 @@ class topic_preview
 			'TOPICPREVIEW_THEME'	=> $this->get_theme(),
 			'TOPICPREVIEW_DELAY'	=> $this->config['topic_preview_delay'],
 			'TOPICPREVIEW_DRIFT'	=> $this->config['topic_preview_drift'],
-			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : 360,
+			'TOPICPREVIEW_WIDTH'	=> (!empty($this->config['topic_preview_width'])) ? $this->config['topic_preview_width'] : self::PREVIEW_SIZE,
 		));
 	}
 
@@ -294,8 +297,8 @@ class topic_preview
 		{
 			$row[$poster . '_avatar'] = $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif';
 			$row[$poster . '_avatar_type'] = 'avatar.driver.remote';
-			$row[$poster . '_avatar_width'] = 60;
-			$row[$poster . '_avatar_height'] = 60;
+			$row[$poster . '_avatar_width'] = self::AVATAR_SIZE;
+			$row[$poster . '_avatar_height'] = self::AVATAR_SIZE;
 		}
 
 		// map arguments to new function phpbb_get_avatar()
