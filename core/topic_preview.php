@@ -46,7 +46,6 @@ class topic_preview
 	* @param \phpbb\user $user
 	* @param string $root_path
 	* @param \vse\topicpreview\core\trim_tools $trim_tools
-	* @return \vse\topicpreview\core\topic_preview
 	* @access public
 	*/
 	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path, \vse\topicpreview\core\trim_tools $trim_tools)

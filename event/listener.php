@@ -24,7 +24,6 @@ class listener implements EventSubscriberInterface
 	* Constructor
 	*
 	* @param \vse\topicpreview\core\topic_preview    $topicpreview  Topic Preview object
-	* @return \vse\topicpreview\event\listener
 	* @access public
 	*/
 	public function __construct(\vse\topicpreview\core\topic_preview $topicpreview)

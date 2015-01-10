@@ -36,7 +36,6 @@ class ucp_listener implements EventSubscriberInterface
 	* @param \phpbb\request\request $request
 	* @param \phpbb\template\template $template
 	* @param \phpbb\user $user
-	* @return \vse\topicpreview\event\ucp_listener
 	* @access public
 	*/
 	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
