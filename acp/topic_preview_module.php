@@ -42,6 +42,9 @@ class topic_preview_module
 	/** @var string */
 	public $u_action;
 
+	/**
+	* Constructor
+	*/
 	public function __construct()
 	{
 		global $cache, $config, $db, $phpbb_extension_manager, $request,  $template, $user, $phpbb_root_path;
@@ -59,6 +62,13 @@ class topic_preview_module
 		$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
 	}
 
+	/**
+	* Main ACP module
+	*
+	* @param int $id
+	* @param string $mode
+	* @access public
+	*/
 	public function main($id, $mode)
 	{
 		$this->tpl_name = 'acp_topic_preview';
