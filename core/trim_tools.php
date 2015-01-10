@@ -19,7 +19,6 @@ class trim_tools
 	* Constructor
 	*
 	* @param \phpbb\config\config $config
-	* @return \vse\topicpreview\core\trim_tools
 	* @access public
 	*/
 	public function __construct(\phpbb\config\config $config)
