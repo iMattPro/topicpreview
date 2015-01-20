@@ -14,7 +14,7 @@ class release_1_0_6_data extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['topic_preview_version']) && version_compare($this->config['topic_preview_version'], '1.0.6', '>=');
+		return isset($this->config['topic_preview_limit']);
 	}
 
 	public function update_data()

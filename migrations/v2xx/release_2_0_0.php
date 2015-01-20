@@ -14,7 +14,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return version_compare($this->config['topic_preview_version'], '2.0.0', '>=');
+		return isset($this->config['topic_preview_avatars']);
 	}
 
 	static public function depends_on()

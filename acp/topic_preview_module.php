@@ -15,6 +15,9 @@ namespace vse\topicpreview\acp;
 */
 class topic_preview_module
 {
+	const NO_THEME = 'no';
+	const DEFAULT_THEME = 'light';
+
 	/** @var \phpbb\cache\driver\driver_interface */
 	protected $cache;
 
@@ -39,10 +42,16 @@ class topic_preview_module
 	/** @var string */
 	protected $phpbb_root_path;
 
+	/** @var array */
+	protected $themes;
+
 	/** @var string */
 	public $u_action;
 
-	public function main($id, $mode)
+	/**
+	* Constructor
+	*/
+	public function __construct()
 	{
 		global $cache, $config, $db, $phpbb_extension_manager, $request,  $template, $user, $phpbb_root_path;
 
@@ -57,7 +66,17 @@ class topic_preview_module
 
 		$this->user->add_lang('acp/common');
 		$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
+	}
 
+	/**
+	* Main ACP module
+	*
+	* @param int $id
+	* @param string $mode
+	* @access public
+	*/
+	public function main($id, $mode)
+	{
 		$this->tpl_name = 'acp_topic_preview';
 		$this->page_title = $this->user->lang('TOPIC_PREVIEW');
 
@@ -68,35 +87,21 @@ class topic_preview_module
 		{
 			if (!check_form_key($form_key))
 			{
-				trigger_error($user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+				trigger_error($this->user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
-			$topic_preview_limit = $this->request->variable('topic_preview_limit', 0);
-			$this->config->set('topic_preview_limit', abs($topic_preview_limit));
-
-			$topic_preview_strip_bbcodes = $this->request->variable('topic_preview_strip_bbcodes', '');
-			$this->config->set('topic_preview_strip_bbcodes', $topic_preview_strip_bbcodes);
-
-			$topic_preview_avatars = $this->request->variable('topic_preview_avatars', 0);
-			$this->config->set('topic_preview_avatars', $topic_preview_avatars);
-
-			$topic_preview_last_post = $this->request->variable('topic_preview_last_post', 0);
-			$this->config->set('topic_preview_last_post', $topic_preview_last_post);
-
-			$topic_preview_width = $this->request->variable('topic_preview_width', 0);
-			$this->config->set('topic_preview_width', abs($topic_preview_width));
-
-			$topic_preview_delay = $this->request->variable('topic_preview_delay', 0);
-			$this->config->set('topic_preview_delay', abs($topic_preview_delay));
-
-			$topic_preview_drift = $this->request->variable('topic_preview_drift', 0);
-			$this->config->set('topic_preview_drift', $topic_preview_drift);
+			$this->config->set('topic_preview_limit', abs($this->request->variable('topic_preview_limit', 0)));
+			$this->config->set('topic_preview_width', abs($this->request->variable('topic_preview_width', 0)));
+			$this->config->set('topic_preview_delay', abs($this->request->variable('topic_preview_delay', 0)));
+			$this->config->set('topic_preview_drift', $this->request->variable('topic_preview_drift', 0));
+			$this->config->set('topic_preview_avatars', $this->request->variable('topic_preview_avatars', 0));
+			$this->config->set('topic_preview_last_post', $this->request->variable('topic_preview_last_post', 0));
+			$this->config->set('topic_preview_strip_bbcodes', $this->request->variable('topic_preview_strip_bbcodes', ''));
 
 			$styles = $this->get_styles();
 			foreach ($styles as $row)
 			{
-				$topic_preview_theme = $this->request->variable('style_' . $row['style_id'], '');
-				$this->set_style_theme($row['style_id'], $topic_preview_theme);
+				$this->set_style_theme($row['style_id'], $this->request->variable('style_' . $row['style_id'], ''));
 			}
 
 			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
@@ -109,19 +114,18 @@ class topic_preview_module
 				'STYLE_ID'				=> $row['style_id'],
 				'STYLE_THEME'			=> $this->user->lang('TOPIC_PREVIEW_THEME', $row['style_name']),
 				'STYLE_THEME_EXPLAIN'	=> $this->user->lang('TOPIC_PREVIEW_THEME_EXPLAIN', $row['style_name']),
-				'THEME_OPTIONS'			=> $this->theme_options((!empty($row['topic_preview_theme'])) ? $row['topic_preview_theme'] : 'light'),
+				'THEME_OPTIONS'			=> $this->theme_options($row['topic_preview_theme']),
 			));
 		}
 
 		$this->template->assign_vars(array(
-			'TOPIC_PREVIEW_LIMIT'		=> isset($this->config['topic_preview_limit']) ? $this->config['topic_preview_limit'] : '',
-			'TOPIC_PREVIEW_STRIP'		=> isset($this->config['topic_preview_strip_bbcodes']) ? $this->config['topic_preview_strip_bbcodes'] : '',
-			'S_TOPIC_PREVIEW_AVATARS'	=> isset($this->config['topic_preview_avatars']) ? $this->config['topic_preview_avatars'] : false,
-			'S_TOPIC_PREVIEW_LAST_POST'	=> isset($this->config['topic_preview_last_post']) ? $this->config['topic_preview_last_post'] : false,
-			'TOPIC_PREVIEW_WIDTH'		=> isset($this->config['topic_preview_width']) ? $this->config['topic_preview_width'] : '',
-			'TOPIC_PREVIEW_DELAY'		=> isset($this->config['topic_preview_delay']) ? $this->config['topic_preview_delay'] : '',
-			'TOPIC_PREVIEW_DRIFT'		=> isset($this->config['topic_preview_drift']) ? $this->config['topic_preview_drift'] : '',
-			'TOPIC_PREVIEW_VERSION'		=> isset($this->config['topic_preview_version']) ? $this->config['topic_preview_version'] : '',
+			'TOPIC_PREVIEW_LIMIT'		=> $this->config['topic_preview_limit'],
+			'TOPIC_PREVIEW_WIDTH'		=> $this->config['topic_preview_width'],
+			'TOPIC_PREVIEW_DELAY'		=> $this->config['topic_preview_delay'],
+			'TOPIC_PREVIEW_DRIFT'		=> $this->config['topic_preview_drift'],
+			'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
+			'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
+			'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
 			'U_ACTION'					=> $this->u_action,
 		));
 	}
@@ -188,37 +192,45 @@ class topic_preview_module
 	}
 
 	/**
+	* Set themes data array
+	*
+	* @access	protected
+	*/
+	protected function set_themes()
+	{
+		if (!isset($this->themes))
+		{
+			// Get an array of available theme names
+			$this->themes = $this->get_themes();
+
+			// Add option for native browser tooltip (aka no theme)
+			$this->themes[] = self::NO_THEME;
+		}
+	}
+
+	/**
 	* Create <option> tags for each Topic Preview theme
 	*
-	* @param	string	$theme	Name of the Topic Preview theme stored in the db
+	* @param	string	$current	Name of the Topic Preview theme stored in the db
 	* @return	string	html <option> tags for Topic Preview themes
 	* @access	protected
 	*/
-	protected function theme_options($theme)
+	protected function theme_options($current)
 	{
-		static $themes = array();
-
-		if (empty($themes))
-		{
-			// Get an array of available theme names
-			$themes = $this->get_themes();
-
-			// Add option for native browser tooltip (aka no theme)
-			$themes[] = 'no';
-		}
+		$this->set_themes();
 
 		// If current theme name not available, fallback to default theme
-		if (!in_array($theme, $themes))
+		if (!in_array($current, $this->themes))
 		{
-			$theme = 'light';
+			$current = self::DEFAULT_THEME;
 		}
 
 		$theme_options = '';
-		foreach ($themes as $name)
+		foreach ($this->themes as $theme)
 		{
-			$display_name = ($name == 'no') ? $this->user->lang('NO') : ucwords($name);
-			$selected = ($name == $theme) ? ' selected="selected"' : '';
-			$theme_options .= '<option value="' . $name . '"' . $selected . '>' . $display_name . ' ' . $this->user->lang('THEME') . '</option>';
+			$display_name = ($theme == self::NO_THEME) ? $this->user->lang('NO') : ucwords($theme);
+			$selected = ($theme == $current) ? ' selected="selected"' : '';
+			$theme_options .= '<option value="' . $theme . '"' . $selected . '>' . $display_name . ' ' . $this->user->lang('THEME') . '</option>';
 		}
 
 		return $theme_options;

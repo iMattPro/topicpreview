@@ -47,6 +47,8 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 * phpBB 3.1.0-RC2 or higher
 * PHP 5.3.3 or higher
 
+Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0.
+
 ## Installation
 1. [Download the latest release](https://github.com/VSEphpbb/topicpreview/releases) and unzip it.
 2. Copy the entire contents from the unzipped folder to `phpBB/ext/vse/topicpreview/`.

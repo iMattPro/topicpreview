@@ -27,6 +27,7 @@ class topic_preview_base extends \phpbb_database_test_case
 	protected $template;
 	protected $user;
 	protected $root_path;
+	protected $trim_tools;
 
 	public function getDataSet()
 	{
@@ -63,10 +64,19 @@ class topic_preview_base extends \phpbb_database_test_case
 		$this->user->data['user_topic_preview'] = 1;
 
 		$this->template = new \vse\topicpreview\tests\mock\template();
+		$this->trim_tools = new \vse\topicpreview\core\trim_tools($this->config);
 	}
 
 	protected function topic_preview_manager()
 	{
-		return new \vse\topicpreview\core\topic_preview($this->config, $this->db, $this->dispatcher, $this->template, $this->user, $this->root_path);
+		return new \vse\topicpreview\core\topic_preview(
+			$this->config,
+			$this->db,
+			$this->dispatcher,
+			$this->template,
+			$this->user,
+			$this->root_path,
+			$this->trim_tools
+		);
 	}
 }
