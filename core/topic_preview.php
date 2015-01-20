@@ -12,7 +12,10 @@ namespace vse\topicpreview\core;
 
 class topic_preview
 {
+	/** @var int default width of topic preview */
 	const PREVIEW_SIZE = 360;
+
+	/** @var int default height and width of topic preview avatars */
 	const AVATAR_SIZE = 60;
 
 	/** @var \phpbb\config\config */
@@ -313,21 +316,21 @@ class topic_preview
 
 	/**
 	* Get user's style topic preview theme
-	* Fall back to default theme if expected theme not found
+	* Fall back to no theme if expected theme not found
 	*
-	* @return string Theme name
+	* @return mixed Theme name if theme file found, false otherwise
 	* @access protected
 	*/
 	protected function get_theme()
 	{
 		if (!empty($this->user->style['topic_preview_theme']))
 		{
-			if (file_exists($this->root_path . 'ext/vse/topicpreview/styles/all/theme/' . $this->user->style['topic_preview_theme'] . '.css') || ($this->user->style['topic_preview_theme'] == 'no'))
+			if (file_exists($this->root_path . 'ext/vse/topicpreview/styles/all/theme/' . $this->user->style['topic_preview_theme'] . '.css'))
 			{
 				return $this->user->style['topic_preview_theme'];
 			}
 		}
 
-		return 'light';
+		return false;
 	}
 }

@@ -1,4 +1,4 @@
-<!-- IF S_TOPICPREVIEW and TOPICPREVIEW_THEME neq 'no' -->
+<!-- IF S_TOPICPREVIEW and TOPICPREVIEW_THEME -->
 	<!-- INCLUDEJS @vse_topicpreview/topicpreview.js -->
 	<script>
 		jQuery(function() {
@@ -12,7 +12,7 @@
 			});
 		});
 	</script>
-<!-- ELSEIF S_TOPICPREVIEW and TOPICPREVIEW_THEME eq 'no' -->
+<!-- ELSEIF S_TOPICPREVIEW and not TOPICPREVIEW_THEME -->
 	<script>
 		jQuery(function() {
 			jQuery('.topictitle').attr('title', function() {

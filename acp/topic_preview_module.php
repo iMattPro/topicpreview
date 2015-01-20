@@ -15,6 +15,9 @@ namespace vse\topicpreview\acp;
 */
 class topic_preview_module
 {
+	const NO_THEME = 'no';
+	const DEFAULT_THEME = 'light';
+
 	/** @var \phpbb\cache\driver\driver_interface */
 	protected $cache;
 
@@ -38,6 +41,9 @@ class topic_preview_module
 
 	/** @var string */
 	protected $phpbb_root_path;
+
+	/** @var array */
+	protected $themes;
 
 	/** @var string */
 	public $u_action;
@@ -186,6 +192,23 @@ class topic_preview_module
 	}
 
 	/**
+	* Set themes data array
+	*
+	* @access	protected
+	*/
+	protected function set_themes()
+	{
+		if (!isset($this->themes))
+		{
+			// Get an array of available theme names
+			$this->themes = $this->get_themes();
+
+			// Add option for native browser tooltip (aka no theme)
+			$this->themes[] = self::NO_THEME;
+		}
+	}
+
+	/**
 	* Create <option> tags for each Topic Preview theme
 	*
 	* @param	string	$current	Name of the Topic Preview theme stored in the db
@@ -194,27 +217,18 @@ class topic_preview_module
 	*/
 	protected function theme_options($current)
 	{
-		static $themes = array();
-
-		if (empty($themes))
-		{
-			// Get an array of available theme names
-			$themes = $this->get_themes();
-
-			// Add option for native browser tooltip (aka no theme)
-			$themes[] = 'no';
-		}
+		$this->set_themes();
 
 		// If current theme name not available, fallback to default theme
-		if (!in_array($current, $themes))
+		if (!in_array($current, $this->themes))
 		{
-			$current = 'light';
+			$current = self::DEFAULT_THEME;
 		}
 
 		$theme_options = '';
-		foreach ($themes as $theme)
+		foreach ($this->themes as $theme)
 		{
-			$display_name = ($theme == 'no') ? $this->user->lang('NO') : ucwords($theme);
+			$display_name = ($theme == self::NO_THEME) ? $this->user->lang('NO') : ucwords($theme);
 			$selected = ($theme == $current) ? ' selected="selected"' : '';
 			$theme_options .= '<option value="' . $theme . '"' . $selected . '>' . $display_name . ' ' . $this->user->lang('THEME') . '</option>';
 		}
