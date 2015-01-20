@@ -20,41 +20,21 @@ class topic_preview_test extends \phpbb_functional_test_case
 		return array('vse/topicpreview');
 	}
 
-	public function setUp()
-	{
-		parent::setUp();
-		$this->enable_last_post_preview();
-		$this->enable_avatars();
-	}
-
-	public function enable_last_post_preview()
-	{
-		$this->get_db();
-
-		$sql = "UPDATE phpbb_config
-			SET config_value = 1
-			WHERE config_name = 'topic_preview_last_post'";
-
-		$this->db->sql_query($sql);
-
-		$this->purge_cache();
-	}
-
-	public function enable_avatars()
-	{
-		$this->get_db();
-
-		$sql = "UPDATE phpbb_config
-			SET config_value = 1
-			WHERE config_name = 'topic_preview_avatars'";
-
-		$this->db->sql_query($sql);
-
-		$this->purge_cache();
-	}
-
 	public function test_topic_previews()
 	{
+		global $config;
+
+		$db = $this->get_db();
+		$sql = 'UPDATE ' . CONFIG_TABLE . " SET config_value = 1 WHERE config_name = 'topic_preview_last_post'";
+		$db->sql_query($sql);
+		$config['topic_preview_last_post'] = 1;
+		$sql = 'UPDATE ' . CONFIG_TABLE . " SET config_value = 1 WHERE config_name = 'topic_preview_avatars'";
+		$db->sql_query($sql);
+		$config['topic_preview_avatars'] = 1;
+		$sql = 'UPDATE ' . CONFIG_TABLE . " SET config_value = 'quote' WHERE config_name = 'topic_preview_strip_bbcodes'";
+		$db->sql_query($sql);
+		$config['topic_preview_strip_bbcodes'] = 'quote';
+
 		$this->login();
 
 		// Create and preview a basic topic
@@ -76,6 +56,16 @@ class topic_preview_test extends \phpbb_functional_test_case
 		$post4 = $this->create_topic(2, 'Test Topic 3', 'This is a third [b]test topic[/b] posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertContains('This is a third test topic posted by the testing framework.', $crawler->filter('html')->text());
+
+		// Create and preview a topic with a stripped bbcode
+		$post4 = $this->create_topic(2, 'Test Topic 4', 'This is a fourth [quote]' . str_repeat('aaa ', 600) . '[/quote] posted by the testing framework.');
+		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
+		$this->assertContains('This is a fourth posted by the testing framework.', $crawler->filter('html')->text());
+
+		// Create and preview a topic with a stripped nested bbcodes
+		$post5 = $this->create_topic(2, 'Test Topic 5', 'This is a fifth [b]test topic[/b] with [quote]nested content inside of [quote][i][b]nested[/b] [u]content[/u][/i][/quote][/quote] content [quote]on top of more content[/quote] posted by the testing framework.');
+		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
+		$this->assertContains('This is a fifth test topic with content posted by the testing framework.', $crawler->filter('html')->text());
 
 		// Test topic preview avatars
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
