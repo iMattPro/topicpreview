@@ -45,7 +45,7 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
 
 ## Requirements
-* phpBB 3.1.0-RC2 or higher
+* phpBB 3.1.2 or higher
 * PHP 5.3.3 or higher
 
 Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0.
