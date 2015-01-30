@@ -15,13 +15,14 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 ## Features
 * Let your visitors peek at what's inside a topic before they click on it
 * Admin options to display user avatars and text previews from the first and last posts
-* Admin option to set the length of text shown in the preview
+* Admin option to set the amount of text shown in the preview
 * Admin option to define BBCodes whose contents you want removed from the topic preview
 * Admin options to customize the appearance and assign different themes to board styles
-* Ships with four themes. Additional custom themes can be added using CSS files.
+* Ships with four themes, additional custom themes can be added using CSS files
+* No theme option, i.e.: native browser tooltip (does not support avatars or last posts)
 * User option allows users to disable topic previews
-* Previews are smart: They are aware of browser window edges and they are responsive
-* The last word in the topic preview will be followed by an ellipsis and is not cut off
+* Previews are aware of browser window top/bottom edges and are responsive
+* The last word in the topic preview is not cut off and will be followed by an ellipsis
 * BBCode tags and URL links are removed for a cleaner text-only appearance
 * Smileys are displayed as text :)
 * Supports right-to-left languages
@@ -47,8 +48,6 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 ## Requirements
 * phpBB 3.1.2 or higher
 * PHP 5.3.3 or higher
-
-Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0.
 
 ## Installation
 1. [Download the latest release](https://github.com/VSEphpbb/topicpreview/releases) and unzip it.
