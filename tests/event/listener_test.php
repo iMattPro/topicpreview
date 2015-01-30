@@ -20,9 +20,11 @@ class listener_test extends \phpbb_test_case
 	*/
 	protected function set_listener()
 	{
-		$this->listener = new \vse\topicpreview\event\listener(
-			new \vse\topicpreview\tests\mock\topic_preview()
-		);
+		$topic_preview = $this->getMockBuilder('\vse\topicpreview\core\topic_preview')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->listener = new \vse\topicpreview\event\listener($topic_preview);
 	}
 
 	/**
