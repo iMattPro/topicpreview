@@ -90,9 +90,9 @@ class topic_preview_module
 				trigger_error($this->user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
-			$this->config->set('topic_preview_limit', abs($this->request->variable('topic_preview_limit', 0)));
-			$this->config->set('topic_preview_width', abs($this->request->variable('topic_preview_width', 0)));
-			$this->config->set('topic_preview_delay', abs($this->request->variable('topic_preview_delay', 0)));
+			$this->config->set('topic_preview_limit', abs($this->request->variable('topic_preview_limit', 0))); // abs() no negative values
+			$this->config->set('topic_preview_width', abs($this->request->variable('topic_preview_width', 0))); // abs() no negative values
+			$this->config->set('topic_preview_delay', abs($this->request->variable('topic_preview_delay', 0))); // abs() no negative values
 			$this->config->set('topic_preview_drift', $this->request->variable('topic_preview_drift', 0));
 			$this->config->set('topic_preview_avatars', $this->request->variable('topic_preview_avatars', 0));
 			$this->config->set('topic_preview_last_post', $this->request->variable('topic_preview_last_post', 0));
