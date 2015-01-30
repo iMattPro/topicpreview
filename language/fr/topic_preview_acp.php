@@ -2,7 +2,7 @@
 /**
 *
 * Topic Preview [French]
-* Translated by darky (http://www.foruminfopc.fr/)
+* Translated by darky (http://www.foruminfopc.fr/) & Galixte (http://www.galixte.com)
 *
 * @copyright (c) 2013 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -35,24 +35,24 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'TOPIC_PREVIEW'					=> 'Aperçu des Sujets',
-	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affichera dans une info-bulle un peu de texte du premier message, lorsque la souris survole le titre du sujet. ',
-	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW'					=> 'Aperçu des sujets',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Affiche dans une infobulle une partie du texte du premier message du sujet, lorsque la souris survole son titre.',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Paramètres de l’aperçu des sujets',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Longueur du texte de l’aperçu des sujets',
-	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Saisissez le nombre de caractères à afficher dans l’info-bulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
+	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Saisissez le nombre de caractères à afficher dans l’infobulle (la valeur par défaut est de 150). Saisissez 0 pour désactiver cette fonctionnalité.',
 	'TOPIC_PREVIEW_STRIP'			=> 'BBCode à cacher dans l’aperçu des sujets',
-	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes de contenu à supprimer de l’aperçu (les BBCodes de texte caché et Spoiler par exemple). Séparez les différents BBCodes avec le caractère « | ». Exemples: spoiler|hide|code',
+	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes à supprimer de l’aperçu (les BBCodes de texte caché et de texte dévoilé par exemple). Listez les différents BBCodes séparés par le caractère « | ». Exemples : spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Afficher l’avatar des utilisateurs',
-	'TOPIC_PREVIEW_LAST_POST'		=> 'Afficher le texte du « Dernier Message »',
+	'TOPIC_PREVIEW_LAST_POST'		=> 'Afficher le texte du « dernier message »',
 	'CHARS'							=> 'Caractères',
 
-	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Paramètres de style d’aperçu Sujet',
-	'TOPIC_PREVIEW_WIDTH'			=> 'Sujet largeur d’aperçu (en pixels)',
-	'TOPIC_PREVIEW_DELAY'			=> 'Retard avant d’afficher des aperçus de sujet (en millisecondes)',
-	'TOPIC_PREVIEW_DRIFT'			=> 'Effet de la dérive d’animation (en pixels)',
-	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Montant de l’animation verticale sur fadeout (utiliser des valeurs négatives pour changer de direction).',
-	'TOPIC_PREVIEW_THEME'			=> 'thème pour %s',
-	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Choisissez un thème d’aperçu des rubriques, pour %s.',
-	'THEME'							=> 'thème',
+	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Paramètres de style de l’aperçu des sujets',
+	'TOPIC_PREVIEW_WIDTH'			=> 'Largeur de l’aperçu des sujets (en pixels)',
+	'TOPIC_PREVIEW_DELAY'			=> 'Délais d’affichage de l’aperçu des sujets (en millisecondes)',
+	'TOPIC_PREVIEW_DRIFT'			=> 'Effet dérive animée (Animated Drift)',
+	'TOPIC_PREVIEW_DRIFT_EXPLAIN'	=> 'Taille de l’animation verticale en pixels lors du fondu de sortie. Utilisez des valeurs positives pour un sens montant et négatives pour un sens descendant.',
+	'TOPIC_PREVIEW_THEME'			=> 'Style pour %s',
+	'TOPIC_PREVIEW_THEME_EXPLAIN'	=> 'Choisissez un style d’aperçu des sujets, pour %s.',
+	'THEME'							=> 'style',
 	'MILLISECOND'					=> 'ms',
 ));
