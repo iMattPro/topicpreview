@@ -1,18 +1,18 @@
-<!-- IF S_TOPICPREVIEW and TOPICPREVIEW_THEME -->
+{% if S_TOPICPREVIEW and TOPICPREVIEW_THEME %}
 	<!-- INCLUDEJS @vse_topicpreview/topicpreview.js -->
 	<script>
 		jQuery(function() {
 			jQuery('.topictitle').topicPreview({
-				dir: '{S_CONTENT_DIRECTION}',
-				delay: {TOPICPREVIEW_DELAY},
-				width: {TOPICPREVIEW_WIDTH},
-				drift: {TOPICPREVIEW_DRIFT},
+				dir: '{{ S_CONTENT_DIRECTION }}',
+				delay: {{ TOPICPREVIEW_DELAY }},
+				width: {{ TOPICPREVIEW_WIDTH }},
+				drift: {{ TOPICPREVIEW_DRIFT }},
 				position: {left: 35, top: 25},
-				noavatar: '{T_THEME_PATH}/images/no_avatar.gif'
+				noavatar: '{{ T_THEME_PATH }}/images/no_avatar.gif'
 			});
 		});
 	</script>
-<!-- ELSEIF S_TOPICPREVIEW and not TOPICPREVIEW_THEME -->
+{% elseif S_TOPICPREVIEW and not TOPICPREVIEW_THEME %}
 	<script>
 		jQuery(function() {
 			jQuery('.topictitle').attr('title', function() {
@@ -20,4 +20,4 @@
 			});
 		});
 	</script>
-<!-- ENDIF -->
+{% endif %}

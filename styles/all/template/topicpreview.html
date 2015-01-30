@@ -1,0 +1,19 @@
+<div class="topic_preview_content" style="display:none;">
+	{% if preview.TOPIC_PREVIEW_LAST_POST %}
+		<strong>{{ lang('FIRST_POST') }}</strong>
+		<hr />
+	{% endif %}
+	{% if preview.TOPIC_PREVIEW_FIRST_AVATAR %}
+		<div class="topic_preview_avatar">{{ preview.TOPIC_PREVIEW_FIRST_AVATAR }}</div>
+	{% endif %}
+	<div class="topic_preview_first">{{ preview.TOPIC_PREVIEW_FIRST_POST }}</div>
+	{% if preview.TOPIC_PREVIEW_LAST_POST %}
+		<div class="topic_preview_break"></div>
+		<strong>{{ lang('LAST_POST') }}</strong>
+		<hr />
+		{% if preview.TOPIC_PREVIEW_LAST_AVATAR %}
+			<div class="topic_preview_avatar">{{ preview.TOPIC_PREVIEW_LAST_AVATAR }}</div>
+		{% endif %}
+		<div class="topic_preview_last">{{ preview.TOPIC_PREVIEW_LAST_POST }}</div>
+	{% endif %}
+</div>

@@ -1,19 +1,29 @@
-<!-- IF topicrow.TOPIC_PREVIEW_FIRST_POST -->
-	<!-- INCLUDE topicpreview_topicrow.html -->
-<!-- ENDIF -->
+{# display topic preview in view forum #}
+{% if topicrow.TOPIC_PREVIEW_FIRST_POST %}
+	{% set preview = topicrow %}
+	{% include 'topicpreview.html' %}
+{% endif %}
 
-<!-- IF searchresults.TOPIC_PREVIEW_FIRST_POST -->
-	<!-- INCLUDE topicpreview_searchresults.html -->
-<!-- ENDIF -->
+{# display topic preview in search results #}
+{% if searchresults.TOPIC_PREVIEW_FIRST_POST %}
+	{% set preview = searchresults %}
+	{% include 'topicpreview.html' %}
+{% endif %}
 
-<!-- IF similar.TOPIC_PREVIEW_FIRST_POST -->
-	<!-- INCLUDE topicpreview_similartopics.html -->
-<!-- ENDIF -->
+{# display topic preview in Similar Topics extension #}
+{% if similar.TOPIC_PREVIEW_FIRST_POST %}
+	{% set preview = similar %}
+	{% include 'topicpreview.html' %}
+{% endif %}
 
-<!-- IF recent_topics.TOPIC_PREVIEW_FIRST_POST -->
-	<!-- INCLUDE topicpreview_recenttopics.html -->
-<!-- ENDIF -->
+{# display topic preview in Recent Topics extension #}
+{% if recent_topics.TOPIC_PREVIEW_FIRST_POST %}
+	{% set preview = recent_topics %}
+	{% include 'topicpreview.html' %}
+{% endif %}
 
-<!-- IF top_five_topic.TOPIC_PREVIEW_FIRST_POST -->
-	<!-- INCLUDE topicpreview_topfive.html -->
-<!-- ENDIF -->
+{# display topic preview in Top Five extension #}
+{% if top_five_topic.TOPIC_PREVIEW_FIRST_POST %}
+	{% set preview = top_five_topic %}
+	{% include 'topicpreview.html' %}
+{% endif %}
