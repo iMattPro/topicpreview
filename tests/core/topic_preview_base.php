@@ -63,8 +63,10 @@ class topic_preview_base extends \phpbb_database_test_case
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
 
-		$this->template = new \vse\topicpreview\tests\mock\template();
 		$this->trim_tools = new \vse\topicpreview\core\trim_tools($this->config);
+
+		$this->template = $this->getMockBuilder('\phpbb\template\template')
+			->getMock();
 	}
 
 	protected function topic_preview_manager()

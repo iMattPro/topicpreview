@@ -14,6 +14,10 @@ class ucp_listener_test extends \phpbb_test_case
 {
 	/** @var \vse\topicpreview\event\listener */
 	protected $listener;
+	protected $config;
+	protected $request;
+	protected $template;
+	protected $user;
 
 	/**
 	* Setup test environment
@@ -25,8 +29,9 @@ class ucp_listener_test extends \phpbb_test_case
 		// Load/Mock classes required by the event listener class
 		$this->config = new \phpbb\config\config(array('topic_preview_limit' => 1));
 		$this->request = $this->getMock('\phpbb\request\request');
-		$this->template = new \vse\topicpreview\tests\mock\template();
 		$this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
+		$this->template = $this->getMockBuilder('\phpbb\template\template')
+			->getMock();
 	}
 
 	/**
@@ -248,6 +253,16 @@ class ucp_listener_test extends \phpbb_test_case
 			->will($this->returnValue($topic_preview)
 		);
 
+		if (!$submit)
+		{
+			$this->template->expects($this->once())
+				->method('assign_vars')
+				->with(array(
+					'S_TOPIC_PREVIEW'			=> 1,
+					'S_DISPLAY_TOPIC_PREVIEW'	=> $topic_preview,
+				));
+		}
+
 		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
 		$dispatcher->addListener('core.ucp_prefs_view_data', array($this->listener, 'ucp_prefs_get_data'));
 
@@ -259,13 +274,5 @@ class ucp_listener_test extends \phpbb_test_case
 		$data = $data['data'];
 
 		$this->assertEquals($expected, $data);
-
-		if (!$submit)
-		{
-			$this->assertEquals(array(
-				'S_TOPIC_PREVIEW'			=> 1,
-				'S_DISPLAY_TOPIC_PREVIEW'	=> $topic_preview,
-			), $this->template->get_template_vars());
-		}
 	}
 }
