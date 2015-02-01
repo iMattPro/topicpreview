@@ -41,6 +41,7 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 * Polish
 * Romanian
 * Spanish
+* Turkish
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
