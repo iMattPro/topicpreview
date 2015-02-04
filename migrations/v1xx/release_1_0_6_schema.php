@@ -17,6 +17,11 @@ class release_1_0_6_schema extends \phpbb\db\migration\migration
 		return $this->db_tools->sql_column_exists($this->table_prefix . 'users', 'user_topic_preview');
 	}
 
+	static public function depends_on()
+	{
+		return array('\phpbb\db\migration\data\v31x\v312');
+	}
+
 	public function update_schema()
 	{
 		return array(
