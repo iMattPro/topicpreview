@@ -31,6 +31,7 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 
 ## Languages supported:
 * English
+* Croatian
 * Czech (translation incomplete)
 * Dutch
 * Estonian
@@ -42,6 +43,7 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 * Romanian
 * Russian
 * Spanish
+* Swedish
 * Turkish
 
 ## Awards
