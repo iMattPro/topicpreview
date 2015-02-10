@@ -25,7 +25,7 @@ class topic_preview_check_version
 			'author'	=> 'VSE',
 			'title'		=> 'Topic Preview',
 			'tag'		=> 'topic_preview',
-			'version'	=> '2.0.1',
+			'version'	=> '2.0.2',
 			'file'		=> array('mattfriedman.me', 'software', 'mods.xml'),
 		);
 	}

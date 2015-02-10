@@ -10,7 +10,7 @@
 		<description lang="en"><![CDATA[Gives the Topic Preview effect to the Top Stats MOD
 
 * All changes will be made to Top Stats MOD files. Please back up your original files before modifying them.]]></description>
-		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Top Stats MOD v1.0.10" and "Topic Preview 2.0.1" on your forum.]]></author-notes>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Top Stats MOD v1.0.10" and "Topic Preview 2.0.2" on your forum.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -18,14 +18,14 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>2.0.1</mod-version>
+		<mod-version>2.0.2</mod-version>
 		<installation>
 			<level>intermediate</level>
 			<time>600</time>
-			<target-version>3.0.12</target-version>
+			<target-version>3.0.13-PL1</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.1</link>
+			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.2</link>
 			<link type="dependency" href="https://www.phpbb.com/customise/db/mod/top_stats" lang="en">Top Stats v1.0.10</link>
 		</link-group>
 	</header>

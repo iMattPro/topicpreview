@@ -7,7 +7,7 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[These instructions are for removing Topic Preview version 2.0.1 from your forum.]]></description>
+		<description lang="en"><![CDATA[These instructions are for removing Topic Preview version 2.0.2 from your forum.]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -15,11 +15,11 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>2.0.1</mod-version>
+		<mod-version>2.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
-			<target-version>3.0.12</target-version>
+			<target-version>3.0.13-PL1</target-version>
 		</installation>
 		<link-group>
 			<link type="parent" href="../install_mod.xml" lang="en">Topic Preview Install Instructions</link>

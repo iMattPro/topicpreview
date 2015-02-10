@@ -83,7 +83,7 @@ class phpbb_topic_preview
 		// Set-up basic config parameters
 		$this->is_active     = (!empty($config['topic_preview_limit']) && !empty($user->data['user_topic_preview'])) ? true : false;
 		$this->preview_limit = (int) $config['topic_preview_limit'];
-		$this->strip_bbcodes = (string) $config['topic_preview_strip_bbcodes'];
+		$this->strip_bbcodes = (!empty($config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($config['topic_preview_strip_bbcodes']) : 'flash';
 
 		// Set-up jQuery theme config parameters
 		$this->tp_jquery_mode = (!empty($config['topic_preview_jquery'])) ? true : false;
@@ -312,13 +312,18 @@ class phpbb_topic_preview
 		$text = smiley_text($text, true); // display smileys as text :)
 		$text = ($this->tp_line_breaks ? str_replace("\n", '&#13;&#10;', $text) : $text); // preserve line breaks
 
+		// Loop through text stripping inner most nested BBCodes until all have been removed
+		$regex = '#\[(' . $this->strip_bbcodes . ')[^\[\]]+\]((?:(?!\[\1[^\[\]]+\]).)+)\[\/\1[^\[\]]+\]#Usi';
+		while(preg_match($regex, $text))
+		{
+			$text = preg_replace($regex, '', $text);
+		}
+
 		if (empty($patterns))
 		{
-			$strip_bbcodes = (!empty($this->strip_bbcodes)) ? 'flash|' . trim($this->strip_bbcodes) : 'flash';
 			$patterns = array(
 				'#<!-- [lmw] --><a class="postlink[^>]*>(.*<\/a[^>]*>)?<!-- [lmw] -->#Usi', // Magic URLs
 				'#<[^>]*>(.*<[^>]*>)?#Usi', // HTML code
-				'#\[(' . $strip_bbcodes . ')[^\[\]]+\]((?:[^[]|\[(?!/?\1[^\[\]]+\])|(?R))+)\[/\1[^\[\]]+\]#Usi', // BBCode content to strip
 				'#\[/?[^\[\]]+\]#mi', // Strip all bbcode tags
 				'#(http|https|ftp|mailto)(:|\&\#58;)\/\/[^\s]+#i', // Strip remaining URLs
 				'#"#', // Possible quotes from older board conversions

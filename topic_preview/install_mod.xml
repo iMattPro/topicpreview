@@ -7,9 +7,8 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Topic Preview]]></title>
-		<description lang="en"><![CDATA[Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a pretty jQuery theme with options to also show user's avatars, and both the first and last posts from the topic. Topic Preview is customizable to get the right look for each style in your board.		
+		<description lang="en"><![CDATA[Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title. Settings in the ACP allow you to adjust the amount of text shown, to use native browser tooltips or a pretty jQuery theme with options to also show user's avatars, and both the first and last posts from the topic. Topic Preview is customizable to get the right look for each style in your board.
 		(Note: This MOD was inspired by a similar MOD by RMcGirr83.)]]></description>
-		<github><![CDATA[https://github.com/VSEphpbb/topicpreview/tree/master]]></github>
 		<author-notes lang="en"><![CDATA[Styling / Behavior options: You can change the appearance and behavior of the "jQuery Topic Preview" theme for each style installed on your board. Search in your styles overall_footer.html file for .topicPreview and you will find available settings for: Themes, Width, Hover Delay Time and Position adjustment.]]></author-notes>
 		<author-group>
 			<author>
@@ -18,13 +17,20 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>2.0.1</mod-version>
+		<mod-version>2.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
-			<target-version>3.0.12</target-version>
+			<target-version>3.0.13-PL1</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2012-02-09</date>
+				<rev-version>2.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed a critical bug that could cause a fatal error/blank page when stripping out BBCodes of a very large post that also contains brackets in the text]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2014-03-25</date>
 				<rev-version>2.0.1</rev-version>
@@ -177,12 +183,13 @@
 			<link type="contrib" href="contrib/addons/mod_board3_portal.xml" lang="en">MOD Add-On: Topic Preview for Board3 Portal v2.0.X</link>
 			<link type="contrib" href="contrib/addons/mod_top_stats.xml" lang="en">MOD Add-On: Top Stats v1.0.10</link>
 			<link type="contrib" href="contrib/addons/mod_top_five.xml" lang="en">MOD Add-On: Top Five v1.0.1d</link>
-			<link type="contrib" href="contrib/upgrade/1_0_5_to_2_0_1.xml" lang="en">Upgrade: from 1.0.5 to 2.0.1</link>
-			<link type="contrib" href="contrib/upgrade/1_0_6_to_2_0_1.xml" lang="en">Upgrade: from 1.0.6 to 2.0.1</link>
-			<link type="contrib" href="contrib/upgrade/1_0_7_to_2_0_1.xml" lang="en">Upgrade: from 1.0.7 to 2.0.1</link>
-			<link type="contrib" href="contrib/upgrade/1_0_9_to_2_0_1.xml" lang="en">Upgrade: from 1.0.9 to 2.0.1</link>
-			<link type="contrib" href="contrib/upgrade/1_0_10_to_2_0_1.xml" lang="en">Upgrade: from 1.0.10 to 2.0.1</link>
-			<link type="contrib" href="contrib/upgrade/2_0_0_to_2_0_1.xml" lang="en">Upgrade: from 2.0.0 to 2.0.1</link>
+			<link type="contrib" href="contrib/upgrade/1_0_5_to_2_0_2.xml" lang="en">Upgrade: from 1.0.5 to 2.0.2</link>
+			<link type="contrib" href="contrib/upgrade/1_0_6_to_2_0_2.xml" lang="en">Upgrade: from 1.0.6 to 2.0.2</link>
+			<link type="contrib" href="contrib/upgrade/1_0_7_to_2_0_2.xml" lang="en">Upgrade: from 1.0.7 to 2.0.2</link>
+			<link type="contrib" href="contrib/upgrade/1_0_9_to_2_0_2.xml" lang="en">Upgrade: from 1.0.9 to 2.0.2</link>
+			<link type="contrib" href="contrib/upgrade/1_0_10_to_2_0_2.xml" lang="en">Upgrade: from 1.0.10 to 2.0.2</link>
+			<link type="contrib" href="contrib/upgrade/2_0_0_to_2_0_2.xml" lang="en">Upgrade: from 2.0.0 to 2.0.2</link>
+			<link type="contrib" href="contrib/upgrade/2_0_1_to_2_0_2.xml" lang="en">Upgrade: from 2.0.1 to 2.0.2</link>
 			<link type="uninstall" href="contrib/uninstall.xml" lang="en">Uninstall Topic Preview</link>
 		</link-group>
 	</header>

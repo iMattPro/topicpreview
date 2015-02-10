@@ -10,7 +10,7 @@
 		<description lang="en"><![CDATA[Gives the "Topic Preview" effect to my Precise Similar Topics II MOD, allowing users to see topic previews when they hover the mouse over the titles of Similar Topics.
 
 Note: All changes will be made to Precise Similar Topics II MOD files. Please back up your original files before modifying them.]]></description>
-		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Precise Similar Topics II" (v1.2.0 or newer) and "Topic Preview 2.0.1" on your forum.]]></author-notes>
+		<author-notes lang="en"><![CDATA[Requirements: You must already have installed "Precise Similar Topics II" (v1.2.0 or newer) and "Topic Preview 2.0.2" on your forum.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -18,14 +18,14 @@ Note: All changes will be made to Precise Similar Topics II MOD files. Please ba
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/topic_preview/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>2.0.1</mod-version>
+		<mod-version>2.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.12</target-version>
+			<target-version>3.0.13-PL1</target-version>
 		</installation>
 		<link-group>
-			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.1</link>
+			<link type="dependency" href="../../install_mod.xml" lang="en">Topic Preview 2.0.2</link>
 			<link type="dependency" href="http://www.phpbb.com/customise/db/mod/precise_similar_topics_ii/" lang="en">Precise Similar Topics v1.2.X</link>
 		</link-group>
 	</header>
