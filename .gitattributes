@@ -4,5 +4,6 @@ travis/			export-ignore
 .gitignore		export-ignore
 .gitattributes	export-ignore
 phpunit.xml.*	export-ignore
+build.xml		export-ignore
 composer.lock	export-ignore
 README.md		export-ignore
