@@ -15,7 +15,7 @@ namespace vse\topicpreview\acp;
 */
 class topic_preview_info
 {
-	function module()
+	public function module()
 	{
 		return array(
 			'filename'	=> '\vse\topicpreview\acp\topic_preview_module',
