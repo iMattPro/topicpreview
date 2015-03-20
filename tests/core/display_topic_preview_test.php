@@ -21,7 +21,7 @@ class display_topic_preview_test extends topic_preview_base
 		$phpbb_container->set('avatar.manager', new \phpbb\avatar\manager($config, array()));
 	}
 
-	public static function topic_preview_display_data()
+	public function topic_preview_display_data()
 	{
 		return array(
 			array(
