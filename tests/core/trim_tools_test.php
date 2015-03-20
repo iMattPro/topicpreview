@@ -32,7 +32,7 @@ class trim_tools_test extends \phpbb_test_case
 		$this->trim_tools = new \vse\topicpreview\core\trim_tools($config);
 	}
 
-	public static function trim_tools_data()
+	public function trim_tools_data()
 	{
 		return array(
 			array(
