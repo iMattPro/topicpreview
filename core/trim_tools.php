@@ -16,24 +16,24 @@ class trim_tools
 	protected $config;
 
 	/**
-	* Constructor
-	*
-	* @param \phpbb\config\config $config
-	* @access public
-	*/
+	 * Constructor
+	 *
+	 * @param \phpbb\config\config $config
+	 * @access public
+	 */
 	public function __construct(\phpbb\config\config $config)
 	{
 		$this->config = $config;
 	}
 
 	/**
-	* Trim and clean text
-	*
-	* @param string $message Message text
-	* @param int $length The length to trim text to
-	* @return string Trimmed message text
-	* @access protected
-	*/
+	 * Trim and clean text
+	 *
+	 * @param string $message Message text
+	 * @param int    $length  The length to trim text to
+	 * @return string Trimmed message text
+	 * @access protected
+	 */
 	public function trim_text($message, $length)
 	{
 		$message = $this->remove_markup($message);
@@ -50,12 +50,12 @@ class trim_tools
 	}
 
 	/**
-	* Strip BBCodes, tags and links from text
-	*
-	* @param string $message Message text
-	* @return string Cleaned message text
-	* @access protected
-	*/
+	 * Strip BBCodes, tags and links from text
+	 *
+	 * @param string $message Message text
+	 * @return string Cleaned message text
+	 * @access protected
+	 */
 	protected function remove_markup($message)
 	{
 		$message = smiley_text($message, true); // display smileys as text :)
@@ -81,13 +81,13 @@ class trim_tools
 	}
 
 	/**
-	* Strip special BBCodes and their contents
-	* Uses recursion to handle nested BBCodes
-	*
-	* @param string $message Message text
-	* @return string Stripped message text
-	* @access protected
-	*/
+	 * Strip special BBCodes and their contents
+	 * Uses recursion to handle nested BBCodes
+	 *
+	 * @param string $message Message text
+	 * @return string Stripped message text
+	 * @access protected
+	 */
 	protected function strip_bbcode_contents($message)
 	{
 		static $regex;
@@ -107,12 +107,12 @@ class trim_tools
 	}
 
 	/**
-	* Convert and preserve line breaks
-	*
-	* @param string $message Message text
-	* @return string Message text with line breaks
-	* @access protected
-	*/
+	 * Convert and preserve line breaks
+	 *
+	 * @param string $message Message text
+	 * @return string Message text with line breaks
+	 * @access protected
+	 */
 	protected function tp_nl2br($message)
 	{
 		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions

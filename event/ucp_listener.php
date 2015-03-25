@@ -30,14 +30,14 @@ class ucp_listener implements EventSubscriberInterface
 	protected $user;
 
 	/**
-	* Constructor
-	*
-	* @param \phpbb\config\config $config
-	* @param \phpbb\request\request $request
-	* @param \phpbb\template\template $template
-	* @param \phpbb\user $user
-	* @access public
-	*/
+	 * Constructor
+	 *
+	 * @param \phpbb\config\config     $config
+	 * @param \phpbb\request\request   $request
+	 * @param \phpbb\template\template $template
+	 * @param \phpbb\user              $user
+	 * @access public
+	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
 	{
 		$this->config = $config;
@@ -47,12 +47,12 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Assign functions defined in this class to event listeners in the core
-	*
-	* @return array
-	* @static
-	* @access public
-	*/
+	 * Assign functions defined in this class to event listeners in the core
+	 *
+	 * @return array
+	 * @static
+	 * @access public
+	 */
 	static public function getSubscribedEvents()
 	{
 		return array(
@@ -62,12 +62,12 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Get user's Topic Preview option and display it in UCP Prefs View page
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
+	 * Get user's Topic Preview option and display it in UCP Prefs View page
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
 	public function ucp_prefs_get_data($event)
 	{
 		// Request the user option vars and add them to the data array
@@ -87,12 +87,12 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Add user's Topic Preview option state into the sql_array
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
+	 * Add user's Topic Preview option state into the sql_array
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
 	public function ucp_prefs_set_data($event)
 	{
 		$event['sql_ary'] = array_merge($event['sql_ary'], array(

@@ -49,11 +49,11 @@ class topic_preview_module
 	public $u_action;
 
 	/**
-	* Constructor
-	*/
+	 * Constructor
+	 */
 	public function __construct()
 	{
-		global $cache, $config, $db, $phpbb_extension_manager, $request,  $template, $user, $phpbb_root_path;
+		global $cache, $config, $db, $phpbb_extension_manager, $request, $template, $user, $phpbb_root_path;
 
 		$this->cache = $cache;
 		$this->config = $config;
@@ -69,12 +69,13 @@ class topic_preview_module
 	}
 
 	/**
-	* Main ACP module
-	*
-	* @param int $id
-	* @param string $mode
-	* @access public
-	*/
+	 * Main ACP module
+	 *
+	 * @param int    $id
+	 * @param string $mode
+	 * @return null
+	 * @access public
+	 */
 	public function main($id, $mode)
 	{
 		$this->tpl_name = 'acp_topic_preview';
@@ -131,12 +132,13 @@ class topic_preview_module
 	}
 
 	/**
-	* Update topic_preview_theme setting in the styles table
-	*
-	* @param	int		$style_id	id of the board style
-	* @param	string	$theme		name of the selected theme
-	* @access	protected
-	*/
+	 * Update topic_preview_theme setting in the styles table
+	 *
+	 * @param int    $style_id Identifier of the board style
+	 * @param string $theme    Name of the selected theme
+	 * @return null
+	 * @access protected
+	 */
 	protected function set_style_theme($style_id, $theme)
 	{
 		$sql = 'UPDATE ' . STYLES_TABLE . "
@@ -149,11 +151,11 @@ class topic_preview_module
 	}
 
 	/**
-	* Get style data from the styles table
-	*
-	* @return	Array of style data
-	* @access	protected
-	*/
+	 * Get style data from the styles table
+	 *
+	 * @return array Style data array
+	 * @access protected
+	 */
 	protected function get_styles()
 	{
 		$sql = 'SELECT style_id, style_name, topic_preview_theme
@@ -168,11 +170,11 @@ class topic_preview_module
 	}
 
 	/**
-	* Get file names from Topic Preview's CSS files
-	*
-	* @return	Array of file names
-	* @access	protected
-	*/
+	 * Get file names from Topic Preview's CSS files
+	 *
+	 * @return array File name data array
+	 * @access protected
+	 */
 	protected function get_themes()
 	{
 		$finder = $this->ext_manager->get_finder();
@@ -192,10 +194,11 @@ class topic_preview_module
 	}
 
 	/**
-	* Set themes data array
-	*
-	* @access	protected
-	*/
+	 * Set themes data array
+	 *
+	 * @return null
+	 * @access protected
+	 */
 	protected function set_themes()
 	{
 		if (!isset($this->themes))
@@ -209,12 +212,12 @@ class topic_preview_module
 	}
 
 	/**
-	* Create <option> tags for each Topic Preview theme
-	*
-	* @param	string	$current	Name of the Topic Preview theme stored in the db
-	* @return	string	html <option> tags for Topic Preview themes
-	* @access	protected
-	*/
+	 * Create <option> tags for each Topic Preview theme
+	 *
+	 * @param string $current Name of the Topic Preview theme stored in the db
+	 * @return string HTML <option> tags for Topic Preview themes
+	 * @access protected
+	 */
 	protected function theme_options($current)
 	{
 		$this->set_themes();
