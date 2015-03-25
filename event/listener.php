@@ -21,23 +21,23 @@ class listener implements EventSubscriberInterface
 	protected $topicpreview;
 
 	/**
-	* Constructor
-	*
-	* @param \vse\topicpreview\core\topic_preview    $topicpreview  Topic Preview object
-	* @access public
-	*/
+	 * Constructor
+	 *
+	 * @param \vse\topicpreview\core\topic_preview $topicpreview Topic Preview object
+	 * @access public
+	 */
 	public function __construct(\vse\topicpreview\core\topic_preview $topicpreview)
 	{
 		$this->topicpreview = $topicpreview;
 	}
 
 	/**
-	* Assign functions defined in this class to event listeners in the core
-	*
-	* @return array
-	* @static
-	* @access public
-	*/
+	 * Assign functions defined in this class to event listeners in the core
+	 *
+	 * @return array
+	 * @static
+	 * @access public
+	 */
 	static public function getSubscribedEvents()
 	{
 		return array(
@@ -65,24 +65,24 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Modify an SQL array to get post text for topic previews
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
+	 * Modify an SQL array to get post text for topic previews
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
 	public function modify_sql_array($event)
 	{
 		$event['sql_array'] = $this->topicpreview->modify_sql($event['sql_array']);
 	}
 
 	/**
-	* Modify SQL strings to get post text for topic previews (search results)
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
+	 * Modify SQL strings to get post text for topic previews (search results)
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
 	public function modify_sql_string($event)
 	{
 		$event['sql_select'] = $this->topicpreview->modify_sql($event['sql_select'], 'SELECT');
@@ -90,12 +90,12 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Modify template vars to display topic previews
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
+	 * Modify template vars to display topic previews
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
 	public function display_topic_previews($event)
 	{
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';

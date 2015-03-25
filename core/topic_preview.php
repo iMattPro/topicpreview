@@ -40,17 +40,17 @@ class topic_preview
 	protected $trim_tools;
 
 	/**
-	* Constructor
-	*
-	* @param \phpbb\config\config $config
-	* @param \phpbb\db\driver\driver_interface $db
-	* @param \phpbb\event\dispatcher_interface $dispatcher
-	* @param \phpbb\template\template $template
-	* @param \phpbb\user $user
-	* @param string $root_path
-	* @param \vse\topicpreview\core\trim_tools $trim_tools
-	* @access public
-	*/
+	 * Constructor
+	 *
+	 * @param \phpbb\config\config              $config
+	 * @param \phpbb\db\driver\driver_interface $db
+	 * @param \phpbb\event\dispatcher_interface $dispatcher
+	 * @param \phpbb\template\template          $template
+	 * @param \phpbb\user                       $user
+	 * @param string                            $root_path
+	 * @param \vse\topicpreview\core\trim_tools $trim_tools
+	 * @access public
+	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path, \vse\topicpreview\core\trim_tools $trim_tools)
 	{
 		$this->config = $config;
@@ -65,44 +65,44 @@ class topic_preview
 	}
 
 	/**
-	* Show topic previews, given current board and user configurations
-	*
-	* @return bool
-	* @access public
-	*/
+	 * Show topic previews, given current board and user configurations
+	 *
+	 * @return bool
+	 * @access public
+	 */
 	public function is_enabled()
 	{
 		return (bool) !empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview']);
 	}
 
 	/**
-	* Show avatars, given current board and user configurations
-	*
-	* @return bool
-	* @access public
-	*/
+	 * Show avatars, given current board and user configurations
+	 *
+	 * @return bool
+	 * @access public
+	 */
 	public function avatars_enabled()
 	{
 		return (bool) $this->config['topic_preview_avatars'] && $this->config['allow_avatar'] && $this->user->optionget('viewavatars');
 	}
 
 	/**
-	* Show last post text, given current board configuration
-	*
-	* @return bool
-	* @access public
-	*/
+	 * Show last post text, given current board configuration
+	 *
+	 * @return bool
+	 * @access public
+	 */
 	public function last_post_enabled()
 	{
 		return (bool) $this->config['topic_preview_last_post'];
 	}
 
 	/**
-	* Set up some common components
-	*
-	* @return null
-	* @access public
-	*/
+	 * Set up some common components
+	 *
+	 * @return null
+	 * @access public
+	 */
 	public function setup()
 	{
 		// Load our language file (only needed if showing last post text)
@@ -121,11 +121,11 @@ class topic_preview
 	}
 
 	/**
-	* Update an SQL SELECT statement to get data needed for topic previews
-	*
-	* @return string SQL SELECT appendage
-	* @access public
-	*/
+	 * Update an SQL SELECT statement to get data needed for topic previews
+	 *
+	 * @return string SQL SELECT appendage
+	 * @access public
+	 */
 	public function tp_sql_select()
 	{
 		$sql = ', fp.post_text AS first_post_text';
@@ -155,11 +155,11 @@ class topic_preview
 	}
 
 	/**
-	* Update an SQL JOIN statement to get data needed for topic previews
-	*
-	* @return array SQL JOIN params
-	* @access public
-	*/
+	 * Update an SQL JOIN statement to get data needed for topic previews
+	 *
+	 * @return array SQL JOIN params
+	 * @access public
+	 */
 	public function tp_sql_join()
 	{
 		$sql_array = array();
@@ -197,13 +197,13 @@ class topic_preview
 	}
 
 	/**
-	* Modify SQL string|array to get post text
-	*
-	* @param string|array $sql_stmt SQL string or array to be modified
-	* @param string $type Type of SQL statement SELECT|JOIN
-	* @return string|array SQL statement string or array
-	* @access public
-	*/
+	 * Modify SQL string|array to get post text
+	 *
+	 * @param string|array $sql_stmt SQL string or array to be modified
+	 * @param string       $type     Type of SQL statement SELECT|JOIN
+	 * @return string|array SQL statement string or array
+	 * @access public
+	 */
 	public function modify_sql($sql_stmt, $type = 'SELECT')
 	{
 		if (!$this->is_enabled())
@@ -241,13 +241,13 @@ class topic_preview
 	}
 
 	/**
-	* Inject topic preview text into the template
-	*
-	* @param array $row Row data
-	* @param array $block Template vars array
-	* @return array Template vars array
-	* @access public
-	*/
+	 * Inject topic preview text into the template
+	 *
+	 * @param array $row   Row data
+	 * @param array $block Template vars array
+	 * @return array Template vars array
+	 * @access public
+	 */
 	public function display_topic_preview($row, $block)
 	{
 		if (!$this->is_enabled())
@@ -265,14 +265,14 @@ class topic_preview
 		$tp_avatars = $this->avatars_enabled();
 
 		/**
-		* EVENT to modify the topic preview display output before it gets inserted in the template block
-		*
-		* @event vse.topicpreview.display_topic_preview
-		* @var array row Row data
-		* @var array block Template vars array
-		* @var bool tp_avatars Display avatars setting
-		* @since 2.1.0
-		*/
+		 * EVENT to modify the topic preview display output before it gets inserted in the template block
+		 *
+		 * @event vse.topicpreview.display_topic_preview
+		 * @var array row Row data
+		 * @var array block Template vars array
+		 * @var bool tp_avatars Display avatars setting
+		 * @since 2.1.0
+		 */
 		$vars = array('row', 'block', 'tp_avatars');
 		extract($this->dispatcher->trigger_event('vse.topicpreview.display_topic_preview', compact($vars)));
 
@@ -280,13 +280,13 @@ class topic_preview
 	}
 
 	/**
-	* Get user avatar helper function
-	*
-	* @param array $row User row data
-	* @param string $poster Type of poster, fp or lp
-	* @return string Avatar image
-	* @access protected
-	*/
+	 * Get user avatar helper function
+	 *
+	 * @param array  $row    User row data
+	 * @param string $poster Type of poster, fp or lp
+	 * @return string Avatar image
+	 * @access protected
+	 */
 	protected function get_user_avatar_helper($row, $poster)
 	{
 		if (!$this->avatars_enabled())
@@ -315,12 +315,12 @@ class topic_preview
 	}
 
 	/**
-	* Get user's style topic preview theme
-	* Fall back to no theme if expected theme not found
-	*
-	* @return mixed Theme name if theme file found, false otherwise
-	* @access protected
-	*/
+	 * Get user's style topic preview theme
+	 * Fall back to no theme if expected theme not found
+	 *
+	 * @return mixed Theme name if theme file found, false otherwise
+	 * @access protected
+	 */
 	protected function get_theme()
 	{
 		if (!empty($this->user->style['topic_preview_theme']))
