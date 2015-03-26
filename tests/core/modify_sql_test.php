@@ -115,4 +115,19 @@ class modify_sql_test extends topic_preview_base
 
 		return $rowset;
 	}
+
+	public function test_modify_sql_disabled()
+	{
+		// Disable topic preview
+		$this->config['topic_preview_limit'] = 0;
+
+		// Set a generic test string
+		$sql_stmt = 'FOOBAR';
+
+		// Get an instance of topic preview class
+		$topic_preview_manager = $this->topic_preview_manager();
+
+		// Test that we get back the unmodified test string
+		$this->assertEquals($sql_stmt, $topic_preview_manager->modify_sql($sql_stmt));
+	}
 }
