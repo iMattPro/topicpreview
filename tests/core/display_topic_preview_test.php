@@ -134,4 +134,19 @@ class display_topic_preview_test extends topic_preview_base
 		// Test that we get the expected result
 		$this->assertEquals($expected, $block);
 	}
+
+	public function test_display_topic_preview_disabled()
+	{
+		// Disable topic preview
+		$this->config['topic_preview_limit'] = 0;
+
+		// Start with an empty block and data arrays
+		$block = $data = array(0);
+
+		// Get an instance of topic preview class
+		$topic_preview_manager = $this->topic_preview_manager();
+
+		// Test that we get back the unmodified block array
+		$this->assertEquals($block, $topic_preview_manager->display_topic_preview($data, $block));
+	}
 }
