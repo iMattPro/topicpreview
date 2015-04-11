@@ -64,6 +64,22 @@ class trim_tools_test extends \phpbb_test_case
 				'This is a fifth test topic with content posted by the testing framework.',
 			),
 			array(
+				'This is a sixth [b:3o8ohvlj]test topic[/b:3o8ohvlj] with empty [quote:3o8ohvlj]stuff[quote:3o8ohvlj][/quote:3o8ohvlj][/quote:3o8ohvlj] content [quote:3o8ohvlj][/quote:3o8ohvlj] posted by the testing framework.',
+				'This is a sixth test topic with empty content posted by the testing framework.',
+			),
+			array(
+				'Fourth message [quote]' . str_repeat('aaa ', 600) . '[/quote]',
+				'Fourth message',
+			),
+			array(
+				'This is a fifth [b]test topic[/b] with [quote]nested content inside of [quote][i][b]nested[/b] [u]content[/u][/i][/quote][/quote] content [quote]on top of more content[/quote] posted by the testing framework.',
+				'This is a fifth test topic with content posted by the testing framework.',
+			),
+			array(
+				'This is a sixth [b]test topic[/b] with empty [quote]stuff[quote][/quote][/quote] content [quote][/quote] posted by the testing framework.',
+				'This is a sixth test topic with empty content posted by the testing framework.',
+			),
+			array(
 				'',
 				'',
 			),
