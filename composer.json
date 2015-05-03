@@ -23,7 +23,7 @@
 	"extra": {
 		"display-name": "Topic Preview",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.2,<3.2.*@dev"
+			"phpbb/phpbb": ">=3.1.2,<3.3.*@dev"
 		},
 		"version-check": {
 			"host": "www.phpbb.com",
