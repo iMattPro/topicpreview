@@ -38,7 +38,7 @@ class topic_preview_base extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $cache, $config, $user, $phpbb_root_path;
+		global $cache, $config, $user, $phpbb_root_path, $phpEx;
 
 		$this->root_path = $phpbb_root_path;
 
@@ -55,7 +55,10 @@ class topic_preview_base extends \phpbb_database_test_case
 
 		$this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 
-		$user = $this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
+		$user = $this->user = $this->getMock('\phpbb\user', array(), array(
+			new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx)),
+			'\phpbb\datetime'
+		));
 		$this->user->expects($this->any())
 			->method('optionget')
 			->with($this->anything())
