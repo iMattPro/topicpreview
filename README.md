@@ -57,10 +57,10 @@ A phpBB 3.1 extension that displays a short excerpt of text from the first post 
 * PHP 5.3.3 or higher
 
 ## Installation
-1. [Download the latest release](https://github.com/VSEphpbb/topicpreview/releases) and unzip it.
-2. Copy the entire contents from the unzipped folder to `phpBB/ext/vse/topicpreview/`.
+1. [Download the latest validated release](https://www.phpbb.com/customise/db/extension/topicpreview/).
+2. Unzip the downloaded release and copy it to the `ext` directory of your phpBB board.
 3. Navigate in the ACP to `Customise -> Manage extensions`.
-4. Find Topic Preview under "Disabled Extensions" and click `Enable`.
+4. Look for `Topic Preview` under the Disabled Extensions list, and click its `Enable` link.
 
 ## Uninstallation
 1. Navigate in the ACP to `Customise -> Manage extensions`.
