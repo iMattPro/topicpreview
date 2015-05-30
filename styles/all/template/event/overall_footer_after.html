@@ -1,5 +1,5 @@
 {% if S_TOPICPREVIEW and TOPICPREVIEW_THEME %}
-	<!-- INCLUDEJS @vse_topicpreview/topicpreview.js -->
+	{% INCLUDEJS '@vse_topicpreview/topicpreview.js' %}
 	<script>
 		jQuery(function() {
 			jQuery('.topictitle').topicPreview({
