@@ -41,7 +41,7 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			// viewform.php events
+			// viewforum.php events
 			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
 			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_array',
 			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',

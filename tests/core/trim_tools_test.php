@@ -16,7 +16,11 @@ require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
 
 class trim_tools_test extends \phpbb_test_case
 {
+	/** @var \phpbb\config\config */
 	protected $config;
+
+	/** @var \vse\topicpreview\core\trim_tools */
+	protected $trim_tools;
 
 	public function setUp()
 	{
