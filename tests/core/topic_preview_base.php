@@ -51,7 +51,7 @@ class topic_preview_base extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $cache, $config, $user, $phpbb_root_path;
+		global $cache, $config, $user, $phpbb_dispatcher, $phpbb_root_path;
 
 		$this->root_path = $phpbb_root_path;
 
@@ -66,7 +66,7 @@ class topic_preview_base extends \phpbb_database_test_case
 			'allow_avatar'					=> 1,
 		));
 
-		$this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
+		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 
 		$user = $this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
 		$this->user->expects($this->any())
