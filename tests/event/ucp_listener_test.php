@@ -14,9 +14,17 @@ class ucp_listener_test extends \phpbb_test_case
 {
 	/** @var \vse\topicpreview\event\listener */
 	protected $listener;
+
+	/** @var \phpbb\config\config */
 	protected $config;
+
+	/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject */
 	protected $request;
+
+	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
 	protected $template;
+
+	/** @var \phpbb\user|\PHPUnit_Framework_MockObject_MockObject */
 	protected $user;
 
 	/**

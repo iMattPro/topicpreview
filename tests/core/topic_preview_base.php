@@ -16,18 +16,31 @@ require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
 
 class topic_preview_base extends \phpbb_database_test_case
 {
+	/** @var \phpbb\config\config */
+	protected $config;
+
+	/** @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
+	/** @var \phpbb\event\dispatcher */
+	protected $dispatcher;
+
+	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
+	protected $template;
+
+	/** @var \vse\topicpreview\core\trim_tools */
+	protected $trim_tools;
+
+	/** @var \phpbb\user|\PHPUnit_Framework_MockObject_MockObject */
+	protected $user;
+
+	/** @var string */
+	protected $root_path;
+
 	static protected function setup_extensions()
 	{
 		return array('vse/topicpreview');
 	}
-
-	protected $config;
-	protected $db;
-	protected $dispatcher;
-	protected $template;
-	protected $user;
-	protected $root_path;
-	protected $trim_tools;
 
 	public function getDataSet()
 	{

@@ -15,7 +15,7 @@ class listener_test extends \phpbb_test_case
 	/** @var \vse\topicpreview\event\listener */
 	protected $listener;
 
-	/** @var \PHPUnit_Framework_MOckObject_MockObject */
+	/** @var \vse\topicpreview\core\topic_preview|\PHPUnit_Framework_MockObject_MockObject */
 	protected $topic_preview;
 
 	/**
