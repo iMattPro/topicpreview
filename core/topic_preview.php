@@ -39,9 +39,6 @@ class topic_preview
 	/** @var \vse\topicpreview\core\trim_tools */
 	protected $trim_tools;
 
-	/** @var boolean Avatar ignore config */
-	static protected $ignore_config;
-
 	/**
 	 * Constructor
 	 *
@@ -297,16 +294,6 @@ class topic_preview
 			return '';
 		}
 
-		// If user has no avatar, lets use a fallback
-		if (empty($row[$poster . '_avatar']))
-		{
-			$row[$poster . '_avatar'] = $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif';
-			$row[$poster . '_avatar_type'] = 'avatar.driver.remote';
-			$row[$poster . '_avatar_width'] = self::AVATAR_SIZE;
-			$row[$poster . '_avatar_height'] = self::AVATAR_SIZE;
-		}
-
-		// map arguments to new function phpbb_get_avatar()
 		$map = array(
 			'avatar'		=> $row[$poster . '_avatar'],
 			'avatar_type'	=> $row[$poster . '_avatar_type'],
@@ -314,13 +301,9 @@ class topic_preview
 			'avatar_height'	=> $row[$poster . '_avatar_height'],
 		);
 
-		// After phpBB 3.1.6, the ignore_config flag should be true
-		if (!isset(self::$ignore_config))
-		{
-			self::$ignore_config = phpbb_version_compare(PHPBB_VERSION, '3.1.6', '>');
-		}
+		$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
 
-		return phpbb_get_user_avatar($map, 'USER_AVATAR', self::$ignore_config, true);
+		return ($avatar) ?: $this->no_avatar();
 	}
 
 	/**
@@ -341,5 +324,17 @@ class topic_preview
 		}
 
 		return false;
+	}
+
+	/**
+	 * Return an html string for the no_avatar.gif in the
+	 * user's current style.
+	 *
+	 * @return string Avatar image
+	 * @access protected
+	 */
+	protected function no_avatar()
+	{
+		return '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif' . '" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" />';
 	}
 }
