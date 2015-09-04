@@ -39,6 +39,9 @@ class topic_preview
 	/** @var \vse\topicpreview\core\trim_tools */
 	protected $trim_tools;
 
+	/** @var boolean Avatar ignore config */
+	static protected $ignore_config;
+
 	/**
 	 * Constructor
 	 *
@@ -311,7 +314,13 @@ class topic_preview
 			'avatar_height'	=> $row[$poster . '_avatar_height'],
 		);
 
-		return phpbb_get_user_avatar($map, 'USER_AVATAR', true, true);
+		// After phpBB 3.1.6, the ignore_config flag should be true
+		if (!isset(self::$ignore_config))
+		{
+			self::$ignore_config = phpbb_version_compare(PHPBB_VERSION, '3.1.6', '>');
+		}
+
+		return phpbb_get_user_avatar($map, 'USER_AVATAR', self::$ignore_config, true);
 	}
 
 	/**
