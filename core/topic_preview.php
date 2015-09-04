@@ -294,16 +294,6 @@ class topic_preview
 			return '';
 		}
 
-		// If user has no avatar, lets use a fallback
-		if (empty($row[$poster . '_avatar']))
-		{
-			$row[$poster . '_avatar'] = $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif';
-			$row[$poster . '_avatar_type'] = 'avatar.driver.remote';
-			$row[$poster . '_avatar_width'] = self::AVATAR_SIZE;
-			$row[$poster . '_avatar_height'] = self::AVATAR_SIZE;
-		}
-
-		// map arguments to new function phpbb_get_avatar()
 		$map = array(
 			'avatar'		=> $row[$poster . '_avatar'],
 			'avatar_type'	=> $row[$poster . '_avatar_type'],
@@ -311,7 +301,10 @@ class topic_preview
 			'avatar_height'	=> $row[$poster . '_avatar_height'],
 		);
 
-		return phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+		$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+
+		// If avatar string is empty, fall back to no_avatar.gif
+		return ($avatar) ?: '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif' . '" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" />';
 	}
 
 	/**

@@ -2,8 +2,8 @@
 
 A phpBB 3.1 extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
-[![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.png?branch=extension)](https://travis-ci.org/VSEphpbb/topicpreview)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/quality-score.png?b=extension)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=extension)
+[![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.png)](https://travis-ci.org/VSEphpbb/topicpreview)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=master)
 
 ## Browser support
 ![Chrome 4+](http://mattfriedman.me/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;

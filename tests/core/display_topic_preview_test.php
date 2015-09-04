@@ -23,6 +23,9 @@ class display_topic_preview_test extends topic_preview_base
 
 	public function topic_preview_display_data()
 	{
+		global $phpbb_root_path;
+		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="60" height="60" />';
+
 		return array(
 			array(
 				array(
@@ -37,9 +40,9 @@ class display_topic_preview_test extends topic_preview_base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'First message',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
 				),
 			),
 			array(
@@ -55,9 +58,9 @@ class display_topic_preview_test extends topic_preview_base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Second message with bold text :) and smiley',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
 				),
 			),
 			array(
@@ -73,9 +76,9 @@ class display_topic_preview_test extends topic_preview_base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
 				),
 			),
 			array(
@@ -91,9 +94,9 @@ class display_topic_preview_test extends topic_preview_base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => '',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
 				),
 			),
 			array(
@@ -109,9 +112,9 @@ class display_topic_preview_test extends topic_preview_base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Fourth message',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
 				),
 			),
 		);
