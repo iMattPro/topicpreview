@@ -303,7 +303,8 @@ class topic_preview
 
 		$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
 
-		return ($avatar) ?: $this->no_avatar();
+		// If avatar string is empty, fall back to no_avatar.gif
+		return ($avatar) ?: '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif' . '" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" />';
 	}
 
 	/**
@@ -324,17 +325,5 @@ class topic_preview
 		}
 
 		return false;
-	}
-
-	/**
-	 * Return an html string for the no_avatar.gif in the
-	 * user's current style.
-	 *
-	 * @return string Avatar image
-	 * @access protected
-	 */
-	protected function no_avatar()
-	{
-		return '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif' . '" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" />';
 	}
 }
