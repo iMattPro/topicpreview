@@ -311,7 +311,7 @@ class topic_preview
 			'avatar_height'	=> $row[$poster . '_avatar_height'],
 		);
 
-		return phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+		return phpbb_get_user_avatar($map, 'USER_AVATAR', true, true);
 	}
 
 	/**
