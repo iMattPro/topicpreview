@@ -1,9 +1,14 @@
 services:
-    vse.topicpreview.manager:
-        class: vse\topicpreview\core\topic_preview
+    vse.topicpreview.data:
+        class: vse\topicpreview\core\data
         arguments:
             - @config
-            - @dbal.conn
+            - @user
+
+    vse.topicpreview.display:
+        class: vse\topicpreview\core\display
+        arguments:
+            - @config
             - @dispatcher
             - @template
             - @user
@@ -18,7 +23,8 @@ services:
     vse.topicpreview.listener:
         class: vse\topicpreview\event\listener
         arguments:
-            - @vse.topicpreview.manager
+            - @vse.topicpreview.data
+            - @vse.topicpreview.display
         tags:
             - { name: event.listener }
 

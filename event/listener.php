@@ -17,18 +17,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	/** @var \vse\topicpreview\core\topic_preview */
-	protected $topicpreview;
+	/** @var \vse\topicpreview\core\data */
+	protected $preview_data;
+
+	/** @var \vse\topicpreview\core\display */
+	protected $preview_display;
 
 	/**
 	 * Constructor
 	 *
-	 * @param \vse\topicpreview\core\topic_preview $topicpreview Topic Preview object
+	 * @param \vse\topicpreview\core\data $preview_data Topic Preview data object
+	 * @param \vse\topicpreview\core\display $preview_display Topic Preview display object
 	 * @access public
 	 */
-	public function __construct(\vse\topicpreview\core\topic_preview $topicpreview)
+	public function __construct(\vse\topicpreview\core\data $preview_data, \vse\topicpreview\core\display $preview_display)
 	{
-		$this->topicpreview = $topicpreview;
+		$this->preview_data = $preview_data;
+		$this->preview_display = $preview_display;
 	}
 
 	/**
@@ -73,7 +78,7 @@ class listener implements EventSubscriberInterface
 	 */
 	public function modify_sql_array($event)
 	{
-		$event['sql_array'] = $this->topicpreview->modify_sql($event['sql_array']);
+		$event['sql_array'] = $this->preview_data->modify_sql($event['sql_array']);
 	}
 
 	/**
@@ -85,8 +90,8 @@ class listener implements EventSubscriberInterface
 	 */
 	public function modify_sql_string($event)
 	{
-		$event['sql_select'] = $this->topicpreview->modify_sql($event['sql_select'], 'SELECT');
-		$event['sql_from'] = $this->topicpreview->modify_sql($event['sql_from'], 'JOIN');
+		$event['sql_select'] = $this->preview_data->modify_sql($event['sql_select'], 'SELECT');
+		$event['sql_from'] = $this->preview_data->modify_sql($event['sql_from'], 'JOIN');
 	}
 
 	/**
@@ -99,6 +104,6 @@ class listener implements EventSubscriberInterface
 	public function display_topic_previews($event)
 	{
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';
-		$event[$block] = $this->topicpreview->display_topic_preview($event['row'], $event[$block]);
+		$event[$block] = $this->preview_display->display_topic_preview($event['row'], $event[$block]);
 	}
 }

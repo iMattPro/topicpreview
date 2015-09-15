@@ -50,7 +50,7 @@ class setup_test extends topic_preview_base
 					'TOPICPREVIEW_THEME'	=> false,
 					'TOPICPREVIEW_DELAY'	=> 0,
 					'TOPICPREVIEW_DRIFT'	=> 0,
-					'TOPICPREVIEW_WIDTH'	=> \vse\topicpreview\core\topic_preview::PREVIEW_SIZE,
+					'TOPICPREVIEW_WIDTH'	=> \vse\topicpreview\core\display::PREVIEW_SIZE,
 				),
 			),
 			array(
@@ -69,7 +69,7 @@ class setup_test extends topic_preview_base
 					'TOPICPREVIEW_THEME'	=> false,
 					'TOPICPREVIEW_DELAY'	=> 0,
 					'TOPICPREVIEW_DRIFT'	=> 0,
-					'TOPICPREVIEW_WIDTH'	=> \vse\topicpreview\core\topic_preview::PREVIEW_SIZE,
+					'TOPICPREVIEW_WIDTH'	=> \vse\topicpreview\core\display::PREVIEW_SIZE,
 				),
 			),
 		);
@@ -88,9 +88,9 @@ class setup_test extends topic_preview_base
 			->method('assign_vars')
 			->with($expected);
 
-		// Get an instance of topic preview class
+		// Get an instance of topic preview display class
 		// setup() is called in the class constructor
-		$this->topic_preview_manager();
+		$this->get_topic_preview_display();
 	}
 
 }
