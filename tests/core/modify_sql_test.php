@@ -53,11 +53,11 @@ class modify_sql_test extends topic_preview_base
 			'ORDER_BY'	=> 't.topic_time ASC',
 		);
 
-		// Get an instance of topic preview class
-		$topic_preview_manager = $this->topic_preview_manager();
+		// Get an instance of topic preview data class
+		$preview_data = $this->get_topic_preview_data();
 
 		// Modify the sql_array for topic previews
-		$sql_array = $topic_preview_manager->modify_sql($sql_array);
+		$sql_array = $preview_data->modify_sql($sql_array);
 
 		// Build the SQL query
 		$sql = $this->db->sql_build_query('SELECT', $sql_array);
@@ -76,12 +76,12 @@ class modify_sql_test extends topic_preview_base
 		$sql_from = 'phpbb_topics t';
 		$sql_where = 't.forum_id = 2 ORDER BY t.topic_time ASC';
 
-		// Get an instance of topic preview class
-		$topic_preview_manager = $this->topic_preview_manager();
+		// Get an instance of topic preview data class
+		$preview_data = $this->get_topic_preview_data();
 
 		// Modify the sql strings for topic previews
-		$sql_select = $topic_preview_manager->modify_sql($sql_select, 'SELECT');
-		$sql_from = $topic_preview_manager->modify_sql($sql_from, 'JOIN');
+		$sql_select = $preview_data->modify_sql($sql_select, 'SELECT');
+		$sql_from = $preview_data->modify_sql($sql_from, 'JOIN');
 
 		// Build the SQL query
 		$sql = "SELECT $sql_select
@@ -124,10 +124,10 @@ class modify_sql_test extends topic_preview_base
 		// Set a generic test string
 		$sql_stmt = 'FOOBAR';
 
-		// Get an instance of topic preview class
-		$topic_preview_manager = $this->topic_preview_manager();
+		// Get an instance of topic preview data class
+		$preview_data = $this->get_topic_preview_data();
 
 		// Test that we get back the unmodified test string
-		$this->assertEquals($sql_stmt, $topic_preview_manager->modify_sql($sql_stmt));
+		$this->assertEquals($sql_stmt, $preview_data->modify_sql($sql_stmt));
 	}
 }

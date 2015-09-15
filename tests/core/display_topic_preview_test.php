@@ -128,11 +128,11 @@ class display_topic_preview_test extends topic_preview_base
 		// Start with an empty block array
 		$block = array();
 
-		// Get an instance of topic preview class
-		$topic_preview_manager = $this->topic_preview_manager();
+		// Get an instance of topic preview display class
+		$preview_display = $this->get_topic_preview_display();
 
 		// Update the block array with topic preview data
-		$block = $topic_preview_manager->display_topic_preview($data, $block);
+		$block = $preview_display->display_topic_preview($data, $block);
 
 		// Test that we get the expected result
 		$this->assertEquals($expected, $block);
@@ -146,10 +146,10 @@ class display_topic_preview_test extends topic_preview_base
 		// Start with an empty block and data arrays
 		$block = $data = array(0);
 
-		// Get an instance of topic preview class
-		$topic_preview_manager = $this->topic_preview_manager();
+		// Get an instance of topic preview display class
+		$preview_display = $this->get_topic_preview_display();
 
 		// Test that we get back the unmodified block array
-		$this->assertEquals($block, $topic_preview_manager->display_topic_preview($data, $block));
+		$this->assertEquals($block, $preview_display->display_topic_preview($data, $block));
 	}
 }

@@ -85,11 +85,18 @@ class topic_preview_base extends \phpbb_database_test_case
 			->getMock();
 	}
 
-	protected function topic_preview_manager()
+	protected function get_topic_preview_data()
 	{
-		return new \vse\topicpreview\core\topic_preview(
+		return new \vse\topicpreview\core\data(
 			$this->config,
-			$this->db,
+			$this->user
+		);
+	}
+
+	protected function get_topic_preview_display()
+	{
+		return new \vse\topicpreview\core\display(
+			$this->config,
 			$this->dispatcher,
 			$this->template,
 			$this->user,

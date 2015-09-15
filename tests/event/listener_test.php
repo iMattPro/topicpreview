@@ -15,19 +15,25 @@ class listener_test extends \phpbb_test_case
 	/** @var \vse\topicpreview\event\listener */
 	protected $listener;
 
-	/** @var \vse\topicpreview\core\topic_preview|\PHPUnit_Framework_MockObject_MockObject */
-	protected $topic_preview;
+	/** @var \vse\topicpreview\core\data|\PHPUnit_Framework_MockObject_MockObject */
+	protected $topic_preview_data;
+
+	/** @var \vse\topicpreview\core\display|\PHPUnit_Framework_MockObject_MockObject */
+	protected $topic_preview_display;
 
 	/**
 	* Create our event listener
 	*/
 	protected function set_listener()
 	{
-		$this->topic_preview = $this->getMockBuilder('\vse\topicpreview\core\topic_preview')
+		$this->topic_preview_data = $this->getMockBuilder('\vse\topicpreview\core\data')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->topic_preview_display = $this->getMockBuilder('\vse\topicpreview\core\display')
 			->disableOriginalConstructor()
 			->getMock();
 
-		$this->listener = new \vse\topicpreview\event\listener($this->topic_preview);
+		$this->listener = new \vse\topicpreview\event\listener($this->topic_preview_data, $this->topic_preview_display);
 	}
 
 	/**
@@ -71,7 +77,7 @@ class listener_test extends \phpbb_test_case
 
 		// Check that expected method is called with
 		// the correct arguments. Returns a new value.
-		$this->topic_preview->expects($this->once())
+		$this->topic_preview_data->expects($this->once())
 			->method('modify_sql')
 			->with($data['sql_array'])
 			->will($this->returnValue(array('BAR')));
@@ -96,11 +102,11 @@ class listener_test extends \phpbb_test_case
 
 		// Check that expected method is called with
 		// the correct arguments. Returns a new value.
-		$this->topic_preview->expects($this->at(0))
+		$this->topic_preview_data->expects($this->at(0))
 			->method('modify_sql')
 			->with($data['sql_select'], 'SELECT')
 			->will($this->returnValue('SELECT FOO BAR'));
-		$this->topic_preview->expects($this->at(1))
+		$this->topic_preview_data->expects($this->at(1))
 			->method('modify_sql')
 			->with($data['sql_from'], 'JOIN')
 			->will($this->returnValue('FROM FOO BAR'));
@@ -137,7 +143,7 @@ class listener_test extends \phpbb_test_case
 
 		// Check that expected method is called with
 		// the correct arguments. Returns a new value.
-		$this->topic_preview->expects($this->once())
+		$this->topic_preview_display->expects($this->once())
 			->method('display_topic_preview')
 			->with($data['row'], $data[$block])
 			->will($this->returnValue(array('BAR')));
