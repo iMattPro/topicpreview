@@ -294,14 +294,18 @@ class topic_preview
 			return '';
 		}
 
-		$map = array(
-			'avatar'		=> $row[$poster . '_avatar'],
-			'avatar_type'	=> $row[$poster . '_avatar_type'],
-			'avatar_width'	=> $row[$poster . '_avatar_width'],
-			'avatar_height'	=> $row[$poster . '_avatar_height'],
-		);
+		$avatar = '';
+		if (!empty($row[$poster . '_avatar']))
+		{
+			$map = array(
+				'avatar'		=> $row[$poster . '_avatar'],
+				'avatar_type'	=> $row[$poster . '_avatar_type'],
+				'avatar_width'	=> $row[$poster . '_avatar_width'],
+				'avatar_height'	=> $row[$poster . '_avatar_height'],
+			);
 
-		$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+			$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+		}
 
 		// If avatar string is empty, fall back to no_avatar.gif
 		return ($avatar) ?: '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif' . '" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" />';
