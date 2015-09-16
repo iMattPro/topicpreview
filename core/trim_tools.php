@@ -15,15 +15,23 @@ class trim_tools
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var \phpbb\textformatter\s9e\utils */
+	protected $text_formatter_utils;
+
+	/** @var string|array BBcodes to be removed */
+	protected $strip_bbcodes;
+
 	/**
 	 * Constructor
 	 *
 	 * @param \phpbb\config\config $config
+	 * @param \phpbb\textformatter\s9e\utils $text_formatter_utils
 	 * @access public
 	 */
-	public function __construct(\phpbb\config\config $config)
+	public function __construct(\phpbb\config\config $config, \phpbb\textformatter\s9e\utils $text_formatter_utils = null)
 	{
 		$this->config = $config;
+		$this->text_formatter_utils = $text_formatter_utils;
 	}
 
 	/**
@@ -60,7 +68,7 @@ class trim_tools
 	{
 		$message = smiley_text($message, true); // display smileys as text :)
 
-		$message = $this->strip_bbcode_contents($message);
+		$message = $this->remove_bbcode_contents($message);
 
 		static $patterns = array();
 
@@ -82,25 +90,53 @@ class trim_tools
 
 	/**
 	 * Strip special BBCodes and their contents
-	 * Uses recursion to handle nested BBCodes
 	 *
 	 * @param string $message Message text
 	 * @return string Stripped message text
 	 * @access protected
 	 */
-	protected function strip_bbcode_contents($message)
+	protected function remove_bbcode_contents($message)
 	{
-		static $regex;
-
-		if (!isset($regex))
+		if ($this->text_formatter_utils == null)
 		{
-			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
-			$regex = '#\[(' . $strip_bbcodes . ')[^\[\]]*\]((?:(?!\[\1[^\[\]]*\]).)*)\[\/\1[^\[\]]*\]#Usi';
+			return $this->strip_bbcode_contents($message);
 		}
 
-		if (preg_match($regex, $message))
+		if (!isset($this->strip_bbcodes))
 		{
-			return $this->strip_bbcode_contents(preg_replace($regex, '', $message));
+			$this->strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? explode('|', $this->config['topic_preview_strip_bbcodes']) : array();
+			array_unshift($this->strip_bbcodes, 'flash');
+		}
+
+		foreach ($this->strip_bbcodes as $bbcode)
+		{
+			$message = $this->text_formatter_utils->remove_bbcode($message, $bbcode);
+		}
+
+		return $message;
+	}
+
+	/**
+	 * Strip special BBCodes and their contents
+	 * Uses recursion to handle nested BBCodes
+	 *
+	 * @param string $message Message text
+	 * @return string Stripped message text
+	 * @access protected
+	 * @deprecated 3.2.0-dev Use remove_bbcode_contents()
+	 *             This method for b.c. with phpBB 3.1.x.
+	 */
+	protected function strip_bbcode_contents($message)
+	{
+		if (!isset($this->strip_bbcodes))
+		{
+			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
+			$this->strip_bbcodes = '#\[(' . $strip_bbcodes . ')[^\[\]]*\]((?:(?!\[\1[^\[\]]*\]).)*)\[\/\1[^\[\]]*\]#Usi';
+		}
+
+		if (preg_match($this->strip_bbcodes, $message))
+		{
+			return $this->strip_bbcode_contents(preg_replace($this->strip_bbcodes, '', $message));
 		}
 
 		return $message;
