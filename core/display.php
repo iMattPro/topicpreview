@@ -142,7 +142,7 @@ class display extends base
 		}
 
 		// If avatar string is empty, fall back to no_avatar.gif
-		return ($avatar) ?: '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif' . '" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" />';
+		return ($avatar) ?: '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif' . '" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" alt="' . $this->user->lang('USER_AVATAR') . '" />';
 	}
 
 	/**
