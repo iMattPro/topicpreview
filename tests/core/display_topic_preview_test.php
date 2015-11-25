@@ -24,7 +24,7 @@ class display_topic_preview_test extends topic_preview_base
 	public function topic_preview_display_data()
 	{
 		global $phpbb_root_path;
-		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="60" height="60" alt="User avatar" />';
+		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="60" height="60" alt="" />';
 
 		return array(
 			array(
