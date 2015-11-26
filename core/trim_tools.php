@@ -15,7 +15,7 @@ class trim_tools
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\textformatter\s9e\utils */
+	/** @var \phpbb\textformatter\s9e\utils|null */
 	protected $text_formatter_utils;
 
 	/** @var string|array BBcodes to be removed */
@@ -25,7 +25,7 @@ class trim_tools
 	 * Constructor
 	 *
 	 * @param \phpbb\config\config $config
-	 * @param \phpbb\textformatter\s9e\utils $text_formatter_utils
+	 * @param \phpbb\textformatter\s9e\utils|null $text_formatter_utils
 	 * @access public
 	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\textformatter\s9e\utils $text_formatter_utils = null)
@@ -97,17 +97,20 @@ class trim_tools
 	 */
 	protected function remove_bbcode_contents($message)
 	{
+		// If text formatter is not available, use legacy bbcode stripper
 		if ($this->text_formatter_utils == null)
 		{
 			return $this->strip_bbcode_contents($message);
 		}
 
-		if (!isset($this->strip_bbcodes))
+		// Create the data array of bbcodes to strip
+		if (!isset($this->strip_bbcodes) || !is_array($this->strip_bbcodes))
 		{
 			$this->strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? explode('|', $this->config['topic_preview_strip_bbcodes']) : array();
 			array_unshift($this->strip_bbcodes, 'flash');
 		}
 
+		// Strip the bbcodes from the message
 		foreach ($this->strip_bbcodes as $bbcode)
 		{
 			$message = $this->text_formatter_utils->remove_bbcode($message, $bbcode);
@@ -128,12 +131,14 @@ class trim_tools
 	 */
 	protected function strip_bbcode_contents($message)
 	{
-		if (!isset($this->strip_bbcodes))
+		// Create the data string of bbcodes to strip
+		if (!isset($this->strip_bbcodes) || is_array($this->strip_bbcodes))
 		{
 			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 			$this->strip_bbcodes = '#\[(' . $strip_bbcodes . ')[^\[\]]*\]((?:(?!\[\1[^\[\]]*\]).)*)\[\/\1[^\[\]]*\]#Usi';
 		}
 
+		// Strip the bbcodes from the message
 		if (preg_match($this->strip_bbcodes, $message))
 		{
 			return $this->strip_bbcode_contents(preg_replace($this->strip_bbcodes, '', $message));
