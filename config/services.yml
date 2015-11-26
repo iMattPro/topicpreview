@@ -19,6 +19,7 @@ services:
         class: vse\topicpreview\core\trim_tools
         arguments:
             - @config
+            - @?text_formatter.utils
 
     vse.topicpreview.listener:
         class: vse\topicpreview\event\listener
