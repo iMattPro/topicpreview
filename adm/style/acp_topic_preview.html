@@ -9,22 +9,22 @@
 	<fieldset>
 		<legend>{{ lang('TOPIC_PREVIEW_SETTINGS') }}</legend>
 		<dl>
-			<dt><label for="topic_preview_limit">{{ lang('TOPIC_PREVIEW_LENGTH') }}{{ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_LENGTH_EXPLAIN') }}</span></dt>
+			<dt><label for="topic_preview_limit">{{ lang('TOPIC_PREVIEW_LENGTH') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_LENGTH_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_limit" id="topic_preview_limit" type="text" size="3" maxlength="3" value="{{ TOPIC_PREVIEW_LIMIT }}" /> {{ lang('CHARS') }}</dd>
 		</dl>
 		<dl>
-			<dt><label for="topic_preview_strip_bbcodes">{{ lang('TOPIC_PREVIEW_STRIP') }}{{ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_STRIP_EXPLAIN') }}</span></dt>
+			<dt><label for="topic_preview_strip_bbcodes">{{ lang('TOPIC_PREVIEW_STRIP') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_STRIP_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_strip_bbcodes" id="topic_preview_strip_bbcodes" type="text" size="30" maxlength="255" value="{{ TOPIC_PREVIEW_STRIP }}" /></dd>
 		</dl>
 		<dl>
-			<dt><label for="topic_preview_avatars">{{ lang('TOPIC_PREVIEW_AVATARS') }}{{ lang('COLON') }}</label></dt>
+			<dt><label for="topic_preview_avatars">{{ lang('TOPIC_PREVIEW_AVATARS') ~ lang('COLON') }}</label></dt>
 			<dd>
 				<label><input type="radio" class="radio" name="topic_preview_avatars" id="topic_preview_avatars" value="1"{% if S_TOPIC_PREVIEW_AVATARS %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
 				<label><input type="radio" class="radio" name="topic_preview_avatars" value="0"{% if not S_TOPIC_PREVIEW_AVATARS %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
-			<dt><label for="topic_preview_last_post">{{ lang('TOPIC_PREVIEW_LAST_POST') }}{{ lang('COLON') }}</label></dt>
+			<dt><label for="topic_preview_last_post">{{ lang('TOPIC_PREVIEW_LAST_POST') ~ lang('COLON') }}</label></dt>
 			<dd>
 				<label><input type="radio" class="radio" name="topic_preview_last_post" id="topic_preview_last_post" value="1"{% if S_TOPIC_PREVIEW_LAST_POST %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
 				<label><input type="radio" class="radio" name="topic_preview_last_post" value="0"{% if not S_TOPIC_PREVIEW_LAST_POST %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
@@ -35,20 +35,20 @@
 	<fieldset>
 		<legend>{{ lang('TOPIC_PREVIEW_STYLE_SETTINGS') }}</legend>
 		<dl>
-			<dt><label for="topic_preview_width">{{ lang('TOPIC_PREVIEW_WIDTH') }}{{ lang('COLON') }}</label></dt>
+			<dt><label for="topic_preview_width">{{ lang('TOPIC_PREVIEW_WIDTH') ~ lang('COLON') }}</label></dt>
 			<dd><input name="topic_preview_width" id="topic_preview_width" type="text" size="3" maxlength="4" value="{{ TOPIC_PREVIEW_WIDTH }}" /> {{ lang('PIXEL') }}</dd>
 		</dl>
 		<dl>
-			<dt><label for="topic_preview_delay">{{ lang('TOPIC_PREVIEW_DELAY') }}{{ lang('COLON') }}</label></dt>
+			<dt><label for="topic_preview_delay">{{ lang('TOPIC_PREVIEW_DELAY') ~ lang('COLON') }}</label></dt>
 			<dd><input name="topic_preview_delay" id="topic_preview_delay" type="text" size="3" maxlength="4" value="{{ TOPIC_PREVIEW_DELAY }}" /> {{ lang('MILLISECOND') }}</dd>
 		</dl>
 		<dl>
-			<dt><label for="topic_preview_drift">{{ lang('TOPIC_PREVIEW_DRIFT') }}{{ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_DRIFT_EXPLAIN') }}</span></dt>
+			<dt><label for="topic_preview_drift">{{ lang('TOPIC_PREVIEW_DRIFT') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_DRIFT_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_drift" id="topic_preview_drift" type="text" size="3" maxlength="5" value="{{ TOPIC_PREVIEW_DRIFT }}" /> {{ lang('PIXEL') }}</dd>
 		</dl>
 		{% for styles in loops.styles %}
 			<dl>
-				<dt><label for="style_{{ styles.STYLE_ID }}">{{ styles.STYLE_THEME }}{{ lang('COLON') }}</label><br /><span>{{ styles.STYLE_THEME_EXPLAIN }}</span></dt>
+				<dt><label for="style_{{ styles.STYLE_ID }}">{{ styles.STYLE_THEME ~ lang('COLON') }}</label><br /><span>{{ styles.STYLE_THEME_EXPLAIN }}</span></dt>
 				<dd><select name="style_{{ styles.STYLE_ID }}" id="style_{{ styles.STYLE_ID }}">{{ styles.THEME_OPTIONS }}</select></dd>
 			</dl>
 		{% endfor %}

@@ -1,6 +1,6 @@
 {% if S_TOPIC_PREVIEW %}
 	<dl>
-		<dt><label for="topic_preview1">{{ lang('TOPIC_PREVIEW_DISPLAY') }}{{ lang('COLON') }}</label></dt>
+		<dt><label for="topic_preview1">{{ lang('TOPIC_PREVIEW_DISPLAY') ~ lang('COLON') }}</label></dt>
 		<dd>
 			<label for="topic_preview1"><input type="radio" name="topic_preview" id="topic_preview1" value="1"{% if S_DISPLAY_TOPIC_PREVIEW %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
 			<label for="topic_preview0"><input type="radio" name="topic_preview" id="topic_preview0" value="0"{% if not S_DISPLAY_TOPIC_PREVIEW %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
