@@ -2,39 +2,39 @@ services:
     vse.topicpreview.data:
         class: vse\topicpreview\core\data
         arguments:
-            - @config
-            - @user
+            - '@config'
+            - '@user'
 
     vse.topicpreview.display:
         class: vse\topicpreview\core\display
         arguments:
-            - @config
-            - @dispatcher
-            - @template
-            - @user
-            - %core.root_path%
-            - @vse.topicpreview.trim_tools
+            - '@config'
+            - '@dispatcher'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '@vse.topicpreview.trim_tools'
 
     vse.topicpreview.trim_tools:
         class: vse\topicpreview\core\trim_tools
         arguments:
-            - @config
-            - @?text_formatter.utils
+            - '@config'
+            - '@?text_formatter.utils'
 
     vse.topicpreview.listener:
         class: vse\topicpreview\event\listener
         arguments:
-            - @vse.topicpreview.data
-            - @vse.topicpreview.display
+            - '@vse.topicpreview.data'
+            - '@vse.topicpreview.display'
         tags:
             - { name: event.listener }
 
     vse.topicpreview.ucp_listener:
         class: vse\topicpreview\event\ucp_listener
         arguments:
-            - @config
-            - @request
-            - @template
-            - @user
+            - '@config'
+            - '@request'
+            - '@template'
+            - '@user'
         tags:
             - { name: event.listener }
