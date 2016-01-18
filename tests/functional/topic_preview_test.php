@@ -35,6 +35,8 @@ class topic_preview_test extends \phpbb_functional_test_case
 		$db->sql_query($sql);
 		$config['topic_preview_strip_bbcodes'] = 'quote';
 
+		$this->purge_cache();
+
 		$this->login();
 
 		// Create and preview a basic topic
