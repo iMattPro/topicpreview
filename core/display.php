@@ -51,6 +51,7 @@ class display extends base
 
 		$this->setup();
 	}
+
 	/**
 	 * Set up some common components
 	 *
