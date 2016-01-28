@@ -98,7 +98,7 @@ class trim_tools
 	protected function remove_bbcode_contents($message)
 	{
 		// If text formatter is not available, use legacy bbcode stripper
-		if ($this->text_formatter_utils == null)
+		if ($this->text_formatter_utils === null)
 		{
 			return $this->strip_bbcode_contents($message);
 		}
