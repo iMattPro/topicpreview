@@ -28,6 +28,9 @@ class acp_main_test extends \phpbb_database_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var \phpbb\language\language */
+	protected $lang;
+
 	/** @var \vse\topicpreview\acp\topic_preview_module */
 	protected $module;
 
@@ -44,7 +47,7 @@ class acp_main_test extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $cache, $config, $db, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $user, $phpbb_root_path;
+		global $cache, $config, $db, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $user, $phpbb_root_path, $phpEx;
 
 		$cache = new \phpbb_mock_cache;;
 		$config = $this->config = new \phpbb\config\config(array());
@@ -53,7 +56,9 @@ class acp_main_test extends \phpbb_database_test_case
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 		$request = $this->request = $this->getMock('\phpbb\request\request');
 		$template = $this->template = $this->getMock('\phpbb\template\template');
-		$user = $this->user = new \phpbb\user('\phpbb\datetime');
+		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
+		$this->lang = new \phpbb\language\language($lang_loader);
+		$user = $this->user = new \phpbb\user($this->lang, '\phpbb\datetime');
 
 		$this->module = new \vse\topicpreview\acp\topic_preview_module();
 	}
@@ -113,7 +118,7 @@ class acp_main_test extends \phpbb_database_test_case
 			->method('variable')
 			->will($this->returnValueMap($data_map));
 
-		$this->setExpectedTriggerError($error, $this->user->lang($expected));
+		$this->setExpectedTriggerError($error, $this->lang->lang($expected));
 
 		$this->module->main(null, null);
 	}
