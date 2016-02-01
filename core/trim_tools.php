@@ -116,7 +116,7 @@ class trim_tools
 			$message = $this->text_formatter_utils->remove_bbcode($message, $bbcode);
 		}
 
-		return $message;
+		return $this->text_formatter_utils->unparse($message);
 	}
 
 	/**
