@@ -10,7 +10,7 @@
 		<legend>{{ lang('TOPIC_PREVIEW_SETTINGS') }}</legend>
 		<dl>
 			<dt><label for="topic_preview_limit">{{ lang('TOPIC_PREVIEW_LENGTH') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_LENGTH_EXPLAIN') }}</span></dt>
-			<dd><input name="topic_preview_limit" id="topic_preview_limit" type="text" size="3" maxlength="3" value="{{ TOPIC_PREVIEW_LIMIT }}" /> {{ lang('CHARS') }}</dd>
+			<dd><input name="topic_preview_limit" id="topic_preview_limit" type="number" min="0" max="999" value="{{ TOPIC_PREVIEW_LIMIT }}" /> {{ lang('CHARS') }}</dd>
 		</dl>
 		<dl>
 			<dt><label for="topic_preview_strip_bbcodes">{{ lang('TOPIC_PREVIEW_STRIP') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_STRIP_EXPLAIN') }}</span></dt>
@@ -36,15 +36,15 @@
 		<legend>{{ lang('TOPIC_PREVIEW_STYLE_SETTINGS') }}</legend>
 		<dl>
 			<dt><label for="topic_preview_width">{{ lang('TOPIC_PREVIEW_WIDTH') ~ lang('COLON') }}</label></dt>
-			<dd><input name="topic_preview_width" id="topic_preview_width" type="text" size="3" maxlength="4" value="{{ TOPIC_PREVIEW_WIDTH }}" /> {{ lang('PIXEL') }}</dd>
+			<dd><input name="topic_preview_width" id="topic_preview_width" type="number" min="0" max="9999" value="{{ TOPIC_PREVIEW_WIDTH }}" /> {{ lang('PIXEL') }}</dd>
 		</dl>
 		<dl>
 			<dt><label for="topic_preview_delay">{{ lang('TOPIC_PREVIEW_DELAY') ~ lang('COLON') }}</label></dt>
-			<dd><input name="topic_preview_delay" id="topic_preview_delay" type="text" size="3" maxlength="4" value="{{ TOPIC_PREVIEW_DELAY }}" /> {{ lang('MILLISECOND') }}</dd>
+			<dd><input name="topic_preview_delay" id="topic_preview_delay" type="number" min="0" max="9999" value="{{ TOPIC_PREVIEW_DELAY }}" /> {{ lang('MILLISECOND') }}</dd>
 		</dl>
 		<dl>
 			<dt><label for="topic_preview_drift">{{ lang('TOPIC_PREVIEW_DRIFT') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_DRIFT_EXPLAIN') }}</span></dt>
-			<dd><input name="topic_preview_drift" id="topic_preview_drift" type="text" size="3" maxlength="5" value="{{ TOPIC_PREVIEW_DRIFT }}" /> {{ lang('PIXEL') }}</dd>
+			<dd><input name="topic_preview_drift" id="topic_preview_drift" type="number" min="-99999" max="99999" value="{{ TOPIC_PREVIEW_DRIFT }}" /> {{ lang('PIXEL') }}</dd>
 		</dl>
 		{% for styles in loops.styles %}
 			<dl>
