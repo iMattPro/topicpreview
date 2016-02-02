@@ -73,6 +73,10 @@ class topic_preview_base extends \phpbb_database_test_case
 			->method('optionget')
 			->with($this->anything())
 			->will($this->returnValueMap(array(array('viewavatars', false, true), array('viewcensors', false, false))));
+		$this->user->expects($this->any())
+			->method('lang')
+			->with($this->anything())
+			->will($this->returnArgument(0));
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
 
