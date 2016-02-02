@@ -120,8 +120,6 @@ class acp_main_test extends \phpbb_database_test_case
 
 	public function main_submit_test_data()
 	{
-		$now = time();
-
 		return array(
 			array(
 				array(
@@ -133,8 +131,8 @@ class acp_main_test extends \phpbb_database_test_case
 					array('topic_preview_last_post', 0, false, \phpbb\request\request_interface::REQUEST, 1),
 					array('topic_preview_strip_bbcodes', '', false, \phpbb\request\request_interface::REQUEST, 'foo'),
 					// hidden fields used for check_form_key
-					array('form_token', '', false, \phpbb\request\request_interface::REQUEST, sha1($now . 'acp_topic_preview')),
-					array('creation_time', 0, false, \phpbb\request\request_interface::REQUEST, $now),
+					array('form_token', '', false, \phpbb\request\request_interface::REQUEST, sha1(0 . 'acp_topic_preview')),
+					array('creation_time', 0, false, \phpbb\request\request_interface::REQUEST, 0),
 				),
 				E_USER_NOTICE,
 				'CONFIG_UPDATED',
