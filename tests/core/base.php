@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
 require_once dirname(__FILE__) . '/../../../../../includes/functions_content.php';
 require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
 
-class topic_preview_base extends \phpbb_database_test_case
+class base extends \phpbb_database_test_case
 {
 	/** @var \phpbb\config\config */
 	protected $config;
@@ -83,10 +83,26 @@ class topic_preview_base extends \phpbb_database_test_case
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
 
-		$this->trim_tools = new \vse\topicpreview\core\trim_tools($this->config);
+		$remove_bbcodes_legacy = new \vse\topicpreview\core\tools\remove_bbcodes_legacy($config);
+		$remove_bbcodes = new \vse\topicpreview\core\tools\remove_bbcodes($config, $remove_bbcodes_legacy);
+		$remove_markup = new \vse\topicpreview\core\tools\remove_markup();
+		$this->trim_tools = new \vse\topicpreview\core\trim_tools($this->get_tools_manager(array(
+			$remove_bbcodes,
+			$remove_bbcodes_legacy,
+			$remove_markup,
+		)));
 
 		$this->template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
+	}
+
+	protected function get_tools_manager(array $tools)
+	{
+		foreach ($tools as $tool)
+		{
+			$tool->set_name((new \ReflectionClass($tool))->getShortName());
+		}
+		return new \vse\topicpreview\core\tools\manager($tools);
 	}
 
 	protected function get_topic_preview_data()

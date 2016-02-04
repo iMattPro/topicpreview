@@ -3,39 +3,15 @@
 *
 * Topic Preview
 *
-* @copyright (c) 2014 Matt Friedman
+* @copyright (c) 2016 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace vse\topicpreview\tests\core;
+namespace vse\topicpreview\tests\core\tools;
 
-require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
-require_once dirname(__FILE__) . '/../../../../../includes/functions_content.php';
-require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
-
-class trim_tools_legacy_test extends \phpbb_test_case
+class trim_tools_legacy_test extends base
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \vse\topicpreview\core\trim_tools */
-	protected $trim_tools;
-
-	public function setUp()
-	{
-		parent::setUp();
-
-		global $config;
-
-		$this->config = $config = new \phpbb\config\config(array(
-			'topic_preview_limit'			=> 150,
-			'topic_preview_strip_bbcodes'	=> 'quote',
-		));
-
-		$this->trim_tools = new \vse\topicpreview\core\trim_tools($config);
-	}
-
 	public function trim_tools_data()
 	{
 		return array(
@@ -91,10 +67,19 @@ class trim_tools_legacy_test extends \phpbb_test_case
 	}
 
 	/**
-	* @dataProvider trim_tools_data
-	*/
+	 * @dataProvider trim_tools_data
+	 */
 	public function test_trim_tools($message, $expected)
 	{
-		$this->assertEquals($expected, $this->trim_tools->trim_text($message, $this->config['topic_preview_limit']));
+		$remove_bbcodes_legacy = new \vse\topicpreview\core\tools\remove_bbcodes_legacy($this->config);
+		$remove_bbcodes = new \vse\topicpreview\core\tools\remove_bbcodes($this->config, $remove_bbcodes_legacy);
+		$remove_markup = new \vse\topicpreview\core\tools\remove_markup();
+		$trim_tools = new \vse\topicpreview\core\trim_tools($this->get_tools_manager(array(
+			$remove_bbcodes,
+			$remove_bbcodes_legacy,
+			$remove_markup,
+		)));
+
+		$this->assertEquals($expected, $trim_tools->trim_text($message, $this->config['topic_preview_limit']));
 	}
 }

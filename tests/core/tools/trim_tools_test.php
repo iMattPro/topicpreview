@@ -8,31 +8,10 @@
 *
 */
 
-namespace vse\topicpreview\tests\core;
+namespace vse\topicpreview\tests\core\tools;
 
-require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
-require_once dirname(__FILE__) . '/../../../../../includes/functions_content.php';
-
-class trim_tools_test extends \phpbb_test_case
+class trim_tools_test extends base
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \vse\topicpreview\core\trim_tools */
-	protected $trim_tools;
-
-	public function setUp()
-	{
-		parent::setUp();
-
-		global $config;
-
-		$this->config = $config = new \phpbb\config\config(array(
-			'topic_preview_limit'			=> 150,
-			'topic_preview_strip_bbcodes'	=> 'quote',
-		));
-	}
-
 	public function trim_tools_data()
 	{
 		return array(
@@ -88,20 +67,28 @@ class trim_tools_test extends \phpbb_test_case
 	}
 
 	/**
-	* @dataProvider trim_tools_data
-	*/
+	 * @dataProvider trim_tools_data
+	 */
 	public function test_trim_tools($message, $expected)
 	{
 		$container = $this->get_test_case_helpers()->set_s9e_services();
 		$parser    = $container->get('text_formatter.parser');
 		$utils     = $container->get('text_formatter.utils');
 
+		$remove_bbcodes_legacy = new \vse\topicpreview\core\tools\remove_bbcodes_legacy($this->config);
+		$remove_bbcodes = new \vse\topicpreview\core\tools\remove_bbcodes($this->config, $remove_bbcodes_legacy, $utils);
+		$remove_markup = new \vse\topicpreview\core\tools\remove_markup();
+		$trim_tools = new \vse\topicpreview\core\trim_tools($this->get_tools_manager(array(
+			$remove_bbcodes,
+			$remove_bbcodes_legacy,
+			$remove_markup,
+		)));
+
 		// parse it to emulate how text is stored in db
 		$parsed = $parser->parse($message);
+		$this->assertEquals($expected, $trim_tools->trim_text($parsed, $this->config['topic_preview_limit']));
 
-		$trim_tools = new \vse\topicpreview\core\trim_tools($this->config, $utils);
-		$trimmed = $trim_tools->trim_text($parsed, $this->config['topic_preview_limit']);
-
-		$this->assertEquals($expected, $trimmed);
+		// Test data again, unparsed (falls back to legacy tool)
+		$this->assertEquals($expected, $trim_tools->trim_text($message, $this->config['topic_preview_limit']));
 	}
 }
