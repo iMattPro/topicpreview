@@ -10,7 +10,7 @@
 
 namespace vse\topicpreview\tests\core;
 
-class display_topic_preview_test extends topic_preview_base
+class display_topic_preview_test extends base
 {
 	/** @var \phpbb\avatar\driver\local|\PHPUnit_Framework_MockObject_MockObject */
 	protected $avatar_driver;
@@ -50,7 +50,7 @@ class display_topic_preview_test extends topic_preview_base
 			new \phpbb\symfony_request(
 				new \phpbb_mock_request()
 			),
-			new \phpbb\filesystem(),
+			new \phpbb\filesystem\filesystem(),
 			$request,
 			$phpbb_root_path,
 			'php'

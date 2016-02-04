@@ -34,10 +34,15 @@ class ucp_listener_test extends \phpbb_test_case
 	{
 		parent::setUp();
 
+		global $phpbb_root_path, $phpEx;
+
 		// Load/Mock classes required by the event listener class
 		$this->config = new \phpbb\config\config(array('topic_preview_limit' => 1));
 		$this->request = $this->getMock('\phpbb\request\request');
-		$this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
+		$this->user = $this->getMock('\phpbb\user', array(), array(
+			new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx)),
+			'\phpbb\datetime'
+		));
 		$this->template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
 	}

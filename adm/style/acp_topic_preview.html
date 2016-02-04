@@ -46,10 +46,10 @@
 			<dt><label for="topic_preview_drift">{{ lang('TOPIC_PREVIEW_DRIFT') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_DRIFT_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_drift" id="topic_preview_drift" type="number" min="-99999" max="99999" value="{{ TOPIC_PREVIEW_DRIFT }}" /> {{ lang('PIXEL') }}</dd>
 		</dl>
-		{% for styles in loops.styles %}
+		{% for style in styles %}
 			<dl>
-				<dt><label for="style_{{ styles.STYLE_ID }}">{{ styles.STYLE_THEME ~ lang('COLON') }}</label><br /><span>{{ styles.STYLE_THEME_EXPLAIN }}</span></dt>
-				<dd><select name="style_{{ styles.STYLE_ID }}" id="style_{{ styles.STYLE_ID }}">{{ styles.THEME_OPTIONS }}</select></dd>
+				<dt><label for="style_{{ style.STYLE_ID }}">{{ style.STYLE_THEME ~ lang('COLON') }}</label><br /><span>{{ style.STYLE_THEME_EXPLAIN }}</span></dt>
+				<dd><select name="style_{{ style.STYLE_ID }}" id="style_{{ style.STYLE_ID }}">{{ style.THEME_OPTIONS }}</select></dd>
 			</dl>
 		{% endfor %}
 	</fieldset>
