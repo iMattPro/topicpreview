@@ -167,6 +167,6 @@ class trim_tools
 	 */
 	protected function s9e_format($message)
 	{
-		return preg_match('/^<[rt][ >]/s', $message);
+		return (bool) preg_match('/^<[rt][ >]/s', $message);
 	}
 }
