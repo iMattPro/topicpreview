@@ -98,7 +98,7 @@ class trim_tools
 	protected function remove_bbcode_contents($message)
 	{
 		// If text formatter is not available, use legacy bbcode stripper
-		if ($this->text_formatter_utils === null)
+		if ($this->text_formatter_utils === null || !$this->s9e_format($message))
 		{
 			return $this->remove_bbcode_contents_legacy($message);
 		}
@@ -157,5 +157,16 @@ class trim_tools
 	{
 		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
 		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $message));
+	}
+
+	/**
+	 * Is the message s9e formatted
+	 *
+	 * @param string $message Message text
+	 * @return bool True if message is s9e formatted, false otherwise
+	 */
+	protected function s9e_format($message)
+	{
+		return preg_match('/^<[rt][ >]/s', $message);
 	}
 }
