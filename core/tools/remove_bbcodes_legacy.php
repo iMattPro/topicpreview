@@ -36,7 +36,7 @@ class remove_bbcodes_legacy extends base
 	 */
 	public function run()
 	{
-		return $this->set_data()->remove_bbcodes();
+		return $this->set_data()->process();
 	}
 
 	/**
@@ -60,7 +60,7 @@ class remove_bbcodes_legacy extends base
 	 * @return string Stripped message text
 	 * @access protected
 	 */
-	protected function remove_bbcodes()
+	protected function process()
 	{
 		if (preg_match($this->data, $this->text))
 		{

@@ -20,7 +20,7 @@ class remove_markup extends base
 	 */
 	public function run()
 	{
-		return $this->set_data()->remove_markup();
+		return $this->set_data()->process();
 	}
 
 	/**
@@ -50,7 +50,7 @@ class remove_markup extends base
 	 * @return string Stripped message text
 	 * @access protected
 	 */
-	protected function remove_markup()
+	protected function process()
 	{
 		return trim(preg_replace($this->data, ' ', $this->text));
 	}

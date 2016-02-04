@@ -63,7 +63,7 @@ class remove_bbcodes extends base
 				->run();
 		}
 
-		return $this->set_data()->remove_bbcodes();
+		return $this->set_data()->process();
 	}
 
 	/**
@@ -86,7 +86,7 @@ class remove_bbcodes extends base
 	 * @return string Stripped message text
 	 * @access protected
 	 */
-	protected function remove_bbcodes()
+	protected function process()
 	{
 		foreach ($this->data as $bbcode)
 		{
@@ -103,6 +103,6 @@ class remove_bbcodes extends base
 	 */
 	protected function s9e_format()
 	{
-		return preg_match('/^<[rt][ >]/s', $this->text);
+		return (bool) preg_match('/^<[rt][ >]/s', $this->text);
 	}
 }
