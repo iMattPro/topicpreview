@@ -89,7 +89,7 @@ class trim_tools
 	}
 
 	/**
-	 * Strip special BBCodes and their contents
+	 * Remove specified BBCodes and their contents
 	 *
 	 * @param string $message Message text
 	 * @return string Stripped message text
@@ -100,7 +100,7 @@ class trim_tools
 		// If text formatter is not available, use legacy bbcode stripper
 		if ($this->text_formatter_utils === null)
 		{
-			return $this->strip_bbcode_contents($message);
+			return $this->remove_bbcode_contents_legacy($message);
 		}
 
 		// Create the data array of bbcodes to strip
@@ -120,14 +120,15 @@ class trim_tools
 	}
 
 	/**
-	 * Strip special BBCodes and their contents
+	 * Remove specified BBCodes and their contents
 	 * Uses recursion to handle nested BBCodes
+	 * This method for b.c. with phpBB 3.1.x
 	 *
 	 * @param string $message Message text
 	 * @return string Stripped message text
 	 * @access protected
 	 */
-	protected function strip_bbcode_contents($message)
+	protected function remove_bbcode_contents_legacy($message)
 	{
 		// Create the data string of bbcodes to strip
 		if (!isset($this->strip_bbcodes) || is_array($this->strip_bbcodes))
@@ -139,7 +140,7 @@ class trim_tools
 		// Strip the bbcodes from the message
 		if (preg_match($this->strip_bbcodes, $message))
 		{
-			return $this->strip_bbcode_contents(preg_replace($this->strip_bbcodes, '', $message));
+			return $this->remove_bbcode_contents_legacy(preg_replace($this->strip_bbcodes, '', $message));
 		}
 
 		return $message;
