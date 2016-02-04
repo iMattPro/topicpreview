@@ -89,7 +89,7 @@ class trim_tools
 	}
 
 	/**
-	 * Strip special BBCodes and their contents
+	 * Remove specified BBCodes and their contents
 	 *
 	 * @param string $message Message text
 	 * @return string Stripped message text
@@ -98,9 +98,9 @@ class trim_tools
 	protected function remove_bbcode_contents($message)
 	{
 		// If text formatter is not available, use legacy bbcode stripper
-		if ($this->text_formatter_utils === null)
+		if ($this->text_formatter_utils === null || !$this->s9e_format($message))
 		{
-			return $this->strip_bbcode_contents($message);
+			return $this->remove_bbcode_contents_legacy($message);
 		}
 
 		// Create the data array of bbcodes to strip
@@ -120,8 +120,9 @@ class trim_tools
 	}
 
 	/**
-	 * Strip special BBCodes and their contents
+	 * Remove specified BBCodes and their contents
 	 * Uses recursion to handle nested BBCodes
+	 * This method for b.c. with phpBB 3.1.x
 	 *
 	 * @param string $message Message text
 	 * @return string Stripped message text
@@ -129,7 +130,7 @@ class trim_tools
 	 * @deprecated 3.2.0-dev Use remove_bbcode_contents()
 	 *             This method for b.c. with phpBB 3.1.x.
 	 */
-	protected function strip_bbcode_contents($message)
+	protected function remove_bbcode_contents_legacy($message)
 	{
 		// Create the data string of bbcodes to strip
 		if (!isset($this->strip_bbcodes) || is_array($this->strip_bbcodes))
@@ -141,7 +142,7 @@ class trim_tools
 		// Strip the bbcodes from the message
 		if (preg_match($this->strip_bbcodes, $message))
 		{
-			return $this->strip_bbcode_contents(preg_replace($this->strip_bbcodes, '', $message));
+			return $this->remove_bbcode_contents_legacy(preg_replace($this->strip_bbcodes, '', $message));
 		}
 
 		return $message;
@@ -158,5 +159,16 @@ class trim_tools
 	{
 		// http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
 		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $message));
+	}
+
+	/**
+	 * Is the message s9e formatted
+	 *
+	 * @param string $message Message text
+	 * @return bool True if message is s9e formatted, false otherwise
+	 */
+	protected function s9e_format($message)
+	{
+		return preg_match('/^<[rt][ >]/s', $message);
 	}
 }
