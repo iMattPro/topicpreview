@@ -65,7 +65,7 @@ class remove_bbcodes_legacy extends base
 		if (preg_match($this->data, $this->text))
 		{
 			$this->text = preg_replace($this->data, '', $this->text);
-			return $this->remove_bbcodes();
+			return $this->process();
 		}
 
 		return $this->text;
