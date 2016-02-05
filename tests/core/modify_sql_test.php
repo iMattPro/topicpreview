@@ -10,7 +10,7 @@
 
 namespace vse\topicpreview\tests\core;
 
-class modify_sql_test extends topic_preview_base
+class modify_sql_test extends base
 {
 	public static function topic_preview_data()
 	{

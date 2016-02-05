@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
 require_once dirname(__FILE__) . '/../../../../../includes/functions_content.php';
 require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
 
-class topic_preview_base extends \phpbb_database_test_case
+class base extends \phpbb_database_test_case
 {
 	/** @var \phpbb\config\config */
 	protected $config;
@@ -28,8 +28,8 @@ class topic_preview_base extends \phpbb_database_test_case
 	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
 	protected $template;
 
-	/** @var \vse\topicpreview\core\trim_tools */
-	protected $trim_tools;
+	/** @var \vse\topicpreview\core\trim\trim */
+	protected $trim;
 
 	/** @var \phpbb\user|\PHPUnit_Framework_MockObject_MockObject */
 	protected $user;
@@ -51,7 +51,7 @@ class topic_preview_base extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $cache, $config, $user, $phpbb_dispatcher, $phpbb_root_path;
+		global $cache, $config, $user, $phpbb_dispatcher, $phpbb_root_path, $phpEx;
 
 		$this->root_path = $phpbb_root_path;
 
@@ -80,7 +80,9 @@ class topic_preview_base extends \phpbb_database_test_case
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
 
-		$this->trim_tools = new \vse\topicpreview\core\trim_tools($this->config);
+		$this->trim = tools\helper::trimTools()
+			->setTools($config)
+			->getTrim();
 
 		$this->template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
@@ -102,7 +104,7 @@ class topic_preview_base extends \phpbb_database_test_case
 			$this->template,
 			$this->user,
 			$this->root_path,
-			$this->trim_tools
+			$this->trim
 		);
 	}
 }

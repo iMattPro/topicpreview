@@ -27,8 +27,8 @@ class display extends base
 	/** @var string phpBB root path */
 	protected $root_path;
 
-	/** @var \vse\topicpreview\core\trim_tools */
-	protected $trim_tools;
+	/** @var \vse\topicpreview\core\trim\trim */
+	protected $trim;
 
 	/**
 	 * Constructor
@@ -38,15 +38,15 @@ class display extends base
 	 * @param \phpbb\template\template          $template
 	 * @param \phpbb\user                       $user
 	 * @param string                            $root_path
-	 * @param \vse\topicpreview\core\trim_tools $trim_tools
+	 * @param \vse\topicpreview\core\trim\trim  $trim
 	 * @access public
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path, \vse\topicpreview\core\trim_tools $trim_tools)
+	public function __construct(\phpbb\config\config $config, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path, \vse\topicpreview\core\trim\trim $trim)
 	{
 		$this->dispatcher = $dispatcher;
 		$this->template = $template;
 		$this->root_path = $root_path;
-		$this->trim_tools = $trim_tools;
+		$this->trim = $trim;
 		parent::__construct($config, $user);
 
 		$this->setup();
@@ -91,8 +91,8 @@ class display extends base
 		}
 
 		$block = array_merge($block, array(
-			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim_tools->trim_text($row['first_post_text'], $this->config['topic_preview_limit'])) : '',
-			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim_tools->trim_text($row['last_post_text'], $this->config['topic_preview_limit'])) : '',
+			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim->trim_text($row['first_post_text'], $this->config['topic_preview_limit'])) : '',
+			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim->trim_text($row['last_post_text'], $this->config['topic_preview_limit'])) : '',
 			'TOPIC_PREVIEW_FIRST_AVATAR'	=> $this->get_user_avatar_helper($row, 'fp'),
 			'TOPIC_PREVIEW_LAST_AVATAR'		=> $this->get_user_avatar_helper($row, 'lp'),
 		));
