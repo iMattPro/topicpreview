@@ -13,14 +13,14 @@ services:
             - '@template'
             - '@user'
             - '%core.root_path%'
-            - '@vse.topicpreview.trim_tools'
+            - '@vse.topicpreview.trim'
 
-    vse.topicpreview.trim_tools:
-        class: vse\topicpreview\core\trim_tools
+    vse.topicpreview.trim:
+        class: vse\topicpreview\core\trim\trim
         arguments:
-            - '@config'
-            - '@?text_formatter.utils'
+            - '@vse.topicpreview.tools.manager'
 
+# ----- Event Listeners -----
     vse.topicpreview.listener:
         class: vse\topicpreview\event\listener
         arguments:
@@ -38,3 +38,44 @@ services:
             - '@user'
         tags:
             - { name: event.listener }
+
+# ----- Trim tool management -----
+    vse.topicpreview.tools.manager:
+        class: vse\topicpreview\core\trim\manager
+        arguments:
+            - '@vse.topicpreview.tools_collection'
+
+    vse.topicpreview.tools_collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: vse.topicpreview.tools }
+
+# ----- Trim tools -----
+    vse.topicpreview.tool.remove_bbcodes:
+        class: vse\topicpreview\core\trim\tools\remove_bbcodes
+        arguments:
+            - '@config'
+            - '@vse.topicpreview.tool.remove_bbcodes_legacy'
+            - '@?text_formatter.utils'
+        calls:
+            - [set_name, [remove_bbcodes]]
+        tags:
+            - { name: vse.topicpreview.tools }
+
+    vse.topicpreview.tool.remove_bbcodes_legacy:
+        class: vse\topicpreview\core\trim\tools\remove_bbcodes_legacy
+        arguments:
+            - '@config'
+        calls:
+            - [set_name, [remove_bbcodes_legacy]]
+        tags:
+            - { name: vse.topicpreview.tools }
+
+    vse.topicpreview.tool.remove_markup:
+        class: vse\topicpreview\core\trim\tools\remove_markup
+        calls:
+            - [set_name, [remove_markup]]
+        tags:
+            - { name: vse.topicpreview.tools }

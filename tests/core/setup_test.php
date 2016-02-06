@@ -10,7 +10,7 @@
 
 namespace vse\topicpreview\tests\core;
 
-class setup_test extends topic_preview_base
+class setup_test extends base
 {
 	public function setup_data()
 	{
