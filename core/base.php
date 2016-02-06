@@ -21,9 +21,8 @@ class base
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config $config
-	 * @param \phpbb\user          $user
-	 * @access public
+	 * @param \phpbb\config\config $config Config object
+	 * @param \phpbb\user          $user   User object
 	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\user $user)
 	{
@@ -35,7 +34,6 @@ class base
 	 * Show topic previews, given current board and user configurations
 	 *
 	 * @return bool
-	 * @access public
 	 */
 	public function is_enabled()
 	{
@@ -46,7 +44,6 @@ class base
 	 * Show avatars, given current board and user configurations
 	 *
 	 * @return bool
-	 * @access public
 	 */
 	public function avatars_enabled()
 	{
@@ -57,7 +54,6 @@ class base
 	 * Show last post text, given current board configuration
 	 *
 	 * @return bool
-	 * @access public
 	 */
 	public function last_post_enabled()
 	{

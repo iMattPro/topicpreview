@@ -30,10 +30,9 @@ class remove_bbcodes extends base
 	/**
 	 * Constructor
 	 *
-	 * @param config                $config
-	 * @param remove_bbcodes_legacy $remove_bbcodes_legacy
-	 * @param utils|null            $text_formatter_utils
-	 * @access public
+	 * @param config                $config                Config object
+	 * @param remove_bbcodes_legacy $remove_bbcodes_legacy Legacy BBCodes trim tool
+	 * @param utils|null            $text_formatter_utils  Text Formatter Utils
 	 */
 	public function __construct(config $config, remove_bbcodes_legacy $remove_bbcodes_legacy, utils $text_formatter_utils = null)
 	{
@@ -84,7 +83,6 @@ class remove_bbcodes extends base
 	 * Remove specified BBCodes and their contents
 	 *
 	 * @return string Stripped message text
-	 * @access protected
 	 */
 	protected function process()
 	{

@@ -11,9 +11,9 @@ services:
             - '@config'
             - '@dispatcher'
             - '@template'
+            - '@vse.topicpreview.trim'
             - '@user'
             - '%core.root_path%'
-            - '@vse.topicpreview.trim'
 
     vse.topicpreview.trim:
         class: vse\topicpreview\core\trim\trim

@@ -74,7 +74,6 @@ class topic_preview_module
 	 * @param int    $id
 	 * @param string $mode
 	 * @return null
-	 * @access public
 	 */
 	public function main($id, $mode)
 	{
@@ -137,7 +136,6 @@ class topic_preview_module
 	 * @param int    $style_id Identifier of the board style
 	 * @param string $theme    Name of the selected theme
 	 * @return null
-	 * @access protected
 	 */
 	protected function set_style_theme($style_id, $theme)
 	{
@@ -154,7 +152,6 @@ class topic_preview_module
 	 * Get style data from the styles table
 	 *
 	 * @return array Style data array
-	 * @access protected
 	 */
 	protected function get_styles()
 	{
@@ -173,7 +170,6 @@ class topic_preview_module
 	 * Get file names from Topic Preview's CSS files
 	 *
 	 * @return array File name data array
-	 * @access protected
 	 */
 	protected function get_themes()
 	{
@@ -197,7 +193,6 @@ class topic_preview_module
 	 * Set themes data array
 	 *
 	 * @return null
-	 * @access protected
 	 */
 	protected function set_themes()
 	{
@@ -216,7 +211,6 @@ class topic_preview_module
 	 *
 	 * @param string $current Name of the Topic Preview theme stored in the db
 	 * @return string HTML <option> tags for Topic Preview themes
-	 * @access protected
 	 */
 	protected function theme_options($current)
 	{

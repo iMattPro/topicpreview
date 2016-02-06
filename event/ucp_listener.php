@@ -32,11 +32,10 @@ class ucp_listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config     $config
-	 * @param \phpbb\request\request   $request
-	 * @param \phpbb\template\template $template
-	 * @param \phpbb\user              $user
-	 * @access public
+	 * @param \phpbb\config\config     $config   Config object
+	 * @param \phpbb\request\request   $request  Request object
+	 * @param \phpbb\template\template $template Template object
+	 * @param \phpbb\user              $user     User object
 	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
 	{
@@ -51,7 +50,6 @@ class ucp_listener implements EventSubscriberInterface
 	 *
 	 * @return array
 	 * @static
-	 * @access public
 	 */
 	static public function getSubscribedEvents()
 	{
@@ -66,7 +64,6 @@ class ucp_listener implements EventSubscriberInterface
 	 *
 	 * @param object $event The event object
 	 * @return null
-	 * @access public
 	 */
 	public function ucp_prefs_get_data($event)
 	{
@@ -91,7 +88,6 @@ class ucp_listener implements EventSubscriberInterface
 	 *
 	 * @param object $event The event object
 	 * @return null
-	 * @access public
 	 */
 	public function ucp_prefs_set_data($event)
 	{

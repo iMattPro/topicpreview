@@ -33,20 +33,19 @@ class display extends base
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config              $config
-	 * @param \phpbb\event\dispatcher_interface $dispatcher
-	 * @param \phpbb\template\template          $template
-	 * @param \phpbb\user                       $user
+	 * @param \phpbb\config\config              $config     Config object
+	 * @param \phpbb\event\dispatcher_interface $dispatcher Event dispatcher object
+	 * @param \phpbb\template\template          $template   Template object
+	 * @param \vse\topicpreview\core\trim\trim  $trim       Trim text object
+	 * @param \phpbb\user                       $user       User object
 	 * @param string                            $root_path
-	 * @param \vse\topicpreview\core\trim\trim  $trim
-	 * @access public
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \phpbb\user $user, $root_path, \vse\topicpreview\core\trim\trim $trim)
+	public function __construct(\phpbb\config\config $config, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \vse\topicpreview\core\trim\trim $trim, \phpbb\user $user, $root_path)
 	{
 		$this->dispatcher = $dispatcher;
 		$this->template = $template;
-		$this->root_path = $root_path;
 		$this->trim = $trim;
+		$this->root_path = $root_path;
 		parent::__construct($config, $user);
 
 		$this->setup();
@@ -56,7 +55,6 @@ class display extends base
 	 * Set up some common components
 	 *
 	 * @return null
-	 * @access public
 	 */
 	public function setup()
 	{
@@ -81,7 +79,6 @@ class display extends base
 	 * @param array $row   Row data
 	 * @param array $block Template vars array
 	 * @return array Template vars array
-	 * @access public
 	 */
 	public function display_topic_preview($row, $block)
 	{
@@ -120,7 +117,6 @@ class display extends base
 	 * @param array  $row    User row data
 	 * @param string $poster Type of poster, fp or lp
 	 * @return string Avatar image
-	 * @access protected
 	 */
 	protected function get_user_avatar_helper($row, $poster)
 	{
@@ -151,7 +147,6 @@ class display extends base
 	 * Fall back to no theme if expected theme not found
 	 *
 	 * @return mixed Theme name if theme file found, false otherwise
-	 * @access protected
 	 */
 	protected function get_theme()
 	{

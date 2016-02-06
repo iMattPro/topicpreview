@@ -12,14 +12,16 @@ namespace vse\topicpreview\core\trim;
 
 class manager
 {
-	/** @var array Array of tools from the service collection */
+	/**
+	 * Array of tools from the service collection
+	 * @var array
+	 */
 	protected $tools = array();
 
 	/**
 	 * Constructor
 	 *
 	 * @param array $tools Array of tools from the service collection
-	 * @access public
 	 */
 	public function __construct($tools)
 	{
@@ -52,8 +54,8 @@ class manager
 	/**
 	 * Get tool by name
 	 *
-	 * @param string $name
-	 * @return null|tools\tool_interface
+	 * @param string $name Name of a trim tool service
+	 * @return null|tools\tool_interface A trim tool object
 	 */
 	public function get_tool($name)
 	{

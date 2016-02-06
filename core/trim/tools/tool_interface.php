@@ -23,14 +23,13 @@ interface tool_interface
 	 * Run this tool
 	 *
 	 * @return string Stripped message text
-	 * @access public
 	 */
 	public function run();
 
 	/**
 	 * Set the text property
 	 *
-	 * @param string $text
+	 * @param string $text Text to process
 	 * @return $this
 	 */
 	public function set_text($text);
@@ -45,14 +44,14 @@ interface tool_interface
 	/**
 	 * Get the tool name
 	 *
-	 * @return string
+	 * @return string Name of a trim tool service
 	 */
 	public function get_name();
 
 	/**
 	 * Set the tool name
 	 *
-	 * @param string $name
+	 * @param string $name Name of a trim tool service
 	 */
 	public function set_name($name);
 }

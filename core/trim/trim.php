@@ -12,14 +12,16 @@ namespace vse\topicpreview\core\trim;
 
 class trim
 {
-	/** @var array An array of trim tools */
+	/**
+	 * Array of trim tools
+	 * @var array
+	 */
 	protected $tools;
 
 	/**
 	 * Constructor
 	 *
-	 * @param manager $manager
-	 * @access public
+	 * @param manager $manager Trim tools manager object
 	 */
 	public function __construct(manager $manager)
 	{
@@ -32,15 +34,13 @@ class trim
 	 * @param string $message Message text
 	 * @param int    $length  The length to trim text to
 	 * @return string Trimmed message text
-	 * @access protected
 	 */
 	public function trim_text($message, $length)
 	{
 		// display smileys as text :)
 		$message = smiley_text($message, true);
 
-		// run the text through our trim tools (they filter out bbcodes and other markup)
-		/** @var tools\tool_interface $tool */
+		/** @var tools\tool_interface $tool Run text through trim tools to strip out bbcodes and other markup */
 		foreach ($this->tools as $tool)
 		{
 			$message = $tool->set_text($message)->run();
@@ -63,7 +63,6 @@ class trim
 	 *
 	 * @param string $message Message text
 	 * @return string Message text with line breaks
-	 * @access protected
 	 */
 	protected function tp_nl2br($message)
 	{

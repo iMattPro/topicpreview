@@ -26,9 +26,8 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
-	 * @param \vse\topicpreview\core\data $preview_data Topic Preview data object
+	 * @param \vse\topicpreview\core\data    $preview_data    Topic Preview data object
 	 * @param \vse\topicpreview\core\display $preview_display Topic Preview display object
-	 * @access public
 	 */
 	public function __construct(\vse\topicpreview\core\data $preview_data, \vse\topicpreview\core\display $preview_display)
 	{
@@ -41,7 +40,6 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @return array
 	 * @static
-	 * @access public
 	 */
 	static public function getSubscribedEvents()
 	{
@@ -74,7 +72,6 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @param object $event The event object
 	 * @return null
-	 * @access public
 	 */
 	public function modify_sql_array($event)
 	{
@@ -86,7 +83,6 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @param object $event The event object
 	 * @return null
-	 * @access public
 	 */
 	public function modify_sql_string($event)
 	{
@@ -99,7 +95,6 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @param object $event The event object
 	 * @return null
-	 * @access public
 	 */
 	public function display_topic_previews($event)
 	{

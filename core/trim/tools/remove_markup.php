@@ -48,7 +48,6 @@ class remove_markup extends base
 	 * Remove markup from the text
 	 *
 	 * @return string Stripped message text
-	 * @access protected
 	 */
 	protected function process()
 	{

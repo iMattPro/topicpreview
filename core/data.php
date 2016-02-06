@@ -16,7 +16,6 @@ class data extends base
 	 * Update an SQL SELECT statement to get data needed for topic previews
 	 *
 	 * @return string SQL SELECT appendage
-	 * @access public
 	 */
 	public function tp_sql_select()
 	{
@@ -50,7 +49,6 @@ class data extends base
 	 * Update an SQL JOIN statement to get data needed for topic previews
 	 *
 	 * @return array SQL JOIN params
-	 * @access public
 	 */
 	public function tp_sql_join()
 	{
@@ -94,7 +92,6 @@ class data extends base
 	 * @param string|array $sql_stmt SQL string or array to be modified
 	 * @param string       $type     Type of SQL statement SELECT|JOIN
 	 * @return string|array SQL statement string or array
-	 * @access public
 	 */
 	public function modify_sql($sql_stmt, $type = 'SELECT')
 	{

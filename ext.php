@@ -22,7 +22,6 @@ class ext extends \phpbb\extension\base
 	 * Enable extension if phpBB minimum version requirement is met
 	 *
 	 * @return bool
-	 * @access public
 	 */
 	public function is_enableable()
 	{

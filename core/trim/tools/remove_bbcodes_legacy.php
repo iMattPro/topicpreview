@@ -23,8 +23,7 @@ class remove_bbcodes_legacy extends base
 	/**
 	 * Constructor
 	 *
-	 * @param config $config
-	 * @access public
+	 * @param config $config Config object
 	 */
 	public function __construct(config $config)
 	{
@@ -58,7 +57,6 @@ class remove_bbcodes_legacy extends base
 	 * Uses recursion to handle nested BBCodes
 	 *
 	 * @return string Stripped message text
-	 * @access protected
 	 */
 	protected function process()
 	{

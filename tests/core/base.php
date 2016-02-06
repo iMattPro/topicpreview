@@ -102,9 +102,9 @@ class base extends \phpbb_database_test_case
 			$this->config,
 			$this->dispatcher,
 			$this->template,
+			$this->trim,
 			$this->user,
-			$this->root_path,
-			$this->trim
+			$this->root_path
 		);
 	}
 }
