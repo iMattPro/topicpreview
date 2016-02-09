@@ -32,14 +32,10 @@ class release_2_1_0_data extends \phpbb\db\migration\migration
 			)),
 
 			// Add new ACP module
-			array('module.add', array(
-				'acp',
-				'TOPIC_PREVIEW',
-				array(
-					'module_basename'	=> '\vse\topicpreview\acp\topic_preview_module',
-					'modes'				=> array('settings'),
-				),
-			)),
+			array('module.add', array('acp', 'TOPIC_PREVIEW', array(
+				'module_basename'	=> '\vse\topicpreview\acp\topic_preview_module',
+				'modes'				=> array('settings'),
+			))),
 
 			// Remove old config if it exists
 			array('if', array(
