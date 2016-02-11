@@ -41,6 +41,7 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 * Estonian
 * French
 * German
+* Hungarian
 * Italian
 * Persian
 * Polish
