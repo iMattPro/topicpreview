@@ -28,31 +28,9 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 * The last word in the topic preview is not cut off and will be followed by an ellipsis
 * BBCode tags and URL links are removed for a cleaner text-only appearance
 * Smileys are displayed as text :)
-* Supports right-to-left languages
 * Does not significantly impact server load (no additional db queries)
+* Multiple languages are supported. View the pre-installed [localizations](https://github.com/VSEphpbb/topicpreview/tree/master/language).
 * Built-in support for "[Precise Similar Topics](https://github.com/VSEphpbb/similartopics)", "[Recent Topics](https://github.com/PayBas/RecentTopics)" and "[Top Five](https://github.com/RMcGirr83/topfive)" extensions
-
-## Languages supported:
-* English
-* Arabic
-* Bulgarian
-* Chinese (Simplified)
-* Chinese (Traditional)
-* Croatian
-* Czech (translation incomplete)
-* Dutch
-* Estonian
-* French
-* German
-* Hungarian
-* Italian
-* Persian
-* Polish
-* Romanian
-* Russian
-* Spanish
-* Swedish
-* Turkish
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
@@ -65,12 +43,15 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 1. [Download the latest validated release](https://www.phpbb.com/customise/db/extension/topicpreview/).
 2. Unzip the downloaded release and copy it to the `ext` directory of your phpBB board.
 3. Navigate in the ACP to `Customise -> Manage extensions`.
-4. Look for `Topic Preview` under the Disabled Extensions list, and click its `Enable` link.
+4. Look for `Topic Preview` under the Disabled Extensions list and click its `Enable` link.
 
 ## Uninstallation
 1. Navigate in the ACP to `Customise -> Manage extensions`.
 2. Click the `Disable` link for Topic Preview.
 3. To permanently uninstall, click `Delete Data`, then delete the `topicpreview` folder from `phpBB/ext/vse/`.
+
+## Support
+Support is available for Topic Preview in the [phpBB Extension Database](https://www.phpbb.com/customise/db/extension/topicpreview/support).
 
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
