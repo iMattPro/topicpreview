@@ -89,19 +89,19 @@ class display_topic_preview_test extends base
 			array(
 				array(
 					'first_post_text' => 'Second message [b:3o8ohvlj]with bold text[/b:3o8ohvlj] <!-- s:) --><img src="{SMILIES_PATH}/icon_e_smile.gif" alt=":)" title="Smile" /><!-- s:) --> and smiley',
-					'fp_avatar' => '',
-					'fp_avatar_type' => 0,
+					'fp_avatar' => $this->avatar_data['src'],
+					'fp_avatar_type' => 'avatar.driver.local',
 					'topic_first_post_id' => 2,
 					'last_post_text' => str_repeat ('a', 155),
-					'lp_avatar' => '',
-					'lp_avatar_type' => 0,
+					'lp_avatar' => $this->avatar_data['src'],
+					'lp_avatar_type' => 'avatar.driver.local',
 					'topic_last_post_id' => 3,
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Second message with bold text :) and smiley',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, $this->avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, $this->avatar_data['src']),
 				),
 			),
 			array(
@@ -111,15 +111,15 @@ class display_topic_preview_test extends base
 					'fp_avatar_type' => 0,
 					'topic_first_post_id' => 4,
 					'last_post_text' => str_repeat ('a', 155),
-					'lp_avatar' => '',
-					'lp_avatar_type' => 0,
+					'lp_avatar' => $this->avatar_data['src'],
+					'lp_avatar_type' => 'avatar.driver.local',
 					'topic_last_post_id' => 5,
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
 					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, $this->avatar_data['src']),
 				),
 			),
 			array(
@@ -143,19 +143,19 @@ class display_topic_preview_test extends base
 			array(
 				array(
 					'first_post_text' => 'Fourth message [quote:3o8ohvlj]' . str_repeat('aaa ', 600) . '[/quote:3o8ohvlj]',
-					'fp_avatar' => '',
+					'fp_avatar' => null,
 					'fp_avatar_type' => 0,
 					'topic_first_post_id' => 8,
 					'last_post_text' =>'',
-					'lp_avatar' => '',
+					'lp_avatar' => null,
 					'lp_avatar_type' => 0,
 					'topic_last_post_id' => 8,
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Fourth message',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
 				),
 			),
 		);
@@ -166,6 +166,12 @@ class display_topic_preview_test extends base
 	*/
 	public function test_display_topic_preview($data, $expected)
 	{
+		// Disable topic preview avatars
+		if ($data['fp_avatar'] === null || $data['lp_avatar'] === null)
+		{
+			$this->config['topic_preview_avatars'] = 0;
+		}
+
 		// Start with an empty block array
 		$block = array();
 
