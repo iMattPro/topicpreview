@@ -4,6 +4,7 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 
 [![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.png)](https://travis-ci.org/VSEphpbb/topicpreview)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=master)
 
 ## Browser support
 ![Chrome 4+](http://vsephpbb.github.io/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
