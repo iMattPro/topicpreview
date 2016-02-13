@@ -16,7 +16,7 @@ namespace vse\topicpreview;
 class ext extends \phpbb\extension\base
 {
 	/** @var string Require 3.1.2 due to updated INCLUDECSS syntax */
-	const PHPBB_VERSION = '3.1.2';
+	const PHPBB_MIN_VERSION = '3.1.2';
 
 	/**
 	 * Enable extension if phpBB minimum version requirement is met
@@ -26,6 +26,6 @@ class ext extends \phpbb\extension\base
 	public function is_enableable()
 	{
 		$config = $this->container->get('config');
-		return phpbb_version_compare($config['version'], self::PHPBB_VERSION, '>=');
+		return phpbb_version_compare($config['version'], self::PHPBB_MIN_VERSION, '>=');
 	}
 }
