@@ -30,14 +30,14 @@ interface tool_interface
 	 * Set the text property
 	 *
 	 * @param string $text Text to process
-	 * @return $this
+	 * @return tool_interface
 	 */
 	public function set_text($text);
 
 	/**
 	 * Set the data array of data to remove
 	 *
-	 * @return $this
+	 * @return tool_interface
 	 */
 	public function set_data();
 
