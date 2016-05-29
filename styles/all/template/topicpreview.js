@@ -155,7 +155,11 @@
 				}, options.timeout);
 
 				function insertPlaceholder() {
-					options.replacement ? image.src = options.replacement : $(image).css({visibility: 'hidden'});
+					if (options.replacement) {
+						image.src = options.replacement;
+					} else {
+						$(image).css('visibility', 'hidden');
+					}
 				}
 			});
 		}
