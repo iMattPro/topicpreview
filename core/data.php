@@ -102,28 +102,51 @@ class data extends base
 
 		if (is_array($sql_stmt))
 		{
-			$array = $this->tp_sql_join();
-			foreach ($array['LEFT_JOIN'] as $join)
-			{
-				$sql_stmt['LEFT_JOIN'][] = $join;
-			}
-
+			$sql_stmt = $this->build_join_array($sql_stmt);
 			$sql_stmt['SELECT'] .= $this->tp_sql_select();
+			return $sql_stmt;
 		}
-		else
+
+		if ($type == 'SELECT')
 		{
-			if ($type == 'SELECT')
-			{
-				$sql_stmt .= $this->tp_sql_select();
-			}
-			else
-			{
-				$array = $this->tp_sql_join();
-				foreach ($array['LEFT_JOIN'] as $join)
-				{
-					$sql_stmt .= ' LEFT JOIN ' . key($join['FROM']) . ' ' . current($join['FROM']) . ' ON (' . $join['ON'] . ')';
-				}
-			}
+			$sql_stmt .= $this->tp_sql_select();
+			return $sql_stmt;
+		}
+
+		return $this->build_join_statement($sql_stmt);
+	}
+
+	/**
+	 * Add LEFT_JOIN statements to an sql array
+	 *
+	 * @param array $sql_stmt An sql array
+	 * @return array Updated sql array
+	 */
+	protected function build_join_array($sql_stmt)
+	{
+		$array = $this->tp_sql_join();
+
+		foreach ($array['LEFT_JOIN'] as $join)
+		{
+			$sql_stmt['LEFT_JOIN'][] = $join;
+		}
+
+		return $sql_stmt;
+	}
+
+	/**
+	 * Add LEFT_JOIN statements to an sql statement
+	 *
+	 * @param string $sql_stmt An sql statement
+	 * @return string Updated sql statement
+	 */
+	protected function build_join_statement($sql_stmt)
+	{
+		$array = $this->tp_sql_join();
+
+		foreach ($array['LEFT_JOIN'] as $join)
+		{
+			$sql_stmt .= ' LEFT JOIN ' . key($join['FROM']) . ' ' . current($join['FROM']) . ' ON (' . $join['ON'] . ')';
 		}
 
 		return $sql_stmt;
