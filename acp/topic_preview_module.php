@@ -53,12 +53,12 @@ class topic_preview_module
 	 */
 	public function __construct()
 	{
-		global $cache, $config, $db, $phpbb_extension_manager, $request, $template, $user, $phpbb_root_path;
+		global $cache, $config, $db, $phpbb_ext_manager, $request, $template, $user, $phpbb_root_path;
 
 		$this->cache = $cache;
 		$this->config = $config;
 		$this->db = $db;
-		$this->ext_manager = $phpbb_extension_manager;
+		$this->ext_manager = $phpbb_ext_manager;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
