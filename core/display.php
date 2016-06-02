@@ -88,8 +88,8 @@ class display extends base
 		}
 
 		$block = array_merge($block, array(
-			'TOPIC_PREVIEW_FIRST_POST'		=> (!empty($row['first_post_text'])) ? censor_text($this->trim->trim_text($row['first_post_text'], $this->config['topic_preview_limit'])) : '',
-			'TOPIC_PREVIEW_LAST_POST'		=> (!empty($row['last_post_text']) && ($row['topic_first_post_id'] != $row['topic_last_post_id'])) ? censor_text($this->trim->trim_text($row['last_post_text'], $this->config['topic_preview_limit'])) : '',
+			'TOPIC_PREVIEW_FIRST_POST'		=> $this->get_text_helper($row, 'first_post_text'),
+			'TOPIC_PREVIEW_LAST_POST'		=> $this->get_text_helper($row, 'last_post_text'),
 			'TOPIC_PREVIEW_FIRST_AVATAR'	=> $this->get_user_avatar_helper($row, 'fp'),
 			'TOPIC_PREVIEW_LAST_AVATAR'		=> $this->get_user_avatar_helper($row, 'lp'),
 		));
@@ -109,6 +109,25 @@ class display extends base
 		extract($this->dispatcher->trigger_event('vse.topicpreview.display_topic_preview', compact($vars)));
 
 		return $block;
+	}
+
+	/**
+	 * Get topic preview text helper function
+	 * This handles the trimming and censoring
+	 *
+	 * @param array  $row  User row data
+	 * @param string $post The first or last post text column key
+	 * @return string The trimmed and censored topic preview text
+	 */
+	protected function get_text_helper($row, $post)
+	{
+		// Ignore empty/unset text or when the last post is also the first (and only) post
+		if (empty($row[$post]) || ($post == 'last_post_text' && $row['topic_first_post_id'] == $row['topic_last_post_id']))
+		{
+			return '';
+		}
+
+		return censor_text($this->trim->trim_text($row[$post], $this->config['topic_preview_limit']));
 	}
 
 	/**
