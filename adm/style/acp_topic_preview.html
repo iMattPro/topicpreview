@@ -46,10 +46,22 @@
 			<dt><label for="topic_preview_drift">{{ lang('TOPIC_PREVIEW_DRIFT') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_DRIFT_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_drift" id="topic_preview_drift" type="number" min="-99999" max="99999" value="{{ TOPIC_PREVIEW_DRIFT }}" /> {{ lang('PIXEL') }}</dd>
 		</dl>
-		{% for styles in loops.styles %}
+		{% for style in TOPIC_PREVIEW_STYLES %}
 			<dl>
-				<dt><label for="style_{{ styles.STYLE_ID }}">{{ styles.STYLE_THEME ~ lang('COLON') }}</label><br /><span>{{ styles.STYLE_THEME_EXPLAIN }}</span></dt>
-				<dd><select name="style_{{ styles.STYLE_ID }}" id="style_{{ styles.STYLE_ID }}">{{ styles.THEME_OPTIONS }}</select></dd>
+				<dt><label for="style_{{ style.style_id }}">{{ lang('TOPIC_PREVIEW_THEME', style.style_name) ~ lang('COLON') }}</label><br />
+					<span>{{ lang('TOPIC_PREVIEW_THEME_EXPLAIN', style.style_name) }}</span>
+				</dt>
+				<dd>
+					<select name="style_{{ style.style_id }}" id="style_{{ style.style_id }}">
+						{% set current = style.topic_preview_theme %}
+						{% set selected = (current in TOPIC_PREVIEW_THEMES) ? current : TOPIC_PREVIEW_DEFAULT %}
+						{% for theme in TOPIC_PREVIEW_THEMES %}
+							<option value="{{ theme }}"{% if theme == selected %} selected="selected"{% endif %}>
+								{{ theme == TOPIC_PREVIEW_NO_THEME ? lang('NO') : theme|title }}  {{ lang('THEME') }}
+							</option>
+						{% endfor %}
+					</select>
+				</dd>
 			</dl>
 		{% endfor %}
 	</fieldset>

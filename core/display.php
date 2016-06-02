@@ -153,7 +153,6 @@ class display extends base
 				'avatar_width'	=> $row[$poster . '_avatar_width'],
 				'avatar_height'	=> $row[$poster . '_avatar_height'],
 			);
-
 			$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
 		}
 
