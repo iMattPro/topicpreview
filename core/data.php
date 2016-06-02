@@ -28,17 +28,11 @@ class data extends base
 
 		if ($this->avatars_enabled())
 		{
-			$sql .= ', fpu.user_avatar AS fp_avatar,
-				fpu.user_avatar_type AS fp_avatar_type,
-				fpu.user_avatar_width AS fp_avatar_width,
-				fpu.user_avatar_height AS fp_avatar_height';
+			$sql .= $this->build_avatar_select('fp');
 
 			if ($this->last_post_enabled())
 			{
-				$sql .= ', lpu.user_avatar AS lp_avatar,
-					lpu.user_avatar_type AS lp_avatar_type,
-					lpu.user_avatar_width AS lp_avatar_width,
-					lpu.user_avatar_height AS lp_avatar_height';
+				$sql .= $this->build_avatar_select('lp');
 			}
 		}
 
@@ -114,6 +108,35 @@ class data extends base
 		}
 
 		return $this->build_join_statement($sql_stmt);
+	}
+
+	/**
+	 * Build select statement for user avatar fields, e.g.:
+	 * ', fpu.user_avatar AS fp_avatar
+	 *  , fpu.user_avatar_type AS fp_avatar_type
+	 *  , fpu.user_avatar_width AS fp_avatar_width
+	 *  , fpu.user_avatar_height AS fp_avatar_height'
+	 *
+	 * @param string $prefix First or last post (fp|lp)
+	 * @return string Partial sql statement
+	 */
+	protected function build_avatar_select($prefix)
+	{
+		$sql = '';
+
+		$avatar_ary = array(
+			'user_avatar'        => 'avatar',
+			'user_avatar_type'   => 'avatar_type',
+			'user_avatar_width'  => 'avatar_width',
+			'user_avatar_height' => 'avatar_height',
+		);
+
+		foreach ($avatar_ary as $key => $var)
+		{
+			$sql .= ", {$prefix}u.{$key} AS {$prefix}_$var";
+		}
+
+		return $sql;
 	}
 
 	/**

@@ -71,7 +71,7 @@ class acp_main_test extends \phpbb_database_test_case
 	 */
 	public function test_main_display()
 	{
-		$this->template->expects($this->at(2))
+		$this->template->expects($this->at(1))
 			->method('assign_vars')
 			->with(array(
 				'TOPIC_PREVIEW_LIMIT'		=> $this->config['topic_preview_limit'],
@@ -81,6 +81,10 @@ class acp_main_test extends \phpbb_database_test_case
 				'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
 				'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
 				'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
+				'TOPIC_PREVIEW_STYLES'		=> $this->invokeMethod($this->module, 'get_styles'),
+				'TOPIC_PREVIEW_THEMES'		=> $this->invokeMethod($this->module, 'get_themes'),
+				'TOPIC_PREVIEW_DEFAULT'		=> \vse\topicpreview\acp\topic_preview_module::DEFAULT_THEME,
+				'TOPIC_PREVIEW_NO_THEME'	=> \vse\topicpreview\acp\topic_preview_module::NO_THEME,
 				'U_ACTION'					=> null,
 			));
 
@@ -143,5 +147,23 @@ class acp_main_test extends \phpbb_database_test_case
 				'FORM_INVALID',
 			),
 		);
+	}
+
+	/**
+	 * Call protected/private method of a class.
+	 *
+	 * @param object &$object    Instantiated object that we will run method on.
+	 * @param string $methodName Method name to call
+	 * @param array  $parameters Array of parameters to pass into method.
+	 *
+	 * @return mixed Method return.
+	 */
+	public function invokeMethod(&$object, $methodName, array $parameters = array())
+	{
+		$reflection = new \ReflectionClass(get_class($object));
+		$method = $reflection->getMethod($methodName);
+		$method->setAccessible(true);
+
+		return $method->invokeArgs($object, $parameters);
 	}
 }
