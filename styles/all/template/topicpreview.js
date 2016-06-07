@@ -18,7 +18,7 @@
 				delay: 1000,
 				width: 360,
 				drift: 15,
-				position: {left: 35, top: 25}
+				position: { left: 35, top: 25 }
 			}, options),
 			previewTimeout,
 			previewContainer = $('<div id="topic_preview"></div>').css('width', settings.width).appendTo('body');
@@ -30,7 +30,7 @@
 			// Add rtl class for right-to-left languages to avatar images
 			.toggleClass('rtl', (settings.dir === 'rtl'))
 			.children('img')
-			.brokenImage({replacement: settings.noavatar})
+			.brokenImage({ replacement: settings.noavatar })
 		;
 
 		// Display the topic preview tooltip
@@ -78,8 +78,8 @@
 				previewContainer
 					.stop(true, true) // stop any running animations first
 					.css({
-						'top': previewTop + 'px',
-						'left': obj.offset().left + settings.position.left + (settings.dir === 'rtl' ? (obj.width() - previewContainer.width()) : 0) + 'px'
+						top: previewTop + 'px',
+						left: obj.offset().left + settings.position.left + (settings.dir === 'rtl' ? (obj.width() - previewContainer.width()) : 0) + 'px'
 					})
 					.fadeIn('fast') // display the topic preview with a fadein
 				;
@@ -99,7 +99,7 @@
 			previewContainer
 				.stop(true, true) // stop any running animations first
 				.fadeOut('fast') // hide the topic preview with a fadeout
-				.animate({'top': '-=' + settings.drift + 'px'}, {duration: 'fast', queue: false}, function() {
+				.animate({ top: '-=' + settings.drift + 'px' }, { duration: 'fast', queue: false }, function() {
 					// animation complete
 				})
 			;
