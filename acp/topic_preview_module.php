@@ -64,7 +64,6 @@ class topic_preview_module
 		$this->user = $user;
 		$this->phpbb_root_path = $phpbb_root_path;
 
-		$this->user->add_lang('acp/common');
 		$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
 	}
 
