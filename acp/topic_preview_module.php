@@ -89,23 +89,18 @@ class topic_preview_module
 				trigger_error($this->user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
-			$this->config->set('topic_preview_limit', abs($this->request->variable('topic_preview_limit', 0))); // abs() no negative values
-			$this->config->set('topic_preview_width', abs($this->request->variable('topic_preview_width', 0))); // abs() no negative values
-			$this->config->set('topic_preview_delay', abs($this->request->variable('topic_preview_delay', 0))); // abs() no negative values
-			$this->config->set('topic_preview_drift', $this->request->variable('topic_preview_drift', 0));
-			$this->config->set('topic_preview_avatars', $this->request->variable('topic_preview_avatars', 0));
-			$this->config->set('topic_preview_last_post', $this->request->variable('topic_preview_last_post', 0));
-			$this->config->set('topic_preview_strip_bbcodes', $this->request->variable('topic_preview_strip_bbcodes', ''));
-
-			$styles = $this->get_styles();
-			foreach ($styles as $row)
-			{
-				$this->set_style_theme($row['style_id'], $this->request->variable('style_' . $row['style_id'], ''));
-			}
-
+			$this->submit_settings();
 			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
+		$this->display_settings();
+	}
+
+	/**
+	 * Display the settings with the current config values
+	 */
+	protected function display_settings()
+	{
 		$this->template->assign_vars(array(
 			'TOPIC_PREVIEW_LIMIT'		=> $this->config['topic_preview_limit'],
 			'TOPIC_PREVIEW_WIDTH'		=> $this->config['topic_preview_width'],
@@ -120,6 +115,26 @@ class topic_preview_module
 			'TOPIC_PREVIEW_NO_THEME'	=> self::NO_THEME,
 			'U_ACTION'					=> $this->u_action,
 		));
+	}
+
+	/**
+	 * Submit the settings from the form to the database
+	 */
+	protected function submit_settings()
+	{
+		$this->config->set('topic_preview_limit', abs($this->request->variable('topic_preview_limit', 0))); // abs() no negative values
+		$this->config->set('topic_preview_width', abs($this->request->variable('topic_preview_width', 0))); // abs() no negative values
+		$this->config->set('topic_preview_delay', abs($this->request->variable('topic_preview_delay', 0))); // abs() no negative values
+		$this->config->set('topic_preview_drift', $this->request->variable('topic_preview_drift', 0));
+		$this->config->set('topic_preview_avatars', $this->request->variable('topic_preview_avatars', 0));
+		$this->config->set('topic_preview_last_post', $this->request->variable('topic_preview_last_post', 0));
+		$this->config->set('topic_preview_strip_bbcodes', $this->request->variable('topic_preview_strip_bbcodes', ''));
+
+		$styles = $this->get_styles();
+		foreach ($styles as $row)
+		{
+			$this->set_style_theme($row['style_id'], $this->request->variable('style_' . $row['style_id'], ''));
+		}
 	}
 
 	/**
