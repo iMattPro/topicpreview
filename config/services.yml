@@ -1,4 +1,16 @@
 services:
+    vse.topicpreview.acp.controller:
+        class: vse\topicpreview\controller\acp_controller
+        arguments:
+            - '@cache.driver'
+            - '@config'
+            - '@dbal.conn'
+            - '@ext.manager'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+
     vse.topicpreview.data:
         class: vse\topicpreview\core\data
         arguments:

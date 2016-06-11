@@ -13,7 +13,7 @@ namespace vse\topicpreview\tests\acp;
 require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
 require_once dirname(__FILE__) . '/../../../../../includes/functions_acp.php';
 
-class acp_main_test extends \phpbb_database_test_case
+class controller_test extends \phpbb_database_test_case
 {
 	static protected function setup_extensions()
 	{
@@ -28,8 +28,8 @@ class acp_main_test extends \phpbb_database_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \vse\topicpreview\acp\topic_preview_module */
-	protected $module;
+	/** @var \vse\topicpreview\controller\acp_controller */
+	protected $controller;
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\request\request */
 	protected $request;
@@ -44,7 +44,7 @@ class acp_main_test extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $cache, $config, $db, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $user, $phpbb_root_path;
+		global $config, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $phpbb_root_path;
 
 		$cache = new \phpbb_mock_cache;;
 		$config = $this->config = new \phpbb\config\config(array());
@@ -53,17 +53,18 @@ class acp_main_test extends \phpbb_database_test_case
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 		$request = $this->request = $this->getMock('\phpbb\request\request');
 		$template = $this->template = $this->getMock('\phpbb\template\template');
-		$user = $this->user = new \phpbb\user('\phpbb\datetime');
+		$this->user = new \phpbb\user('\phpbb\datetime');
 
-		$this->module = new \vse\topicpreview\acp\topic_preview_module();
-	}
-
-	/**
-	 * Test the acp module instance
-	 */
-	public function test_module()
-	{
-		$this->assertInstanceOf('\vse\topicpreview\acp\topic_preview_module', $this->module);
+		$this->controller = new \vse\topicpreview\controller\acp_controller(
+			$cache,
+			$this->config,
+			$db,
+			$phpbb_extension_manager,
+			$this->request,
+			$this->template,
+			$this->user,
+			$phpbb_root_path
+		);
 	}
 
 	/**
@@ -81,14 +82,14 @@ class acp_main_test extends \phpbb_database_test_case
 				'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
 				'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
 				'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
-				'TOPIC_PREVIEW_STYLES'		=> $this->invokeMethod($this->module, 'get_styles'),
-				'TOPIC_PREVIEW_THEMES'		=> $this->invokeMethod($this->module, 'get_themes'),
-				'TOPIC_PREVIEW_DEFAULT'		=> \vse\topicpreview\acp\topic_preview_module::DEFAULT_THEME,
-				'TOPIC_PREVIEW_NO_THEME'	=> \vse\topicpreview\acp\topic_preview_module::NO_THEME,
-				'U_ACTION'					=> null,
+				'TOPIC_PREVIEW_STYLES'		=> $this->invokeMethod($this->controller, 'get_styles'),
+				'TOPIC_PREVIEW_THEMES'		=> $this->invokeMethod($this->controller, 'get_themes'),
+				'TOPIC_PREVIEW_DEFAULT'		=> \vse\topicpreview\controller\acp_controller::DEFAULT_THEME,
+				'TOPIC_PREVIEW_NO_THEME'	=> \vse\topicpreview\controller\acp_controller::NO_THEME,
+				'U_ACTION'					=> 'u_action',
 			));
 
-		$this->module->main(null, null);
+		$this->controller->set_u_action('u_action')->handle();
 	}
 
 	/**
@@ -119,7 +120,7 @@ class acp_main_test extends \phpbb_database_test_case
 
 		$this->setExpectedTriggerError($error, $this->user->lang($expected));
 
-		$this->module->main(null, null);
+		$this->controller->handle();
 	}
 
 	public function main_submit_test_data()
