@@ -61,18 +61,18 @@ class acp_controller implements acp_controller_interface
 	 * @param cache_driver $cache
 	 * @param config       $config
 	 * @param db_driver    $db
-	 * @param manager      $phpbb_extension_manager
+	 * @param manager      $phpbb_ext_manager
 	 * @param request      $request
 	 * @param template     $template
 	 * @param user         $user
 	 * @param              $phpbb_root_path
 	 */
-	public function __construct(cache_driver $cache, config $config, db_driver $db, manager $phpbb_extension_manager, request $request, template $template, user $user, $phpbb_root_path)
+	public function __construct(cache_driver $cache, config $config, db_driver $db, manager $phpbb_ext_manager, request $request, template $template, user $user, $phpbb_root_path)
 	{
 		$this->cache = $cache;
 		$this->config = $config;
 		$this->db = $db;
-		$this->ext_manager = $phpbb_extension_manager;
+		$this->ext_manager = $phpbb_ext_manager;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
