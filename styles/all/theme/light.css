@@ -47,10 +47,6 @@
 	-ms-transform: rotate(-45deg);
 	-o-transform: rotate(-45deg);
 	transform: rotate(-45deg);
-
-	display /*\**/: none\9;
-	*display: none !important;
-	*display: none;
 }
 
 #topic_preview.invert:after {
@@ -72,10 +68,6 @@
 	-ms-transform: rotate(-45deg);
 	-o-transform: rotate(-45deg);
 	transform: rotate(-45deg);
-
-	display /*\**/: none\9;
-	*display: none !important;
-	*display: none;
 }
 
 #topic_preview.invert:before {
