@@ -12,7 +12,7 @@ namespace vse\topicpreview\core\trim\tools;
 
 use phpbb\config\config;
 
-class remove_bbcodes_legacy extends base
+class bbcodes_legacy extends base
 {
 	/** @var config */
 	protected $config;

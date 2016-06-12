@@ -15,8 +15,8 @@ class manager_test extends base
 	public function get_tools_test_data()
 	{
 		return array(
-			array(true, array('remove_bbcodes', 'remove_markup')),
-			array(false, array('remove_bbcodes_legacy', 'remove_markup')),
+			array(true, array('bbcodes', 'markup')),
+			array(false, array('bbcodes_legacy', 'markup')),
 		);
 	}
 
@@ -27,7 +27,7 @@ class manager_test extends base
 	{
 		if ($utils && phpbb_version_compare(PHPBB_VERSION, '3.2.0-dev', '<'))
 		{
-			$this->markTestSkipped('Testing remove_bbcodes is for phpBB 3.2 or higher');
+			$this->markTestSkipped('Testing trim/tools/bbcodes is for phpBB 3.2 or higher');
 		}
 		else if ($utils)
 		{
@@ -55,7 +55,7 @@ class manager_test extends base
 	public function get_tool_test_data()
 	{
 		return array(
-			array('remove_markup', '\vse\topicpreview\core\trim\tools\remove_markup'),
+			array('markup', '\vse\topicpreview\core\trim\tools\markup'),
 			array('foo_bar', null),
 			array('', null),
 			array(array(), null),
@@ -69,7 +69,7 @@ class manager_test extends base
 	public function test_get_tool($name, $expected)
 	{
 		$manager = helper::trimTools()->getManager(array(
-			new \vse\topicpreview\core\trim\tools\remove_markup()
+			new \vse\topicpreview\core\trim\tools\markup()
 		));
 
 		if (is_null($expected))

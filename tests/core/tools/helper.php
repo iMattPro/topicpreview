@@ -10,6 +10,8 @@
 
 namespace vse\topicpreview\tests\core\tools;
 
+use vse\topicpreview\core\trim\tools;
+
 class helper
 {
 	static protected $_instance = null;
@@ -27,13 +29,13 @@ class helper
 
 	public function setTools($config, $utils = null)
 	{
-		$remove_bbcodes_legacy = new \vse\topicpreview\core\trim\tools\remove_bbcodes_legacy($config);
-		$remove_bbcodes = new \vse\topicpreview\core\trim\tools\remove_bbcodes($config, $remove_bbcodes_legacy, $utils);
-		$remove_markup = new \vse\topicpreview\core\trim\tools\remove_markup();
+		$trim_bbcodes_legacy = new tools\bbcodes_legacy($config);
+		$trim_bbcodes = new tools\bbcodes($config, $trim_bbcodes_legacy, $utils);
+		$trim_markup = new tools\markup();
 		self::$tools = array(
-			$remove_bbcodes,
-			$remove_bbcodes_legacy,
-			$remove_markup,
+			$trim_bbcodes,
+			$trim_bbcodes_legacy,
+			$trim_markup,
 		);
 		return $this;
 	}

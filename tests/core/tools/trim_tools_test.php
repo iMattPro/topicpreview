@@ -73,7 +73,7 @@ class trim_tools_test extends base
 	{
 		if (phpbb_version_compare(PHPBB_VERSION, '3.2.0-dev', '<'))
 		{
-			$this->markTestSkipped('Testing remove_bbcodes is for phpBB 3.2 or higher');
+			$this->markTestSkipped('Testing trim/tools/bbcodes is for phpBB 3.2 or higher');
 		}
 
 		$container = $this->get_test_case_helpers()->set_s9e_services();

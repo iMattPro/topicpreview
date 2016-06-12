@@ -13,13 +13,13 @@ namespace vse\topicpreview\core\trim\tools;
 use phpbb\config\config;
 use phpbb\textformatter\s9e\utils;
 
-class remove_bbcodes extends base
+class bbcodes extends base
 {
 	/** @var config */
 	protected $config;
 
-	/** @var remove_bbcodes_legacy */
-	protected $remove_bbcodes_legacy;
+	/** @var bbcodes_legacy */
+	protected $trim_bbcodes_legacy;
 
 	/** @var utils|null */
 	protected $text_formatter_utils;
@@ -30,14 +30,14 @@ class remove_bbcodes extends base
 	/**
 	 * Constructor
 	 *
-	 * @param config                $config                Config object
-	 * @param remove_bbcodes_legacy $remove_bbcodes_legacy Legacy BBCodes trim tool
-	 * @param utils|null            $text_formatter_utils  Text Formatter Utils
+	 * @param config         $config               Config object
+	 * @param bbcodes_legacy $trim_bbcodes_legacy  Legacy BBCodes trim tool
+	 * @param utils|null     $text_formatter_utils Text Formatter Utils
 	 */
-	public function __construct(config $config, remove_bbcodes_legacy $remove_bbcodes_legacy, utils $text_formatter_utils = null)
+	public function __construct(config $config, bbcodes_legacy $trim_bbcodes_legacy, utils $text_formatter_utils = null)
 	{
 		$this->config = $config;
-		$this->remove_bbcodes_legacy = $remove_bbcodes_legacy;
+		$this->trim_bbcodes_legacy = $trim_bbcodes_legacy;
 		$this->text_formatter_utils = $text_formatter_utils;
 	}
 
@@ -57,7 +57,7 @@ class remove_bbcodes extends base
 		// If text is not formatted as expected, use legacy bbcode stripper
 		if (!$this->s9e_format())
 		{
-			return $this->remove_bbcodes_legacy
+			return $this->trim_bbcodes_legacy
 				->set_text($this->text)
 				->run();
 		}

@@ -80,9 +80,9 @@ class manager
 	 */
 	protected function order_tools(array $tools)
 	{
-		if (isset($tools['remove_bbcodes']))
+		if (isset($tools['bbcodes']))
 		{
-			unset($tools['remove_bbcodes_legacy']);
+			unset($tools['bbcodes_legacy']);
 		}
 
 		ksort($tools, SORT_STRING);

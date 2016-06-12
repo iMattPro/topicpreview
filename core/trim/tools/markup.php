@@ -10,7 +10,7 @@
 
 namespace vse\topicpreview\core\trim\tools;
 
-class remove_markup extends base
+class markup extends base
 {
 	/** @var array Data array of regex patterns */
 	protected $data;

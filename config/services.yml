@@ -65,29 +65,29 @@ services:
             - { name: service_collection, tag: vse.topicpreview.tools }
 
 # ----- Trim tools -----
-    vse.topicpreview.tool.remove_bbcodes:
-        class: vse\topicpreview\core\trim\tools\remove_bbcodes
+    vse.topicpreview.tool.bbcodes:
+        class: vse\topicpreview\core\trim\tools\bbcodes
         arguments:
             - '@config'
-            - '@vse.topicpreview.tool.remove_bbcodes_legacy'
+            - '@vse.topicpreview.tool.bbcodes_legacy'
             - '@?text_formatter.utils'
         calls:
-            - [set_name, [remove_bbcodes]]
+            - [set_name, [bbcodes]]
         tags:
             - { name: vse.topicpreview.tools }
 
-    vse.topicpreview.tool.remove_bbcodes_legacy:
-        class: vse\topicpreview\core\trim\tools\remove_bbcodes_legacy
+    vse.topicpreview.tool.bbcodes_legacy:
+        class: vse\topicpreview\core\trim\tools\bbcodes_legacy
         arguments:
             - '@config'
         calls:
-            - [set_name, [remove_bbcodes_legacy]]
+            - [set_name, [bbcodes_legacy]]
         tags:
             - { name: vse.topicpreview.tools }
 
-    vse.topicpreview.tool.remove_markup:
-        class: vse\topicpreview\core\trim\tools\remove_markup
+    vse.topicpreview.tool.markup:
+        class: vse\topicpreview\core\trim\tools\markup
         calls:
-            - [set_name, [remove_markup]]
+            - [set_name, [markup]]
         tags:
             - { name: vse.topicpreview.tools }
