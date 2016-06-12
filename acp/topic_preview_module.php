@@ -20,12 +20,8 @@ class topic_preview_module
 
 	/**
 	 * Main ACP module
-	 *
-	 * @param int    $id
-	 * @param string $mode
-	 * @return null
 	 */
-	public function main($id, $mode)
+	public function main()
 	{
 		global $phpbb_container;
 
