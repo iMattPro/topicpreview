@@ -47,10 +47,6 @@
 	-ms-transform: rotate(-45deg);
 	-o-transform: rotate(-45deg);
 	transform: rotate(-45deg);
-
-	display /*\**/: none\9;
-	*display: none !important;
-	*display: none;
 }
 
 #topic_preview.invert:after {
@@ -72,10 +68,6 @@
 	-ms-transform: rotate(-45deg);
 	-o-transform: rotate(-45deg);
 	transform: rotate(-45deg);
-
-	display /*\**/: none\9;
-	*display: none !important;
-	*display: none;
 }
 
 #topic_preview.invert:before {
@@ -101,8 +93,8 @@
 	border: solid 1px #cecece;
 	max-width: 60px;
 	max-height: 60px;
-	width: auto !important;
-	height: auto !important;
+	width: auto;
+	height: auto;
 }
 
 .topic_preview_avatar.rtl {
@@ -131,12 +123,12 @@
 /* responsive design */
 @media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {
 	#topic_preview {
-		width: 300px !important;
+		max-width: 300px;
 	}
 }
 
 @media only screen and (max-width: 360px), only screen and (max-device-width: 360px) {
 	#topic_preview {
-		width: 220px !important;
+		max-width: 220px;
 	}
 }

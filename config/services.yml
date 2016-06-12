@@ -2,14 +2,10 @@ services:
     vse.topicpreview.acp.controller:
         class: vse\topicpreview\controller\acp_controller
         arguments:
-            - '@cache.driver'
-            - '@config'
-            - '@dbal.conn'
-            - '@ext.manager'
             - '@request'
+            - '@vse.topicpreview.settings'
             - '@template'
             - '@user'
-            - '%core.root_path%'
 
     vse.topicpreview.data:
         class: vse\topicpreview\core\data
@@ -31,6 +27,16 @@ services:
         class: vse\topicpreview\core\trim\trim
         arguments:
             - '@vse.topicpreview.tools.manager'
+
+    vse.topicpreview.settings:
+        class: vse\topicpreview\core\settings
+        arguments:
+            - '@cache.driver'
+            - '@config'
+            - '@dbal.conn'
+            - '@ext.manager'
+            - '@request'
+            - '%core.root_path%'
 
 # ----- Event Listeners -----
     vse.topicpreview.listener:

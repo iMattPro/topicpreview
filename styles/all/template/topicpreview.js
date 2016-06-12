@@ -53,8 +53,7 @@
 			// remove original titles to prevent overlap
 			obj.removeAttr('title')
 				.closest('dt') // cache and remove <dt> titles (prosilver)
-				.data('title', obj.closest('dt')
-					.attr('title'))
+				.data('title', obj.closest('dt').attr('title'))
 				.removeAttr('title')
 			;
 
