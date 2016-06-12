@@ -34,6 +34,9 @@ class controller_test extends \phpbb_database_test_case
 	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\request\request */
 	protected $request;
 
+	/** @var \vse\topicpreview\core\settings */
+	protected $settings;
+
 	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\template\template */
 	protected $template;
 
@@ -55,15 +58,20 @@ class controller_test extends \phpbb_database_test_case
 		$template = $this->template = $this->getMock('\phpbb\template\template');
 		$this->user = new \phpbb\user('\phpbb\datetime');
 
-		$this->controller = new \vse\topicpreview\controller\acp_controller(
+		$this->settings = new \vse\topicpreview\core\settings(
 			$cache,
 			$this->config,
 			$db,
 			$phpbb_extension_manager,
 			$this->request,
-			$this->template,
-			$this->user,
 			$phpbb_root_path
+		);
+
+		$this->controller = new \vse\topicpreview\controller\acp_controller(
+			$this->request,
+			$this->settings,
+			$this->template,
+			$this->user
 		);
 	}
 
@@ -82,10 +90,10 @@ class controller_test extends \phpbb_database_test_case
 				'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
 				'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
 				'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
-				'TOPIC_PREVIEW_STYLES'		=> $this->invokeMethod($this->controller, 'get_styles'),
-				'TOPIC_PREVIEW_THEMES'		=> $this->invokeMethod($this->controller, 'get_themes'),
-				'TOPIC_PREVIEW_DEFAULT'		=> \vse\topicpreview\controller\acp_controller::DEFAULT_THEME,
-				'TOPIC_PREVIEW_NO_THEME'	=> \vse\topicpreview\controller\acp_controller::NO_THEME,
+				'TOPIC_PREVIEW_STYLES'		=> $this->invokeMethod($this->settings, 'get_styles'),
+				'TOPIC_PREVIEW_THEMES'		=> $this->invokeMethod($this->settings, 'get_themes'),
+				'TOPIC_PREVIEW_DEFAULT'		=> \vse\topicpreview\core\settings::DEFAULT_THEME,
+				'TOPIC_PREVIEW_NO_THEME'	=> \vse\topicpreview\core\settings::NO_THEME,
 				'U_ACTION'					=> 'u_action',
 			));
 
