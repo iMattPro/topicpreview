@@ -43,7 +43,7 @@ class module_test extends \phpbb_test_case
 			->with('vse.topicpreview.acp.controller')
 			->will($this->returnValue($mock_acp_controller));
 
-		$module->main(null, null);
+		$module->main();
 	}
 
 	public function test_info()

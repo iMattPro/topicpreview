@@ -163,7 +163,7 @@ class display extends base
 		}
 
 		// If avatar string is empty, fall back to no_avatar.gif
-		return ($avatar) ?: '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" alt="' . $this->user->lang('USER_AVATAR') . '" />';
+		return $avatar ?: '<img class="avatar" src="' . $this->root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/no_avatar.gif" width="' . self::AVATAR_SIZE . '" height="' . self::AVATAR_SIZE . '" alt="' . $this->user->lang('USER_AVATAR') . '" />';
 	}
 
 	/**
@@ -174,12 +174,9 @@ class display extends base
 	 */
 	protected function get_theme()
 	{
-		if (!empty($this->user->style['topic_preview_theme']))
+		if (!empty($this->user->style['topic_preview_theme']) && file_exists($this->root_path . 'ext/vse/topicpreview/styles/all/theme/' . $this->user->style['topic_preview_theme'] . '.css'))
 		{
-			if (file_exists($this->root_path . 'ext/vse/topicpreview/styles/all/theme/' . $this->user->style['topic_preview_theme'] . '.css'))
-			{
-				return $this->user->style['topic_preview_theme'];
-			}
+			return $this->user->style['topic_preview_theme'];
 		}
 
 		return false;

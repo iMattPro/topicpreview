@@ -39,7 +39,7 @@ class release_2_1_0_data extends \phpbb\db\migration\migration
 
 			// Remove old config if it exists
 			array('if', array(
-				(isset($this->config['topic_preview_jquery'])),
+				isset($this->config['topic_preview_jquery']),
 				array('config.remove', array('topic_preview_jquery')),
 			)),
 

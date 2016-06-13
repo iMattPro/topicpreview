@@ -66,6 +66,6 @@ class trim
 	 */
 	protected function tp_nl2br($message)
 	{
-		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $message));
+		return nl2br(preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/', "\n\n", $message));
 	}
 }

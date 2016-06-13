@@ -49,7 +49,7 @@ class controller_test extends \phpbb_database_test_case
 
 		global $config, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $phpbb_root_path;
 
-		$cache = new \phpbb_mock_cache;;
+		$cache = new \phpbb_mock_cache;
 		$config = $this->config = new \phpbb\config\config(array());
 		$db = $this->new_dbal();
 		$phpbb_extension_manager = new \phpbb_mock_extension_manager($phpbb_root_path);
