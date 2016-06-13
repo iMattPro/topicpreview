@@ -10,21 +10,24 @@
 
 namespace vse\topicpreview\core;
 
+use phpbb\config\config;
+use phpbb\user;
+
 class base
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config $config Config object
-	 * @param \phpbb\user          $user   User object
+	 * @param config $config Config object
+	 * @param user   $user   User object
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\user $user)
+	public function __construct(config $config, user $user)
 	{
 		$this->config = $config;
 		$this->user = $user;

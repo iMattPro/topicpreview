@@ -11,25 +11,27 @@
 namespace vse\topicpreview\event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use vse\topicpreview\core\data;
+use vse\topicpreview\core\display;
 
 /**
 * Event listener
 */
 class listener implements EventSubscriberInterface
 {
-	/** @var \vse\topicpreview\core\data */
+	/** @var data */
 	protected $preview_data;
 
-	/** @var \vse\topicpreview\core\display */
+	/** @var display */
 	protected $preview_display;
 
 	/**
 	 * Constructor
 	 *
-	 * @param \vse\topicpreview\core\data    $preview_data    Topic Preview data object
-	 * @param \vse\topicpreview\core\display $preview_display Topic Preview display object
+	 * @param data    $preview_data    Topic Preview data object
+	 * @param display $preview_display Topic Preview display object
 	 */
-	public function __construct(\vse\topicpreview\core\data $preview_data, \vse\topicpreview\core\display $preview_display)
+	public function __construct(data $preview_data, display $preview_display)
 	{
 		$this->preview_data = $preview_data;
 		$this->preview_display = $preview_display;

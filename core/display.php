@@ -10,6 +10,12 @@
 
 namespace vse\topicpreview\core;
 
+use phpbb\config\config;
+use phpbb\event\dispatcher_interface;
+use phpbb\template\template;
+use phpbb\user;
+use vse\topicpreview\core\trim\trim;
+
 class display extends base
 {
 	/** @var int default width of topic preview */
@@ -18,29 +24,29 @@ class display extends base
 	/** @var int default height and width of topic preview avatars */
 	const AVATAR_SIZE = 60;
 
-	/** @var \phpbb\event\dispatcher_interface */
+	/** @var dispatcher_interface */
 	protected $dispatcher;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
 	/** @var string phpBB root path */
 	protected $root_path;
 
-	/** @var \vse\topicpreview\core\trim\trim */
+	/** @var trim */
 	protected $trim;
 
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config              $config     Config object
-	 * @param \phpbb\event\dispatcher_interface $dispatcher Event dispatcher object
-	 * @param \phpbb\template\template          $template   Template object
-	 * @param \vse\topicpreview\core\trim\trim  $trim       Trim text object
-	 * @param \phpbb\user                       $user       User object
-	 * @param string                            $root_path
+	 * @param config               $config     Config object
+	 * @param dispatcher_interface $dispatcher Event dispatcher object
+	 * @param template             $template   Template object
+	 * @param trim                 $trim       Trim text object
+	 * @param user                 $user       User object
+	 * @param string               $root_path
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\event\dispatcher_interface $dispatcher, \phpbb\template\template $template, \vse\topicpreview\core\trim\trim $trim, \phpbb\user $user, $root_path)
+	public function __construct(config $config, dispatcher_interface $dispatcher, template $template, trim $trim, user $user, $root_path)
 	{
 		$this->dispatcher = $dispatcher;
 		$this->template = $template;

@@ -10,6 +10,10 @@
 
 namespace vse\topicpreview\event;
 
+use phpbb\config\config;
+use phpbb\request\request;
+use phpbb\template\template;
+use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -17,27 +21,27 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class ucp_listener implements EventSubscriberInterface
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config     $config   Config object
-	 * @param \phpbb\request\request   $request  Request object
-	 * @param \phpbb\template\template $template Template object
-	 * @param \phpbb\user              $user     User object
+	 * @param config   $config   Config object
+	 * @param request  $request  Request object
+	 * @param template $template Template object
+	 * @param user     $user     User object
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(config $config, request $request, template $template, user $user)
 	{
 		$this->config = $config;
 		$this->request = $request;
