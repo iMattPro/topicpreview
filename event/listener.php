@@ -72,7 +72,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Modify an SQL array to get post text for topic previews
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 */
 	public function modify_sql_array($event)
@@ -83,7 +83,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Modify SQL strings to get post text for topic previews (search results)
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 */
 	public function modify_sql_string($event)
@@ -95,7 +95,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Modify template vars to display topic previews
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 */
 	public function display_topic_previews($event)

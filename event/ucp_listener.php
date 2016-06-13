@@ -66,7 +66,7 @@ class ucp_listener implements EventSubscriberInterface
 	/**
 	 * Get user's Topic Preview option and display it in UCP Prefs View page
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 */
 	public function ucp_prefs_get_data($event)
@@ -90,7 +90,7 @@ class ucp_listener implements EventSubscriberInterface
 	/**
 	 * Add user's Topic Preview option state into the sql_array
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 */
 	public function ucp_prefs_set_data($event)
