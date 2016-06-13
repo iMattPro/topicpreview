@@ -10,9 +10,9 @@
 
 namespace vse\topicpreview\tests\core;
 
-require_once dirname(__FILE__) . '/../../../../../includes/functions.php';
-require_once dirname(__FILE__) . '/../../../../../includes/functions_content.php';
-require_once dirname(__FILE__) . '/../../../../../includes/utf/utf_tools.php';
+require_once __DIR__ . '/../../../../../includes/functions.php';
+require_once __DIR__ . '/../../../../../includes/functions_content.php';
+require_once __DIR__ . '/../../../../../includes/utf/utf_tools.php';
 
 class base extends \phpbb_database_test_case
 {
@@ -44,7 +44,7 @@ class base extends \phpbb_database_test_case
 
 	public function getDataSet()
 	{
-		return $this->createXMLDataSet(dirname(__FILE__) . '/fixtures/topic_preview.xml');
+		return $this->createXMLDataSet(__DIR__ . '/fixtures/topic_preview.xml');
 	}
 
 	public function setUp()

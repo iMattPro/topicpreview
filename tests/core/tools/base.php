@@ -10,8 +10,8 @@
 
 namespace vse\topicpreview\tests\core\tools;
 
-require_once dirname(__FILE__) . '/../../../../../../includes/functions.php';
-require_once dirname(__FILE__) . '/../../../../../../includes/functions_content.php';
+require_once __DIR__ . '/../../../../../../includes/functions.php';
+require_once __DIR__ . '/../../../../../../includes/functions_content.php';
 
 class base extends \phpbb_test_case
 {
