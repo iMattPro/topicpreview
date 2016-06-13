@@ -128,7 +128,7 @@ class display extends base
 	protected function get_text_helper($row, $post)
 	{
 		// Ignore empty/unset text or when the last post is also the first (and only) post
-		if (empty($row[$post]) || ($post == 'last_post_text' && $row['topic_first_post_id'] == $row['topic_last_post_id']))
+		if (empty($row[$post]) || ($post === 'last_post_text' && $row['topic_first_post_id'] === $row['topic_last_post_id']))
 		{
 			return '';
 		}

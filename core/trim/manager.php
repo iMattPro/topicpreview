@@ -62,7 +62,7 @@ class manager
 		/** @var tools\tool_interface $tool */
 		foreach ($this->tools as $tool)
 		{
-			if ($tool->get_name() == $name)
+			if ($tool->get_name() === $name)
 			{
 				return $tool;
 			}

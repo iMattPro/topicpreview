@@ -101,7 +101,7 @@ class data extends base
 			return $sql_stmt;
 		}
 
-		if ($type == 'SELECT')
+		if ($type === 'SELECT')
 		{
 			$sql_stmt .= $this->tp_sql_select();
 			return $sql_stmt;
