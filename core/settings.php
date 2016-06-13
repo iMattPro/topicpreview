@@ -59,12 +59,12 @@ class settings
 	 */
 	public function __construct(cache_driver $cache, config $config, db_driver $db, manager $phpbb_ext_manager, request $request, $phpbb_root_path)
 	{
-		$this->cache			= $cache;
-		$this->config			= $config;
-		$this->db				= $db;
-		$this->ext_manager		= $phpbb_ext_manager;
-		$this->request			= $request;
-		$this->phpbb_root_path	= $phpbb_root_path;
+		$this->cache = $cache;
+		$this->config = $config;
+		$this->db = $db;
+		$this->ext_manager = $phpbb_ext_manager;
+		$this->request = $request;
+		$this->phpbb_root_path = $phpbb_root_path;
 	}
 
 	/**

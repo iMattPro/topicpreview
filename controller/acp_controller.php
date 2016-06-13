@@ -47,10 +47,10 @@ class acp_controller implements acp_controller_interface
 	 */
 	public function __construct(request $request, settings $settings, template $template, user $user)
 	{
-		$this->request	= $request;
+		$this->request = $request;
 		$this->settings = $settings;
-		$this->template	= $template;
-		$this->user		= $user;
+		$this->template = $template;
+		$this->user = $user;
 	}
 
 	/**
