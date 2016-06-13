@@ -14,7 +14,7 @@ use vse\topicpreview\core\trim\tools;
 
 class helper
 {
-	static protected $_instance = null;
+	static protected $_instance;
 
 	static protected $tools = array();
 

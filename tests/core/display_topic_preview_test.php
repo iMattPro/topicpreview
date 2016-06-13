@@ -16,7 +16,7 @@ class display_topic_preview_test extends base
 	protected $avatar_driver;
 
 	/** @var array Avatar data to use in tests below */
-	protected $avatar_data = array(
+	static protected $avatar_data = array(
 		'src' => 'avatar.jpg',
 		'width' => '60',
 		'height' => '60',
@@ -41,7 +41,7 @@ class display_topic_preview_test extends base
 			->will($this->returnValue('local'));
 		$this->avatar_driver->expects($this->any())
 			->method('get_data')
-			->will($this->returnValue($this->avatar_data));
+			->will($this->returnValue(self::$avatar_data));
 
 		/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject $request */
 		$request = $this->getMock('\phpbb\request\request');
@@ -64,14 +64,14 @@ class display_topic_preview_test extends base
 	public function topic_preview_display_data()
 	{
 		global $phpbb_root_path;
-		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="' . $this->avatar_data['width'] . '" height="' . $this->avatar_data['height'] . '" alt="USER_AVATAR" />';
-		$lazy_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="%s" width="' . $this->avatar_data['width'] . '" height="' . $this->avatar_data['height'] . '" alt="USER_AVATAR" />';
+		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />';
+		$lazy_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="%s" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />';
 
 		return array(
 			array(
 				array(
 					'first_post_text' => 'First message',
-					'fp_avatar' => $this->avatar_data['src'],
+					'fp_avatar' => self::$avatar_data['src'],
 					'fp_avatar_type' => 'avatar.driver.local',
 					'topic_first_post_id' => 1,
 					'last_post_text' => '',
@@ -81,7 +81,7 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'First message',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, $this->avatar_data['src']),
+					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => '',
 					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
 				),
@@ -89,19 +89,19 @@ class display_topic_preview_test extends base
 			array(
 				array(
 					'first_post_text' => 'Second message [b:3o8ohvlj]with bold text[/b:3o8ohvlj] <!-- s:) --><img src="{SMILIES_PATH}/icon_e_smile.gif" alt=":)" title="Smile" /><!-- s:) --> and smiley',
-					'fp_avatar' => $this->avatar_data['src'],
+					'fp_avatar' => self::$avatar_data['src'],
 					'fp_avatar_type' => 'avatar.driver.local',
 					'topic_first_post_id' => 2,
 					'last_post_text' => str_repeat ('a', 155),
-					'lp_avatar' => $this->avatar_data['src'],
+					'lp_avatar' => self::$avatar_data['src'],
 					'lp_avatar_type' => 'avatar.driver.local',
 					'topic_last_post_id' => 3,
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Second message with bold text :) and smiley',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, $this->avatar_data['src']),
+					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, $this->avatar_data['src']),
+					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 				),
 			),
 			array(
@@ -111,7 +111,7 @@ class display_topic_preview_test extends base
 					'fp_avatar_type' => 0,
 					'topic_first_post_id' => 4,
 					'last_post_text' => str_repeat ('a', 155),
-					'lp_avatar' => $this->avatar_data['src'],
+					'lp_avatar' => self::$avatar_data['src'],
 					'lp_avatar_type' => 'avatar.driver.local',
 					'topic_last_post_id' => 5,
 				),
@@ -119,7 +119,7 @@ class display_topic_preview_test extends base
 					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
 					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, $this->avatar_data['src']),
+					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 				),
 			),
 			array(
