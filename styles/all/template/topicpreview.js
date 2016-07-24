@@ -52,9 +52,8 @@
 
 			// remove original titles to prevent overlap
 			obj.removeAttr('title')
-				.closest('dt') // cache and remove <dt> titles (prosilver)
-				.data('title', obj.closest('dt').attr('title'))
-				.removeAttr('title')
+				.clearTitles('dt')
+				.clearTitles('dl')
 			;
 
 			previewTimeout = setTimeout(function() {
@@ -102,7 +101,7 @@
 					// animation complete
 				})
 			;
-			obj.closest('dt').attr('title', obj.closest('dt').data('title')); // reinstate original title attributes
+			obj.restoreTitles('dt').restoreTitles('dl'); // reinstate original title attributes
 		};
 
 		// Check if y coord is within 50 pixels of bottom edge of browser window
@@ -160,6 +159,21 @@
 						$(image).css('visibility', 'hidden');
 					}
 				}
+			});
+		},
+		clearTitles: function(el) {
+			return this.each(function() {
+				var $obj = $(this).closest(el);
+				var title = $obj.attr('title');
+				if (typeof title !== typeof undefined && title !== false) {
+					$obj.data('title', title).removeAttr('title');
+				}
+			});
+		},
+		restoreTitles: function(el) {
+			return this.each(function() {
+				var $obj = $(this).closest(el);
+				$obj.attr('title', $obj.data('title'));
 			});
 		}
 	});
