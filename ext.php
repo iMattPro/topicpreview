@@ -1,18 +1,18 @@
 <?php
 /**
-*
-* Topic Preview
-*
-* @copyright (c) 2015 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Topic Preview
+ *
+ * @copyright (c) 2015 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\topicpreview;
 
 /**
-* Extension class for custom enable/disable/purge actions
-*/
+ * Extension class for custom enable/disable/purge actions
+ */
 class ext extends \phpbb\extension\base
 {
 	/** @var string Require 3.1.2 due to updated INCLUDECSS syntax */

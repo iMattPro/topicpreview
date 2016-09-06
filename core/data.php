@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Topic Preview
-*
-* @copyright (c) 2013 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Topic Preview
+ *
+ * @copyright (c) 2013 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\topicpreview\core;
 
@@ -85,6 +85,7 @@ class data extends base
 	 *
 	 * @param string|array $sql_stmt SQL string or array to be modified
 	 * @param string       $type     Type of SQL statement SELECT|JOIN
+	 *
 	 * @return string|array SQL statement string or array
 	 */
 	public function modify_sql($sql_stmt, $type = 'SELECT')
@@ -118,6 +119,7 @@ class data extends base
 	 *  , fpu.user_avatar_height AS fp_avatar_height'
 	 *
 	 * @param string $prefix First or last post (fp|lp)
+	 *
 	 * @return string Partial sql statement
 	 */
 	protected function build_avatar_select($prefix)
@@ -143,6 +145,7 @@ class data extends base
 	 * Add LEFT_JOIN statements to an sql array
 	 *
 	 * @param array $sql_stmt An sql array
+	 *
 	 * @return array Updated sql array
 	 */
 	protected function build_join_array($sql_stmt)
@@ -161,6 +164,7 @@ class data extends base
 	 * Add LEFT_JOIN statements to an sql statement
 	 *
 	 * @param string $sql_stmt An sql statement
+	 *
 	 * @return string Updated sql statement
 	 */
 	protected function build_join_statement($sql_stmt)

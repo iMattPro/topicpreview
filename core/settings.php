@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Topic Preview
-*
-* @copyright (c) 2013, 2016 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Topic Preview
+ *
+ * @copyright (c) 2013, 2016 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\topicpreview\core;
 
@@ -16,14 +16,12 @@ use phpbb\db\driver\driver_interface as db_driver;
 use phpbb\extension\manager;
 use phpbb\request\request;
 
-/**
- * Class settings
- *
- * @package vse\topicpreview\core
- */
 class settings
 {
+	/** @var string Default no theme value */
 	const NO_THEME = 'no';
+
+	/** @var string Default theme value */
 	const DEFAULT_THEME = 'light';
 
 	/** @var cache_driver */
@@ -55,7 +53,7 @@ class settings
 	 * @param db_driver    $db
 	 * @param manager      $phpbb_ext_manager
 	 * @param request      $request
-	 * @param              $phpbb_root_path
+	 * @param string       $phpbb_root_path
 	 */
 	public function __construct(cache_driver $cache, config $config, db_driver $db, manager $phpbb_ext_manager, request $request, $phpbb_root_path)
 	{
@@ -71,6 +69,7 @@ class settings
 	 * Display the settings with the current config values
 	 *
 	 * @param string $u_action
+	 *
 	 * @return array
 	 */
 	public function display_settings($u_action)

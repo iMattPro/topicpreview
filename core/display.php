@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Topic Preview
-*
-* @copyright (c) 2013 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Topic Preview
+ *
+ * @copyright (c) 2013 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\topicpreview\core;
 
@@ -59,8 +59,6 @@ class display extends base
 
 	/**
 	 * Set up some common components
-	 *
-	 * @return null
 	 */
 	public function setup()
 	{
@@ -84,6 +82,7 @@ class display extends base
 	 *
 	 * @param array $row   Row data
 	 * @param array $block Template vars array
+	 *
 	 * @return array Template vars array
 	 */
 	public function display_topic_preview($row, $block)
@@ -123,6 +122,7 @@ class display extends base
 	 *
 	 * @param array  $row  User row data
 	 * @param string $post The first or last post text column key
+	 *
 	 * @return string The trimmed and censored topic preview text
 	 */
 	protected function get_text_helper($row, $post)
@@ -141,6 +141,7 @@ class display extends base
 	 *
 	 * @param array  $row    User row data
 	 * @param string $poster Type of poster, fp or lp
+	 *
 	 * @return string Avatar image
 	 */
 	protected function get_user_avatar_helper($row, $poster)

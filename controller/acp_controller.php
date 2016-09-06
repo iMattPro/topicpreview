@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Topic Preview
-*
-* @copyright (c) 2013, 2016 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Topic Preview
+ *
+ * @copyright (c) 2013, 2016 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\topicpreview\controller;
 
@@ -15,11 +15,6 @@ use phpbb\template\template;
 use phpbb\user;
 use vse\topicpreview\core\settings;
 
-/**
- * Class acp_controller
- *
- * @package vse\topicpreview\controller
- */
 class acp_controller implements acp_controller_interface
 {
 	/** @var request */

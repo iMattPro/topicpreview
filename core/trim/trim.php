@@ -12,10 +12,7 @@ namespace vse\topicpreview\core\trim;
 
 class trim
 {
-	/**
-	 * Array of trim tools
-	 * @var array
-	 */
+	/** @var array Array of trim tools */
 	protected $tools;
 
 	/**
@@ -33,6 +30,7 @@ class trim
 	 *
 	 * @param string $message Message text
 	 * @param int    $length  The length to trim text to
+	 *
 	 * @return string Trimmed message text
 	 */
 	public function trim_text($message, $length)
@@ -62,6 +60,7 @@ class trim
 	 * http://stackoverflow.com/questions/816085/removing-redundant-line-breaks-with-regular-expressions
 	 *
 	 * @param string $message Message text
+	 *
 	 * @return string Message text with line breaks
 	 */
 	protected function tp_nl2br($message)

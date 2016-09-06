@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Topic Preview
-*
-* @copyright (c) 2013 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Topic Preview
+ *
+ * @copyright (c) 2013 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\topicpreview\event;
 
@@ -15,8 +15,8 @@ use vse\topicpreview\core\data;
 use vse\topicpreview\core\display;
 
 /**
-* Event listener
-*/
+ * Event listener
+ */
 class listener implements EventSubscriberInterface
 {
 	/** @var data */
@@ -73,7 +73,6 @@ class listener implements EventSubscriberInterface
 	 * Modify an SQL array to get post text for topic previews
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
 	 */
 	public function modify_sql_array($event)
 	{
@@ -84,7 +83,6 @@ class listener implements EventSubscriberInterface
 	 * Modify SQL strings to get post text for topic previews (search results)
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
 	 */
 	public function modify_sql_string($event)
 	{
@@ -96,7 +94,6 @@ class listener implements EventSubscriberInterface
 	 * Modify template vars to display topic previews
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
 	 */
 	public function display_topic_previews($event)
 	{

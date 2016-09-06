@@ -30,6 +30,7 @@ interface tool_interface
 	 * Set the text property
 	 *
 	 * @param string $text Text to process
+	 *
 	 * @return tool_interface
 	 */
 	public function set_text($text);

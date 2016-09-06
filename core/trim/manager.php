@@ -12,10 +12,7 @@ namespace vse\topicpreview\core\trim;
 
 class manager
 {
-	/**
-	 * Array of tools from the service collection
-	 * @var array
-	 */
+	/** @var array Array of tools from the service collection */
 	protected $tools = array();
 
 	/**
@@ -55,6 +52,7 @@ class manager
 	 * Get tool by name
 	 *
 	 * @param string $name Name of a trim tool service
+	 *
 	 * @return null|tools\tool_interface A trim tool object
 	 */
 	public function get_tool($name)
@@ -76,6 +74,7 @@ class manager
 	 * any conflicting tools
 	 *
 	 * @param $tools array Array of available tools
+	 *
 	 * @return array Array of available tools
 	 */
 	protected function order_tools(array $tools)
