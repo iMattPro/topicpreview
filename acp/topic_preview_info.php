@@ -10,13 +10,11 @@
 
 namespace vse\topicpreview\acp;
 
+/**
+ * @package module_install
+ */
 class topic_preview_info
 {
-	/**
-	 * Module info data
-	 *
-	 * @return array
-	 */
 	public function module()
 	{
 		return array(
