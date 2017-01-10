@@ -64,7 +64,7 @@ services:
             - '@vse.topicpreview.tools_collection'
 
     vse.topicpreview.tools_collection:
-        class: phpbb\di\service_collection
+        class: phpbb\di\ordered_service_collection
         arguments:
             - '@service_container'
         tags:
@@ -80,7 +80,7 @@ services:
         calls:
             - [set_name, [bbcodes]]
         tags:
-            - { name: vse.topicpreview.tools }
+            - { name: vse.topicpreview.tools, order: 1 }
 
     vse.topicpreview.tool.bbcodes_legacy:
         class: vse\topicpreview\core\trim\tools\bbcodes_legacy
@@ -89,11 +89,11 @@ services:
         calls:
             - [set_name, [bbcodes_legacy]]
         tags:
-            - { name: vse.topicpreview.tools }
+            - { name: vse.topicpreview.tools, order: 2 }
 
     vse.topicpreview.tool.markup:
         class: vse\topicpreview\core\trim\tools\markup
         calls:
             - [set_name, [markup]]
         tags:
-            - { name: vse.topicpreview.tools }
+            - { name: vse.topicpreview.tools, order: 3 }
