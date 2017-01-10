@@ -10,7 +10,6 @@
 
 namespace vse\topicpreview\tests\acp;
 
-require_once __DIR__ . '/../../../../../includes/functions.php';
 require_once __DIR__ . '/../../../../../includes/functions_acp.php';
 
 class controller_test extends \phpbb_database_test_case
@@ -31,6 +30,9 @@ class controller_test extends \phpbb_database_test_case
 	/** @var \vse\topicpreview\controller\acp_controller */
 	protected $controller;
 
+	/** @var \phpbb\language\language */
+	protected $lang;
+
 	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\request\request */
 	protected $request;
 
@@ -47,7 +49,7 @@ class controller_test extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $config, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $phpbb_root_path;
+		global $config, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $phpbb_root_path, $phpEx;
 
 		$cache = new \phpbb_mock_cache;
 		$config = $this->config = new \phpbb\config\config(array());
@@ -56,7 +58,9 @@ class controller_test extends \phpbb_database_test_case
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 		$request = $this->request = $this->getMock('\phpbb\request\request');
 		$template = $this->template = $this->getMock('\phpbb\template\template');
-		$this->user = new \phpbb\user('\phpbb\datetime');
+		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
+		$this->lang = new \phpbb\language\language($lang_loader);
+		$this->user = new \phpbb\user($this->lang, '\phpbb\datetime');
 
 		$this->settings = new \vse\topicpreview\core\settings(
 			$cache,

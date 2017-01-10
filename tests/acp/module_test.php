@@ -17,19 +17,22 @@ class module_test extends \phpbb_test_case
 	 */
 	public function test_module()
 	{
+		global $phpbb_container, $phpbb_root_path, $phpEx;
+
 		// Test basic module instantiation
 		$module = new \vse\topicpreview\acp\topic_preview_module();
 		$this->assertInstanceOf('\vse\topicpreview\acp\topic_preview_module', $module);
 
 		// Test calling module->main()
-		$user = new \phpbb\user('\phpbb\datetime');
+		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
+		$lang = new \phpbb\language\language($lang_loader);
+		$user = new \phpbb\user($lang, '\phpbb\datetime');
 
 		$mock_acp_controller = $this->getMockBuilder('\vse\topicpreview\controller\acp_controller')
 			->disableOriginalConstructor()
 			->setMethods(array('handle'))
 			->getMock();
 
-		global $phpbb_container;
 		$phpbb_container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
 		$phpbb_container
 			->expects($this->at(0))

@@ -50,7 +50,7 @@ class display_topic_preview_test extends base
 			new \phpbb\symfony_request(
 				new \phpbb_mock_request()
 			),
-			new \phpbb\filesystem(),
+			new \phpbb\filesystem\filesystem(),
 			$request,
 			$phpbb_root_path,
 			'php'

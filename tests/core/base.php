@@ -10,10 +10,6 @@
 
 namespace vse\topicpreview\tests\core;
 
-require_once __DIR__ . '/../../../../../includes/functions.php';
-require_once __DIR__ . '/../../../../../includes/functions_content.php';
-require_once __DIR__ . '/../../../../../includes/utf/utf_tools.php';
-
 class base extends \phpbb_database_test_case
 {
 	/** @var \phpbb\config\config */
@@ -68,7 +64,10 @@ class base extends \phpbb_database_test_case
 
 		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 
-		$user = $this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
+		$user = $this->user = $this->getMock('\phpbb\user', array(), array(
+			new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx)),
+			'\phpbb\datetime'
+		));
 		$this->user->expects($this->any())
 			->method('optionget')
 			->with($this->anything())

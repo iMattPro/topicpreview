@@ -12,8 +12,6 @@ namespace vse\topicpreview\tests\system;
 
 use vse\topicpreview\ext;
 
-require_once __DIR__ . '/../../../../../includes/functions.php';
-
 class ext_test extends \phpbb_test_case
 {
 	/** @var \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\DependencyInjection\ContainerInterface */
