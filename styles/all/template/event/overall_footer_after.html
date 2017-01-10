@@ -1,4 +1,5 @@
 {% if S_TOPICPREVIEW and TOPICPREVIEW_THEME %}
+	{% INCLUDECSS '@vse_topicpreview/' ~ TOPICPREVIEW_THEME ~ '.css' %}
 	{% INCLUDEJS '@vse_topicpreview/topicpreview.js' %}
 	<script>
 		jQuery(function() {
