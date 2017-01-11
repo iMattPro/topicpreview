@@ -101,6 +101,6 @@ class bbcodes extends base
 	 */
 	protected function s9e_format()
 	{
-		return (bool) preg_match('/^<[rt][ >]/s', $this->text);
+		return (bool) preg_match('/^<[rt][ >]/', $this->text);
 	}
 }
