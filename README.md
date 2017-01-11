@@ -34,7 +34,7 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
 
-## Requirements
+## Minimum Requirements
 * phpBB 3.2.0 or higher
 * PHP 5.4 or higher
 
