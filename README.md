@@ -34,9 +34,9 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
 
-## Requirements
-* phpBB 3.1.2 or higher
-* PHP 5.3.3 or higher
+## Minimum Requirements
+* phpBB 3.1.2 or phpBB 3.2.0
+* PHP 5.3.3
 
 ## Installation
 1. [Download the latest validated release](https://www.phpbb.com/customise/db/extension/topicpreview/).
