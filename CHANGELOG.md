@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.4 - 2017-01-10
+
+- Refactored themes to inherit from a parent theme for easier theming
+- Added Neon theme originally by PayBas
+- Added fixes for we_universal and we_clearblue styles
+- Internal code improvements
+
 ## 2.2.3 - 2016-05-01
 
 - Improve compatibility with phpBB 3.1.x and 3.2.x
