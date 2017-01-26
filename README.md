@@ -2,7 +2,7 @@
 
 A phpBB extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
-[![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.png)](https://travis-ci.org/VSEphpbb/topicpreview)
+[![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.svg)](https://travis-ci.org/VSEphpbb/topicpreview)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/vse/topicpreview/v/stable)](https://www.phpbb.com/customise/db/extension/topicpreview/)
