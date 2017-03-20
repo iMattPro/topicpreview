@@ -4,20 +4,19 @@
 * Color schema:
 * backgrounds: #ffffc2
 * borders:     #989898
-* box shadows: #888
-* font colors: #000
+* box shadows: #888888
+* font colors: #000000
 */
-
-@import url("light.css");
+@import url('light.css');
 
 #topic_preview {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
 	background: #ffffc2;
 	border: 1px solid #989898;
-	-webkit-box-shadow: 0 4px 8px #888;
-	-moz-box-shadow: 0 4px 8px #888;
-	box-shadow: 0 4px 8px #888;
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	color: #000;
+	-moz-box-shadow: 0 4px 8px #888888;
+	-webkit-box-shadow: 0 4px 8px #888888;
+	box-shadow: 0 4px 8px #888888;
+	color: #000000;
 }
 
 #topic_preview:before {
