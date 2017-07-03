@@ -1,29 +1,29 @@
 {# display topic preview in view forum #}
 {% if topicrow.TOPIC_PREVIEW_FIRST_POST %}
 	{% set preview = topicrow %}
-	{% include 'topicpreview.html' %}
+	{% include '@vse_topicpreview/topicpreview.html' %}
 {% endif %}
 
 {# display topic preview in search results #}
 {% if searchresults.TOPIC_PREVIEW_FIRST_POST %}
 	{% set preview = searchresults %}
-	{% include 'topicpreview.html' %}
+	{% include '@vse_topicpreview/topicpreview.html' %}
 {% endif %}
 
 {# display topic preview in Similar Topics extension #}
 {% if similar.TOPIC_PREVIEW_FIRST_POST %}
 	{% set preview = similar %}
-	{% include 'topicpreview.html' %}
+	{% include '@vse_topicpreview/topicpreview.html' %}
 {% endif %}
 
 {# display topic preview in Recent Topics extension #}
 {% if recent_topics.TOPIC_PREVIEW_FIRST_POST %}
 	{% set preview = recent_topics %}
-	{% include 'topicpreview.html' %}
+	{% include '@vse_topicpreview/topicpreview.html' %}
 {% endif %}
 
 {# DEPRECTATED: @v2.2.1 display topic preview in Top Five extension #}
 {% if top_five_topic.TOPIC_PREVIEW_FIRST_POST %}
 	{% set preview = top_five_topic %}
-	{% include 'topicpreview.html' %}
+	{% include '@vse_topicpreview/topicpreview.html' %}
 {% endif %}
