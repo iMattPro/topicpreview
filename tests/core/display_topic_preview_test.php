@@ -64,7 +64,7 @@ class display_topic_preview_test extends base
 	public function topic_preview_display_data()
 	{
 		global $phpbb_root_path;
-		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />';
+		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="User avatar" />';
 		$lazy_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="%s" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />';
 
 		return array(

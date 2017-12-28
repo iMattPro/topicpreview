@@ -10,6 +10,7 @@
 
 namespace vse\topicpreview\controller;
 
+use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
@@ -17,6 +18,9 @@ use vse\topicpreview\core\settings;
 
 class acp_controller implements acp_controller_interface
 {
+	/** @var language */
+	protected $language;
+
 	/** @var request */
 	protected $request;
 
@@ -25,9 +29,6 @@ class acp_controller implements acp_controller_interface
 
 	/** @var template */
 	protected $template;
-
-	/** @var user */
-	protected $user;
 
 	/** @var string */
 	protected $u_action;
@@ -38,14 +39,13 @@ class acp_controller implements acp_controller_interface
 	 * @param request  $request
 	 * @param settings $settings
 	 * @param template $template
-	 * @param user     $user
 	 */
-	public function __construct(request $request, settings $settings, template $template, user $user)
+	public function __construct(language $language, request $request, settings $settings, template $template)
 	{
+		$this->language = $language;
 		$this->request = $request;
 		$this->settings = $settings;
 		$this->template = $template;
-		$this->user = $user;
 	}
 
 	/**
@@ -53,7 +53,7 @@ class acp_controller implements acp_controller_interface
 	 */
 	public function handle()
 	{
-		$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_acp');
+		$this->language->add_lang('topic_preview_acp', 'vse/topicpreview');
 
 		$form_key = 'acp_topic_preview';
 		add_form_key($form_key);
@@ -62,12 +62,12 @@ class acp_controller implements acp_controller_interface
 		{
 			if (!check_form_key($form_key))
 			{
-				trigger_error($this->user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+				trigger_error($this->language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
 			$this->settings->set_settings();
 
-			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
 		$this->template->assign_vars($this->settings->display_settings($this->u_action));

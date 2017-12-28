@@ -31,7 +31,7 @@ class controller_test extends \phpbb_database_test_case
 	protected $controller;
 
 	/** @var \phpbb\language\language */
-	protected $lang;
+	protected $language;
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\request\request */
 	protected $request;
@@ -59,8 +59,8 @@ class controller_test extends \phpbb_database_test_case
 		$request = $this->request = $this->getMock('\phpbb\request\request');
 		$template = $this->template = $this->getMock('\phpbb\template\template');
 		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
-		$this->lang = new \phpbb\language\language($lang_loader);
-		$this->user = new \phpbb\user($this->lang, '\phpbb\datetime');
+		$this->language = new \phpbb\language\language($lang_loader);
+		$this->user = new \phpbb\user($this->language, '\phpbb\datetime');
 
 		$this->settings = new \vse\topicpreview\core\settings(
 			$cache,
@@ -72,10 +72,10 @@ class controller_test extends \phpbb_database_test_case
 		);
 
 		$this->controller = new \vse\topicpreview\controller\acp_controller(
+			$this->language,
 			$this->request,
 			$this->settings,
-			$this->template,
-			$this->user
+			$this->template
 		);
 	}
 
@@ -130,7 +130,7 @@ class controller_test extends \phpbb_database_test_case
 			->method('variable')
 			->will($this->returnValueMap($data_map));
 
-		$this->setExpectedTriggerError($error, $this->user->lang($expected));
+		$this->setExpectedTriggerError($error, $this->language->lang($expected));
 
 		$this->controller->handle();
 	}

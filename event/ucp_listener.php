@@ -11,6 +11,7 @@
 namespace vse\topicpreview\event;
 
 use phpbb\config\config;
+use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
@@ -23,6 +24,9 @@ class ucp_listener implements EventSubscriberInterface
 {
 	/** @var config */
 	protected $config;
+
+	/** @var language */
+	protected $language;
 
 	/** @var request */
 	protected $request;
@@ -37,13 +41,15 @@ class ucp_listener implements EventSubscriberInterface
 	 * Constructor
 	 *
 	 * @param config   $config   Config object
+	 * @param language $language Language object
 	 * @param request  $request  Request object
 	 * @param template $template Template object
 	 * @param user     $user     User object
 	 */
-	public function __construct(config $config, request $request, template $template, user $user)
+	public function __construct(config $config, language $language, request $request, template $template, user $user)
 	{
 		$this->config = $config;
+		$this->language = $language;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
@@ -77,7 +83,7 @@ class ucp_listener implements EventSubscriberInterface
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'])
 		{
-			$this->user->add_lang_ext('vse/topicpreview', 'topic_preview_ucp');
+			$this->language->add_lang('topic_preview_ucp', 'vse/topicpreview');
 			$this->template->assign_vars(array(
 				'S_TOPIC_PREVIEW'			=> $this->config['topic_preview_limit'],
 				'S_DISPLAY_TOPIC_PREVIEW'	=> $event['data']['topic_preview'],

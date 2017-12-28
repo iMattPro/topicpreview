@@ -18,6 +18,9 @@ class ucp_listener_test extends \phpbb_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var \phpbb\language\language */
+	protected $language;
+
 	/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject */
 	protected $request;
 
@@ -39,10 +42,8 @@ class ucp_listener_test extends \phpbb_test_case
 		// Load/Mock classes required by the event listener class
 		$this->config = new \phpbb\config\config(array('topic_preview_limit' => 1));
 		$this->request = $this->getMock('\phpbb\request\request');
-		$this->user = $this->getMock('\phpbb\user', array(), array(
-			new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx)),
-			'\phpbb\datetime'
-		));
+		$this->language = new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx));
+		$this->user = $this->getMock('\phpbb\user', array(), array($this->language, '\phpbb\datetime'));
 		$this->template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
 	}
@@ -54,6 +55,7 @@ class ucp_listener_test extends \phpbb_test_case
 	{
 		$this->listener = new \vse\topicpreview\event\ucp_listener(
 			$this->config,
+			$this->language,
 			$this->request,
 			$this->template,
 			$this->user

@@ -21,6 +21,9 @@ class base extends \phpbb_database_test_case
 	/** @var \phpbb\event\dispatcher */
 	protected $dispatcher;
 
+	/** @var \phpbb\language\language */
+	protected $language;
+
 	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
 	protected $template;
 
@@ -64,18 +67,12 @@ class base extends \phpbb_database_test_case
 
 		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
 
-		$user = $this->user = $this->getMock('\phpbb\user', array(), array(
-			new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx)),
-			'\phpbb\datetime'
-		));
+		$this->language = new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx));
+		$user = $this->user = $this->getMock('\phpbb\user', array(), array($this->language, '\phpbb\datetime'));
 		$this->user->expects($this->any())
 			->method('optionget')
 			->with($this->anything())
 			->will($this->returnValueMap(array(array('viewavatars', false, true), array('viewcensors', false, false))));
-		$this->user->expects($this->any())
-			->method('lang')
-			->with($this->anything())
-			->will($this->returnArgument(0));
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
 
@@ -100,6 +97,7 @@ class base extends \phpbb_database_test_case
 		return new \vse\topicpreview\core\display(
 			$this->config,
 			$this->dispatcher,
+			$this->language,
 			$this->template,
 			$this->trim,
 			$this->user,
