@@ -21,7 +21,7 @@
 	"extra": {
 		"display-name": "Topic Preview",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.2.0,<3.4"
+			"phpbb/phpbb": ">=3.2.0"
 		},
 		"version-check": {
 			"host": "www.phpbb.com",

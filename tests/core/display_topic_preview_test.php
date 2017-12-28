@@ -16,7 +16,7 @@ class display_topic_preview_test extends base
 	protected $avatar_driver;
 
 	/** @var array Avatar data to use in tests below */
-	static protected $avatar_data = array(
+	protected static $avatar_data = array(
 		'src' => 'avatar.jpg',
 		'width' => '60',
 		'height' => '60',

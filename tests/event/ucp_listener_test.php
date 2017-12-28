@@ -31,8 +31,8 @@ class ucp_listener_test extends \phpbb_test_case
 	protected $user;
 
 	/**
-	* Setup test environment
-	*/
+	 * Setup test environment
+	 */
 	public function setUp()
 	{
 		parent::setUp();
@@ -49,8 +49,8 @@ class ucp_listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Create our event listener
-	*/
+	 * Create our event listener
+	 */
 	protected function set_listener()
 	{
 		$this->listener = new \vse\topicpreview\event\ucp_listener(
@@ -63,8 +63,8 @@ class ucp_listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Test the event listener is constructed correctly
-	*/
+	 * Test the event listener is constructed correctly
+	 */
 	public function test_construct()
 	{
 		$this->set_listener();
@@ -72,8 +72,8 @@ class ucp_listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Test the event listener is subscribing events
-	*/
+	 * Test the event listener is subscribing events
+	 */
 	public function test_getSubscribedEvents()
 	{
 		$this->assertEquals(array(
@@ -83,10 +83,10 @@ class ucp_listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Data set for test_ucp_prefs_set_data
-	*
-	* @return array Array of test data
-	*/
+	 * Data set for test_ucp_prefs_set_data
+	 *
+	 * @return array Array of test data
+	 */
 	public function ucp_prefs_set_data_data()
 	{
 		return array(
@@ -125,10 +125,10 @@ class ucp_listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Test the ucp_prefs_set_data event
-	*
-	* @dataProvider ucp_prefs_set_data_data
-	*/
+	 * Test the ucp_prefs_set_data event
+	 *
+	 * @dataProvider ucp_prefs_set_data_data
+	 */
 	public function test_ucp_prefs_set_data($data, $sql_ary, $expected)
 	{
 		$this->set_listener();
@@ -147,10 +147,10 @@ class ucp_listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Data set for test_ucp_prefs_set_data
-	*
-	* @return array Array of test data
-	*/
+	 * Data set for test_ucp_prefs_set_data
+	 *
+	 * @return array Array of test data
+	 */
 	public function ucp_prefs_get_data_data()
 	{
 		return array(
@@ -254,10 +254,10 @@ class ucp_listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Test the ucp_prefs_get_data event
-	*
-	* @dataProvider ucp_prefs_get_data_data
-	*/
+	 * Test the ucp_prefs_get_data event
+	 *
+	 * @dataProvider ucp_prefs_get_data_data
+	 */
 	public function test_ucp_prefs_get_data($topic_preview, $submit, $data, $expected)
 	{
 		$this->set_listener();

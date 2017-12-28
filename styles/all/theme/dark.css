@@ -7,7 +7,7 @@
 * box shadows: #808080
 * font colors: #cecece
 */
-@import url('light.css');
+@import url("light.css");
 
 #topic_preview {
 	background: #1e1e1e;

@@ -7,7 +7,7 @@
 * box shadows: #888888
 * font colors: #636363
 */
-@import url('light.css');
+@import url("light.css");
 
 #topic_preview {
 	font-family: Arial, Helvetica, sans-serif;

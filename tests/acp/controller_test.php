@@ -14,7 +14,7 @@ require_once __DIR__ . '/../../../../../includes/functions_acp.php';
 
 class controller_test extends \phpbb_database_test_case
 {
-	static protected function setup_extensions()
+	protected static function setup_extensions()
 	{
 		return array('vse/topicpreview');
 	}

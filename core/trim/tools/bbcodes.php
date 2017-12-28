@@ -72,7 +72,7 @@ class bbcodes extends base
 	{
 		if (!isset($this->data) || !is_array($this->data))
 		{
-			$this->data = (!empty($this->config['topic_preview_strip_bbcodes'])) ? explode('|', $this->config['topic_preview_strip_bbcodes']) : array();
+			$this->data = !empty($this->config['topic_preview_strip_bbcodes']) ? explode('|', $this->config['topic_preview_strip_bbcodes']) : array();
 			array_unshift($this->data, 'flash');
 		}
 

@@ -36,7 +36,7 @@ class base extends \phpbb_database_test_case
 	/** @var string */
 	protected $root_path;
 
-	static protected function setup_extensions()
+	protected static function setup_extensions()
 	{
 		return array('vse/topicpreview');
 	}

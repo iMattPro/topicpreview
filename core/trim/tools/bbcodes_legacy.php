@@ -45,7 +45,7 @@ class bbcodes_legacy extends base
 	{
 		if (!isset($this->data) || is_array($this->data))
 		{
-			$strip_bbcodes = (!empty($this->config['topic_preview_strip_bbcodes'])) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
+			$strip_bbcodes = !empty($this->config['topic_preview_strip_bbcodes']) ? 'flash|' . trim($this->config['topic_preview_strip_bbcodes']) : 'flash';
 			$this->data = '#\[(' . $strip_bbcodes . ')[^\[\]]*\]((?:(?!\[\1[^\[\]]*\]).)*)\[\/\1[^\[\]]*\]#Usi';
 		}
 
