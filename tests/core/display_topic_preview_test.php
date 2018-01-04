@@ -44,7 +44,9 @@ class display_topic_preview_test extends base
 			->will($this->returnValue(self::$avatar_data));
 
 		/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject $request */
-		$request = $this->getMock('\phpbb\request\request');
+		$request = $this->getMockBuilder('\phpbb\request\request')
+			->disableOriginalConstructor()
+			->getMock();
 
 		$phpbb_path_helper = new \phpbb\path_helper(
 			new \phpbb\symfony_request(
