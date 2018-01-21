@@ -13,7 +13,6 @@ namespace vse\topicpreview\controller;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
-use phpbb\user;
 use vse\topicpreview\core\settings;
 
 class acp_controller implements acp_controller_interface
