@@ -43,7 +43,10 @@ class manager
 			}
 		}
 
-		$tools = $this->order_tools($tools);
+		if (isset($tools['bbcodes']))
+		{
+			unset($tools['bbcodes_legacy']);
+		}
 
 		return $tools;
 	}
@@ -67,25 +70,5 @@ class manager
 		}
 
 		return null;
-	}
-
-	/**
-	 * Configure tools in the proper order and remove
-	 * any conflicting tools
-	 *
-	 * @param $tools array Array of available tools
-	 *
-	 * @return array Array of available tools
-	 */
-	protected function order_tools(array $tools)
-	{
-		if (isset($tools['bbcodes']))
-		{
-			unset($tools['bbcodes_legacy']);
-		}
-
-		ksort($tools, SORT_STRING);
-
-		return $tools;
 	}
 }

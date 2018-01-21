@@ -41,7 +41,7 @@
 	height: 10px;
 	margin-top: -16px;
 	margin-left: 15px;
-	content: '';
+	content: "";
 	-moz-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
 	-o-transform: rotate(-45deg);
@@ -62,7 +62,7 @@
 	height: 10px;
 	margin-top: -5px;
 	margin-left: 15px;
-	content: '';
+	content: "";
 	-moz-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
 	-o-transform: rotate(-45deg);
@@ -73,7 +73,7 @@
 #topic_preview.invert:before {
 	/* Hide upper triangle */
 	display: none;
-	content: '';
+	content: "";
 }
 
 #topic_preview hr {
