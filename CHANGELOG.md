@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0 - 2018-01-20
+
+- Updated for phpBB 3.2. Compatibility with 3.1 ended.
+- Minor code improvements.
+
 ## 2.2.4 - 2017-01-10
 
 - Refactored themes to inherit from a parent theme for easier theming
