@@ -55,4 +55,4 @@ Support is available for Topic Preview in the [phpBB Extension Database](https:/
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
 
-© 2013 - Matt Friedman (VSE)
+© 2013 - Matt Friedman
