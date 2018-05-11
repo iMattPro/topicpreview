@@ -10,7 +10,7 @@
 
 namespace vse\topicpreview\migrations\v2xx;
 
-class release_2_1_0_data extends \phpbb\db\migration\migration
+class release_2_1_0_data extends \phpbb\db\migration\container_aware_migration
 {
 	public function effectively_installed()
 	{
@@ -24,10 +24,13 @@ class release_2_1_0_data extends \phpbb\db\migration\migration
 
 	public function update_data()
 	{
+		// use module tool explicitly since module.exists does not work in 'if'
+		$module_tool = $this->container->get('migrator.tool.module');
+
 		return array(
 			// Remove old ACP module if it exists
 			array('if', array(
-				array('module.exists', array('acp', 'TOPIC_PREVIEW', 'TOPIC_PREVIEW_SETTINGS')),
+				$module_tool->exists('acp', 'TOPIC_PREVIEW', 'TOPIC_PREVIEW_SETTINGS', true),
 				array('module.remove', array('acp', 'TOPIC_PREVIEW', 'TOPIC_PREVIEW_SETTINGS')),
 			)),
 
