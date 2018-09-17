@@ -48,19 +48,17 @@ class display_topic_preview_test extends base
 			->disableOriginalConstructor()
 			->getMock();
 
-		$phpbb_path_helper = new \phpbb\path_helper(
-			new \phpbb\symfony_request(
-				new \phpbb_mock_request()
-			),
-			new \phpbb\filesystem\filesystem(),
-			$request,
-			$phpbb_root_path,
-			'php'
-		);
+		$path_helper = $this->getMockBuilder('\phpbb\path_helper')
+			->disableOriginalConstructor()
+			->setMethods(array('get_web_root_path'))
+			->getMock();
+		$path_helper->expects($this->any())
+			->method('get_web_root_path')
+			->will($this->returnValue($phpbb_root_path));
 
 		$phpbb_container = new \phpbb_mock_container_builder();
 		$phpbb_container->set('avatar.manager', new \phpbb\avatar\manager($config, array($this->avatar_driver)));
-		$phpbb_container->set('path_helper', $phpbb_path_helper);
+		$phpbb_container->set('path_helper', $path_helper);
 	}
 
 	public function topic_preview_display_data()
