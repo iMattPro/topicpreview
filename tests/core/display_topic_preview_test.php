@@ -56,8 +56,11 @@ class display_topic_preview_test extends base
 			->method('get_web_root_path')
 			->will($this->returnValue($phpbb_root_path));
 
+		$dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher_interface')
+			->getMock();
+
 		$phpbb_container = new \phpbb_mock_container_builder();
-		$phpbb_container->set('avatar.manager', new \phpbb\avatar\manager($config, array($this->avatar_driver)));
+		$phpbb_container->set('avatar.manager', new \phpbb\avatar\manager($config, $dispatcher, array($this->avatar_driver)));
 		$phpbb_container->set('path_helper', $path_helper);
 	}
 
