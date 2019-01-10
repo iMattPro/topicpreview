@@ -35,13 +35,13 @@ class display_topic_preview_test extends base
 			->getMock();
 		$this->avatar_driver->expects($this->any())
 			->method('get_name')
-			->will($this->returnValue('avatar.driver.local'));
+			->willReturn('avatar.driver.local');
 		$this->avatar_driver->expects($this->any())
 			->method('get_config_name')
-			->will($this->returnValue('local'));
+			->willReturn('local');
 		$this->avatar_driver->expects($this->any())
 			->method('get_data')
-			->will($this->returnValue(self::$avatar_data));
+			->willReturn(self::$avatar_data);
 
 		/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject $request */
 		$request = $this->getMockBuilder('\phpbb\request\request')
@@ -54,7 +54,7 @@ class display_topic_preview_test extends base
 			->getMock();
 		$path_helper->expects($this->any())
 			->method('get_web_root_path')
-			->will($this->returnValue($phpbb_root_path));
+			->willReturn($phpbb_root_path);
 
 		$dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher_interface')
 			->getMock();

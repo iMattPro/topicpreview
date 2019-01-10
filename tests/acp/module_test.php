@@ -39,13 +39,13 @@ class module_test extends \phpbb_test_case
 			->expects($this->at(0))
 			->method('get')
 			->with('user')
-			->will($this->returnValue($user));
+			->willReturn($user);
 
 		$phpbb_container
 			->expects($this->at(1))
 			->method('get')
 			->with('vse.topicpreview.acp.controller')
-			->will($this->returnValue($mock_acp_controller));
+			->willReturn($mock_acp_controller);
 
 		$module->main();
 	}

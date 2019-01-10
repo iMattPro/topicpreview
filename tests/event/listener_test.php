@@ -80,7 +80,7 @@ class listener_test extends \phpbb_test_case
 		$this->topic_preview_data->expects($this->once())
 			->method('modify_sql')
 			->with($data['sql_array'])
-			->will($this->returnValue(array('BAR')));
+			->willReturn(array('BAR'));
 
 		// Call the event
 		$this->listener->modify_sql_array($data);
@@ -105,11 +105,11 @@ class listener_test extends \phpbb_test_case
 		$this->topic_preview_data->expects($this->at(0))
 			->method('modify_sql')
 			->with($data['sql_select'], 'SELECT')
-			->will($this->returnValue('SELECT FOO BAR'));
+			->willReturn('SELECT FOO BAR');
 		$this->topic_preview_data->expects($this->at(1))
 			->method('modify_sql')
 			->with($data['sql_from'], 'JOIN')
-			->will($this->returnValue('FROM FOO BAR'));
+			->willReturn('FROM FOO BAR');
 
 		// Call the event
 		$this->listener->modify_sql_string($data);
@@ -146,7 +146,7 @@ class listener_test extends \phpbb_test_case
 		$this->topic_preview_display->expects($this->once())
 			->method('display_topic_preview')
 			->with($data['row'], $data[$block])
-			->will($this->returnValue(array('BAR')));
+			->willReturn(array('BAR'));
 
 		// Call the event
 		$this->listener->display_topic_previews($data);

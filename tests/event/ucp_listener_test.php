@@ -265,10 +265,9 @@ class ucp_listener_test extends \phpbb_test_case
 		$this->set_listener();
 
 		$this->user->data['user_topic_preview'] = 0;
-		$this->request->expects($this->any())
+		$this->request->expects($this->once())
 			->method('variable')
-			->will($this->returnValue($topic_preview)
-		);
+			->willReturn($topic_preview);
 
 		if (!$submit)
 		{
