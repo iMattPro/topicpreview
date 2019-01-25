@@ -9,7 +9,7 @@
 */
 @import url("light.css");
 
-#topic_preview {
+.topic_preview_container {
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	background: #ffffc2;
 	border: 1px solid #989898;
@@ -19,14 +19,14 @@
 	color: #000000;
 }
 
-#topic_preview:before {
+.topic_preview_container:before {
 	/* Upper Triangle */
 	background: #ffffc2;
 	border-top: 1px solid #989898;
 	border-right: 1px solid #989898;
 }
 
-#topic_preview.invert:after {
+.topic_preview_container.invert:after {
 	/* Lower Triangle */
 	background: #ffffc2;
 	border-bottom: 1px solid #989898;

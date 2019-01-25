@@ -9,7 +9,7 @@
 */
 @import url("light.css");
 
-#topic_preview {
+.topic_preview_container {
 	background-color: #000000;
 	background-color: rgba(0, 0, 0, 0.97);
 	border: 2px solid #c965eb;
@@ -19,7 +19,7 @@
 	color: #ffffff;
 }
 
-#topic_preview:before {
+.topic_preview_container:before {
 	/* Upper Triangle */
 	background-color: #000000;
 	background-color: rgba(0, 0, 0, 0.97);
@@ -28,7 +28,7 @@
 	margin-top: -17px;
 }
 
-#topic_preview.invert:after {
+.topic_preview_container.invert:after {
 	/* Lower Triangle */
 	background-color: #000000;
 	background-color: rgba(0, 0, 0, 0.97);
@@ -36,7 +36,7 @@
 	border-left: 2px solid #c965eb;
 }
 
-#topic_preview strong {
+.topic_preview_container strong {
 	color: #b071cd;
 }
 

@@ -9,7 +9,7 @@
 */
 @import url("light.css");
 
-#topic_preview {
+.topic_preview_container {
 	background: #1e1e1e;
 	-moz-box-shadow: 1px 1px 3px #808080;
 	-webkit-box-shadow: 1px 1px 3px #808080;
@@ -17,7 +17,7 @@
 	color: #cecece;
 }
 
-#topic_preview:before,
-#topic_preview.invert:after {
+.topic_preview_container:before,
+.topic_preview_container.invert:after {
 	background: #1e1e1e;
 }
