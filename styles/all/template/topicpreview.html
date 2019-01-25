@@ -4,7 +4,13 @@
 		<hr />
 	{% endif %}
 	{% if preview.TOPIC_PREVIEW_FIRST_AVATAR %}
-		<div class="topic_preview_avatar">{{ preview.TOPIC_PREVIEW_FIRST_AVATAR }}</div>
+		<div class="topic_preview_avatar">
+			{%- if preview.TOPIC_PREVIEW_FIRST_AVATAR != 'no-avatar' -%}
+				{{ preview.TOPIC_PREVIEW_FIRST_AVATAR }}
+			{%- else -%}
+				<div class="topic_preview_no_avatar"></div>
+			{%- endif -%}
+		</div>
 	{% endif %}
 	<div class="topic_preview_first">{{ preview.TOPIC_PREVIEW_FIRST_POST }}</div>
 	{% if preview.TOPIC_PREVIEW_LAST_POST %}
@@ -12,7 +18,13 @@
 		<strong>{{ lang('LAST_POST') }}</strong>
 		<hr />
 		{% if preview.TOPIC_PREVIEW_LAST_AVATAR %}
-			<div class="topic_preview_avatar">{{ preview.TOPIC_PREVIEW_LAST_AVATAR }}</div>
+			<div class="topic_preview_avatar">
+				{%- if preview.TOPIC_PREVIEW_LAST_AVATAR != 'no-avatar' -%}
+					{{ preview.TOPIC_PREVIEW_LAST_AVATAR }}
+				{%- else -%}
+					<div class="topic_preview_no_avatar"></div>
+				{%- endif -%}
+			</div>
 		{% endif %}
 		<div class="topic_preview_last">{{ preview.TOPIC_PREVIEW_LAST_POST }}</div>
 	{% endif %}

@@ -67,7 +67,6 @@ class display_topic_preview_test extends base
 	public function topic_preview_display_data()
 	{
 		global $phpbb_root_path;
-		$no_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="User avatar" />';
 		$lazy_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="%s" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />';
 
 		return array(
@@ -86,7 +85,7 @@ class display_topic_preview_test extends base
 					'TOPIC_PREVIEW_FIRST_POST' => 'First message',
 					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_LAST_AVATAR' => 'no-avatar',
 				),
 			),
 			array(
@@ -120,7 +119,7 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => 'no-avatar',
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
 					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 				),
@@ -138,9 +137,9 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => '',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => 'no-avatar',
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => $no_avatar,
+					'TOPIC_PREVIEW_LAST_AVATAR' => 'no-avatar',
 				),
 			),
 			array(
