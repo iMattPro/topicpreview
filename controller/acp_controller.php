@@ -35,6 +35,7 @@ class acp_controller implements acp_controller_interface
 	/**
 	 * Constructor
 	 *
+	 * @param language $language
 	 * @param request  $request
 	 * @param settings $settings
 	 * @param template $template

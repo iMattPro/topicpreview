@@ -10,7 +10,9 @@
 
 namespace vse\topicpreview\tests\core\tools;
 
-use vse\topicpreview\core\trim\tools;
+use vse\topicpreview\core\trim\tools\bbcodes;
+use vse\topicpreview\core\trim\tools\bbcodes_legacy;
+use vse\topicpreview\core\trim\tools\markup;
 
 class helper
 {
@@ -20,7 +22,8 @@ class helper
 
 	public static function trimTools()
 	{
-		if (self::$_instance === null) {
+		if (self::$_instance === null)
+		{
 			self::$_instance = new self;
 		}
 
@@ -29,9 +32,9 @@ class helper
 
 	public function setTools($config, $utils = null)
 	{
-		$trim_bbcodes_legacy = new tools\bbcodes_legacy($config);
-		$trim_bbcodes = new tools\bbcodes($config, $trim_bbcodes_legacy, $utils);
-		$trim_markup = new tools\markup();
+		$trim_bbcodes_legacy = new bbcodes_legacy($config);
+		$trim_bbcodes = new bbcodes($config, $trim_bbcodes_legacy, $utils);
+		$trim_markup = new markup();
 		self::$tools = array(
 			$trim_bbcodes,
 			$trim_bbcodes_legacy,

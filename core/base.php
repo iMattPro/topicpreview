@@ -40,7 +40,7 @@ class base
 	 */
 	public function is_enabled()
 	{
-		return (bool) !empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview']);
+		return !empty($this->config['topic_preview_limit']) && !empty($this->user->data['user_topic_preview']);
 	}
 
 	/**

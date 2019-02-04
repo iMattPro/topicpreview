@@ -56,6 +56,7 @@ class display_topic_preview_test extends base
 			->method('get_web_root_path')
 			->willReturn($phpbb_root_path);
 
+		/** @var \phpbb\event\dispatcher_interface|\PHPUnit_Framework_MockObject_MockObject $dispatcher */
 		$dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher_interface')
 			->getMock();
 

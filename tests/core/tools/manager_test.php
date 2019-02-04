@@ -72,7 +72,7 @@ class manager_test extends base
 			new \vse\topicpreview\core\trim\tools\markup()
 		));
 
-		if (is_null($expected))
+		if ($expected === null)
 		{
 			$this->assertNull($manager->get_tool($name));
 		}
