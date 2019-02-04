@@ -75,7 +75,7 @@ class listener implements EventSubscriberInterface
 	 */
 	public function modify_sql_array($event)
 	{
-		$event['sql_array'] = $this->preview_data->modify_sql($event['sql_array']);
+		$event['sql_array'] = $this->preview_data->modify_sql($event['sql_array'], 'SELECT');
 	}
 
 	/**

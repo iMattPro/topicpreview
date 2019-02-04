@@ -57,7 +57,7 @@ class modify_sql_test extends base
 		$preview_data = $this->get_topic_preview_data();
 
 		// Modify the sql_array for topic previews
-		$sql_array = $preview_data->modify_sql($sql_array);
+		$sql_array = $preview_data->modify_sql($sql_array, 'SELECT');
 
 		// Build the SQL query
 		$sql = $this->db->sql_build_query('SELECT', $sql_array);
@@ -128,6 +128,6 @@ class modify_sql_test extends base
 		$preview_data = $this->get_topic_preview_data();
 
 		// Test that we get back the unmodified test string
-		$this->assertEquals($sql_stmt, $preview_data->modify_sql($sql_stmt));
+		$this->assertEquals($sql_stmt, $preview_data->modify_sql($sql_stmt, 'SELECT'));
 	}
 }

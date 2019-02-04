@@ -88,7 +88,7 @@ class data extends base
 	 *
 	 * @return string|array SQL statement string or array
 	 */
-	public function modify_sql($sql_stmt, $type = 'SELECT')
+	public function modify_sql($sql_stmt, $type)
 	{
 		if (!$this->is_enabled())
 		{
