@@ -25,6 +25,9 @@ class display extends base
 	/** @var int default height and width of topic preview avatars */
 	const AVATAR_SIZE = 60;
 
+	/** @var string */
+	const NO_AVATAR = 'no-avatar';
+
 	/** @var dispatcher_interface */
 	protected $dispatcher;
 
@@ -170,7 +173,7 @@ class display extends base
 		}
 
 		// If avatar string is empty, fall back to no_avatar.gif
-		return $avatar ?: 'no-avatar';
+		return $avatar ?: self::NO_AVATAR;
 	}
 
 	/**

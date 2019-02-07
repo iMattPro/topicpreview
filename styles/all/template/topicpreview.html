@@ -5,7 +5,7 @@
 	{% endif %}
 	{% if preview.TOPIC_PREVIEW_FIRST_AVATAR %}
 		<div class="topic_preview_avatar">
-			{%- if preview.TOPIC_PREVIEW_FIRST_AVATAR != 'no-avatar' -%}
+			{%- if preview.TOPIC_PREVIEW_FIRST_AVATAR != constant('\\vse\\topicpreview\\core\\display::NO_AVATAR') -%}
 				{{ preview.TOPIC_PREVIEW_FIRST_AVATAR }}
 			{%- else -%}
 				<div class="topic_preview_no_avatar"></div>
@@ -19,7 +19,7 @@
 		<hr />
 		{% if preview.TOPIC_PREVIEW_LAST_AVATAR %}
 			<div class="topic_preview_avatar">
-				{%- if preview.TOPIC_PREVIEW_LAST_AVATAR != 'no-avatar' -%}
+				{%- if preview.TOPIC_PREVIEW_LAST_AVATAR != constant('\\vse\\topicpreview\\core\\display::NO_AVATAR') -%}
 					{{ preview.TOPIC_PREVIEW_LAST_AVATAR }}
 				{%- else -%}
 					<div class="topic_preview_no_avatar"></div>
