@@ -8,7 +8,7 @@
 * font colors: #333333
 */
 
-#topic_preview {
+.topic_preview_container {
 	font-size: 11px;
 	font-style: normal;
 	text-decoration: none;
@@ -29,7 +29,7 @@
 	padding: 10px;
 }
 
-#topic_preview:before {
+.topic_preview_container:before {
 	/* Upper Triangle */
 	background: #ffffff;
 	border: 0;
@@ -49,7 +49,7 @@
 	transform: rotate(-45deg);
 }
 
-#topic_preview.invert:after {
+.topic_preview_container.invert:after {
 	/* Lower Triangle */
 	background: #ffffff;
 	border: 0;
@@ -70,13 +70,13 @@
 	transform: rotate(-45deg);
 }
 
-#topic_preview.invert:before {
+.topic_preview_container.invert:before {
 	/* Hide upper triangle */
 	display: none;
 	content: "";
 }
 
-#topic_preview hr {
+.topic_preview_container hr {
 	margin: 5px 0;
 }
 
@@ -120,15 +120,52 @@
 	padding: 5px 0;
 }
 
+/* Pure CSS no-avatar */
+.topic_preview_no_avatar {
+	background: #b2bec6;
+	box-shadow: 0 0 0 1px #b2bec6;
+	position: relative;
+	overflow: hidden;
+	width: 60px;
+	height: 60px;
+}
+
+/* Pure CSS no-avatar body */
+.topic_preview_no_avatar:before {
+	background: #ffffff;
+	border-radius: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 80%;
+	height: 80%;
+	margin: 0 0 -35% -40%;
+	content: "";
+}
+
+/* Pure CSS no-avatar head */
+.topic_preview_no_avatar:after {
+	background: #ffffff;
+	border-radius: 50%;
+	box-shadow: 0 0 0 3px #b2bec6;
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	width: 50%;
+	height: 50%;
+	margin: 0 0 0 -25%;
+	content: "";
+}
+
 /* responsive design */
 @media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {
-	#topic_preview {
+	.topic_preview_container {
 		max-width: 300px;
 	}
 }
 
 @media only screen and (max-width: 360px), only screen and (max-device-width: 360px) {
-	#topic_preview {
+	.topic_preview_container {
 		max-width: 220px;
 	}
 }

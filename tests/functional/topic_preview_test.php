@@ -72,6 +72,6 @@ class topic_preview_test extends \phpbb_functional_test_case
 		// Test topic preview avatars
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
 		$this->assertGreaterThan(0, $crawler->filter('.topic_preview_avatar')->count());
-		$this->assertContains('no_avatar.gif', $crawler->filter('.topic_preview_avatar > img')->attr('src'));
+		$this->assertContains('topic_preview_no_avatar', $crawler->filter('.topic_preview_avatar > div')->attr('class'));
 	}
 }
