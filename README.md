@@ -1,4 +1,4 @@
-# ![Topic Preview](http://vsephpbb.github.io/logo/search.png "Topic Preview") Topic Preview for phpBB3
+# ![Topic Preview](https://vsephpbb.github.io/logo/search.png "Topic Preview") Topic Preview for phpBB3
 
 A phpBB extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
@@ -8,11 +8,11 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 [![Latest Stable Version](https://poser.pugx.org/vse/topicpreview/v/stable)](https://www.phpbb.com/customise/db/extension/topicpreview/)
 
 ## Browser support
-![Chrome 4+](http://vsephpbb.github.io/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
-![Firefox 3.5+](http://vsephpbb.github.io/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
-![Safari 3+](http://vsephpbb.github.io/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
-![Internet Explorer 6+](http://vsephpbb.github.io/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
-![Opera 10.5+](http://vsephpbb.github.io/browsericons/opera.png "Opera 10.5+")10.5+
+![Chrome 4+](https://vsephpbb.github.io/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
+![Firefox 3.5+](https://vsephpbb.github.io/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
+![Safari 3+](https://vsephpbb.github.io/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
+![Internet Explorer 6+](https://vsephpbb.github.io/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
+![Opera 10.5+](https://vsephpbb.github.io/browsericons/opera.png "Opera 10.5+")10.5+
 
 ## Features
 * Let your visitors peek at what's inside a topic before they click on it
@@ -53,6 +53,6 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 Support is available for Topic Preview in the [phpBB Extension Database](https://www.phpbb.com/customise/db/extension/topicpreview/support).
 
 ## License
-[GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
+[GNU General Public License v2](https://opensource.org/licenses/GPL-2.0)
 
 © 2013 - Matt Friedman
