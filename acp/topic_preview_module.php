@@ -29,6 +29,8 @@ class topic_preview_module
 
 	/**
 	 * Main ACP module
+	 *
+	 * @throws \Exception
 	 */
 	public function main()
 	{
