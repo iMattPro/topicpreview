@@ -26,7 +26,6 @@ class module_test extends \phpbb_test_case
 		// Test calling module->main()
 		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
 		$lang = new \phpbb\language\language($lang_loader);
-		$user = new \phpbb\user($lang, '\phpbb\datetime');
 
 		$mock_acp_controller = $this->getMockBuilder('\vse\topicpreview\controller\acp_controller')
 			->disableOriginalConstructor()
@@ -38,8 +37,8 @@ class module_test extends \phpbb_test_case
 		$phpbb_container
 			->expects($this->at(0))
 			->method('get')
-			->with('user')
-			->willReturn($user);
+			->with('language')
+			->willReturn($lang);
 
 		$phpbb_container
 			->expects($this->at(1))
