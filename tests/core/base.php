@@ -46,7 +46,7 @@ class base extends \phpbb_database_test_case
 		return $this->createXMLDataSet(__DIR__ . '/fixtures/topic_preview.xml');
 	}
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -75,7 +75,7 @@ class base extends \phpbb_database_test_case
 		$this->user->expects($this->any())
 			->method('optionget')
 			->with($this->anything())
-			->will($this->returnValueMap(array(array('viewavatars', false, true), array('viewcensors', false, false))));
+			->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
 		$this->trim = tools\helper::trimTools()

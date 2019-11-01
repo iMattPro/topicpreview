@@ -22,7 +22,7 @@ class display_topic_preview_test extends base
 		'height' => '60',
 	);
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
