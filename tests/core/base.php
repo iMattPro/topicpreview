@@ -72,8 +72,7 @@ class base extends \phpbb_database_test_case
 			->setConstructorArgs(array($this->language, '\phpbb\datetime'))
 			->setMethods(array())
 			->getMock();
-		$this->user->expects($this->any())
-			->method('optionget')
+		$this->user->method('optionget')
 			->with($this->anything())
 			->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
 		$this->user->style['style_path'] = 'prosilver';

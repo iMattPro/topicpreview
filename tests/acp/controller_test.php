@@ -129,7 +129,7 @@ class controller_test extends \phpbb_database_test_case
 				array('creation_time', true),
 			));
 
-		$this->request->expects($this->any())
+		$this->request->expects($this->atLeastOnce())
 			->method('variable')
 			->willReturnMap($data_map);
 
