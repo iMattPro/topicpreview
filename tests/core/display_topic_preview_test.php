@@ -22,7 +22,7 @@ class display_topic_preview_test extends base
 		'height' => '60',
 	);
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -33,14 +33,11 @@ class display_topic_preview_test extends base
 		$this->avatar_driver = $this->getMockBuilder('\phpbb\avatar\driver\local')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->avatar_driver->expects($this->any())
-			->method('get_name')
+		$this->avatar_driver->method('get_name')
 			->willReturn('avatar.driver.local');
-		$this->avatar_driver->expects($this->any())
-			->method('get_config_name')
+		$this->avatar_driver->method('get_config_name')
 			->willReturn('local');
-		$this->avatar_driver->expects($this->any())
-			->method('get_data')
+		$this->avatar_driver->method('get_data')
 			->willReturn(self::$avatar_data);
 
 		/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject $request */
@@ -52,8 +49,7 @@ class display_topic_preview_test extends base
 			->disableOriginalConstructor()
 			->setMethods(array('get_web_root_path'))
 			->getMock();
-		$path_helper->expects($this->any())
-			->method('get_web_root_path')
+		$path_helper->method('get_web_root_path')
 			->willReturn($phpbb_root_path);
 
 		/** @var \phpbb\event\dispatcher_interface|\PHPUnit_Framework_MockObject_MockObject $dispatcher */

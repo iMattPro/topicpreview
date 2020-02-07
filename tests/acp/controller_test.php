@@ -45,7 +45,7 @@ class controller_test extends \phpbb_database_test_case
 	/** @var \phpbb\user */
 	protected $user;
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -123,15 +123,15 @@ class controller_test extends \phpbb_database_test_case
 
 		$this->request->expects($this->atLeastOnce())
 			->method('is_set_post')
-			->will($this->returnValueMap(array(
+			->willReturnMap(array(
 				array('submit', true),
 				array('form_token', true),
 				array('creation_time', true),
-			)));
+			));
 
-		$this->request->expects($this->any())
+		$this->request->expects($this->atLeastOnce())
 			->method('variable')
-			->will($this->returnValueMap($data_map));
+			->willReturnMap($data_map);
 
 		$this->setExpectedTriggerError($error, $this->language->lang($expected));
 

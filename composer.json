@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "A phpBB extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.",
 	"homepage": "https://github.com/VSEphpbb/topicpreview",
-	"version": "2.3.1",
+	"version": "2.3.2",
 	"keywords": ["phpbb", "extension", "topic", "preview"],
 	"license": "GPL-2.0-only",
 	"authors": [
@@ -15,7 +15,6 @@
 	],
 	"require": {
 		"php": ">=5.4",
-		"phpbb/phpbb": "~3.2.0",
 		"composer/installers": "~1.0"
 	},
 	"extra": {
