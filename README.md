@@ -29,7 +29,7 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 * Smileys are displayed as text :)
 * Does not significantly impact server load (no additional db queries)
 * Multiple languages are supported. View the pre-installed [localizations](https://github.com/VSEphpbb/topicpreview/tree/master/language).
-* Built-in support for "[Precise Similar Topics](https://github.com/VSEphpbb/similartopics)", "[Recent Topics](https://github.com/PayBas/RecentTopics)" and "[Top Five](https://github.com/RMcGirr83/topfive)" extensions
+* Built-in support for "[Precise Similar Topics](https://www.phpbb.com/customise/db/extension/precise_similar_topics/)", "[Recent Topics](https://www.phpbb.com/customise/db/extension/recent_topics_2/)" and "[Top Five](https://www.phpbb.com/customise/db/extension/topfiveext/)" extensions
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
