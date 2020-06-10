@@ -2,14 +2,14 @@
 	"name": "vse/topicpreview",
 	"type": "phpbb-extension",
 	"description": "A phpBB extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.",
-	"homepage": "https://github.com/VSEphpbb/topicpreview",
+	"homepage": "https://github.com/iMattPro/topicpreview",
 	"version": "2.3.2",
 	"keywords": ["phpbb", "extension", "topic", "preview"],
 	"license": "GPL-2.0-only",
 	"authors": [
 		{
 			"name": "Matt Friedman",
-			"homepage": "http://vsephpbb.github.io",
+			"homepage": "https://imattpro.github.io",
 			"role": "Developer"
 		}
 	],
