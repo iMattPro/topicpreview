@@ -1,18 +1,11 @@
-# ![Topic Preview](https://vsephpbb.github.io/logo/search.png "Topic Preview") Topic Preview for phpBB3
+# ![Topic Preview](https://imattpro.github.io/logo/search.png "Topic Preview") Topic Preview for phpBB3
 
 A phpBB extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
-[![Build Status](https://travis-ci.org/VSEphpbb/topicpreview.svg)](https://travis-ci.org/VSEphpbb/topicpreview)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/VSEphpbb/topicpreview/?branch=master)
+[![Build Status](https://travis-ci.org/iMattPro/topicpreview.svg)](https://travis-ci.org/iMattPro/topicpreview)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/iMattPro/topicpreview/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/iMattPro/topicpreview/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/iMattPro/topicpreview/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/iMattPro/topicpreview/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/vse/topicpreview/v/stable)](https://www.phpbb.com/customise/db/extension/topicpreview/)
-
-## Browser support
-![Chrome 4+](https://vsephpbb.github.io/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
-![Firefox 3.5+](https://vsephpbb.github.io/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
-![Safari 3+](https://vsephpbb.github.io/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
-![Internet Explorer 6+](https://vsephpbb.github.io/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
-![Opera 10.5+](https://vsephpbb.github.io/browsericons/opera.png "Opera 10.5+")10.5+
 
 ## Features
 * Let your visitors peek at what's inside a topic before they click on it
@@ -28,8 +21,8 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 * BBCode tags and URL links are removed for a cleaner text-only appearance
 * Smileys are displayed as text :)
 * Does not significantly impact server load (no additional db queries)
-* Multiple languages are supported. View the pre-installed [localizations](https://github.com/VSEphpbb/topicpreview/tree/master/language).
-* Built-in support for "[Precise Similar Topics](https://github.com/VSEphpbb/similartopics)", "[Recent Topics](https://github.com/PayBas/RecentTopics)" and "[Top Five](https://github.com/RMcGirr83/topfive)" extensions
+* Multiple languages are supported. View the pre-installed [localizations](https://github.com/iMattPro/topicpreview/tree/master/language).
+* Built-in support for "[Precise Similar Topics](https://www.phpbb.com/customise/db/extension/precise_similar_topics/)", "[Recent Topics](https://www.phpbb.com/customise/db/extension/recent_topics_2/)" and "[Top Five](https://www.phpbb.com/customise/db/extension/topfiveext/)" extensions
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
