@@ -7,13 +7,6 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 [![Code Coverage](https://scrutinizer-ci.com/g/iMattPro/topicpreview/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/iMattPro/topicpreview/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/vse/topicpreview/v/stable)](https://www.phpbb.com/customise/db/extension/topicpreview/)
 
-## Browser support
-![Chrome 4+](https://imattpro.github.io/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
-![Firefox 3.5+](https://imattpro.github.io/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
-![Safari 3+](https://imattpro.github.io/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
-![Internet Explorer 6+](https://imattpro.github.io/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
-![Opera 10.5+](https://imattpro.github.io/browsericons/opera.png "Opera 10.5+")10.5+
-
 ## Features
 * Let your visitors peek at what's inside a topic before they click on it
 * Admin options to display user avatars and text previews from the first and last posts
