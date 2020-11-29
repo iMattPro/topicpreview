@@ -63,7 +63,7 @@ class modify_sql_test extends base
 		$sql = $this->db->sql_build_query('SELECT', $sql_array);
 
 		// Test that we get the expected result
-		$this->assertEquals($expected, $this->run_query_helper($sql));
+		self::assertEquals($expected, $this->run_query_helper($sql));
 	}
 
 	/**
@@ -89,7 +89,7 @@ class modify_sql_test extends base
 			WHERE $sql_where";
 
 		// Test that we get the expected result
-		$this->assertEquals($expected, $this->run_query_helper($sql));
+		self::assertEquals($expected, $this->run_query_helper($sql));
 	}
 
 	public function run_query_helper($sql)
@@ -128,6 +128,6 @@ class modify_sql_test extends base
 		$preview_data = $this->get_topic_preview_data();
 
 		// Test that we get back the unmodified test string
-		$this->assertEquals($sql_stmt, $preview_data->modify_sql($sql_stmt, 'SELECT'));
+		self::assertEquals($sql_stmt, $preview_data->modify_sql($sql_stmt, 'SELECT'));
 	}
 }

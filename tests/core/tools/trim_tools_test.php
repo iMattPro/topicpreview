@@ -73,7 +73,7 @@ class trim_tools_test extends base
 	{
 		if (phpbb_version_compare(PHPBB_VERSION, '3.2.0-dev', '<'))
 		{
-			$this->markTestSkipped('Testing trim/tools/bbcodes is for phpBB 3.2 or higher');
+			self::markTestSkipped('Testing trim/tools/bbcodes is for phpBB 3.2 or higher');
 		}
 
 		$container = $this->get_test_case_helpers()->set_s9e_services();
@@ -86,9 +86,9 @@ class trim_tools_test extends base
 
 		// parse it to emulate how text is stored in db
 		$parsed = $parser->parse($message);
-		$this->assertEquals($expected, $trim->trim_text($parsed, $this->config['topic_preview_limit']));
+		self::assertEquals($expected, $trim->trim_text($parsed, $this->config['topic_preview_limit']));
 
 		// Test data again, unparsed (falls back to legacy tool)
-		$this->assertEquals($expected, $trim->trim_text($message, $this->config['topic_preview_limit']));
+		self::assertEquals($expected, $trim->trim_text($message, $this->config['topic_preview_limit']));
 	}
 }

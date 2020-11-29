@@ -84,7 +84,7 @@ class setup_test extends base
 		$this->user->data['user_topic_preview'] = $user_map['user_topic_preview'];
 		$this->user->style['topic_preview_theme'] = $user_map['topic_preview_theme'];
 
-		$this->template->expects($this->once())
+		$this->template->expects(self::once())
 			->method('assign_vars')
 			->with($expected);
 
@@ -92,5 +92,4 @@ class setup_test extends base
 		// setup() is called in the class constructor
 		$this->get_topic_preview_display();
 	}
-
 }

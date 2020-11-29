@@ -18,7 +18,7 @@ class base extends \phpbb_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	public function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 

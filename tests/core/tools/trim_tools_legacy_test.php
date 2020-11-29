@@ -75,6 +75,6 @@ class trim_tools_legacy_test extends base
 			->setTools($this->config)
 			->getTrim();
 
-		$this->assertEquals($expected, $trim->trim_text($message, $this->config['topic_preview_limit']));
+		self::assertEquals($expected, $trim->trim_text($message, $this->config['topic_preview_limit']));
 	}
 }
