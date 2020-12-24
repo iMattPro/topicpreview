@@ -2,9 +2,9 @@
 
 A phpBB extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
-[![Build Status](https://travis-ci.org/iMattPro/topicpreview.svg)](https://travis-ci.org/iMattPro/topicpreview)
+[![Build Status](https://github.com/iMattPro/topicpreview/workflows/Tests/badge.svg)](https://github.com/iMattPro/topicpreview/actions)
+[![codecov](https://codecov.io/gh/iMattPro/topicpreview/branch/master/graph/badge.svg?token=XCFCZ4NZCX)](https://codecov.io/gh/iMattPro/topicpreview)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/iMattPro/topicpreview/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/iMattPro/topicpreview/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/iMattPro/topicpreview/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/iMattPro/topicpreview/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/vse/topicpreview/v/stable)](https://www.phpbb.com/customise/db/extension/topicpreview/)
 
 ## Features
