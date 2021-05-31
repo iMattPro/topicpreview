@@ -24,13 +24,13 @@ class base extends \phpbb_database_test_case
 	/** @var \phpbb\language\language */
 	protected $language;
 
-	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
 	protected $template;
 
 	/** @var \vse\topicpreview\core\trim\trim */
 	protected $trim;
 
-	/** @var \phpbb\user|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\user|\PHPUnit\Framework\MockObject\MockObject */
 	protected $user;
 
 	/** @var string */

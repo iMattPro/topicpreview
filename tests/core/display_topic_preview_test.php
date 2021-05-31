@@ -12,7 +12,7 @@ namespace vse\topicpreview\tests\core;
 
 class display_topic_preview_test extends base
 {
-	/** @var \phpbb\avatar\driver\local|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\avatar\driver\local|\PHPUnit\Framework\MockObject\MockObject */
 	protected $avatar_driver;
 
 	/** @var array Avatar data to use in tests below */
@@ -40,7 +40,7 @@ class display_topic_preview_test extends base
 		$this->avatar_driver->method('get_data')
 			->willReturn(self::$avatar_data);
 
-		/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject $request */
+		/** @var \phpbb\request\request|\PHPUnit\Framework\MockObject\MockObject $request */
 		$request = $this->getMockBuilder('\phpbb\request\request')
 			->disableOriginalConstructor()
 			->getMock();
@@ -52,7 +52,7 @@ class display_topic_preview_test extends base
 		$path_helper->method('get_web_root_path')
 			->willReturn($phpbb_root_path);
 
-		/** @var \phpbb\event\dispatcher_interface|\PHPUnit_Framework_MockObject_MockObject $dispatcher */
+		/** @var \phpbb\event\dispatcher_interface|\PHPUnit\Framework\MockObject\MockObject $dispatcher */
 		$dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher_interface')
 			->getMock();
 

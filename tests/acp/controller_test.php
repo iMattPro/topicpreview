@@ -36,13 +36,13 @@ class controller_test extends \phpbb_database_test_case
 	/** @var \phpbb\language\language */
 	protected $language;
 
-	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\request\request */
+	/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\request\request */
 	protected $request;
 
 	/** @var \vse\topicpreview\core\settings */
 	protected $settings;
 
-	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\template\template */
+	/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\template\template */
 	protected $template;
 
 	/** @var \phpbb\user */

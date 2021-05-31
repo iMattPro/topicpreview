@@ -15,10 +15,10 @@ class listener_test extends \phpbb_test_case
 	/** @var \vse\topicpreview\event\listener */
 	protected $listener;
 
-	/** @var \vse\topicpreview\core\data|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \vse\topicpreview\core\data|\PHPUnit\Framework\MockObject\MockObject */
 	protected $topic_preview_data;
 
-	/** @var \vse\topicpreview\core\display|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \vse\topicpreview\core\display|\PHPUnit\Framework\MockObject\MockObject */
 	protected $topic_preview_display;
 
 	/**

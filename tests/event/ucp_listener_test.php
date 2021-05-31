@@ -21,10 +21,10 @@ class ucp_listener_test extends \phpbb_test_case
 	/** @var \phpbb\language\language */
 	protected $language;
 
-	/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\request\request|\PHPUnit\Framework\MockObject\MockObject */
 	protected $request;
 
-	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
 	protected $template;
 
 	/** @var \phpbb\user */
@@ -130,15 +130,12 @@ class ucp_listener_test extends \phpbb_test_case
 	{
 		$this->set_listener();
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.ucp_prefs_view_update_data', array($this->listener, 'ucp_prefs_set_data'));
 
 		$event_data = array('data', 'sql_ary');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.ucp_prefs_view_update_data', $event);
-
-		$event_data_after = $event->get_data_filtered($event_data);
-		$sql_ary = $event_data_after['sql_ary'];
+		$event_data_after = $dispatcher->trigger_event('core.ucp_prefs_view_update_data', compact($event_data));
+		extract($event_data_after, EXTR_OVERWRITE);
 
 		self::assertEquals($expected, $sql_ary);
 	}
@@ -274,15 +271,12 @@ class ucp_listener_test extends \phpbb_test_case
 				));
 		}
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.ucp_prefs_view_data', array($this->listener, 'ucp_prefs_get_data'));
 
 		$event_data = array('submit', 'data');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.ucp_prefs_view_data', $event);
-
-		$data = $event->get_data_filtered($event_data);
-		$data = $data['data'];
+		$event_data_after = $dispatcher->trigger_event('core.ucp_prefs_view_data', compact($event_data));
+		extract($event_data_after, EXTR_OVERWRITE);
 
 		self::assertEquals($expected, $data);
 	}
