@@ -17,7 +17,7 @@ class release_2_1_1_data extends \phpbb\db\migration\migration
 		return !isset($this->config['topic_preview_version']);
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\vse\topicpreview\migrations\v2xx\release_2_1_0_data');
 	}
