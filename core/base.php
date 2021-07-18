@@ -50,7 +50,7 @@ class base
 	 */
 	public function avatars_enabled()
 	{
-		return (bool) $this->config['topic_preview_avatars'] && $this->config['allow_avatar'] && $this->user->optionget('viewavatars');
+		return $this->config['topic_preview_avatars'] && $this->config['allow_avatar'] && $this->user->optionget('viewavatars');
 	}
 
 	/**

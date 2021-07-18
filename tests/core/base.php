@@ -65,7 +65,7 @@ class base extends \phpbb_database_test_case
 			'allow_avatar'					=> 1,
 		));
 
-		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
+		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher();
 
 		$this->language = new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx));
 		$user = $this->user = $this->getMockBuilder('\phpbb\user')
