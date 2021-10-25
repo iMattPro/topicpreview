@@ -29,7 +29,7 @@ class module_test extends \phpbb_test_case
 
 		$mock_acp_controller = $this->getMockBuilder('\vse\topicpreview\controller\acp_controller')
 			->disableOriginalConstructor()
-			->setMethods(array('handle'))
+			->onlyMethods(['handle'])
 			->getMock();
 
 		$phpbb_container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')

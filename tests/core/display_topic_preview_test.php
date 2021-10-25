@@ -47,7 +47,7 @@ class display_topic_preview_test extends base
 
 		$path_helper = $this->getMockBuilder('\phpbb\path_helper')
 			->disableOriginalConstructor()
-			->setMethods(array('get_web_root_path'))
+			->onlyMethods(array('get_web_root_path'))
 			->getMock();
 		$path_helper->method('get_web_root_path')
 			->willReturn($phpbb_root_path);

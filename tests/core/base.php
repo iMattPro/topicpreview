@@ -70,7 +70,6 @@ class base extends \phpbb_database_test_case
 		$this->language = new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx));
 		$user = $this->user = $this->getMockBuilder('\phpbb\user')
 			->setConstructorArgs(array($this->language, '\phpbb\datetime'))
-			->setMethods(array())
 			->getMock();
 		$this->user->method('optionget')
 			->with(self::anything())
