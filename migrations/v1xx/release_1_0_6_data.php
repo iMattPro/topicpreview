@@ -17,7 +17,7 @@ class release_1_0_6_data extends \phpbb\db\migration\migration
 		return isset($this->config['topic_preview_limit']);
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\vse\topicpreview\migrations\v1xx\release_1_0_6_schema');
 	}

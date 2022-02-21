@@ -12,7 +12,7 @@ namespace vse\topicpreview\tests\core;
 
 class display_topic_preview_test extends base
 {
-	/** @var \phpbb\avatar\driver\local|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\avatar\driver\local|\PHPUnit\Framework\MockObject\MockObject */
 	protected $avatar_driver;
 
 	/** @var array Avatar data to use in tests below */
@@ -22,7 +22,7 @@ class display_topic_preview_test extends base
 		'height' => '60',
 	);
 
-	public function setUp(): void
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -40,7 +40,7 @@ class display_topic_preview_test extends base
 		$this->avatar_driver->method('get_data')
 			->willReturn(self::$avatar_data);
 
-		/** @var \phpbb\request\request|\PHPUnit_Framework_MockObject_MockObject $request */
+		/** @var \phpbb\request\request|\PHPUnit\Framework\MockObject\MockObject $request */
 		$request = $this->getMockBuilder('\phpbb\request\request')
 			->disableOriginalConstructor()
 			->getMock();
@@ -52,7 +52,7 @@ class display_topic_preview_test extends base
 		$path_helper->method('get_web_root_path')
 			->willReturn($phpbb_root_path);
 
-		/** @var \phpbb\event\dispatcher_interface|\PHPUnit_Framework_MockObject_MockObject $dispatcher */
+		/** @var \phpbb\event\dispatcher_interface|\PHPUnit\Framework\MockObject\MockObject $dispatcher */
 		$dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher_interface')
 			->getMock();
 
@@ -72,6 +72,8 @@ class display_topic_preview_test extends base
 					'first_post_text' => 'First message',
 					'fp_avatar' => self::$avatar_data['src'],
 					'fp_avatar_type' => 'avatar.driver.local',
+					'fp_avatar_width' => '',
+					'fp_avatar_height' => '',
 					'topic_first_post_id' => 1,
 					'last_post_text' => '',
 					'lp_avatar' => '',
@@ -90,10 +92,14 @@ class display_topic_preview_test extends base
 					'first_post_text' => 'Second message [b:3o8ohvlj]with bold text[/b:3o8ohvlj] <!-- s:) --><img src="{SMILIES_PATH}/icon_e_smile.gif" alt=":)" title="Smile" /><!-- s:) --> and smiley',
 					'fp_avatar' => self::$avatar_data['src'],
 					'fp_avatar_type' => 'avatar.driver.local',
+					'fp_avatar_width' => '',
+					'fp_avatar_height' => '',
 					'topic_first_post_id' => 2,
 					'last_post_text' => str_repeat ('a', 155),
 					'lp_avatar' => self::$avatar_data['src'],
 					'lp_avatar_type' => 'avatar.driver.local',
+					'lp_avatar_width' => '',
+					'lp_avatar_height' => '',
 					'topic_last_post_id' => 3,
 				),
 				array(
@@ -108,10 +114,14 @@ class display_topic_preview_test extends base
 					'first_post_text' => 'Third message with <!-- m --><a class="postlink" href="http://google.com">http://google.com</a><!-- m --> magic url and <!-- e --><a href="mailto:test@google.com">test@google.com</a><!-- e --> email',
 					'fp_avatar' => '',
 					'fp_avatar_type' => 0,
+					'fp_avatar_width' => '',
+					'fp_avatar_height' => '',
 					'topic_first_post_id' => 4,
 					'last_post_text' => str_repeat ('a', 155),
 					'lp_avatar' => self::$avatar_data['src'],
 					'lp_avatar_type' => 'avatar.driver.local',
+					'lp_avatar_width' => '',
+					'lp_avatar_height' => '',
 					'topic_last_post_id' => 5,
 				),
 				array(
@@ -126,10 +136,14 @@ class display_topic_preview_test extends base
 					'first_post_text' => '',
 					'fp_avatar' => '',
 					'fp_avatar_type' => 0,
+					'fp_avatar_width' => '',
+					'fp_avatar_height' => '',
 					'topic_first_post_id' => 6,
 					'last_post_text' => '',
 					'lp_avatar' => '',
 					'lp_avatar_type' => 0,
+					'lp_avatar_width' => '',
+					'lp_avatar_height' => '',
 					'topic_last_post_id' => 7,
 				),
 				array(
@@ -144,10 +158,14 @@ class display_topic_preview_test extends base
 					'first_post_text' => 'Fourth message [quote:3o8ohvlj]' . str_repeat('aaa ', 600) . '[/quote:3o8ohvlj]',
 					'fp_avatar' => null,
 					'fp_avatar_type' => 0,
+					'fp_avatar_width' => '',
+					'fp_avatar_height' => '',
 					'topic_first_post_id' => 8,
 					'last_post_text' =>'',
 					'lp_avatar' => null,
 					'lp_avatar_type' => 0,
+					'lp_avatar_width' => '',
+					'lp_avatar_height' => '',
 					'topic_last_post_id' => 8,
 				),
 				array(
@@ -181,7 +199,7 @@ class display_topic_preview_test extends base
 		$block = $preview_display->display_topic_preview($data, $block);
 
 		// Test that we get the expected result
-		$this->assertEquals($expected, $block);
+		self::assertEquals($expected, $block);
 	}
 
 	public function test_display_topic_preview_disabled()
@@ -196,6 +214,6 @@ class display_topic_preview_test extends base
 		$preview_display = $this->get_topic_preview_display();
 
 		// Test that we get back the unmodified block array
-		$this->assertEquals($block, $preview_display->display_topic_preview($data, $block));
+		self::assertEquals($block, $preview_display->display_topic_preview($data, $block));
 	}
 }

@@ -15,10 +15,10 @@ class listener_test extends \phpbb_test_case
 	/** @var \vse\topicpreview\event\listener */
 	protected $listener;
 
-	/** @var \vse\topicpreview\core\data|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \vse\topicpreview\core\data|\PHPUnit\Framework\MockObject\MockObject */
 	protected $topic_preview_data;
 
-	/** @var \vse\topicpreview\core\display|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \vse\topicpreview\core\display|\PHPUnit\Framework\MockObject\MockObject */
 	protected $topic_preview_display;
 
 	/**
@@ -42,7 +42,7 @@ class listener_test extends \phpbb_test_case
 	public function test_construct()
 	{
 		$this->set_listener();
-		$this->assertInstanceOf('\Symfony\Component\EventDispatcher\EventSubscriberInterface', $this->listener);
+		self::assertInstanceOf('\Symfony\Component\EventDispatcher\EventSubscriberInterface', $this->listener);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class listener_test extends \phpbb_test_case
 	*/
 	public function test_getSubscribedEvents()
 	{
-		$this->assertEquals(array(
+		self::assertEquals(array(
 			'core.viewforum_get_topic_data',
 			'core.viewforum_get_shadowtopic_data',
 			'core.viewforum_modify_topicrow',
@@ -77,7 +77,7 @@ class listener_test extends \phpbb_test_case
 
 		// Check that expected method is called with
 		// the correct arguments. Returns a new value.
-		$this->topic_preview_data->expects($this->once())
+		$this->topic_preview_data->expects(self::once())
 			->method('modify_sql')
 			->with($data['sql_array'])
 			->willReturn(array('BAR'));
@@ -86,7 +86,7 @@ class listener_test extends \phpbb_test_case
 		$this->listener->modify_sql_array($data);
 
 		// Assert that the event data has been modified
-		$this->assertEquals(array('BAR'), $data['sql_array']);
+		self::assertEquals(array('BAR'), $data['sql_array']);
 	}
 
 	public function test_modify_sql_string()
@@ -102,21 +102,17 @@ class listener_test extends \phpbb_test_case
 
 		// Check that expected method is called with
 		// the correct arguments. Returns a new value.
-		$this->topic_preview_data->expects($this->at(0))
+		$this->topic_preview_data->expects(self::exactly(2))
 			->method('modify_sql')
-			->with($data['sql_select'], 'SELECT')
-			->willReturn('SELECT FOO BAR');
-		$this->topic_preview_data->expects($this->at(1))
-			->method('modify_sql')
-			->with($data['sql_from'], 'JOIN')
-			->willReturn('FROM FOO BAR');
+			->withConsecutive([$data['sql_select'], 'SELECT'], [$data['sql_from'], 'JOIN'])
+			->willReturnOnConsecutiveCalls('SELECT FOO BAR', 'FROM FOO BAR');
 
 		// Call the event
 		$this->listener->modify_sql_string($data);
 
 		// Assert that the event data has been modified
-		$this->assertEquals('SELECT FOO BAR', $data['sql_select']);
-		$this->assertEquals('FROM FOO BAR', $data['sql_from']);
+		self::assertEquals('SELECT FOO BAR', $data['sql_select']);
+		self::assertEquals('FROM FOO BAR', $data['sql_from']);
 	}
 
 	public function display_topic_previews_data()
@@ -143,7 +139,7 @@ class listener_test extends \phpbb_test_case
 
 		// Check that expected method is called with
 		// the correct arguments. Returns a new value.
-		$this->topic_preview_display->expects($this->once())
+		$this->topic_preview_display->expects(self::once())
 			->method('display_topic_preview')
 			->with($data['row'], $data[$block])
 			->willReturn(array('BAR'));
@@ -152,6 +148,6 @@ class listener_test extends \phpbb_test_case
 		$this->listener->display_topic_previews($data);
 
 		// Assert that the event data has been modified
-		$this->assertEquals(array('BAR'), $data[$block]);
+		self::assertEquals(array('BAR'), $data[$block]);
 	}
 }

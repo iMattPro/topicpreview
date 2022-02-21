@@ -8,12 +8,15 @@
  *
  */
 
-namespace vse\topicpreview\tests\acp;
+namespace vse\topicpreview\controller;
 
 require_once __DIR__ . '/../../../../../includes/functions_acp.php';
 
 class controller_test extends \phpbb_database_test_case
 {
+	/** @var bool A return value for check_form_key() */
+	public static $valid_form = true;
+
 	protected static function setup_extensions()
 	{
 		return array('vse/topicpreview');
@@ -33,23 +36,23 @@ class controller_test extends \phpbb_database_test_case
 	/** @var \phpbb\language\language */
 	protected $language;
 
-	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\request\request */
+	/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\request\request */
 	protected $request;
 
 	/** @var \vse\topicpreview\core\settings */
 	protected $settings;
 
-	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\template\template */
+	/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\template\template */
 	protected $template;
 
 	/** @var \phpbb\user */
 	protected $user;
 
-	public function setUp(): void
+	protected function setUp(): void
 	{
 		parent::setUp();
 
-		global $config, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $phpbb_root_path, $phpEx;
+		global $config, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $user, $phpbb_root_path, $phpEx;
 
 		$cache = new \phpbb_mock_cache;
 		$config = $this->config = new \phpbb\config\config(array());
@@ -60,10 +63,11 @@ class controller_test extends \phpbb_database_test_case
 			->disableOriginalConstructor()
 			->getMock();
 		$template = $this->template = $this->getMockBuilder('\phpbb\template\template')
+			->disableOriginalConstructor()
 			->getMock();
 		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
 		$this->language = new \phpbb\language\language($lang_loader);
-		$this->user = new \phpbb\user($this->language, '\phpbb\datetime');
+		$user = $this->user = new \phpbb\user($this->language, '\phpbb\datetime');
 
 		$this->settings = new \vse\topicpreview\core\settings(
 			$cache,
@@ -87,7 +91,7 @@ class controller_test extends \phpbb_database_test_case
 	 */
 	public function test_main_display()
 	{
-		$this->template->expects($this->at(1))
+		$this->template->expects(static::once())
 			->method('assign_vars')
 			->with(array(
 				'TOPIC_PREVIEW_LIMIT'		=> $this->config['topic_preview_limit'],
@@ -118,18 +122,15 @@ class controller_test extends \phpbb_database_test_case
 	public function test_main_submit($data_map, $error, $expected)
 	{
 		// Set up some test configurations
-		$this->user->data['user_id'] = 2;
-		$this->config['form_token_lifetime'] = -1;
+		static::$valid_form = !empty($data_map);
 
-		$this->request->expects($this->atLeastOnce())
+		$this->request->expects(static::atLeastOnce())
 			->method('is_set_post')
 			->willReturnMap(array(
 				array('submit', true),
-				array('form_token', true),
-				array('creation_time', true),
 			));
 
-		$this->request->expects($this->atLeastOnce())
+		$this->request->expects(static::$valid_form ? static::atLeastOnce() : static::never())
 			->method('variable')
 			->willReturnMap($data_map);
 
@@ -150,9 +151,6 @@ class controller_test extends \phpbb_database_test_case
 					array('topic_preview_avatars', 0, false, \phpbb\request\request_interface::REQUEST, 1),
 					array('topic_preview_last_post', 0, false, \phpbb\request\request_interface::REQUEST, 1),
 					array('topic_preview_strip_bbcodes', '', false, \phpbb\request\request_interface::REQUEST, 'foo'),
-					// hidden fields used for check_form_key
-					array('form_token', '', false, \phpbb\request\request_interface::REQUEST, sha1(0 . 'acp_topic_preview')),
-					array('creation_time', 0, false, \phpbb\request\request_interface::REQUEST, 0),
 				),
 				E_USER_NOTICE,
 				'CONFIG_UPDATED',
@@ -183,4 +181,21 @@ class controller_test extends \phpbb_database_test_case
 
 		return $method->invokeArgs($object, $parameters);
 	}
+}
+
+/**
+ * Mock check_form_key()
+ *
+ * @return bool
+ */
+function check_form_key()
+{
+	return \vse\topicpreview\controller\controller_test::$valid_form;
+}
+
+/**
+ * Mock add_form_key()
+ */
+function add_form_key()
+{
 }

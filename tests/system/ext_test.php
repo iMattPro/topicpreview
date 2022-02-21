@@ -14,16 +14,16 @@ use vse\topicpreview\ext;
 
 class ext_test extends \phpbb_test_case
 {
-	/** @var \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\DependencyInjection\ContainerInterface */
+	/** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\DependencyInjection\ContainerInterface */
 	protected $container;
 
-	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\finder */
+	/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\finder */
 	protected $extension_finder;
 
-	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\db\migrator */
+	/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\db\migrator */
 	protected $migrator;
 
-	public function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -74,7 +74,7 @@ class ext_test extends \phpbb_test_case
 
 		// Mocked container should return the config object
 		// when encountering $this->container->get('config')
-		$this->container->expects($this->once())
+		$this->container->expects(self::once())
 			->method('get')
 			->with('config')
 			->willReturn($config);
@@ -82,6 +82,6 @@ class ext_test extends \phpbb_test_case
 		/** @var \vse\topicpreview\ext */
 		$ext = new \vse\topicpreview\ext($this->container, $this->extension_finder, $this->migrator, 'vse/topicpreview', '');
 
-		$this->assertSame($expected, $ext->is_enableable());
+		self::assertSame($expected, $ext->is_enableable());
 	}
 }

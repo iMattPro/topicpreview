@@ -27,6 +27,6 @@ class topic_preview_ucp_test extends \phpbb_functional_test_case
 		$this->add_lang_ext('vse/topicpreview', 'topic_preview_ucp');
 
 		$crawler = self::request('GET', 'ucp.php?i=ucp_prefs&mode=view&sid=' . $this->sid);
-		$this->assertContains($this->lang('TOPIC_PREVIEW_DISPLAY'), $crawler->filter('#cp-main')->text());
+		self::assertStringContainsString($this->lang('TOPIC_PREVIEW_DISPLAY'), $crawler->filter('#cp-main')->text());
 	}
 }

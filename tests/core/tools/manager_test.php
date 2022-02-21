@@ -27,7 +27,7 @@ class manager_test extends base
 	{
 		if ($utils && phpbb_version_compare(PHPBB_VERSION, '3.2.0-dev', '<'))
 		{
-			$this->markTestSkipped('Testing trim/tools/bbcodes is for phpBB 3.2 or higher');
+			self::markTestSkipped('Testing trim/tools/bbcodes is for phpBB 3.2 or higher');
 		}
 		else if ($utils)
 		{
@@ -47,8 +47,8 @@ class manager_test extends base
 
 		foreach ($expected as $name)
 		{
-			$this->assertArrayHasKey($name, $tools);
-			$this->assertInstanceOf("\\vse\\topicpreview\\core\\trim\\tools\\$name", $tools[$name]);
+			self::assertArrayHasKey($name, $tools);
+			self::assertInstanceOf("\\vse\\topicpreview\\core\\trim\\tools\\$name", $tools[$name]);
 		}
 	}
 
@@ -74,11 +74,11 @@ class manager_test extends base
 
 		if ($expected === null)
 		{
-			$this->assertNull($manager->get_tool($name));
+			self::assertNull($manager->get_tool($name));
 		}
 		else
 		{
-			$this->assertInstanceOf($expected, $manager->get_tool($name));
+			self::assertInstanceOf($expected, $manager->get_tool($name));
 		}
 	}
 }

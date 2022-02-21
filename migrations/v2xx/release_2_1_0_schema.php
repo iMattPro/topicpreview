@@ -17,7 +17,7 @@ class release_2_1_0_schema extends \phpbb\db\migration\migration
 		return $this->db_tools->sql_column_exists($this->table_prefix . 'styles', 'topic_preview_theme');
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\vse\topicpreview\migrations\v2xx\release_2_0_0');
 	}

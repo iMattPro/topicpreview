@@ -21,7 +21,7 @@ class module_test extends \phpbb_test_case
 
 		// Test basic module instantiation
 		$module = new \vse\topicpreview\acp\topic_preview_module();
-		$this->assertInstanceOf('\vse\topicpreview\acp\topic_preview_module', $module);
+		self::assertInstanceOf('\vse\topicpreview\acp\topic_preview_module', $module);
 
 		// Test calling module->main()
 		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
@@ -35,16 +35,14 @@ class module_test extends \phpbb_test_case
 		$phpbb_container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
 			->getMock();
 		$phpbb_container
-			->expects($this->at(0))
+			->expects(self::exactly(2))
 			->method('get')
-			->with('language')
-			->willReturn($lang);
-
-		$phpbb_container
-			->expects($this->at(1))
-			->method('get')
-			->with('vse.topicpreview.acp.controller')
-			->willReturn($mock_acp_controller);
+			->withConsecutive(
+				['language'], ['vse.topicpreview.acp.controller']
+			)
+			->willReturnOnConsecutiveCalls(
+				$lang, $mock_acp_controller
+			);
 
 		$module->main();
 	}
@@ -53,7 +51,7 @@ class module_test extends \phpbb_test_case
 	{
 		$info_class = new \vse\topicpreview\acp\topic_preview_info();
 		$info_array = $info_class->module();
-		$this->assertArrayHasKey('filename', $info_array);
-		$this->assertEquals('\vse\topicpreview\acp\topic_preview_module', $info_array['filename']);
+		self::assertArrayHasKey('filename', $info_array);
+		self::assertEquals('\vse\topicpreview\acp\topic_preview_module', $info_array['filename']);
 	}
 }

@@ -24,13 +24,13 @@ class base extends \phpbb_database_test_case
 	/** @var \phpbb\language\language */
 	protected $language;
 
-	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
 	protected $template;
 
 	/** @var \vse\topicpreview\core\trim\trim */
 	protected $trim;
 
-	/** @var \phpbb\user|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\user|\PHPUnit\Framework\MockObject\MockObject */
 	protected $user;
 
 	/** @var string */
@@ -46,7 +46,7 @@ class base extends \phpbb_database_test_case
 		return $this->createXMLDataSet(__DIR__ . '/fixtures/topic_preview.xml');
 	}
 
-	public function setUp(): void
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -65,7 +65,7 @@ class base extends \phpbb_database_test_case
 			'allow_avatar'					=> 1,
 		));
 
-		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher(new \phpbb_mock_container_builder());
+		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher();
 
 		$this->language = new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx));
 		$user = $this->user = $this->getMockBuilder('\phpbb\user')
@@ -73,7 +73,7 @@ class base extends \phpbb_database_test_case
 			->setMethods(array())
 			->getMock();
 		$this->user->method('optionget')
-			->with($this->anything())
+			->with(self::anything())
 			->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;

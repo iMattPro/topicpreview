@@ -47,7 +47,8 @@
 
 			// clear any existing timeouts
 			if (previewTimeout) {
-				previewTimeout = clearTimeout(previewTimeout);
+				clearTimeout(previewTimeout);
+				previewTimeout = undefined;
 			}
 
 			// remove original titles to prevent overlap
@@ -90,7 +91,8 @@
 
 			// clear any existing timeouts
 			if (previewTimeout) {
-				previewTimeout = clearTimeout(previewTimeout);
+				clearTimeout(previewTimeout);
+				previewTimeout = undefined;
 			}
 
 			// Remove topic preview
@@ -110,7 +112,7 @@
 			obj.restoreTitles('dt').restoreTitles('dl'); // reinstate original title attributes
 		};
 
-		// Check if y coord is within 50 pixels of bottom edge of browser window
+		// Check if y coordinate is within 50 pixels of bottom edge of browser window
 		var edgeDetect = function(y) {
 			return (y >= ($(window).scrollTop() + $(window).height() - 50));
 		};
@@ -124,7 +126,8 @@
 					previewContainer.hide();
 					// clear any existing timeouts
 					if (previewTimeout) {
-						previewTimeout = clearTimeout(previewTimeout);
+						clearTimeout(previewTimeout);
+						previewTimeout = undefined;
 					}
 				})
 			;
