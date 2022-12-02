@@ -32,8 +32,7 @@ class module_test extends \phpbb_test_case
 			->onlyMethods(['handle'])
 			->getMock();
 
-		$phpbb_container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
-			->getMock();
+		$phpbb_container = $this->createMock('Symfony\Component\DependencyInjection\ContainerInterface');
 		$phpbb_container
 			->expects(self::exactly(2))
 			->method('get')

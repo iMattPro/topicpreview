@@ -30,9 +30,7 @@ class display_topic_preview_test extends base
 
 		// Set up a mock for avatar.driver.local
 		$this->config['allow_avatar_local'] = true;
-		$this->avatar_driver = $this->getMockBuilder('\phpbb\avatar\driver\local')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->avatar_driver = $this->createMock('\phpbb\avatar\driver\local');
 		$this->avatar_driver->method('get_name')
 			->willReturn('avatar.driver.local');
 		$this->avatar_driver->method('get_config_name')
@@ -41,9 +39,7 @@ class display_topic_preview_test extends base
 			->willReturn(self::$avatar_data);
 
 		/** @var \phpbb\request\request|\PHPUnit\Framework\MockObject\MockObject $request */
-		$request = $this->getMockBuilder('\phpbb\request\request')
-			->disableOriginalConstructor()
-			->getMock();
+		$request = $this->createMock('\phpbb\request\request');
 
 		$path_helper = $this->getMockBuilder('\phpbb\path_helper')
 			->disableOriginalConstructor()
@@ -53,8 +49,7 @@ class display_topic_preview_test extends base
 			->willReturn($phpbb_root_path);
 
 		/** @var \phpbb\event\dispatcher_interface|\PHPUnit\Framework\MockObject\MockObject $dispatcher */
-		$dispatcher = $this->getMockBuilder('\phpbb\event\dispatcher_interface')
-			->getMock();
+		$dispatcher = $this->createMock('\phpbb\event\dispatcher_interface');
 
 		$phpbb_container = new \phpbb_mock_container_builder();
 		$phpbb_container->set('avatar.manager', new \phpbb\avatar\manager($config, $dispatcher, array($this->avatar_driver)));

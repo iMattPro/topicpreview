@@ -8,7 +8,7 @@
 ## 2.3.1 - 2019-03-30
 
 - Switched to a pure CSS "No Avatar" image instead of the no-avatar.gif that was not always available in some 3rd-party styles.
-- Fix possible install issues related to its ACP modules.
+- Fix possible installation issues related to its ACP modules.
 - Miscellaneous minor code improvements.
 
 ## 2.3.0 - 2018-01-20

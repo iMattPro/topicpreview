@@ -135,7 +135,7 @@ class data extends base
 
 		foreach ($avatar_ary as $key => $var)
 		{
-			$sql .= ", {$prefix}u.{$key} AS {$prefix}_$var";
+			$sql .= ", {$prefix}u.$key AS {$prefix}_$var";
 		}
 
 		return $sql;
