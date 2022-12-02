@@ -80,8 +80,7 @@ class base extends \phpbb_database_test_case
 		$this->trim = tools\helper::trimTools()
 			->setTools($config)
 			->getTrim();
-		$this->template = $this->getMockBuilder('\phpbb\template\template')
-			->getMock();
+		$this->template = $this->createMock('\phpbb\template\template');
 	}
 
 	protected function get_topic_preview_data()

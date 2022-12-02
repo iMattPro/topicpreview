@@ -26,12 +26,8 @@ class listener_test extends \phpbb_test_case
 	*/
 	protected function set_listener()
 	{
-		$this->topic_preview_data = $this->getMockBuilder('\vse\topicpreview\core\data')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->topic_preview_display = $this->getMockBuilder('\vse\topicpreview\core\display')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->topic_preview_data = $this->createMock('\vse\topicpreview\core\data');
+		$this->topic_preview_display = $this->createMock('\vse\topicpreview\core\display');
 
 		$this->listener = new \vse\topicpreview\event\listener($this->topic_preview_data, $this->topic_preview_display);
 	}

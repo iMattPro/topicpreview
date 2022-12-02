@@ -59,12 +59,8 @@ class controller_test extends \phpbb_database_test_case
 		$db = $this->new_dbal();
 		$phpbb_extension_manager = new \phpbb_mock_extension_manager($phpbb_root_path);
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
-		$request = $this->request = $this->getMockBuilder('\phpbb\request\request')
-			->disableOriginalConstructor()
-			->getMock();
-		$template = $this->template = $this->getMockBuilder('\phpbb\template\template')
-			->disableOriginalConstructor()
-			->getMock();
+		$request = $this->request = $this->createMock('\phpbb\request\request');
+		$template = $this->template = $this->createMock('\phpbb\template\template');
 		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
 		$this->language = new \phpbb\language\language($lang_loader);
 		$user = $this->user = new \phpbb\user($this->language, '\phpbb\datetime');
