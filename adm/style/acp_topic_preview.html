@@ -9,11 +9,11 @@
 	<fieldset>
 		<legend>{{ lang('TOPIC_PREVIEW_SETTINGS') }}</legend>
 		<dl>
-			<dt><label for="topic_preview_limit">{{ lang('TOPIC_PREVIEW_LENGTH') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_LENGTH_EXPLAIN') }}</span></dt>
+			<dt><label for="topic_preview_limit">{{ lang('TOPIC_PREVIEW_LENGTH') ~ lang('COLON') }}</label><br><span>{{ lang('TOPIC_PREVIEW_LENGTH_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_limit" id="topic_preview_limit" type="number" min="0" max="999" value="{{ TOPIC_PREVIEW_LIMIT }}" /> {{ lang('CHARS') }}</dd>
 		</dl>
 		<dl>
-			<dt><label for="topic_preview_strip_bbcodes">{{ lang('TOPIC_PREVIEW_STRIP') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_STRIP_EXPLAIN') }}</span></dt>
+			<dt><label for="topic_preview_strip_bbcodes">{{ lang('TOPIC_PREVIEW_STRIP') ~ lang('COLON') }}</label><br><span>{{ lang('TOPIC_PREVIEW_STRIP_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_strip_bbcodes" id="topic_preview_strip_bbcodes" type="text" size="30" maxlength="255" value="{{ TOPIC_PREVIEW_STRIP }}" /></dd>
 		</dl>
 		<dl>
@@ -43,12 +43,12 @@
 			<dd><input name="topic_preview_delay" id="topic_preview_delay" type="number" min="0" max="9999" value="{{ TOPIC_PREVIEW_DELAY }}" /> {{ lang('MILLISECOND') }}</dd>
 		</dl>
 		<dl>
-			<dt><label for="topic_preview_drift">{{ lang('TOPIC_PREVIEW_DRIFT') ~ lang('COLON') }}</label><br /><span>{{ lang('TOPIC_PREVIEW_DRIFT_EXPLAIN') }}</span></dt>
+			<dt><label for="topic_preview_drift">{{ lang('TOPIC_PREVIEW_DRIFT') ~ lang('COLON') }}</label><br><span>{{ lang('TOPIC_PREVIEW_DRIFT_EXPLAIN') }}</span></dt>
 			<dd><input name="topic_preview_drift" id="topic_preview_drift" type="number" min="-99999" max="99999" value="{{ TOPIC_PREVIEW_DRIFT }}" /> {{ lang('PIXEL') }}</dd>
 		</dl>
 		{% for style in TOPIC_PREVIEW_STYLES %}
 			<dl>
-				<dt><label for="style_{{ style.style_id }}">{{ lang('TOPIC_PREVIEW_THEME', style.style_name) ~ lang('COLON') }}</label><br />
+				<dt><label for="style_{{ style.style_id }}">{{ lang('TOPIC_PREVIEW_THEME', style.style_name) ~ lang('COLON') }}</label><br>
 					<span>{{ lang('TOPIC_PREVIEW_THEME_EXPLAIN', style.style_name) }}</span>
 				</dt>
 				<dd>
