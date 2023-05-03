@@ -147,6 +147,7 @@ class controller_test extends \phpbb_database_test_case
 					array('topic_preview_avatars', 0, false, \phpbb\request\request_interface::REQUEST, 1),
 					array('topic_preview_last_post', 0, false, \phpbb\request\request_interface::REQUEST, 1),
 					array('topic_preview_strip_bbcodes', '', false, \phpbb\request\request_interface::REQUEST, 'foo'),
+					array('style_1', '', false, \phpbb\request\request_interface::REQUEST, 'no'),
 				),
 				E_USER_NOTICE,
 				'CONFIG_UPDATED',
