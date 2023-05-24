@@ -33,15 +33,10 @@ class module_test extends \phpbb_test_case
 			->getMock();
 
 		$phpbb_container = $this->createMock('Symfony\Component\DependencyInjection\ContainerInterface');
-		$phpbb_container
-			->expects(self::exactly(2))
+		$phpbb_container->expects(self::once())
 			->method('get')
-			->withConsecutive(
-				['language'], ['vse.topicpreview.acp.controller']
-			)
-			->willReturnOnConsecutiveCalls(
-				$lang, $mock_acp_controller
-			);
+			->with('vse.topicpreview.acp.controller')
+			->willReturn($mock_acp_controller);
 
 		$module->main();
 	}
