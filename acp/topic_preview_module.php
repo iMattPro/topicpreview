@@ -37,9 +37,7 @@ class topic_preview_module
 		global $phpbb_container;
 
 		$this->tpl_name = 'acp_topic_preview';
-
-		$this->page_title = $phpbb_container->get('language')
-			->lang('TOPIC_PREVIEW');
+		$this->page_title = 'TOPIC_PREVIEW';
 
 		$phpbb_container->get('vse.topicpreview.acp.controller')
 			->set_u_action($this->u_action)
