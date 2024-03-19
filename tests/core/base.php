@@ -12,6 +12,9 @@ namespace vse\topicpreview\tests\core;
 
 class base extends \phpbb_database_test_case
 {
+	/** @var \phpbb\avatar\helper|\PHPUnit\Framework\MockObject\MockObject */
+	protected $avatar_helper;
+
 	/** @var \phpbb\config\config */
 	protected $config;
 
@@ -67,6 +70,9 @@ class base extends \phpbb_database_test_case
 
 		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher();
 
+		$this->avatar_helper = $this->getMockBuilder('\phpbb\avatar\helper')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->language = new \phpbb\language\language(new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx));
 		$user = $this->user = $this->getMockBuilder('\phpbb\user')
 			->setConstructorArgs(array($this->language, '\phpbb\datetime'))
@@ -93,6 +99,7 @@ class base extends \phpbb_database_test_case
 	protected function get_topic_preview_display()
 	{
 		return new \vse\topicpreview\core\display(
+			$this->avatar_helper,
 			$this->config,
 			$this->dispatcher,
 			$this->language,

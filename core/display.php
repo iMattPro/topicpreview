@@ -10,6 +10,7 @@
 
 namespace vse\topicpreview\core;
 
+use phpbb\avatar\helper as avatar_helper;
 use phpbb\config\config;
 use phpbb\event\dispatcher_interface;
 use phpbb\language\language;
@@ -27,6 +28,9 @@ class display extends base
 
 	/** @var string */
 	const NO_AVATAR = 'no-avatar';
+
+	/** @var avatar_helper*/
+	protected $avatar_helper;
 
 	/** @var dispatcher_interface */
 	protected $dispatcher;
@@ -46,16 +50,18 @@ class display extends base
 	/**
 	 * Constructor
 	 *
-	 * @param config               $config     Config object
-	 * @param dispatcher_interface $dispatcher Event dispatcher object
-	 * @param language             $language   Language object
-	 * @param template             $template   Template object
-	 * @param trim                 $trim       Trim text object
-	 * @param user                 $user       User object
+	 * @param avatar_helper        $avatar_helper Avatar helper object
+	 * @param config                $config         Config object
+	 * @param dispatcher_interface $dispatcher    Event dispatcher object
+	 * @param language             $language      Language object
+	 * @param template             $template      Template object
+	 * @param trim                 $trim          Trim text object
+	 * @param user                 $user          User object
 	 * @param string               $root_path
 	 */
-	public function __construct(config $config, dispatcher_interface $dispatcher, language $language, template $template, trim $trim, user $user, $root_path)
+	public function __construct(avatar_helper $avatar_helper, config $config, dispatcher_interface $dispatcher, language $language, template $template, trim $trim, user $user, $root_path)
 	{
+		$this->avatar_helper = $avatar_helper;
 		$this->dispatcher = $dispatcher;
 		$this->language = $language;
 		$this->template = $template;
@@ -169,7 +175,7 @@ class display extends base
 				'avatar_width'	=> $row[$poster . '_avatar_width'],
 				'avatar_height'	=> $row[$poster . '_avatar_height'],
 			);
-			$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+			$avatar = $this->avatar_helper->get_user_avatar($map, 'USER_AVATAR', false, true)['html'];
 		}
 
 		// If avatar string is empty, fall back to no_avatar.gif

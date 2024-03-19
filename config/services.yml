@@ -16,6 +16,7 @@ services:
     vse.topicpreview.display:
         class: vse\topicpreview\core\display
         arguments:
+            - '@avatar.helper'
             - '@config'
             - '@dispatcher'
             - '@language'

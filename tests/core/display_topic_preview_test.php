@@ -37,6 +37,8 @@ class display_topic_preview_test extends base
 			->willReturn('local');
 		$this->avatar_driver->method('get_data')
 			->willReturn(self::$avatar_data);
+		$this->avatar_helper->method('get_user_avatar')
+			->willReturn(['html' => '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="' . self::$avatar_data['src'] . '" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />']);
 
 		/** @var \phpbb\request\request|\PHPUnit\Framework\MockObject\MockObject $request */
 		$request = $this->createMock('\phpbb\request\request');
