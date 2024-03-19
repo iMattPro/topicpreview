@@ -17,15 +17,11 @@ class module_test extends \phpbb_test_case
 	 */
 	public function test_module()
 	{
-		global $phpbb_container, $phpbb_root_path, $phpEx;
+		global $phpbb_container;
 
 		// Test basic module instantiation
 		$module = new \vse\topicpreview\acp\topic_preview_module();
 		self::assertInstanceOf('\vse\topicpreview\acp\topic_preview_module', $module);
-
-		// Test calling module->main()
-		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
-		$lang = new \phpbb\language\language($lang_loader);
 
 		$mock_acp_controller = $this->getMockBuilder('\vse\topicpreview\controller\acp_controller')
 			->disableOriginalConstructor()
@@ -34,14 +30,10 @@ class module_test extends \phpbb_test_case
 
 		$phpbb_container = $this->createMock('Symfony\Component\DependencyInjection\ContainerInterface');
 		$phpbb_container
-			->expects(self::exactly(2))
+			->expects(self::once())
 			->method('get')
-			->withConsecutive(
-				['language'], ['vse.topicpreview.acp.controller']
-			)
-			->willReturnOnConsecutiveCalls(
-				$lang, $mock_acp_controller
-			);
+			->with('vse.topicpreview.acp.controller')
+			->willReturn($mock_acp_controller);
 
 		$module->main();
 	}
