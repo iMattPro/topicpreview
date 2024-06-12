@@ -18,9 +18,6 @@ class ext extends \phpbb\extension\base
 	/** @var string Require 3.2.0 due to updated INCLUDECSS and ordered services */
 	const PHPBB_MIN_VERSION = '3.2.0';
 
-	/** @var string */
-	const PHPBB_MAX_VERSION = '4.0.0-dev';
-
 	/**
 	 * Enable extension if phpBB minimum version requirement is met
 	 * (check database and filesystem)
@@ -31,8 +28,6 @@ class ext extends \phpbb\extension\base
 	{
 		$config = $this->container->get('config');
 		return phpbb_version_compare($config['version'], self::PHPBB_MIN_VERSION, '>=')
-			&& phpbb_version_compare($config['version'], self::PHPBB_MAX_VERSION, '<')
-			&& phpbb_version_compare(PHPBB_VERSION, self::PHPBB_MIN_VERSION, '>=')
-			&& phpbb_version_compare(PHPBB_VERSION, self::PHPBB_MAX_VERSION, '<');
+			&& phpbb_version_compare(PHPBB_VERSION, self::PHPBB_MIN_VERSION, '>=');
 	}
 }
