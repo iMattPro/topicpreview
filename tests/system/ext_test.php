@@ -48,6 +48,8 @@ class ext_test extends \phpbb_test_case
 			array(ext::PHPBB_MIN_VERSION, true), // minimum version
 			array(PHPBB_VERSION, true), // current version
 			array('3.1.0', false), // old version
+			array(ext::PHPBB_MAX_VERSION, false), // max version
+			array('4.1.0', false), // way too new version
 		);
 	}
 
