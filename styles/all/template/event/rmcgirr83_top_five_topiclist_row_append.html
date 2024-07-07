@@ -1,4 +1,4 @@
 {% if top_five_topic.TOPIC_PREVIEW_FIRST_POST %}
-	{% set preview = top_five_topic %}
-	{% include '@vse_topicpreview/topicpreview.html' %}
+	{% import '@vse_topicpreview/topicpreview_macro.html' as macro %}
+	{{ macro.renderTopicPreview(top_five_topic) }}
 {% endif %}
