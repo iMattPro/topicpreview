@@ -32,9 +32,9 @@ class bbcodes extends base
 	 *
 	 * @param config         $config               Config object
 	 * @param bbcodes_legacy $trim_bbcodes_legacy  Legacy BBCodes trim tool
-	 * @param utils|null     $text_formatter_utils Text Formatter Utils
+	 * @param utils|null     $text_formatter_utils Text Formatter Utils (optional)
 	 */
-	public function __construct(config $config, bbcodes_legacy $trim_bbcodes_legacy, utils $text_formatter_utils = null)
+	public function __construct(config $config, bbcodes_legacy $trim_bbcodes_legacy, ?utils $text_formatter_utils = null)
 	{
 		$this->config = $config;
 		$this->trim_bbcodes_legacy = $trim_bbcodes_legacy;
