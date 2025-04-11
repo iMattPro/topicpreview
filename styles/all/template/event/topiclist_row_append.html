@@ -1,29 +1,26 @@
+{% import '@vse_topicpreview/topicpreview_macro.html' as macro %}
+
 {# display topic preview in view forum #}
 {% if topicrow.TOPIC_PREVIEW_FIRST_POST %}
-	{% set preview = topicrow %}
-	{% include '@vse_topicpreview/topicpreview.html' %}
+	{{ macro.renderTopicPreview(topicrow) }}
 {% endif %}
 
 {# display topic preview in search results #}
 {% if searchresults.TOPIC_PREVIEW_FIRST_POST %}
-	{% set preview = searchresults %}
-	{% include '@vse_topicpreview/topicpreview.html' %}
+	{{ macro.renderTopicPreview(searchresults) }}
 {% endif %}
 
 {# display topic preview in Similar Topics extension #}
 {% if similar.TOPIC_PREVIEW_FIRST_POST %}
-	{% set preview = similar %}
-	{% include '@vse_topicpreview/topicpreview.html' %}
+	{{ macro.renderTopicPreview(similar) }}
 {% endif %}
 
 {# display topic preview in Recent Topics extension #}
 {% if recent_topics.TOPIC_PREVIEW_FIRST_POST %}
-	{% set preview = recent_topics %}
-	{% include '@vse_topicpreview/topicpreview.html' %}
+	{{ macro.renderTopicPreview(recent_topics) }}
 {% endif %}
 
 {# DEPRECTATED: @v2.2.1 display topic preview in Top Five extension #}
 {% if top_five_topic.TOPIC_PREVIEW_FIRST_POST %}
-	{% set preview = top_five_topic %}
-	{% include '@vse_topicpreview/topicpreview.html' %}
+	{{ macro.renderTopicPreview(top_five_topic) }}
 {% endif %}
