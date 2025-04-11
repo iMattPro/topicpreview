@@ -52,7 +52,7 @@ class controller_test extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		global $config, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $user, $phpbb_root_path, $phpEx;
+		global $config, $language, $phpbb_extension_manager, $phpbb_dispatcher, $request, $template, $user, $phpbb_root_path, $phpEx;
 
 		$cache = new \phpbb_mock_cache;
 		$config = $this->config = new \phpbb\config\config(array());
@@ -62,7 +62,7 @@ class controller_test extends \phpbb_database_test_case
 		$request = $this->request = $this->createMock('\phpbb\request\request');
 		$template = $this->template = $this->createMock('\phpbb\template\template');
 		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
-		$this->language = new \phpbb\language\language($lang_loader);
+		$this->language = $language = new \phpbb\language\language($lang_loader);
 		$user = $this->user = new \phpbb\user($this->language, '\phpbb\datetime');
 
 		$this->settings = new \vse\topicpreview\core\settings(
