@@ -1,4 +1,4 @@
-# ![Topic Preview](https://imattpro.github.io/logo/search.png "Topic Preview") Topic Preview for phpBB3
+# ![Topic Preview](https://imattpro.github.io/logo/search.png "Topic Preview") Topic Preview for phpBB
 
 A phpBB extension that displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.
 
