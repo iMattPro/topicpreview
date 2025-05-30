@@ -4,7 +4,7 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 
 [![Build Status](https://github.com/iMattPro/topicpreview/actions/workflows/tests.yml/badge.svg)](https://github.com/iMattPro/topicpreview/actions)
 [![codecov](https://codecov.io/gh/iMattPro/topicpreview/branch/master/graph/badge.svg?token=XCFCZ4NZCX)](https://codecov.io/gh/iMattPro/topicpreview)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f1d45031bd20ef8804e6/maintainability)](https://codeclimate.com/github/iMattPro/topicpreview/maintainability)
+[![Maintainability](https://qlty.sh/badges/3f6bbcde-0ff8-42c7-bad8-712b7ffc6072/maintainability.svg)](https://qlty.sh/gh/iMattPro/projects/topicpreview)
 [![Latest Stable Version](https://poser.pugx.org/vse/topicpreview/v/stable)](https://www.phpbb.com/customise/db/extension/topicpreview/)
 
 ## Features
