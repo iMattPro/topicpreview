@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.3 - 2025-06-01
+
+- Future-proof away serious issues with future major phpBB versions.
+- Ajaxified the ACP settings form.
+- Various code improvements and optimizations.
+
 ## 2.3.2 - 2020-01-10
 
 - Fixed potential javascript issues in phpBB 3.3.x by removing deprecated code.
@@ -7,7 +13,7 @@
 
 ## 2.3.1 - 2019-03-30
 
-- Switched to a pure CSS "No Avatar" image instead of the no-avatar.gif that was not always available in some 3rd-party styles.
+- Switched to a pure CSS "No Avatar" image instead of the no-avatar.gif that was not always available in some third-party styles.
 - Fix possible installation issues related to its ACP modules.
 - Miscellaneous minor code improvements.
 
@@ -27,7 +33,7 @@
 
 - Improve compatibility with phpBB 3.1.x and 3.2.x
 - Added support for phpBB 3.2's s9e/textformatter utilities
-- Added missing ALT attribute to fallback no-avatar image in HTML
+- Added the missing ALT attribute to the fallback no-avatar image in HTML
 - Refactored topic preview's trim tools
 - Improved TWIG code
 - Added Bulgarian Translation
@@ -55,18 +61,18 @@
 ## 2.2.0 - 2015-01-30
 
 - Improved handling of nested bbcodes
-- Improved theme handling (fallback to No theme if expected theme is missing)
-- Removed version number displayed in ACP module title
-- Major internal coding revisions for improving code quality
+- Improved theme handling (fallback to No theme if the expected theme is missing)
+- Removed version number displayed in the ACP module title
+- Major internal coding revisions to improve code quality
 
 ## 2.1.0-RC1 - 2014-12-03
 
-- Fix issue where recursive BBCode stripping could fail
+- Fix the issue where recursive BBCode stripping could fail
 - Fix some issues with broken avatars
 - Fix handling of missing CSS theme files
 - Add support for Top Five extension
 - Use UTF8 chars in language files
-- Various code refactoring
+- Various code refactorings
 
 ## 2.1.0-b3 - 2014-07-12
 
@@ -77,7 +83,7 @@
 - Avatar icons keep their original proportions when scaled to fit
 - Refactored the codebase along with minor improvements and updates
 - Complete Persian translation
-- Ensure Similar Topics is installed on phpBB 3.1.0-b4 or later
+- Ensure Similar Topics extension is installed on phpBB 3.1.0-b4 or later
 - Switched to phpBB test framework
 - Added additional test coverage of the codebase
 
