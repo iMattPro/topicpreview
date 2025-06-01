@@ -164,7 +164,7 @@ class display extends base
 		}
 
 		$avatar = '';
-		if (!empty($row[$poster . '_avatar']) && function_exists('phpbb_get_user_avatar'))
+		if (!empty($row[$poster . '_avatar']))
 		{
 			$map = array(
 				'avatar'		=> $row[$poster . '_avatar'],
