@@ -22,9 +22,6 @@ class display extends base
 	/** @var int default width of topic preview */
 	const PREVIEW_SIZE = 360;
 
-	/** @var int default height and width of topic preview avatars */
-	const AVATAR_SIZE = 60;
-
 	/** @var string */
 	const NO_AVATAR = 'no-avatar';
 
@@ -71,7 +68,7 @@ class display extends base
 	 */
 	public function setup()
 	{
-		// Load our language file (only needed if showing last post text)
+		// Load our language file (only needed if showing last post-text)
 		if ($this->last_post_enabled())
 		{
 			$this->language->add_lang('topic_preview', 'vse/topicpreview');
@@ -130,7 +127,7 @@ class display extends base
 	 * This handles the trimming and censoring
 	 *
 	 * @param array  $row  User row data
-	 * @param string $post The first or last post text column key
+	 * @param string $post The first or last post-text column key
 	 *
 	 * @return string The trimmed and censored topic preview text
 	 */
@@ -172,15 +169,15 @@ class display extends base
 			$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
 		}
 
-		// If avatar string is empty, fall back to no_avatar.gif
+		// If the avatar string is empty, fall back to no_avatar.gif
 		return $avatar ?: self::NO_AVATAR;
 	}
 
 	/**
-	 * Get user's style topic preview theme
+	 * Get a user's style topic preview theme
 	 * Fall back to no theme if expected theme not found
 	 *
-	 * @return mixed Theme name if theme file found, false otherwise
+	 * @return mixed Theme name if a theme file found, false otherwise
 	 */
 	protected function get_theme()
 	{
