@@ -29,10 +29,21 @@ class ext extends \phpbb\extension\base
 	 */
 	public function is_enableable()
 	{
-		$config = $this->container->get('config');
-		return phpbb_version_compare($config['version'], self::PHPBB_MIN_VERSION, '>=')
-			&& phpbb_version_compare($config['version'], self::PHPBB_MAX_VERSION, '<')
-			&& phpbb_version_compare(PHPBB_VERSION, self::PHPBB_MIN_VERSION, '>=')
-			&& phpbb_version_compare(PHPBB_VERSION, self::PHPBB_MAX_VERSION, '<');
+		$config_version = $this->container->get('config')['version'];
+
+		return $this->is_version_compatible($config_version)
+			&& $this->is_version_compatible(PHPBB_VERSION);
+	}
+
+	/**
+	 * Check if a version is within the acceptable range
+	 *
+	 * @param string $version Version to check
+	 * @return bool
+	 */
+	private function is_version_compatible($version)
+	{
+		return phpbb_version_compare($version, self::PHPBB_MIN_VERSION, '>=')
+			&& phpbb_version_compare($version, self::PHPBB_MAX_VERSION, '<');
 	}
 }
