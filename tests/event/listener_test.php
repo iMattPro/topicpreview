@@ -96,12 +96,22 @@ class listener_test extends \phpbb_test_case
 			'sql_from'		=> 'FROM FOO',
 		));
 
-		// Check that expected method is called with
+		// Check that the expected method is called with
 		// the correct arguments. Returns a new value.
+		$invocation = 0;
 		$this->topic_preview_data->expects(self::exactly(2))
 			->method('modify_sql')
-			->withConsecutive([$data['sql_select'], 'SELECT'], [$data['sql_from'], 'JOIN'])
-			->willReturnOnConsecutiveCalls('SELECT FOO BAR', 'FROM FOO BAR');
+			->willReturnCallback(function($arg1, $arg2) use (&$invocation) {
+				if ($invocation === 0) {
+					self::assertEquals('SELECT FOO', $arg1);
+					self::assertEquals('SELECT', $arg2);
+					$invocation++;
+					return 'SELECT FOO BAR';
+				}
+				self::assertEquals('FROM FOO', $arg1);
+				self::assertEquals('JOIN', $arg2);
+				return 'FROM FOO BAR';
+			});
 
 		// Call the event
 		$this->listener->modify_sql_string($data);
