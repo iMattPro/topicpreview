@@ -56,4 +56,17 @@ class release_2_1_0_data extends \phpbb\db\migration\container_aware_migration
 			array('config.update', array('topic_preview_version', '2.1.0')),
 		);
 	}
+
+	public function revert_data()
+	{
+		return array(
+			array('config.remove', array('topic_preview_delay')),
+			array('config.remove', array('topic_preview_drift')),
+			array('config.remove', array('topic_preview_width')),
+			array('config.remove', array('topic_preview_avatars')),
+			array('config.remove', array('topic_preview_version')),
+
+			array('module.remove', array('acp', 'TOPIC_PREVIEW')),
+		);
+	}
 }
