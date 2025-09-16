@@ -12,7 +12,7 @@ namespace vse\topicpreview\tests\core;
 
 class setup_test extends base
 {
-	public function setup_data()
+	public static function setup_data()
 	{
 		return array(
 			array(

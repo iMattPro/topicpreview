@@ -135,7 +135,7 @@ class controller_test extends \phpbb_database_test_case
 		$this->controller->handle();
 	}
 
-	public function main_submit_test_data()
+	public static function main_submit_test_data()
 	{
 		return array(
 			array(

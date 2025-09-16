@@ -121,7 +121,7 @@ class listener_test extends \phpbb_test_case
 		self::assertEquals('FROM FOO BAR', $data['sql_from']);
 	}
 
-	public function display_topic_previews_data()
+	public static function display_topic_previews_data()
 	{
 		return array(
 			array('topic_row'),

@@ -12,7 +12,7 @@ namespace vse\topicpreview\tests\core\tools;
 
 class manager_test extends base
 {
-	public function get_tools_test_data()
+	public static function get_tools_test_data()
 	{
 		return array(
 			array(true, array('bbcodes', 'markup')),
@@ -52,7 +52,7 @@ class manager_test extends base
 		}
 	}
 
-	public function get_tool_test_data()
+	public static function get_tool_test_data()
 	{
 		return array(
 			array('markup', '\vse\topicpreview\core\trim\tools\markup'),

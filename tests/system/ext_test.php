@@ -42,7 +42,7 @@ class ext_test extends \phpbb_test_case
 	 *
 	 * @return array
 	 */
-	public function ext_test_data()
+	public static function ext_test_data()
 	{
 		return array(
 			array(ext::PHPBB_MIN_VERSION, true), // minimum version

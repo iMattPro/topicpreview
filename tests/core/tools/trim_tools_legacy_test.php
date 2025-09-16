@@ -12,7 +12,7 @@ namespace vse\topicpreview\tests\core\tools;
 
 class trim_tools_legacy_test extends base
 {
-	public function trim_tools_data()
+	public static function trim_tools_data()
 	{
 		return array(
 			array(

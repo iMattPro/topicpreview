@@ -86,7 +86,7 @@ class ucp_listener_test extends \phpbb_test_case
 	 *
 	 * @return array Array of test data
 	 */
-	public function ucp_prefs_set_data_data()
+	public static function ucp_prefs_set_data_data()
 	{
 		return array(
 			array(
@@ -142,7 +142,7 @@ class ucp_listener_test extends \phpbb_test_case
 	 *
 	 * @return array Array of test data
 	 */
-	public function ucp_prefs_get_data_data()
+	public static function ucp_prefs_get_data_data()
 	{
 		return array(
 			array(
