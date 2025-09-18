@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
     call-tests:
         name: Extension tests
-        uses: phpbb-extensions/test-framework/.github/workflows/tests.yml@master
+        uses: iMattPro/test-framework/.github/workflows/tests.yml@testing
         with:
             EXTNAME: vse/topicpreview   # Your extension vendor/package name
             CODECOV: 1           # Run code coverage via codecov? 1 or 0
