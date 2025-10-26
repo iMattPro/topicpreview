@@ -30,7 +30,7 @@
 			// Add rtl class for right-to-left languages to avatar images
 			.toggleClass('rtl', (settings.dir === 'rtl'))
 			.children('img')
-			.brokenImage({ replacement: settings.noavatar })
+			.brokenImage({})
 		;
 
 		// Display the topic preview tooltip
@@ -166,11 +166,7 @@
 				}, options.timeout);
 
 				function insertPlaceholder() {
-					if (options.replacement) {
-						image.src = options.replacement;
-					} else {
-						$(image).css('visibility', 'hidden');
-					}
+					$(image).replaceWith('<div class="topic_preview_no_avatar"></div>');
 				}
 			});
 		},
