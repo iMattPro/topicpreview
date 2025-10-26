@@ -23,7 +23,7 @@
 			previewTimeout,
 			previewContainer = $('<div id="topic_preview" class="topic_preview_container"></div>').css('width', settings.width).appendTo('body');
 
-		// Do not allow delay times less than 300ms to prevent tooltip madness
+		// Do not allow delay times less than 300 ms to prevent tooltip madness
 		settings.delay = Math.max(settings.delay, 300);
 
 		$('.topic_preview_avatar')
@@ -67,7 +67,7 @@
 				// Pointer offset
 				var pointerOffset = 8;
 
-				// Window bottom edge detection, invert topic preview if needed
+				// Window bottom-edge detection, invert topic preview if needed
 				var previewTop = obj.offset().top + settings.position.top,
 					previewBottom = previewTop + previewContainer.height() + pointerOffset;
 				previewContainer.toggleClass('invert', edgeDetect(previewBottom));
@@ -112,7 +112,7 @@
 			obj.restoreTitles('dt').restoreTitles('dl'); // reinstate original title attributes
 		};
 
-		// Check if y coordinate is within 50 pixels of bottom edge of browser window
+		// Check if y coordinate is within 50 pixels of the bottom edge of a browser window
 		var edgeDetect = function(y) {
 			return (y >= ($(window).scrollTop() + $(window).height() - 50));
 		};
@@ -122,7 +122,7 @@
 				.on('mouseenter', showTopicPreview)
 				.on('mouseleave', hideTopicPreview)
 				.on('click', function() {
-					// Remove topic preview immediately on click as failsafe
+					// Remove the topic preview immediately on click as failsafe
 					previewContainer.hide();
 					// clear any existing timeouts
 					if (previewTimeout) {
