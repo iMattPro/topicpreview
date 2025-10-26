@@ -157,10 +157,10 @@
 				});
 
 				setTimeout(function() {
-					var test = new Image(); // Virgin image with no styles to affect dimensions
-					test.src = image.src;
-
-					if (test.height === 0) {
+					// Check if the image failed to load with fallback for older browsers
+					var isIncomplete = image.complete !== undefined ? !image.complete : false;
+					var hasNoHeight = image.naturalHeight !== undefined ? image.naturalHeight === 0 : image.height === 0;
+					if (isIncomplete || hasNoHeight) {
 						insertPlaceholder();
 					}
 				}, options.timeout);
