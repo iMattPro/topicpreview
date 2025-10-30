@@ -62,6 +62,10 @@ class listener implements EventSubscriberInterface
 			'paybas.recenttopics.sql_pull_topics_data'	=> 'modify_sql_array',
 			'paybas.recenttopics.modify_tpl_ary'		=> 'display_topic_previews',
 
+			// Custom events for integration with Recent Topics NG
+			'imcger.recenttopicsng.sql_pull_topics_data'=> 'modify_sql_array',
+			'imcger.recenttopicsng.modify_tpl_ary'		=> 'display_topic_previews',
+
 			// Custom events for integration with Top Five
 			'rmcgirr83.topfive.sql_pull_topics_data'	=> 'modify_sql_array',
 			'rmcgirr83.topfive.modify_tpl_ary'			=> 'display_topic_previews',

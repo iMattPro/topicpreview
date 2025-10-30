@@ -17,7 +17,7 @@ class display_topic_preview_test extends base
 
 	/** @var array Avatar data to use in tests below */
 	protected static $avatar_data = array(
-		'src' => 'avatar.jpg',
+		'src' => 'some-avatar.jpg',
 		'width' => '60',
 		'height' => '60',
 	);
