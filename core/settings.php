@@ -165,9 +165,6 @@ class settings
 			return basename($value, '.css');
 		}, array_keys($themes));
 
-		// Add option for native browser tooltip (aka no theme)
-		$themes[] = self::NO_THEME;
-
 		return $themes;
 	}
 }

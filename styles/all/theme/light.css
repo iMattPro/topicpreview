@@ -103,11 +103,35 @@
 	margin: 0 0 2px 12px;
 }
 
+.topic_preview_scrollable {
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-right: 5px;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar {
+	width: 6px;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 3px;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb {
+	background: #cecece;
+	border-radius: 3px;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb:hover {
+	background: #999999;
+}
+
 .topic_preview_first,
 .topic_preview_last {
 	word-wrap: break-word;
 	overflow: hidden;
-	max-height: 200px;
 }
 
 .topic_preview_break {

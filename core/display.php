@@ -15,7 +15,7 @@ use phpbb\event\dispatcher_interface;
 use phpbb\language\language;
 use phpbb\template\template;
 use phpbb\user;
-use vse\topicpreview\core\trim\trim;
+use vse\topicpreview\core\renderer;
 
 class display extends base
 {
@@ -37,8 +37,8 @@ class display extends base
 	/** @var string phpBB root path */
 	protected $root_path;
 
-	/** @var trim */
-	protected $trim;
+	/** @var renderer */
+	protected $renderer;
 
 	/**
 	 * Constructor
@@ -47,16 +47,16 @@ class display extends base
 	 * @param dispatcher_interface $dispatcher Event dispatcher object
 	 * @param language             $language   Language object
 	 * @param template             $template   Template object
-	 * @param trim                 $trim       Trim text object
+	 * @param renderer             $renderer   Text renderer object
 	 * @param user                 $user       User object
 	 * @param string               $root_path
 	 */
-	public function __construct(config $config, dispatcher_interface $dispatcher, language $language, template $template, trim $trim, user $user, $root_path)
+	public function __construct(config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path)
 	{
 		$this->dispatcher = $dispatcher;
 		$this->language = $language;
 		$this->template = $template;
-		$this->trim = $trim;
+		$this->renderer = $renderer;
 		$this->root_path = $root_path;
 		parent::__construct($config, $user);
 
@@ -139,7 +139,7 @@ class display extends base
 			return '';
 		}
 
-		return censor_text($this->trim->trim_text($row[$post], $this->config['topic_preview_limit']));
+		return censor_text($this->renderer->render_text($row[$post], $this->config['topic_preview_limit']));
 	}
 
 	/**

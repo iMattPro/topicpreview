@@ -43,3 +43,15 @@
 .topic_preview_avatar img {
 	border: solid 1px #636363;
 }
+
+.topic_preview_scrollable::-webkit-scrollbar-track {
+	background: #f0f0f0;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb {
+	background: #636363;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb:hover {
+	background: #444444;
+}

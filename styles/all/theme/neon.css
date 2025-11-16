@@ -55,3 +55,17 @@
 .topic_preview_avatar.rtl {
 	margin: 0 0 0 10px;
 }
+
+.topic_preview_scrollable::-webkit-scrollbar-track {
+	background: rgba(25, 25, 25, 0.8);
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb {
+	background: #c965eb;
+	box-shadow: 0 0 5px rgba(162, 0, 255, 0.5);
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb:hover {
+	background: #a200ff;
+	box-shadow: 0 0 8px rgba(162, 0, 255, 0.8);
+}

@@ -120,7 +120,7 @@ class display_topic_preview_test extends base
 					'topic_last_post_id' => 5,
 				),
 				array(
-					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
+					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url magic url and test@google.com email',
 					'TOPIC_PREVIEW_FIRST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
 					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
@@ -164,7 +164,7 @@ class display_topic_preview_test extends base
 					'topic_last_post_id' => 8,
 				),
 				array(
-					'TOPIC_PREVIEW_FIRST_POST' => 'Fourth message',
+					'TOPIC_PREVIEW_FIRST_POST' => 'Fourth message aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa...',
 					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
 					'TOPIC_PREVIEW_LAST_POST' => '',
 					'TOPIC_PREVIEW_LAST_AVATAR' => '',

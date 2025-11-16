@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.4.0 - xxxx-xx-xx
+
+- **BREAKING:** Dropped support for phpBB 3.2 and PHP < 7.1
+- **BREAKING:** Removed "none" theme option (native browser tooltips no longer supported)
+- **NEW:** Scrollable tooltips with hoverable content area
+- **NEW:** Full HTML rendering using phpBB's s9e text formatter
+- **NEW:** Safe HTML trimming that preserves tag structure
+- **IMPROVED:** Character limits now apply only to visible text, not markup
+- **IMPROVED:** Better support for embedded media and large content
+- **REMOVED:** Legacy trim tools and BBCode cleanup systems
+
 ## 2.3.3 - 2025-06-01
 
 - Future-proof away serious issues with future major phpBB versions.

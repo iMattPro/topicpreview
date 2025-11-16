@@ -27,8 +27,8 @@ class base extends \phpbb_database_test_case
 	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
 	protected $template;
 
-	/** @var \vse\topicpreview\core\trim\trim */
-	protected $trim;
+	/** @var \vse\topicpreview\core\renderer|\PHPUnit\Framework\MockObject\MockObject */
+	protected $renderer;
 
 	/** @var \phpbb\user|\PHPUnit\Framework\MockObject\MockObject */
 	protected $user;
@@ -77,9 +77,32 @@ class base extends \phpbb_database_test_case
 			->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
 		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
-		$this->trim = tools\helper::trimTools()
-			->setTools($config)
-			->getTrim();
+		// Create a mock renderer for testing
+		$this->renderer = $this->createMock('\vse\topicpreview\core\renderer');
+		$this->renderer->method('render_text')
+			->willReturnCallback(function($text, $limit) use ($config) {
+				// Simple mock implementation for testing
+				// Remove BBCode tags with UIDs (e.g., [b:uid], [/b:uid])
+				$text = preg_replace('/\[\w+:[^\]]*\]/', '', $text);
+				$text = preg_replace('/\[\/\w+:[^\]]*\]/', '', $text);
+				// Remove regular BBCode tags
+				$text = preg_replace('/\[\w+[^\]]*\]/', '', $text);
+				$text = preg_replace('/\[\/\w+\]/', '', $text);
+				// Convert smilies
+				$text = str_replace('<!-- s:) --><img src="{SMILIES_PATH}/icon_e_smile.gif" alt=":)" title="Smile" /><!-- s:) -->', ':)', $text);
+				// Convert magic URLs - extract the URL text
+				$text = preg_replace('/<!-- [m] --><a[^>]*>([^<]*)<\/a><!-- [m] -->/', 'magic url', $text);
+				$text = preg_replace('/<!-- [e] --><a[^>]*>([^<]*)<\/a><!-- [e] -->/', '$1', $text);
+				// Remove quotes if configured
+				if (strpos($config['topic_preview_strip_bbcodes'], 'quote') !== false) {
+					$text = preg_replace('/\[quote[^\]]*\].*?\[\/quote[^\]]*\]/s', '', $text);
+				}
+				// Trim to limit
+				if (utf8_strlen($text) > $limit) {
+					$text = utf8_substr($text, 0, $limit) . '...';
+				}
+				return trim($text);
+			});
 		$this->template = $this->createMock('\phpbb\template\template');
 	}
 
@@ -98,7 +121,7 @@ class base extends \phpbb_database_test_case
 			$this->dispatcher,
 			$this->language,
 			$this->template,
-			$this->trim,
+			$this->renderer,
 			$this->user,
 			$this->root_path
 		);

@@ -21,6 +21,7 @@
 				position: { left: 35, top: 25 }
 			}, options),
 			previewTimeout,
+			hideTimeout,
 			previewContainer = $('<div id="topic_preview" class="topic_preview_container"></div>').css('width', settings.width).appendTo('body');
 
 		// Do not allow delay times less than 300 ms to prevent tooltip madness
@@ -50,6 +51,10 @@
 				clearTimeout(previewTimeout);
 				previewTimeout = undefined;
 			}
+			if (hideTimeout) {
+				clearTimeout(hideTimeout);
+				hideTimeout = undefined;
+			}
 
 			// remove original titles to prevent overlap
 			obj.removeAttr('title')
@@ -61,8 +66,8 @@
 				// clear the timeout var after delay and function begins to execute
 				previewTimeout = undefined;
 
-				// Fill the topic preview
-				previewContainer.html(content);
+				// Fill the topic preview with scrollable content
+				previewContainer.html('<div class="topic_preview_scrollable">' + content + '</div>');
 
 				// Pointer offset
 				var pointerOffset = 8;
@@ -82,6 +87,20 @@
 					})
 					.fadeIn('fast') // display the topic preview with a fadein
 				;
+
+				// Add hover handlers to the preview container to keep it visible
+				previewContainer
+					.off('mouseenter mouseleave') // Remove any existing handlers
+					.on('mouseenter', function() {
+						if (hideTimeout) {
+							clearTimeout(hideTimeout);
+							hideTimeout = undefined;
+						}
+					})
+					.on('mouseleave', function() {
+						hideTopicPreview.call(obj);
+					})
+				;
 			}, settings.delay); // Use a delay before showing in topic preview
 		};
 
@@ -95,21 +114,26 @@
 				previewTimeout = undefined;
 			}
 
-			// Remove topic preview
-			previewContainer
-				.stop(true, true) // stop any running animations first
-				.fadeOut('fast') // hide the topic preview with a fadeout
-				.animate({
-					top: '-=' + settings.drift + 'px'
-				}, {
-					duration: 'fast',
-					queue: false,
-					complete: function() {
-						// animation complete
-					}
-				})
-			;
-			obj.restoreTitles('dt').restoreTitles('dl'); // reinstate original title attributes
+			// Add a small delay before hiding to allow mouse to move to tooltip
+			hideTimeout = setTimeout(function() {
+				hideTimeout = undefined;
+
+				// Remove topic preview
+				previewContainer
+					.stop(true, true) // stop any running animations first
+					.fadeOut('fast') // hide the topic preview with a fadeout
+					.animate({
+						top: '-=' + settings.drift + 'px'
+					}, {
+						duration: 'fast',
+						queue: false,
+						complete: function() {
+							// animation complete
+						}
+					})
+				;
+				obj.restoreTitles('dt').restoreTitles('dl'); // reinstate original title attributes
+			}, 100); // Small delay to allow mouse movement to tooltip
 		};
 
 		// Check if y coordinate is within 50 pixels of the bottom edge of a browser window
@@ -128,6 +152,10 @@
 					if (previewTimeout) {
 						clearTimeout(previewTimeout);
 						previewTimeout = undefined;
+					}
+					if (hideTimeout) {
+						clearTimeout(hideTimeout);
+						hideTimeout = undefined;
 					}
 				})
 			;

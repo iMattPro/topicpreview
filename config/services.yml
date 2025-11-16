@@ -20,14 +20,15 @@ services:
             - '@dispatcher'
             - '@language'
             - '@template'
-            - '@vse.topicpreview.trim'
+            - '@vse.topicpreview.renderer'
             - '@user'
             - '%core.root_path%'
 
-    vse.topicpreview.trim:
-        class: vse\topicpreview\core\trim\trim
+    vse.topicpreview.renderer:
+        class: vse\topicpreview\core\renderer
         arguments:
-            - '@vse.topicpreview.tools.manager'
+            - '@config'
+            - '@text_formatter.utils'
 
     vse.topicpreview.settings:
         class: vse\topicpreview\core\settings
@@ -58,44 +59,3 @@ services:
             - '@user'
         tags:
             - { name: event.listener }
-
-# ----- Trim tool management -----
-    vse.topicpreview.tools.manager:
-        class: vse\topicpreview\core\trim\manager
-        arguments:
-            - '@vse.topicpreview.tools_collection'
-
-    vse.topicpreview.tools_collection:
-        class: phpbb\di\ordered_service_collection
-        arguments:
-            - '@service_container'
-        tags:
-            - { name: service_collection, tag: vse.topicpreview.tools }
-
-# ----- Trim tools -----
-    vse.topicpreview.tool.bbcodes:
-        class: vse\topicpreview\core\trim\tools\bbcodes
-        arguments:
-            - '@config'
-            - '@vse.topicpreview.tool.bbcodes_legacy'
-            - '@?text_formatter.utils'
-        calls:
-            - [set_name, [bbcodes]]
-        tags:
-            - { name: vse.topicpreview.tools, order: 1 }
-
-    vse.topicpreview.tool.bbcodes_legacy:
-        class: vse\topicpreview\core\trim\tools\bbcodes_legacy
-        arguments:
-            - '@config'
-        calls:
-            - [set_name, [bbcodes_legacy]]
-        tags:
-            - { name: vse.topicpreview.tools, order: 2 }
-
-    vse.topicpreview.tool.markup:
-        class: vse\topicpreview\core\trim\tools\markup
-        calls:
-            - [set_name, [markup]]
-        tags:
-            - { name: vse.topicpreview.tools, order: 3 }
