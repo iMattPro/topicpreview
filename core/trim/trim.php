@@ -44,6 +44,9 @@ class trim
 			$message = $tool->set_text($message)->run();
 		}
 
+		// Apply HTML escaping as final safety step
+		$message = htmlspecialchars($message, ENT_COMPAT, 'UTF-8');
+
 		if (utf8_strlen($message) <= $length)
 		{
 			return $this->tp_nl2br($message);

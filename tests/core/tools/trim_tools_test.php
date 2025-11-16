@@ -32,6 +32,10 @@ class trim_tools_test extends base
 				'Second message with bold text :) and smiley',
 			),
 			array(
+				'Math: A>B and C<D',
+				'Math: A&gt;B and C&lt;D',
+			),
+			array(
 				'Third message with [url]http://google.com">http://google.com[/url] magic url and [email]test@google.com[/email] email',
 				'Third message with magic url and test@google.com email',
 			),
