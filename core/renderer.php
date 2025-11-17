@@ -51,11 +51,15 @@ class renderer
 		// Remove ignored BBCode tags and their content
 		$text = $this->remove_ignored_bbcodes($text);
 
-		// Parse the text using phpBB's text formatter
-		$rendered = generate_text_for_display($text, '', '', 7);
+		// Check if trimming is needed using consistent emoji counting
+		$plain_text = $this->extract_text_from_xml($text);
+		if (utf8_strlen($plain_text) <= $limit)
+		{
+			return generate_text_for_display($text, '', '', 7);
+		}
 
-		// Trim to character limit while preserving HTML structure
-		return $this->safe_trim_html($rendered, $limit);
+		// Render full text then trim HTML
+		return $this->trim_html_content(generate_text_for_display($text, '', '', 7), $limit);
 	}
 
 	/**
@@ -88,38 +92,50 @@ class renderer
 	}
 
 	/**
-	 * Safely trim HTML content to the character limit without breaking tags
+	 * Trim HTML content while preserving basic formatting
 	 *
 	 * @param string $html  Rendered HTML content
 	 * @param int    $limit Character limit
 	 *
 	 * @return string Trimmed HTML
 	 */
-	protected function safe_trim_html($html, $limit)
+	protected function trim_html_content($html, $limit)
 	{
 		// Count text + images for proper length calculation
 		$text_content = strip_tags($html);
-		$image_count = substr_count($html, '<img');
-		$total_length = utf8_strlen($text_content) + $image_count;
+		$total_length = utf8_strlen($text_content) + substr_count($html, '<img');
 
 		if ($total_length <= $limit)
 		{
 			return $html;
 		}
 
-		// Use DOM if available, otherwise fallback to regex
-		if (class_exists('DOMDocument') && extension_loaded('libxml'))
+		// Find where to cut in the plain text
+		$cut_pos = $limit;
+		if ($limit > 20)
 		{
-			return $this->dom_trim_html($html, $limit);
+			$last_space = utf8_strrpos(utf8_substr($text_content, 0, $limit), ' ');
+			if ($last_space !== false && $last_space > $limit * 0.7)
+			{
+				$cut_pos = $last_space;
+			}
 		}
 
-		return $this->regex_trim_html($html, $limit);
+		// Use DOM to safely trim HTML
+		if (class_exists('DOMDocument') && extension_loaded('libxml'))
+		{
+			return $this->dom_trim_html($html, $cut_pos);
+		}
+
+		// Fallback: simple text truncation
+		$trimmed = utf8_substr($text_content, 0, $cut_pos);
+		return htmlspecialchars($trimmed, ENT_COMPAT, 'UTF-8') . '...';
 	}
 
 	/**
-	 * DOM-based HTML trimming (preferred method)
+	 * Use DOM to safely trim HTML content
 	 *
-	 * @param string $html  Rendered HTML content
+	 * @param string $html  HTML content
 	 * @param int    $limit Character limit
 	 *
 	 * @return string Trimmed HTML
@@ -127,80 +143,44 @@ class renderer
 	protected function dom_trim_html($html, $limit)
 	{
 		$dom = new \DOMDocument('1.0', 'UTF-8');
-		$dom->encoding = 'UTF-8';
-
-		// Suppress warnings for malformed HTML and load with UTF-8 encoding
 		libxml_use_internal_errors(true);
-		$dom->loadHTML('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+		// Wrap in div to ensure valid HTML structure
+		if (!$dom->loadHTML('<div>' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD))
+		{
+			// If DOM fails, return plain text
+			$text = strip_tags($html);
+			return htmlspecialchars(utf8_substr($text, 0, $limit), ENT_COMPAT, 'UTF-8') . '...';
+		}
+
 		libxml_clear_errors();
+		$div = $dom->documentElement;
+		$this->trim_dom_text($div, $limit);
 
-		$body = $dom->getElementsByTagName('body')->item(0);
-		if ($body)
+		$result = '';
+		foreach ($div->childNodes as $child)
 		{
-			$this->trim_dom_node($body, $limit);
-
-			$trimmed = '';
-			foreach ($body->childNodes as $child)
-			{
-				$trimmed .= $dom->saveHTML($child);
-			}
+			$result .= $dom->saveHTML($child);
 		}
-		else
-		{
-			$trimmed = $html;
-		}
-
-		if (utf8_strlen(strip_tags($trimmed)) >= $limit)
-		{
-			$trimmed .= '...';
-		}
-
-		return $trimmed;
+		return $result . '...';
 	}
 
 	/**
-	 * Regex-based HTML trimming (fallback method)
+	 * Trim DOM text content to the limit
 	 *
-	 * @param string $html  Rendered HTML content
-	 * @param int    $limit Character limit
-	 *
-	 * @return string Trimmed HTML
-	 */
-	protected function regex_trim_html($html, $limit)
-	{
-		// Simple fallback: strip tags, trim, then add basic formatting back
-		$text = strip_tags($html);
-
-		if (utf8_strlen($text) <= $limit)
-		{
-			return $html;
-		}
-
-		$trimmed = utf8_substr($text, 0, $limit);
-		return htmlspecialchars($trimmed, ENT_COMPAT, 'UTF-8') . '...';
-	}
-
-	/**
-	 * Recursively trim DOM nodes while preserving the structure
-	 *
-	 * @param \DOMNode $node         Current DOM node
-	 * @param int      $limit        Character limit
-	 * @param int      $current_len  Current character count
+	 * @param \DOMNode $node  DOM node
+	 * @param int      $limit Character limit
+	 * @param int      $count Current character count
 	 *
 	 * @return int Updated character count
 	 */
-	protected function trim_dom_node(\DOMNode $node, $limit, $current_len = 0)
+	protected function trim_dom_text(\DOMNode $node, $limit, $count = 0)
 	{
-		if ($current_len >= $limit)
-		{
-			return $current_len;
-		}
-
 		$nodes_to_remove = [];
 
 		foreach ($node->childNodes as $child)
 		{
-			if ($current_len >= $limit)
+			if ($count >= $limit)
 			{
 				$nodes_to_remove[] = $child;
 				continue;
@@ -211,56 +191,76 @@ class renderer
 				$text = $child->nodeValue;
 				$text_len = utf8_strlen($text);
 
-				if ($current_len + $text_len > $limit)
+				if ($count + $text_len > $limit)
 				{
-					// Trim text node to fit within the limit
-					$remaining = $limit - $current_len;
-
-					// Ensure we don't split multibyte characters
-					$trimmed_text = utf8_substr($text, 0, $remaining);
-
-					if ($remaining > 20)
-					{
-						$last_space = utf8_strrpos($trimmed_text, ' ');
-						if ($last_space !== false && $last_space > $remaining * 0.5)
-						{
-							$trimmed_text = utf8_substr($trimmed_text, 0, $last_space);
-						}
-					}
-
-					$child->nodeValue = $trimmed_text;
-					$current_len += utf8_strlen($trimmed_text);
+					$remaining = $limit - $count;
+					$child->nodeValue = utf8_substr($text, 0, $remaining);
+					$count = $limit;
 				}
 				else
 				{
-					$current_len += $text_len;
+					$count += $text_len;
 				}
 			}
 			else if ($child->nodeType === XML_ELEMENT_NODE)
 			{
-				// For images (emojis/smilies), count as 1 character each
+				// Count img tags (emojis/smilies) as 1 character each
 				if ($child->nodeName === 'img')
 				{
-					if ($current_len + 1 > $limit)
+					if ($count + 1 > $limit)
 					{
 						$nodes_to_remove[] = $child;
 						continue;
 					}
-					$current_len += 1;
+					++$count;
 				}
 				else
 				{
-					$current_len = $this->trim_dom_node($child, $limit, $current_len);
+					$count = $this->trim_dom_text($child, $limit, $count);
 				}
 			}
 		}
 
-		// Remove nodes that exceed the limit
 		foreach ($nodes_to_remove as $node_to_remove)
 		{
 			$node->removeChild($node_to_remove);
 		}
 
-		return $current_len;
+		return $count;
+	}
+
+	/**
+	 * Extract text content from XML, ignoring tags
+	 *
+	 * @param string $xml XML content
+	 *
+	 * @return string Plain text content
+	 */
+	protected function extract_text_from_xml($xml)
+	{
+		// Remove BBCode syntax text (content inside <s> and <e> tags)
+		$xml_clean = preg_replace('/<[se]>.*?<\/[se]>/s', '', $xml);
+
+		// Use DOM to extract remaining text content
+		if (class_exists('DOMDocument') && extension_loaded('libxml'))
+		{
+			$dom = new \DOMDocument('1.0', 'UTF-8');
+			libxml_use_internal_errors(true);
+
+			if ($dom->loadXML('<root>' . $xml_clean . '</root>'))
+			{
+				$text_content = $dom->textContent;
+				// Count emoji elements as 1 character each
+				$emoji_count = substr_count($xml, '<E>');
+				return $text_content . str_repeat('x', $emoji_count);
+			}
+
+			libxml_clear_errors();
+		}
+
+		// Fallback: strip all tags and count emojis
+		$text = strip_tags($xml_clean);
+		$emoji_count = substr_count($xml, '<E>');
+		return $text . str_repeat('x', $emoji_count);
 	}
 }
