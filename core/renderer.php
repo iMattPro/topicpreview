@@ -53,6 +53,12 @@ class renderer
 
 		// Get plain text for length checking
 		$plain_text = $this->utils->clean_formatting($text);
+
+		if (empty(trim($plain_text)))
+		{
+			return '';
+		}
+
 		if (utf8_strlen($plain_text) <= $limit)
 		{
 			return generate_text_for_display($text, '', '', 7);
