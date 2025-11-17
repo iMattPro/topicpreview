@@ -97,10 +97,12 @@ class renderer
 	 */
 	protected function safe_trim_html($html, $limit)
 	{
-		// Get text content without HTML tags for length calculation
+		// Count text + images for proper length calculation
 		$text_content = strip_tags($html);
+		$image_count = substr_count($html, '<img');
+		$total_length = utf8_strlen($text_content) + $image_count;
 
-		if (utf8_strlen($text_content) <= $limit)
+		if ($total_length <= $limit)
 		{
 			return $html;
 		}
@@ -217,8 +219,7 @@ class renderer
 					// Ensure we don't split multibyte characters
 					$trimmed_text = utf8_substr($text, 0, $remaining);
 
-					// Try to break at word boundary for a longer text
-					if ($remaining < $text_len && $remaining > 20)
+					if ($remaining > 20)
 					{
 						$last_space = utf8_strrpos($trimmed_text, ' ');
 						if ($last_space !== false && $last_space > $remaining * 0.5)
@@ -237,7 +238,20 @@ class renderer
 			}
 			else if ($child->nodeType === XML_ELEMENT_NODE)
 			{
-				$current_len = $this->trim_dom_node($child, $limit, $current_len);
+				// For images (emojis/smilies), count as 1 character each
+				if ($child->nodeName === 'img')
+				{
+					if ($current_len + 1 > $limit)
+					{
+						$nodes_to_remove[] = $child;
+						continue;
+					}
+					$current_len += 1;
+				}
+				else
+				{
+					$current_len = $this->trim_dom_node($child, $limit, $current_len);
+				}
 			}
 		}
 
