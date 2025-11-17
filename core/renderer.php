@@ -51,14 +51,14 @@ class renderer
 		// Remove ignored BBCode tags and their content
 		$text = $this->remove_ignored_bbcodes($text);
 
-		// Check if trimming is needed using consistent emoji counting
-		$plain_text = $this->extract_text_from_xml($text);
+		// Get plain text for length checking
+		$plain_text = $this->utils->clean_formatting($text);
 		if (utf8_strlen($plain_text) <= $limit)
 		{
 			return generate_text_for_display($text, '', '', 7);
 		}
 
-		// Render full text then trim HTML
+		// Render and trim
 		return $this->trim_html_content(generate_text_for_display($text, '', '', 7), $limit);
 	}
 
@@ -72,22 +72,16 @@ class renderer
 	protected function remove_ignored_bbcodes($text)
 	{
 		$strip_bbcodes = $this->config['topic_preview_strip_bbcodes'] ?? '';
-
 		if (empty($strip_bbcodes))
 		{
 			return $text;
 		}
 
-		// Remove each BBCode type individually
-		$bbcodes = array_map('trim', explode(',', $strip_bbcodes));
+		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
 		foreach ($bbcodes as $bbcode)
 		{
-			if (!empty($bbcode))
-			{
-				$text = $this->utils->remove_bbcode($text, $bbcode);
-			}
+			$text = $this->utils->remove_bbcode($text, $bbcode);
 		}
-
 		return $text;
 	}
 
@@ -227,40 +221,5 @@ class renderer
 		}
 
 		return $count;
-	}
-
-	/**
-	 * Extract text content from XML, ignoring tags
-	 *
-	 * @param string $xml XML content
-	 *
-	 * @return string Plain text content
-	 */
-	protected function extract_text_from_xml($xml)
-	{
-		// Remove BBCode syntax text (content inside <s> and <e> tags)
-		$xml_clean = preg_replace('/<[se]>.*?<\/[se]>/s', '', $xml);
-
-		// Use DOM to extract remaining text content
-		if (class_exists('DOMDocument') && extension_loaded('libxml'))
-		{
-			$dom = new \DOMDocument('1.0', 'UTF-8');
-			libxml_use_internal_errors(true);
-
-			if ($dom->loadXML('<root>' . $xml_clean . '</root>'))
-			{
-				$text_content = $dom->textContent;
-				// Count emoji elements as 1 character each
-				$emoji_count = substr_count($xml, '<E>');
-				return $text_content . str_repeat('x', $emoji_count);
-			}
-
-			libxml_clear_errors();
-		}
-
-		// Fallback: strip all tags and count emojis
-		$text = strip_tags($xml_clean);
-		$emoji_count = substr_count($xml, '<E>');
-		return $text . str_repeat('x', $emoji_count);
 	}
 }
