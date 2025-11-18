@@ -143,26 +143,35 @@ class renderer
 	protected function dom_trim_html($html, $limit)
 	{
 		$dom = new \DOMDocument('1.0', 'UTF-8');
+		$dom->encoding = 'UTF-8';
+
+		// Suppress warnings for malformed HTML and load with UTF-8 encoding
 		libxml_use_internal_errors(true);
-
-		// Wrap in div to ensure valid HTML structure
-		if (!$dom->loadHTML('<div>' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD))
-		{
-			// If DOM fails, return plain text
-			$text = strip_tags($html);
-			return htmlspecialchars(utf8_substr($text, 0, $limit), ENT_COMPAT, 'UTF-8') . '...';
-		}
-
+		$dom->loadHTML('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 		libxml_clear_errors();
-		$div = $dom->documentElement;
-		$this->trim_dom_text($div, $limit);
 
-		$result = '';
-		foreach ($div->childNodes as $child)
+		$body = $dom->getElementsByTagName('body')->item(0);
+		if ($body)
 		{
-			$result .= $dom->saveHTML($child);
+			$this->trim_dom_text($body, $limit);
+
+			$trimmed = '';
+			foreach ($body->childNodes as $child)
+			{
+				$trimmed .= $dom->saveHTML($child);
+			}
 		}
-		return $result . '...';
+		else
+		{
+			$trimmed = $html;
+		}
+
+		if (utf8_strlen(strip_tags($trimmed)) >= $limit)
+		{
+			$trimmed .= '...';
+		}
+
+		return $trimmed;
 	}
 
 	/**
