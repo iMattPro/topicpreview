@@ -15,11 +15,11 @@ namespace vse\topicpreview;
  */
 class ext extends \phpbb\extension\base
 {
-	/** @var string Require 3.2.0 due to updated INCLUDECSS and ordered services */
-	const PHPBB_MIN_VERSION = '3.2.0';
+	/** @var string Require 3.3.0 due to the expectation that all posts are parsed by textformatter */
+	public const PHPBB_MIN_VERSION = '3.3.0';
 
 	/** @var string */
-	const PHPBB_MAX_VERSION = '4.0.0-dev';
+	public const PHPBB_MAX_VERSION = '4.0.0-dev';
 
 	/**
 	 * Enable extension if phpBB minimum version requirement is met

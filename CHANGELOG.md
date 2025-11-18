@@ -1,8 +1,8 @@
 # Changelog
 
-## 2.4.0 - xxxx-xx-xx
+## 2.4.0-dev
 
-- **BREAKING:** Dropped support for phpBB 3.2 and PHP < 7.1
+- **BREAKING:** Dropped support for phpBB 3.2 and PHP < 7.2
 - **BREAKING:** Removed "none" theme option (native browser tooltips no longer supported)
 - **NEW:** Scrollable tooltips with hoverable content area
 - **NEW:** Full HTML rendering using phpBB's s9e text formatter
