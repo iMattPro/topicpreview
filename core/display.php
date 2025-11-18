@@ -20,10 +20,10 @@ use vse\topicpreview\core\renderer;
 class display extends base
 {
 	/** @var int default width of topic preview */
-	const PREVIEW_SIZE = 360;
+	public const PREVIEW_SIZE = 360;
 
 	/** @var string */
-	const NO_AVATAR = 'no-avatar';
+	public const NO_AVATAR = 'no-avatar';
 
 	/** @var dispatcher_interface */
 	protected $dispatcher;

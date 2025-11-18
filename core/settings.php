@@ -19,10 +19,10 @@ use phpbb\request\request;
 class settings
 {
 	/** @var string Default no theme value */
-	const NO_THEME = 'no';
+	public const NO_THEME = 'no';
 
 	/** @var string Default theme value */
-	const DEFAULT_THEME = 'light';
+	public const DEFAULT_THEME = 'light';
 
 	/** @var cache_driver */
 	protected $cache;
@@ -163,7 +163,7 @@ class settings
 			->find_from_extension('topicpreview', $this->phpbb_root_path . 'ext/vse/topicpreview/');
 
 		// Get just basenames of array keys
-		$themes = array_map(function ($value) {
+		$themes = array_map(static function ($value) {
 			return basename($value, '.css');
 		}, array_keys($themes));
 

@@ -172,7 +172,7 @@ class controller_test extends \phpbb_database_test_case
 	 * @return mixed Method return.
 	 * @throws \ReflectionException
 	 */
-	public function invokeMethod(&$object, $methodName, array $parameters = array())
+	public function invokeMethod($object, $methodName, array $parameters = array())
 	{
 		$reflection = new \ReflectionClass(get_class($object));
 		$method = $reflection->getMethod($methodName);

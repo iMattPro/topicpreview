@@ -23,10 +23,6 @@ class module_test extends \phpbb_test_case
 		$module = new \vse\topicpreview\acp\topic_preview_module();
 		self::assertInstanceOf('\vse\topicpreview\acp\topic_preview_module', $module);
 
-		// Test calling module->main()
-		$lang_loader = new \phpbb\language\language_file_loader($phpbb_root_path, $phpEx);
-		$lang = new \phpbb\language\language($lang_loader);
-
 		$mock_acp_controller = $this->getMockBuilder('\vse\topicpreview\controller\acp_controller')
 			->disableOriginalConstructor()
 			->setMethods(array('handle'))

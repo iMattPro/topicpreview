@@ -94,11 +94,13 @@ class base extends \phpbb_database_test_case
 				$text = preg_replace('/<!-- [m] --><a[^>]*>([^<]*)<\/a><!-- [m] -->/', 'magic url', $text);
 				$text = preg_replace('/<!-- [e] --><a[^>]*>([^<]*)<\/a><!-- [e] -->/', '$1', $text);
 				// Remove quotes if configured
-				if (strpos($config['topic_preview_strip_bbcodes'], 'quote') !== false) {
+				if (strpos($config['topic_preview_strip_bbcodes'], 'quote') !== false)
+				{
 					$text = preg_replace('/\[quote[^\]]*\].*?\[\/quote[^\]]*\]/s', '', $text);
 				}
 				// Trim to limit
-				if (utf8_strlen($text) > $limit) {
+				if (utf8_strlen($text) > $limit)
+				{
 					$text = utf8_substr($text, 0, $limit) . '...';
 				}
 				return trim($text);
