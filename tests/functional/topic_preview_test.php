@@ -52,7 +52,7 @@ class topic_preview_test extends \phpbb_functional_test_case
 		// Create and preview a topic with a smiley
 		$post3 = $this->create_topic(2, 'Test Topic 2', 'This is a second test topic :) posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
-		self::assertStringContainsString('This is a second test topic  posted by the testing framework.', $crawler->filter('html')->text());
+		self::assertStringContainsString('This is a second test topic :) posted by the testing framework.', $crawler->filter('html')->text());
 
 		// Create and preview a topic with a bbcode
 		$post4 = $this->create_topic(2, 'Test Topic 3', 'This is a third [b]test topic[/b] posted by the testing framework.');
@@ -62,12 +62,12 @@ class topic_preview_test extends \phpbb_functional_test_case
 		// Create and preview a topic with a stripped bbcode
 		$post4 = $this->create_topic(2, 'Test Topic 4', 'This is a fourth [quote]' . str_repeat('aaa ', 600) . '[/quote] posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
-		self::assertStringContainsString('This is a fourth  posted by the testing framework.', $crawler->filter('html')->text());
+		self::assertStringContainsString('This is a fourth posted by the testing framework.', $crawler->filter('html')->text());
 
 		// Create and preview a topic with a stripped nested bbcodes
 		$post5 = $this->create_topic(2, 'Test Topic 5', 'This is a fifth [b]test topic[/b] with [quote]nested content inside of [quote][i][b]nested[/b] [u]content[/u][/i][/quote][/quote] content [quote]on top of more content[/quote] posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
-		self::assertStringContainsString('This is a fifth test topic with  content  posted by the testing framework.', $crawler->filter('html')->text());
+		self::assertStringContainsString('This is a fifth test topic with content posted by the testing framework.', $crawler->filter('html')->text());
 
 		// Test topic preview avatars
 		$crawler = self::request('GET', "viewforum.php?f=2&sid={$this->sid}");
