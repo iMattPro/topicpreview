@@ -33,10 +33,7 @@ class topic_preview_scrollable_test extends \phpbb_functional_test_case
 		$form['topic_preview_last_post'] = 1;
 		self::submit($form);
 
-		$this->logout();
-
 		// Create a test topic with content
-		$this->login();
 		$this->create_topic(2, 'Test Topic for Scrollable Preview', 'This is a test topic with some content that should appear in the scrollable preview tooltip. It has enough content to test the scrolling functionality.');
 
 		// Visit the forum page

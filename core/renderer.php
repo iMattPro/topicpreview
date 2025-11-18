@@ -182,8 +182,7 @@ class renderer
 		}
 
 		// Fallback: simple text truncation
-		$trimmed = utf8_substr($text_content, 0, $cut_pos);
-		return htmlspecialchars($trimmed, ENT_COMPAT, 'UTF-8') . '...';
+		return htmlspecialchars(utf8_substr($text_content, 0, $cut_pos), ENT_COMPAT, 'UTF-8') . '...';
 	}
 
 	/**
@@ -204,6 +203,7 @@ class renderer
 		$dom->loadHTML('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 		libxml_clear_errors();
 
+		$trimmed = $html;
 		$body = $dom->getElementsByTagName('body')->item(0);
 		if ($body)
 		{
@@ -214,10 +214,6 @@ class renderer
 			{
 				$trimmed .= $dom->saveHTML($child);
 			}
-		}
-		else
-		{
-			$trimmed = $html;
 		}
 
 		if (utf8_strlen(strip_tags($trimmed)) >= $limit)
@@ -270,11 +266,6 @@ class renderer
 				// Count img tags (emojis/smilies) as 1 character each
 				if ($child->nodeName === 'img')
 				{
-					if ($count + 1 > $limit)
-					{
-						$nodes_to_remove[] = $child;
-						continue;
-					}
 					++$count;
 				}
 				else

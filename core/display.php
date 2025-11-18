@@ -40,7 +40,7 @@ class display extends base
 	/** @var renderer */
 	protected $renderer;
 
-	/** @var string */
+	/** @var string|false */
 	protected $topic_preview_theme;
 
 	/**
