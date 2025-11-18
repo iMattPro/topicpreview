@@ -29,18 +29,6 @@ class release_2_4_0 extends \phpbb\db\migration\migration
 	{
 		return [
 			['config.add', ['topic_preview_rich_text', '0']],
-			['custom', [[$this, 'update_none_theme_to_light']]],
 		];
-	}
-
-	/**
-	 * Update any styles using the deprecated "no" theme to use the "light" theme instead
-	 */
-	public function update_none_theme_to_light()
-	{
-		$sql = 'UPDATE ' . STYLES_TABLE . "
-			SET topic_preview_theme = 'light'
-			WHERE topic_preview_theme = 'no'";
-		$this->db->sql_query($sql);
 	}
 }

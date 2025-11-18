@@ -32,13 +32,7 @@ class renderer_test extends \phpbb_test_case
 		$user = new \phpbb_mock_user();
 		$user->optionset('viewcensors', true);
 
-		$this->config = new \phpbb\config\config([
-			'topic_preview_strip_bbcodes' => 'quote|code',
-			'topic_preview_limit' => 150,
-			'topic_preview_rich_text' => 1,
-		]);
-
-		$this->renderer = new \vse\topicpreview\core\renderer($this->config, new \phpbb\textformatter\s9e\utils());
+		$this->renderer = new \vse\topicpreview\core\renderer(new \phpbb\textformatter\s9e\utils());
 	}
 
 	public function render_text_data()
@@ -129,22 +123,21 @@ class renderer_test extends \phpbb_test_case
 	 */
 	public function test_render_text($input, $limit, $rich_text, $expected)
 	{
-		$this->config['topic_preview_rich_text'] = $rich_text;
-
-		$result = $this->renderer->render_text($input, $limit);
+		$result = $this->renderer->render_text($input, $limit, '', $rich_text, true);
 
 		$this->assertEquals($expected, $result);
 	}
 
 	public function test_remove_ignored_bbcodes()
 	{
+		$strip_bbcodes = 'quote|code';
 		$text = '[quote]This should be removed[/quote] This should remain [code]This too should be removed[/code]';
 
 		$reflection = new \ReflectionClass($this->renderer);
 		$method = $reflection->getMethod('remove_ignored_bbcodes');
 		$method->setAccessible(true);
 
-		$result = $method->invoke($this->renderer, $text);
+		$result = $method->invoke($this->renderer, $text, $strip_bbcodes);
 
 		// Should contain the remaining text
 		$this->assertStringContainsString('This should remain', $result);
@@ -154,34 +147,31 @@ class renderer_test extends \phpbb_test_case
 
 	public function test_remove_ignored_bbcodes_empty_config()
 	{
-		$this->config['topic_preview_strip_bbcodes'] = '';
+		$strip_bbcodes = '';
 		$text = '[quote]This should remain[/quote]';
 
 		$reflection = new \ReflectionClass($this->renderer);
 		$method = $reflection->getMethod('remove_ignored_bbcodes');
 		$method->setAccessible(true);
 
-		$result = $method->invoke($this->renderer, $text);
+		$result = $method->invoke($this->renderer, $text, $strip_bbcodes);
 		$this->assertEquals($text, $result);
 	}
 
 	public function test_plain_text_rendering()
 	{
-		$this->config['topic_preview_rich_text'] = 0;
-
 		$text = '<t><B><s>[b]</s>Bold<e>[/b]</e></B> text and 5 &lt; 1 &gt; 0</t>';
 
-		$result = $this->renderer->render_text($text, 150);
+		$result = $this->renderer->render_text($text, 150, '', false, true);
 
 		$this->assertEquals('Bold text and 5 &lt; 1 &gt; 0', $result);
 	}
 
 	public function test_plain_text_with_line_breaks()
 	{
-		$this->config['topic_preview_rich_text'] = 0;
 		$text = "<t>First line\n\nSecond line</t>";
 
-		$result = $this->renderer->render_text($text, 150);
+		$result = $this->renderer->render_text($text, 150, '', false, true);
 
 		$this->assertStringNotContainsString('First line<br />\n' . "\n" . '<br />\n' . "\n" . 'Second line', $result);
 	}
@@ -202,10 +192,9 @@ class renderer_test extends \phpbb_test_case
 
 	public function test_rich_text_rendering()
 	{
-		$this->config['topic_preview_rich_text'] = 1;
 		$text = '<t><B><s>[b]</s>Bold text<e>[/b]</e></B> normal text</t>';
 
-		$result = $this->renderer->render_text($text, 150);
+		$result = $this->renderer->render_text($text, 150, '', true, true);
 
 		$this->assertEquals('<B><s>[b]</s>Bold text<e>[/b]</e></B> normal text', $result);
 	}

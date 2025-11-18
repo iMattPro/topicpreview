@@ -40,6 +40,9 @@ class display extends base
 	/** @var renderer */
 	protected $renderer;
 
+	/** @var string */
+	protected $topic_preview_theme;
+
 	/**
 	 * Constructor
 	 *
@@ -74,9 +77,11 @@ class display extends base
 			$this->language->add_lang('topic_preview', 'vse/topicpreview');
 		}
 
+		$this->topic_preview_theme = $this->get_theme();
+
 		$this->template->assign_vars(array(
 			'S_TOPICPREVIEW'		=> $this->is_enabled(),
-			'TOPICPREVIEW_THEME'	=> $this->get_theme(),
+			'TOPICPREVIEW_THEME'	=> $this->topic_preview_theme,
 			'TOPICPREVIEW_DELAY'	=> $this->config['topic_preview_delay'],
 			'TOPICPREVIEW_DRIFT'	=> $this->config['topic_preview_drift'],
 			'TOPICPREVIEW_WIDTH'	=> !empty($this->config['topic_preview_width']) ? $this->config['topic_preview_width'] : self::PREVIEW_SIZE,
@@ -139,7 +144,15 @@ class display extends base
 			return '';
 		}
 
-		return censor_text($this->renderer->render_text($row[$post], $this->config['topic_preview_limit']));
+		return censor_text(
+			$this->renderer->render_text(
+				$row[$post],
+				(int) $this->config['topic_preview_limit'],
+				$this->config['topic_preview_strip_bbcodes'],
+				(bool) $this->config['topic_preview_rich_text'],
+				(bool) $this->topic_preview_theme
+			)
+		);
 	}
 
 	/**

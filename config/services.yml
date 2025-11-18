@@ -27,7 +27,6 @@ services:
     vse.topicpreview.renderer:
         class: vse\topicpreview\core\renderer
         arguments:
-            - '@config'
             - '@text_formatter.utils'
 
     vse.topicpreview.settings:

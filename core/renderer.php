@@ -10,62 +10,57 @@
 
 namespace vse\topicpreview\core;
 
-use phpbb\config\config;
 use phpbb\textformatter\s9e\utils;
 
 class renderer
 {
-	/** @var config */
-	protected $config;
-
 	/** @var utils */
 	protected $utils;
 
 	/**
 	 * Constructor
 	 *
-	 * @param config $config Config object
 	 * @param utils  $utils  Text formatter utils object
 	 */
-	public function __construct(config $config, utils $utils)
+	public function __construct(utils $utils)
 	{
-		$this->config = $config;
 		$this->utils = $utils;
 	}
 
 	/**
 	 * Render and trim post-text for topic preview
 	 *
-	 * @param string $text   Raw post text from database
-	 * @param int    $limit  Character limit for preview
-	 *
+	 * @param string $text          Raw post text from database
+	 * @param int    $limit         Character limit for preview
+	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
+	 * @param bool   $rich_text     True to use rich text rendering, false for plain text rendering
+	 * @param bool   $theme         True if a topic preview theme is set, false if no theme is set
 	 * @return string Rendered and trimmed HTML or plain text
 	 */
-	public function render_text($text, $limit)
+	public function render_text($text, $limit, $strip_bbcodes, $rich_text, $theme)
 	{
 		if (empty($text))
 		{
 			return '';
 		}
 
-		// Remove ignored BBCode tags and their content
-		$text = $this->remove_ignored_bbcodes($text);
+		$text = $this->remove_ignored_bbcodes($text, $strip_bbcodes);
 
-		return $this->config['topic_preview_rich_text']
+		return $rich_text && $theme
 			? $this->render_rich_text($text, $limit)
 			: $this->render_plain_text($text, $limit);
 	}
 
 	/**
-	 * Remove BBCode tags that should be ignored in previews
+	 * Remove BBCode tags and their content that should be ignored in previews
 	 *
 	 * @param string $text Raw post text
+	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
 	 *
 	 * @return string Text with ignored BBCodes removed
 	 */
-	protected function remove_ignored_bbcodes($text)
+	protected function remove_ignored_bbcodes($text, $strip_bbcodes)
 	{
-		$strip_bbcodes = $this->config['topic_preview_strip_bbcodes'] ?? '';
 		if (empty($strip_bbcodes))
 		{
 			return $text;
