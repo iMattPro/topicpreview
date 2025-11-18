@@ -14,7 +14,7 @@ class release_2_4_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['topic_preview_version']);
+		return isset($this->config['topic_preview_rich_text']);
 	}
 
 	public static function depends_on()
@@ -28,6 +28,7 @@ class release_2_4_0 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return [
+			['config.add', ['topic_preview_rich_text', '0']],
 			['custom', [[$this, 'update_none_theme_to_light']]],
 		];
 	}

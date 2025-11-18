@@ -39,7 +39,7 @@ class renderer
 	 * @param string $text   Raw post text from database
 	 * @param int    $limit  Character limit for preview
 	 *
-	 * @return string Rendered and trimmed HTML
+	 * @return string Rendered and trimmed HTML or plain text
 	 */
 	public function render_text($text, $limit)
 	{
@@ -51,21 +51,9 @@ class renderer
 		// Remove ignored BBCode tags and their content
 		$text = $this->remove_ignored_bbcodes($text);
 
-		// Get plain text for length checking
-		$plain_text = $this->utils->clean_formatting($text);
-
-		if (empty(trim($plain_text)))
-		{
-			return '';
-		}
-
-		if (utf8_strlen($plain_text) <= $limit)
-		{
-			return generate_text_for_display($text, '', '', 7);
-		}
-
-		// Render and trim
-		return $this->trim_html_content(generate_text_for_display($text, '', '', 7), $limit);
+		return $this->config['topic_preview_rich_text']
+			? $this->render_rich_text($text, $limit)
+			: $this->render_plain_text($text, $limit);
 	}
 
 	/**
@@ -89,6 +77,77 @@ class renderer
 			$text = $this->utils->remove_bbcode($text, $bbcode);
 		}
 		return $text;
+	}
+
+	/**
+	 * Render plain text preview (no HTML formatting)
+	 *
+	 * @param string $text  Raw post text from database
+	 * @param int    $limit Character limit for preview
+	 *
+	 * @return string Plain text preview
+	 */
+	protected function render_plain_text($text, $limit)
+	{
+		// Convert to plain text using unparse
+		$plain_text = $this->utils->unparse($text);
+
+		// Clean up remaining markup
+		$patterns = [
+			'#<!-- [lmw] --><a class="postlink[^>]*>(.*</a[^>]*>)?<!-- [lmw] -->#Usi', // Magic URLs
+			'#<[a-zA-Z][^>]*>.*?</[a-zA-Z][^>]*>#Usi', // HTML tags (only valid tag names)
+			'#\[/?[^]]+]#mi', // BBCode tags
+			'#(http|https|ftp|mailto)(:|&\#58;)//\S+#i', // Remaining URLs
+			'#[ \t]{2,}#' // Multiple spaces
+		];
+		$plain_text = trim(preg_replace($patterns, ' ', $plain_text));
+
+		if (empty($plain_text))
+		{
+			return '';
+		}
+
+		// Normalize line breaks
+		$plain_text = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/', "\n\n", $plain_text);
+
+		if (utf8_strlen($plain_text) <= $limit)
+		{
+			return nl2br(htmlspecialchars($plain_text, ENT_COMPAT, 'UTF-8'));
+		}
+
+		// Trim and remove partial words
+		$trimmed = preg_replace('/\s+?(\S+)?$/', '', utf8_substr($plain_text, 0, $limit));
+
+		return nl2br(htmlspecialchars($trimmed, ENT_COMPAT, 'UTF-8')) . '...';
+	}
+
+	/**
+	 * Render rich text preview (HTML formatting)
+	 *
+	 * @param string $text  Raw post text from database
+	 * @param int    $limit Character limit for preview
+	 *
+	 * @return string Rich HTML preview
+	 */
+	protected function render_rich_text($text, $limit)
+	{
+		// Get plain text for length checking
+		$plain_text = $this->utils->clean_formatting($text);
+
+		if (empty(trim($plain_text)))
+		{
+			return '';
+		}
+
+		$rendered_text = generate_text_for_display($text, '', '', 7);
+
+		if (utf8_strlen($plain_text) <= $limit)
+		{
+			return $rendered_text;
+		}
+
+		// Render and trim
+		return $this->trim_html_content($rendered_text, $limit);
 	}
 
 	/**
