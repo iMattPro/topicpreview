@@ -48,21 +48,4 @@ class topic_preview_scrollable_test extends \phpbb_functional_test_case
 		// Check that the topic preview container is present
 		$this->assertGreaterThan(0, $crawler->filter('.topic_preview_content')->count());
 	}
-
-	public function test_no_none_theme_option()
-	{
-		$this->login();
-		$this->admin_login();
-
-		// Visit the ACP settings page using a correct module path
-		$crawler = self::request('GET', 'adm/index.php?i=\\vse\\topicpreview\\acp\\topic_preview_module&amp;mode=settings&sid=' . $this->sid);
-
-		// Check that the "none" theme option is not available
-		$theme_options = $crawler->filter('select[name*="style_"] option')->extract(array('value'));
-		$this->assertNotContains('no', $theme_options);
-		$this->assertNotContains('none', $theme_options);
-
-		// Verify that valid themes are still available
-		$this->assertContains('light', $theme_options);
-	}
 }

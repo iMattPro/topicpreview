@@ -58,7 +58,7 @@ class base extends \phpbb_database_test_case
 		$cache = new \phpbb_mock_cache;
 
 		$config = $this->config = new \phpbb\config\config(array(
-			'topic_preview_strip_bbcodes'	=> 'quote',
+			'topic_preview_strip_bbcodes'	=> '',
 			'topic_preview_limit'			=> 150,
 			'topic_preview_avatars'			=> 1,
 			'topic_preview_last_post'		=> 1,
@@ -75,36 +75,11 @@ class base extends \phpbb_database_test_case
 		$this->user->method('optionget')
 			->with(self::anything())
 			->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
-		$this->user->style['style_path'] = 'prosilver';
 		$this->user->data['user_topic_preview'] = 1;
-		// Create a mock renderer for testing
-		$this->renderer = $this->createMock('\vse\topicpreview\core\renderer');
-		$this->renderer->method('render_text')
-			->willReturnCallback(function($text, $limit) use ($config) {
-				// Simple mock implementation for testing
-				// Remove BBCode tags with UIDs (e.g., [b:uid], [/b:uid])
-				$text = preg_replace('/\[\w+:[^\]]*\]/', '', $text);
-				$text = preg_replace('/\[\/\w+:[^\]]*\]/', '', $text);
-				// Remove regular BBCode tags
-				$text = preg_replace('/\[\w+[^\]]*\]/', '', $text);
-				$text = preg_replace('/\[\/\w+\]/', '', $text);
-				// Convert smilies
-				$text = str_replace('<!-- s:) --><img src="{SMILIES_PATH}/icon_e_smile.gif" alt=":)" title="Smile" /><!-- s:) -->', ':)', $text);
-				// Convert magic URLs - extract the URL text
-				$text = preg_replace('/<!-- [m] --><a[^>]*>([^<]*)<\/a><!-- [m] -->/', 'magic url', $text);
-				$text = preg_replace('/<!-- [e] --><a[^>]*>([^<]*)<\/a><!-- [e] -->/', '$1', $text);
-				// Remove quotes if configured
-				if (strpos($config['topic_preview_strip_bbcodes'], 'quote') !== false)
-				{
-					$text = preg_replace('/\[quote[^\]]*\].*?\[\/quote[^\]]*\]/s', '', $text);
-				}
-				// Trim to limit
-				if (utf8_strlen($text) > $limit)
-				{
-					$text = utf8_substr($text, 0, $limit) . '...';
-				}
-				return trim($text);
-			});
+
+		$this->get_test_case_helpers()->set_s9e_services();
+		$this->renderer = new \vse\topicpreview\core\renderer(new \phpbb\textformatter\s9e\utils());
+
 		$this->template = $this->createMock('\phpbb\template\template');
 	}
 
