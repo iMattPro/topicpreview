@@ -104,7 +104,7 @@ class topic_preview_test extends \phpbb_functional_test_case
 		// Create and preview a topic with a stripped bbcode
 		$this->create_topic(2, 'Test Topic 9', 'This is a ninth test topic [quote]' . str_repeat('aaa ', 60) . '[/quote] posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid=$this->sid");
-		self::assertStringContainsString('This is a ninth test topic  posted by the testing framework.', $crawler->filter('html')->text());
+		self::assertStringContainsString('This is a ninth test topic posted by the testing framework.', $crawler->filter('html')->text());
 
 		// Create and preview a topic with nested bbcodes
 		$this->create_topic(2, 'Test Topic 10', 'This is a tenth [b]test topic[/b] with [b]nested content inside of [b][i][b]nested[/b] [u]content[/u][/i][/b][/b] content [b]on top of more content[/b] posted by the testing framework.');

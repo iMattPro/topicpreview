@@ -66,12 +66,13 @@ class renderer
 			return $text;
 		}
 
+		$stripped_text = $text;
 		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
 		foreach ($bbcodes as $bbcode)
 		{
-			$text = $this->utils->remove_bbcode($text, $bbcode);
+			$stripped_text = $this->utils->remove_bbcode($stripped_text, $bbcode);
 		}
-		return $text;
+		return $stripped_text !== $text ? preg_replace('/\s+/', ' ', $stripped_text) : $text;
 	}
 
 	/**
