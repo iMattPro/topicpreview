@@ -1,57 +1,23 @@
-/**
-* Topic Preview - Windows Theme
-*
-* Color schema:
-* backgrounds: #fdfdfd
-* borders:     #636363
-* box shadows: #888888
-* font colors: #636363
-*/
+/** Topic Preview - Windows Theme */
 @import url("light.css");
+
+:root {
+	--tp-bg: #fdfdfd;
+	--tp-border: #636363;
+	--tp-shadow: #888888;
+	--tp-text: #636363;
+	--tp-scrollbar-track: #f0f0f0;
+	--tp-scrollbar-thumb: #636363;
+	--tp-scrollbar-hover: #444444;
+}
 
 .topic_preview_container {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	background: #fdfdfd;
-	background: -moz-linear-gradient(top, #fdfdfd 0%, #dedeec 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fdfdfd), color-stop(100%, #dedeec));
-	background: -webkit-linear-gradient(top, #fdfdfd 0%, #dedeec 100%);
-	background: -o-linear-gradient(top, #fdfdfd 0%, #dedeec 100%);
-	background: -ms-linear-gradient(top, #fdfdfd 0%, #dedeec 100%);
 	background: linear-gradient(to bottom, #fdfdfd 0%, #dedeec 100%);
-	border: 1px solid #636363;
-	-moz-box-shadow: 3px 3px 4px #888888;
-	-webkit-box-shadow: 3px 3px 4px #888888;
-	box-shadow: 3px 3px 4px #888888;
-	color: #636363;
-}
-
-.topic_preview_container:before {
-	/* Upper Triangle */
-	background: #fdfdfd;
-	border-top: 1px solid #636363;
-	border-right: 1px solid #636363;
+	box-shadow: 3px 3px 4px var(--tp-shadow);
 }
 
 .topic_preview_container.invert:after {
-	/* Lower Triangle */
 	background: #dedeec;
-	border-bottom: 1px solid #636363;
-	border-left: 1px solid #636363;
-}
-
-.topic_preview_avatar img {
-	border: solid 1px #636363;
-}
-
-.topic_preview_scrollable::-webkit-scrollbar-track {
-	background: #f0f0f0;
-}
-
-.topic_preview_scrollable::-webkit-scrollbar-thumb {
-	background: #636363;
-}
-
-.topic_preview_scrollable::-webkit-scrollbar-thumb:hover {
-	background: #444444;
 }

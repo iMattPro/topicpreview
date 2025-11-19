@@ -1,50 +1,17 @@
-/**
-* Topic Preview - Mac OS Theme
-*
-* Color schema:
-* backgrounds: #ffffc2
-* borders:     #989898
-* box shadows: #888888
-* font colors: #000000
-*/
+/** Topic Preview - Mac OS Theme */
 @import url("light.css");
+
+:root {
+	--tp-bg: #ffffc2;
+	--tp-border: #989898;
+	--tp-shadow: #888888;
+	--tp-text: #000000;
+	--tp-scrollbar-track: #f5f5dc;
+	--tp-scrollbar-thumb: #989898;
+	--tp-scrollbar-hover: #777777;
+}
 
 .topic_preview_container {
 	font-family: Verdana, Helvetica, Arial, sans-serif;
-	background: #ffffc2;
-	border: 1px solid #989898;
-	-moz-box-shadow: 0 4px 8px #888888;
-	-webkit-box-shadow: 0 4px 8px #888888;
-	box-shadow: 0 4px 8px #888888;
-	color: #000000;
-}
-
-.topic_preview_container:before {
-	/* Upper Triangle */
-	background: #ffffc2;
-	border-top: 1px solid #989898;
-	border-right: 1px solid #989898;
-}
-
-.topic_preview_container.invert:after {
-	/* Lower Triangle */
-	background: #ffffc2;
-	border-bottom: 1px solid #989898;
-	border-left: 1px solid #989898;
-}
-
-.topic_preview_avatar img {
-	border: solid 1px #989898;
-}
-
-.topic_preview_scrollable::-webkit-scrollbar-track {
-	background: #f5f5dc;
-}
-
-.topic_preview_scrollable::-webkit-scrollbar-thumb {
-	background: #989898;
-}
-
-.topic_preview_scrollable::-webkit-scrollbar-thumb:hover {
-	background: #777777;
+	box-shadow: 0 4px 8px var(--tp-shadow);
 }
