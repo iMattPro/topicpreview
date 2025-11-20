@@ -63,6 +63,7 @@ class base extends \phpbb_database_test_case
 			'topic_preview_avatars'			=> 1,
 			'topic_preview_last_post'		=> 1,
 			'allow_avatar'					=> 1,
+			'allow_attachments' 			=> 1,
 		));
 
 		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher();
@@ -72,9 +73,7 @@ class base extends \phpbb_database_test_case
 			->setConstructorArgs(array($this->language, '\phpbb\datetime'))
 			->setMethods(array())
 			->getMock();
-		$this->user->method('optionget')
-			->with(self::anything())
-			->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
+		$this->user->method('optionget')->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
 		$this->user->data['user_topic_preview'] = 1;
 
 		$this->get_test_case_helpers()->set_s9e_services();
@@ -87,7 +86,8 @@ class base extends \phpbb_database_test_case
 	{
 		return new \vse\topicpreview\core\data(
 			$this->config,
-			$this->user
+			$this->user,
+			$this->db
 		);
 	}
 

@@ -32,6 +32,7 @@ class topic_preview_test extends \phpbb_functional_test_case
 		$form['topic_preview_avatars'] = 1;
 		$form['topic_preview_last_post'] = 1;
 		$form['topic_preview_rich_text'] = 0;
+		$form['topic_preview_rich_attachments'] = 0;
 		$form['topic_preview_strip_bbcodes'] = 'quote';
 		self::submit($form);
 
@@ -83,6 +84,7 @@ class topic_preview_test extends \phpbb_functional_test_case
 		$form['topic_preview_avatars'] = 1;
 		$form['topic_preview_last_post'] = 1;
 		$form['topic_preview_rich_text'] = 1;
+		$form['topic_preview_rich_attachments'] = 0;
 		$form['topic_preview_strip_bbcodes'] = 'quote';
 		self::submit($form);
 

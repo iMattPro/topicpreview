@@ -15,9 +15,6 @@ class renderer_test extends \phpbb_test_case
 	/** @var \vse\topicpreview\core\renderer */
 	protected $renderer;
 
-	/** @var \phpbb\config\config */
-	protected $config;
-
 	protected function setUp(): void
 	{
 		parent::setUp();
@@ -137,9 +134,53 @@ class renderer_test extends \phpbb_test_case
 	 */
 	public function test_render_text($input, $limit, $rich_text, $expected)
 	{
-		$result = $this->renderer->render_text($input, $limit, 'quote', $rich_text, true);
+		$result = $this->renderer->render_text($input, $limit, 'quote', $rich_text, true, [], 0);
 
 		$this->assertEquals($expected, $result);
+	}
+
+	public function test_render_text_with_attachments()
+	{
+		// This test verifies that render_text handles attachments properly.
+		// The mock parse_attachments function is defined at the bottom of this file
+		// in the vse\topicpreview\core namespace to override phpBB's version.
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t>Text with <!-- ia0 --> inline attachment and more text</t>';
+		// Mix of inline attachment (array) and non-inline attachment (string)
+		$attachments = [
+			0 => ['attach_id' => 1, 'real_filename' => 'inline.jpg'],
+			1 => ['attach_id' => 2, 'real_filename' => 'non-inline.pdf'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, '', true, true, $attachments, 1);
+
+		$this->assertStringContainsString('inline.jpg', $result);
+		$this->assertStringContainsString('non-inline.pdf', $result);
+		$this->assertStringContainsString('and more text', $result);
+	}
+
+	public function test_render_text_plain_mode_ignores_attachments()
+	{
+		$text = '<t>Plain text</t>';
+		$attachments = [['attach_id' => 1, 'real_filename' => 'test.jpg']];
+
+		$result = $this->renderer->render_text($text, 150, '', false, false, $attachments, 1);
+
+		$this->assertEquals('Plain text', $result);
+	}
+
+	public function test_render_text_empty_attachments()
+	{
+		$text = '<t>Text without attachments</t>';
+		$result = $this->renderer->render_text($text, 150, '', true, true, [], 0);
+
+		$this->assertEquals('Text without attachments', $result);
 	}
 
 	public function test_remove_ignored_bbcodes()
@@ -210,5 +251,38 @@ class renderer_test extends \phpbb_test_case
 		$result = $method->invoke($this->renderer, $html, $limit);
 
 		$this->assertEquals($expected, $result);
+	}
+}
+
+// Mock parse_attachments for testing in the vse\topicpreview\core namespace
+// This will be called by renderer.php instead of the global parse_attachments
+namespace vse\topicpreview\core;
+
+if (!function_exists('vse\topicpreview\core\parse_attachments'))
+{
+	function parse_attachments($forum_id, &$message, &$attachments, &$update_count)
+	{
+		// Simple mock: process inline attachments and append non-inline ones
+		$compiled_attachments = [];
+		foreach ($attachments as $key => $attachment)
+		{
+			if ($attachment['real_filename'] === 'non-inline.pdf')
+			{
+				// Already rendered HTML - append to message
+				$message .= $attachment['real_filename'];
+				$compiled_attachments[] = $attachment['real_filename'];
+			}
+			else if (is_array($attachment) && isset($attachment['attach_id']))
+			{
+				// Mock inline attachment - replace placeholder
+				$message = str_replace('<!-- ia' . $key . ' -->', '<div class="inline-attachment">' . $attachment['real_filename'] . '</div>', $message);
+			}
+		}
+		$attachments = $compiled_attachments;
+	}
+
+	function generate_text_for_display($text, $uid, $bitfield, $flags)
+	{
+		return \generate_text_for_display($text, $uid, $bitfield, $flags);
 	}
 }

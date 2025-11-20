@@ -180,6 +180,9 @@ class display_topic_preview_test extends base
 	*/
 	public function test_display_topic_preview($data, $expected)
 	{
+		// add this to prevent undefined key errors in PHP8
+		$data['forum_id'] = 1;
+
 		// Disable topic preview avatars
 		if ($data['fp_avatar'] === null || $data['lp_avatar'] === null)
 		{
@@ -212,5 +215,84 @@ class display_topic_preview_test extends base
 
 		// Test that we get back the unmodified block array
 		self::assertEquals($block, $preview_display->display_topic_preview($data, $block));
+	}
+
+	public function topic_preview_display_with_attachments_data()
+	{
+		return array(
+			array(
+				array(
+					'first_post_text' => '<r>Fourth message <QUOTE><s>[quote]</s>' . str_repeat('aaa ', 60) . '<e>[/quote]</e></QUOTE></r>',
+					'fp_avatar' => null,
+					'fp_avatar_type' => 0,
+					'fp_avatar_width' => '',
+					'fp_avatar_height' => '',
+					'topic_first_post_id' => 8,
+					'last_post_text' =>'',
+					'lp_avatar' => null,
+					'lp_avatar_type' => 0,
+					'lp_avatar_width' => '',
+					'lp_avatar_height' => '',
+					'topic_last_post_id' => 8,
+				),
+				array(
+					'TOPIC_PREVIEW_FIRST_POST' => 'Fourth message aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa...',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_POST' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+				),
+			),
+		);
+	}
+
+	/**
+	 * @dataProvider topic_preview_display_with_attachments_data
+	 */
+	public function test_display_topic_preview_with_attachments($data, $expected)
+	{
+		$this->config['topic_preview_rich_text'] = 1;
+		$this->config['topic_preview_rich_attachments'] = 1;
+
+		// add this to prevent undefined key errors in PHP8
+		$data['forum_id'] = 1;
+
+		// Disable topic preview avatars
+		if ($data['fp_avatar'] === null || $data['lp_avatar'] === null)
+		{
+			$this->config['topic_preview_avatars'] = 0;
+		}
+
+		// Start with an empty block array
+		$block = array();
+
+		// Get an instance of topic preview display class
+		$preview_display = $this->get_topic_preview_display();
+
+		// Assert attachments are enabled
+		self::assertTrue($preview_display->attachments_enabled());
+		$attachments = [
+			1 => [
+				['attach_id' => 1, 'real_filename' => 'test1.jpg'],
+				['attach_id' => 2, 'real_filename' => 'test2.pdf'],
+			],
+			2 => [
+				['attach_id' => 3, 'real_filename' => 'test3.png'],
+			],
+		];
+
+		$preview_display->set_attachments_cache($attachments);
+
+		// Verify that attachments are stored in the attachments_cache property
+		$reflection = new \ReflectionClass($preview_display);
+		$property = $reflection->getProperty('attachments_cache');
+		$property->setAccessible(true);
+
+		self::assertEquals($attachments, $property->getValue($preview_display));
+
+		// Update the block array with topic preview data
+		$block = $preview_display->display_topic_preview($data, $block);
+
+		// Test that we get the expected result
+		self::assertEquals($expected, $block);
 	}
 }

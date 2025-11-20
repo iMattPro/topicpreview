@@ -49,8 +49,10 @@ class listener_test extends \phpbb_test_case
 		self::assertEquals(array(
 			'core.viewforum_get_topic_data',
 			'core.viewforum_get_shadowtopic_data',
+			'core.viewforum_modify_topics_data',
 			'core.viewforum_modify_topicrow',
 			'core.search_get_topic_data',
+			'core.search_modify_rowset',
 			'core.search_modify_tpl_ary',
 			'vse.similartopics.get_topic_data',
 			'vse.similartopics.modify_topicrow',
@@ -147,5 +149,74 @@ class listener_test extends \phpbb_test_case
 
 		// Assert that the event data has been modified
 		self::assertEquals(array('BAR'), $data[$block]);
+	}
+
+	public function test_load_attachments_bulk_disabled()
+	{
+		// Set up the listener
+		$this->set_listener();
+
+		// Mock topic preview as disabled
+		$this->topic_preview_data->expects(self::once())
+			->method('is_enabled')
+			->willReturn(false);
+
+		// Create event data
+		$data = new \phpbb\event\data([
+			'rowset' => [],
+		]);
+
+		// Should return early without calling other methods
+		$this->topic_preview_data->expects(self::never())
+			->method('get_attachments_bulk');
+
+		$this->listener->load_attachments_bulk($data);
+	}
+
+	public function test_load_attachments_bulk_with_attachments()
+	{
+		// Set up the listener
+		$this->set_listener();
+
+		// Mock topic preview as enabled
+		$this->topic_preview_data->expects(self::once())
+			->method('is_enabled')
+			->willReturn(true);
+
+		$this->topic_preview_data->expects(self::once())
+			->method('attachments_enabled')
+			->willReturn(true);
+
+		$this->topic_preview_data->expects(self::once())
+			->method('last_post_enabled')
+			->willReturn(true);
+
+		// Create event data with topics that have attachments
+		$data = new \phpbb\event\data([
+			'rowset' => [
+				[
+					'topic_attachment' => 1,
+					'topic_first_post_id' => 1,
+					'topic_last_post_id' => 2,
+				],
+				[
+					'topic_attachment' => 0, // No attachments
+					'topic_first_post_id' => 3,
+					'topic_last_post_id' => 3,
+				],
+			],
+		]);
+
+		// Should call get_attachments_bulk with only posts from topics with attachments
+		$this->topic_preview_data->expects(self::once())
+			->method('get_attachments_bulk')
+			->with([1, 2])
+			->willReturn([1 => [], 2 => []]);
+
+		$this->topic_preview_display->expects(self::once())
+			->method('set_attachments_cache')
+			->with([1 => [], 2 => []]);
+
+		$this->listener->load_attachments_bulk($data);
 	}
 }
