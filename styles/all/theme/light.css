@@ -34,7 +34,7 @@
 	pointer-events: none;
 }
 
-.topic_preview_container:before {
+.topic_preview_container.invert:before {
 	/* Upper Triangle */
 	background: var(--tp-bg);
 	border: 0;
@@ -50,7 +50,7 @@
 	transform: rotate(-45deg);
 }
 
-.topic_preview_container.invert:after {
+.topic_preview_container:after {
 	/* Lower Triangle */
 	background: var(--tp-bg);
 	border: 0;
@@ -67,8 +67,8 @@
 	transform: rotate(-45deg);
 }
 
-.topic_preview_container.invert:before {
-	/* Hide upper triangle */
+.topic_preview_container.invert:after {
+	/* Hide lower triangle when inverted */
 	display: none;
 	content: "";
 }

@@ -72,11 +72,10 @@
 				// Pointer offset
 				var pointerOffset = 8;
 
-				// Window bottom-edge detection, invert topic preview if needed
-				var previewTop = obj.offset().top + settings.position.top,
-					previewBottom = previewTop + previewContainer.height() + pointerOffset;
-				previewContainer.toggleClass('invert', edgeDetect(previewBottom));
-				previewTop = edgeDetect(previewBottom) ? obj.offset().top - previewContainer.outerHeight(true) - pointerOffset : previewTop;
+				// Window top-edge detection, invert topic preview if needed
+				var previewTop = obj.offset().top - previewContainer.outerHeight(true) - pointerOffset;
+				previewContainer.toggleClass('invert', !topEdgeDetect(previewTop));
+				previewTop = topEdgeDetect(previewTop) ? previewTop : obj.offset().top + settings.position.top;
 
 				// Display the topic preview positioned relative to the hover object
 				previewContainer
@@ -137,8 +136,13 @@
 		};
 
 		// Check if y coordinate is within 50 pixels of the bottom edge of a browser window
-		var edgeDetect = function(y) {
-			return (y >= ($(window).scrollTop() + $(window).height() - 50));
+		// var bottomEdgeDetect = function(y) {
+		// 	return (y >= ($(window).scrollTop() + $(window).height() - 50));
+		// };
+
+		// Check if y coordinate is within 50 pixels of the top edge of a browser window
+		var topEdgeDetect = function(y) {
+			return (y >= ($(window).scrollTop() + 50));
 		};
 
 		return this.each(function() {

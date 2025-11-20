@@ -15,13 +15,13 @@
 	box-shadow: 0 0 15px rgba(162, 0, 255, 0.35);
 }
 
-.topic_preview_container:before {
+.topic_preview_container.invert:before {
 	border-top: 2px solid var(--tp-border);
 	border-right: 2px solid var(--tp-border);
 	margin-top: -17px;
 }
 
-.topic_preview_container.invert:after {
+.topic_preview_container:after {
 	border-bottom: 2px solid var(--tp-border);
 	border-left: 2px solid var(--tp-border);
 }

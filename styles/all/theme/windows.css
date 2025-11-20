@@ -18,6 +18,6 @@
 	box-shadow: 3px 3px 4px var(--tp-shadow);
 }
 
-.topic_preview_container.invert:after {
+.topic_preview_container:after {
 	background: #dedeec;
 }
