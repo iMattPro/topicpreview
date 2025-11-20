@@ -114,6 +114,6 @@ class topic_preview_test extends \phpbb_functional_test_case
 		// Create and preview a topic with trimming inside bbcode
 		$this->create_topic(2, 'Test Topic 11', 'This is eleventh topic [b]' . str_repeat('foobar ', 40) . '[/b] posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid=$this->sid");
-		self::assertStringContainsString('This is eleventh topic <strong class="text-strong">' . trim(str_repeat('foobar ', 18)) . '</strong>...', $crawler->filter('html')->html());
+		self::assertStringContainsString('This is eleventh topic <strong class="text-strong">' . trim(str_repeat('foobar ', 18)) . '...</strong>', $crawler->filter('html')->html());
 	}
 }

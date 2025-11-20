@@ -208,18 +208,18 @@ class renderer
 		$body = $dom->getElementsByTagName('body')->item(0);
 		if ($body)
 		{
-			$this->trim_dom_text($body, $limit);
+			$count = $this->trim_dom_text($body, $limit);
 
 			$trimmed = '';
 			foreach ($body->childNodes as $child)
 			{
 				$trimmed .= $dom->saveHTML($child);
 			}
-		}
 
-		if (utf8_strlen(strip_tags($trimmed)) >= $limit)
-		{
-			$trimmed .= '...';
+			if ($count >= $limit && strpos($trimmed, '...') === false)
+			{
+				$trimmed .= '...';
+			}
 		}
 
 		return $trimmed;
@@ -254,7 +254,7 @@ class renderer
 				if ($count + $text_len > $limit)
 				{
 					$remaining = $limit - $count;
-					$child->nodeValue = utf8_substr($text, 0, $remaining);
+					$child->nodeValue = utf8_substr($text, 0, $remaining) . '...';
 					$count = $limit;
 				}
 				else

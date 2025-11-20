@@ -178,7 +178,7 @@ class renderer_test extends \phpbb_test_case
 			'HTML needs trimming' => [
 				25,
 				'<p>This is a <strong>test</strong> message with <em>formatting</em></p>',
-				'<p>This is a <strong>test</strong> message</p>...',
+				'<p>This is a <strong>test</strong> message...</p>',
 			],
 			'HTML no trimming' => [
 				150,
@@ -188,12 +188,12 @@ class renderer_test extends \phpbb_test_case
 			'HTML with emoji needs trimming' => [
 				5,
 				str_repeat('<img alt="😇">', 10),
-				str_repeat('<img alt="😇">', 5),
+				str_repeat('<img alt="😇">', 5) . '...',
 			],
 			'HTML with text and image exceeding limit' => [
 				5,
 				'<p>Text<img alt="1"><img alt="2"></p>',
-				'<p>Text<img alt="1"></p>',
+				'<p>Text<img alt="1"></p>...',
 			],
 		];
 	}
