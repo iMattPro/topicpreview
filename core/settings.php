@@ -82,6 +82,7 @@ class settings
 			'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
 			'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
 			'S_TOPIC_PREVIEW_RICH_TEXT'	=> $this->config['topic_preview_rich_text'],
+			'S_TOPIC_PREVIEW_RICH_ATT'	=> $this->config['topic_preview_rich_attachments'],
 			'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
 			'TOPIC_PREVIEW_STYLES'		=> $this->get_styles(),
 			'TOPIC_PREVIEW_THEMES'		=> $this->get_themes(),
@@ -103,6 +104,7 @@ class settings
 		$this->config->set('topic_preview_avatars', $this->request->variable('topic_preview_avatars', 0));
 		$this->config->set('topic_preview_last_post', $this->request->variable('topic_preview_last_post', 0));
 		$this->config->set('topic_preview_rich_text', $this->request->variable('topic_preview_rich_text', 0));
+		$this->config->set('topic_preview_rich_attachments', $this->request->variable('topic_preview_rich_attachments', 0));
 		$this->config->set('topic_preview_strip_bbcodes', $this->request->variable('topic_preview_strip_bbcodes', ''));
 
 		$styles = $this->get_styles();

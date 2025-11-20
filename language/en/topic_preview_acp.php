@@ -45,6 +45,8 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text in topic previews',
 	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich text previews',
 	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, topic previews will display formatted text with BBCode rendering. When disabled, previews will show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'When enabled, rich text previews will display attached files. This can be disabled to reduce server load if desired.',
 	'CHARS'							=> 'Characters',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Topic preview style settings',

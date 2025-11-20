@@ -10,8 +10,28 @@
 
 namespace vse\topicpreview\core;
 
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
+use phpbb\user;
+
 class data extends base
 {
+	/** @var driver_interface */
+	protected $db;
+
+	/**
+	 * Constructor
+	 *
+	 * @param config $config Config object
+	 * @param user   $user   User object
+	 * @param driver_interface $db Database driver
+	 */
+	public function __construct(config $config, user $user, driver_interface $db)
+	{
+		$this->db = $db;
+		parent::__construct($config, $user);
+	}
+
 	/**
 	 * Update an SQL SELECT statement to get data needed for topic previews
 	 *
@@ -177,5 +197,35 @@ class data extends base
 		}
 
 		return $sql_stmt;
+	}
+
+	/**
+	 * Get attachments for multiple posts
+	 *
+	 * @param array $post_ids Array of post IDs
+	 * @return array Attachments grouped by post_id
+	 */
+	public function get_attachments_bulk($post_ids)
+	{
+		if (empty($post_ids))
+		{
+			return [];
+		}
+
+		$sql = 'SELECT *
+			FROM ' . ATTACHMENTS_TABLE . '
+			WHERE ' . $this->db->sql_in_set('post_msg_id', $post_ids) . '
+				AND in_message = 0
+			ORDER BY post_msg_id, filetime ASC';
+		$result = $this->db->sql_query($sql);
+
+		$attachments = [];
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$attachments[$row['post_msg_id']][] = $row;
+		}
+		$this->db->sql_freeresult($result);
+
+		return $attachments;
 	}
 }

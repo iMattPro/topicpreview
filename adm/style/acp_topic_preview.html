@@ -37,6 +37,13 @@
 				<label><input type="radio" class="radio" name="topic_preview_rich_text" value="0"{% if not S_TOPIC_PREVIEW_RICH_TEXT %} checked="checked"{% endif %}> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
+		<dl>
+			<dt><label for="topic_preview_rich_attachments">{{ lang('TOPIC_PREVIEW_RICH_ATT') ~ lang('COLON') }}</label><br><span>{{ lang('TOPIC_PREVIEW_RICH_ATT_EXPLAIN') }}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="topic_preview_rich_attachments" id="topic_preview_rich_attachments" value="1"{% if S_TOPIC_PREVIEW_RICH_ATT %} checked="checked"{% endif %}> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="topic_preview_rich_attachments" value="0"{% if not S_TOPIC_PREVIEW_RICH_ATT %} checked="checked"{% endif %}> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
 	</fieldset>
 
 	<fieldset>

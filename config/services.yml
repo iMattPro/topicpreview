@@ -12,6 +12,7 @@ services:
         arguments:
             - '@config'
             - '@user'
+            - '@dbal.conn'
 
     vse.topicpreview.display:
         class: vse\topicpreview\core\display

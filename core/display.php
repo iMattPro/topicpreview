@@ -43,6 +43,9 @@ class display extends base
 	/** @var string|false */
 	protected $topic_preview_theme;
 
+	/** @var array */
+	protected $attachments_cache = [];
+
 	/**
 	 * Constructor
 	 *
@@ -144,13 +147,22 @@ class display extends base
 			return '';
 		}
 
+		$attachments = [];
+		if ($this->attachments_cache)
+		{
+			$post_id = $post === 'first_post_text' ? $row['topic_first_post_id'] : $row['topic_last_post_id'];
+			$attachments = $this->attachments_cache[$post_id] ?? [];
+		}
+
 		return censor_text(
 			$this->renderer->render_text(
 				$row[$post],
 				(int) $this->config['topic_preview_limit'],
 				$this->config['topic_preview_strip_bbcodes'],
 				(bool) $this->config['topic_preview_rich_text'],
-				(bool) $this->topic_preview_theme
+				(bool) $this->topic_preview_theme,
+				$attachments,
+				$row['forum_id']
 			)
 		);
 	}
@@ -200,5 +212,15 @@ class display extends base
 		}
 
 		return false;
+	}
+
+	/**
+	 * Set attachments cache
+	 *
+	 * @param array $attachments Attachments grouped by post_id
+	 */
+	public function set_attachments_cache($attachments)
+	{
+		$this->attachments_cache = $attachments;
 	}
 }

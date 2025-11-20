@@ -62,4 +62,14 @@ class base
 	{
 		return (bool) $this->config['topic_preview_last_post'];
 	}
+
+	/**
+	 * Show attachments, given current board configuration
+	 *
+	 * @return bool
+	 */
+	public function attachments_enabled()
+	{
+		return $this->config['topic_preview_rich_text'] && $this->config['topic_preview_rich_attachments'] && $this->config['allow_attachments'];
+	}
 }

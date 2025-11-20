@@ -48,10 +48,12 @@ class listener implements EventSubscriberInterface
 			// viewforum.php events
 			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
 			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_array',
+			'core.viewforum_modify_topics_data'		=> 'load_attachments_bulk',
 			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',
 
 			// search.php events
 			'core.search_get_topic_data'			=> 'modify_sql_string',
+			'core.search_modify_rowset'				=> 'load_attachments_bulk',
 			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
 
 			// Custom events for integration with Precise Similar Topics
@@ -102,5 +104,37 @@ class listener implements EventSubscriberInterface
 	{
 		$block = $event['topic_row'] ? 'topic_row' : 'tpl_ary';
 		$event[$block] = $this->preview_display->display_topic_preview($event['row'], $event[$block]);
+	}
+
+	/**
+	 * Load attachments in bulk before processing topics
+	 *
+	 * @param \phpbb\event\data $event The event object
+	 */
+	public function load_attachments_bulk($event)
+	{
+		if (!$this->preview_data->is_enabled() || !$this->preview_data->attachments_enabled())
+		{
+			return;
+		}
+
+		$post_ids = [];
+		foreach ($event['rowset'] as $row)
+		{
+			if ($row['topic_attachment'])
+			{
+				$post_ids[] = $row['topic_first_post_id'];
+				if ($this->preview_data->last_post_enabled() && $row['topic_first_post_id'] !== $row['topic_last_post_id'])
+				{
+					$post_ids[] = $row['topic_last_post_id'];
+				}
+			}
+		}
+
+		if (!empty($post_ids))
+		{
+			$attachments = $this->preview_data->get_attachments_bulk(array_unique($post_ids));
+			$this->preview_display->set_attachments_cache($attachments);
+		}
 	}
 }

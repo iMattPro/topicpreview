@@ -29,6 +29,7 @@ class release_2_4_0 extends \phpbb\db\migration\migration
 	{
 		return [
 			['config.add', ['topic_preview_rich_text', '0']],
+			['config.add', ['topic_preview_rich_attachments', '0']],
 		];
 	}
 }

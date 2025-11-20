@@ -35,9 +35,11 @@ class renderer
 	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
 	 * @param bool   $rich_text     True to use rich text rendering, false for plain text rendering
 	 * @param bool   $theme         True if a topic preview theme is set, false if no theme is set
+	 * @param array  $attachments   Array of attachment data
+	 * @param int    $forum_id      Forum ID for attachment parsing
 	 * @return string Rendered and trimmed HTML or plain text
 	 */
-	public function render_text($text, $limit, $strip_bbcodes, $rich_text, $theme)
+	public function render_text($text, $limit, $strip_bbcodes, $rich_text, $theme, $attachments = [], $forum_id = 0)
 	{
 		if (empty($text))
 		{
@@ -47,7 +49,7 @@ class renderer
 		$text = $this->remove_ignored_bbcodes($text, $strip_bbcodes);
 
 		return $rich_text && $theme
-			? $this->render_rich_text($text, $limit)
+			? $this->render_rich_text($text, $limit, $attachments, $forum_id)
 			: $this->render_plain_text($text, $limit);
 	}
 
@@ -122,10 +124,12 @@ class renderer
 	 *
 	 * @param string $text  Raw post text from database
 	 * @param int    $limit Character limit for preview
+	 * @param array  $attachments Array of attachment data
+	 * @param int    $forum_id Forum ID for attachment parsing
 	 *
 	 * @return string Rich HTML preview
 	 */
-	protected function render_rich_text($text, $limit)
+	protected function render_rich_text($text, $limit, $attachments = [], $forum_id = 0)
 	{
 		// Get plain text for length checking
 		$plain_text = $this->utils->clean_formatting($text);
@@ -136,6 +140,22 @@ class renderer
 		}
 
 		$rendered_text = generate_text_for_display($text, '', '', 7);
+
+		// Parse attachments after text rendering
+		if (!empty($attachments))
+		{
+			$update_count = [];
+			parse_attachments($forum_id, $rendered_text, $attachments, $update_count);
+
+			// Append any remaining non-inline attachments
+			foreach ($attachments as $attachment)
+			{
+				if (!empty($attachment))
+				{
+					$rendered_text .= $attachment;
+				}
+			}
+		}
 
 		if (utf8_strlen($plain_text) <= $limit)
 		{
