@@ -9,28 +9,29 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 
 ## Features
 * Let your visitors peek at what's inside a topic before they click on it
-* **NEW in v2.4:** Full HTML rendering for rich content display
+* **NEW in v2.4:** Full HTML rendering for rich content display*
 * **NEW in v2.4:** Scrollable tooltips with hoverable content area for large media and embedded content
-* **NEW in v2.4:** Safe HTML trimming that preserves tag structure and prevents broken markup
+* **NEW in v2.4:** Admin option to toggle topic previews between rich topic previews for the best UX or classic plain text 
 * Admin options to display user avatars and text previews from the first and last posts
 * Admin option to set the amount of text shown in the preview
-* Admin option to define BBCodes whose contents you want removed from the topic preview
+* Admin option to define BBCodes, whose contents you want removed from the topic preview
 * Admin options to customize the appearance and assign different themes to board styles
 * Ships with four themes, additional custom themes can be added using CSS files
 * User option allows users to disable topic previews
-* Previews are aware of browser window top/bottom edges and are responsive
+* Previews are aware of the browser window top / bottom edges and are responsive
 * The last word in the topic preview is not cut off and will be followed by an ellipsis
-* Character limits apply only to visible text, not markup
+* Character limits apply safe HTML trimming that preserves tag structure and prevents broken markup
 * Does not significantly impact server load (no additional db queries)
 * Multiple languages are supported. View the pre-installed [localizations](https://github.com/iMattPro/topicpreview/tree/master/language).
 * Built-in support for "[Precise Similar Topics](https://www.phpbb.com/customise/db/extension/precise_similar_topics/)", "[Recent Topics](https://www.phpbb.com/customise/db/extension/recent_topics_2/)" and "[Top Five](https://www.phpbb.com/customise/db/extension/topfiveext/)" extensions
+* *Note: Some content may not appear fully rendered in topic previews, such as attachments, or BBCodes that require assets that are not available on the current page
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #143.
 
 ## Minimum Requirements
 * phpBB 3.3.0 or higher
-* PHP 7.1 or higher
+* PHP 7.2 or higher
 
 ## Installation
 1. [Download the latest validated release](https://www.phpbb.com/customise/db/extension/topicpreview/).

@@ -2,14 +2,12 @@
 
 ## 2.4.0-dev
 
-- **BREAKING:** Dropped support for phpBB 3.2 and PHP < 7.2
-- **BREAKING:** Removed "none" theme option (native browser tooltips no longer supported)
-- **NEW:** Scrollable tooltips with hoverable content area
-- **NEW:** Full HTML rendering using phpBB's s9e text formatter
-- **NEW:** Safe HTML trimming that preserves tag structure
-- **IMPROVED:** Character limits now apply only to visible text, not markup
-- **IMPROVED:** Better support for embedded media and large content
-- **REMOVED:** Legacy trim tools and BBCode cleanup systems
+- Enhanced topic previews now display rich content including images, media, and formatted text for a better preview experience.
+- Added an option in the ACP to switch back to simple text previews for forums with limited server resources.
+- Character limits now count only the actual text you see, not hidden formatting codes.
+- Fixed display issues with special characters like < and > symbols.
+- Made it easier for theme designers to customize preview appearance.
+- Requires phpBB 3.3+ and PHP 7.2 or newer (older versions are no longer supported).
 
 ## 2.3.3 - 2025-06-01
 
