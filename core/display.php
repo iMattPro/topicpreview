@@ -15,7 +15,6 @@ use phpbb\event\dispatcher_interface;
 use phpbb\language\language;
 use phpbb\template\template;
 use phpbb\user;
-use vse\topicpreview\core\renderer;
 
 class display extends base
 {

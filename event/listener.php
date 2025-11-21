@@ -136,7 +136,7 @@ class listener implements EventSubscriberInterface
 
 		if (!empty($post_ids))
 		{
-			$attachments = $this->preview_data->get_attachments_bulk(array_unique($post_ids));
+			$attachments = $this->preview_data->get_attachments(array_unique($post_ids));
 			$this->preview_display->set_attachments_cache($attachments);
 		}
 	}

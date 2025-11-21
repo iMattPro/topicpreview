@@ -205,7 +205,7 @@ class data extends base
 	 * @param array $post_ids Array of post IDs
 	 * @return array Attachments grouped by post_id
 	 */
-	public function get_attachments_bulk($post_ids)
+	public function get_attachments($post_ids)
 	{
 		if (empty($post_ids))
 		{

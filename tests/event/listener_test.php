@@ -171,7 +171,7 @@ class listener_test extends \phpbb_test_case
 
 		// Should return early without calling other methods
 		$this->topic_preview_data->expects(self::never())
-			->method('get_attachments_bulk');
+			->method('get_attachments');
 
 		$this->listener->load_attachments($data);
 	}
@@ -210,9 +210,9 @@ class listener_test extends \phpbb_test_case
 			],
 		]);
 
-		// Should call get_attachments_bulk with only posts from topics with attachments
+		// Should call get_attachments with only posts from topics with attachments
 		$this->topic_preview_data->expects(self::once())
-			->method('get_attachments_bulk')
+			->method('get_attachments')
 			->with([1, 2])
 			->willReturn([1 => [], 2 => []]);
 

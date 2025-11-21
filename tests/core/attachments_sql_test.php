@@ -8,16 +8,14 @@
  *
  */
 
-namespace core;
-
-use vse\topicpreview\tests\core\base;
+namespace vse\topicpreview\tests\core;
 
 class attachments_sql_test extends base
 {
 	public function test_get_attachments_bulk_empty()
 	{
 		$preview_data = $this->get_topic_preview_data();
-		$result = $preview_data->get_attachments_bulk([]);
+		$result = $preview_data->get_attachments([]);
 
 		self::assertEquals([], $result);
 	}
@@ -25,7 +23,7 @@ class attachments_sql_test extends base
 	public function test_get_attachments_bulk_with_data()
 	{
 		$preview_data = $this->get_topic_preview_data();
-		$result = $preview_data->get_attachments_bulk([1, 2]);
+		$result = $preview_data->get_attachments([1, 2]);
 
 		self::assertArrayHasKey(1, $result);
 		self::assertArrayHasKey(2, $result);
