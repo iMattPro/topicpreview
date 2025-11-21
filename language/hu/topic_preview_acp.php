@@ -43,6 +43,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Sorold fel azokat a BBCode-okat, melyeket el akarsz rejteni az előnézetben (pl. spoilerek és rejtett szövegek). A BBCode-okat a | karakterrel válaszd el egymástól, pl.: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Avatarok megjelenítése a téma-előnézetekben',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Az "Utolsó hozzászólás" szövegének mutatása a téma-előnézetben',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'Karakterek',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Téma-előnézet stílusbeállításai',

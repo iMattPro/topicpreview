@@ -44,6 +44,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Lista upp BBCodes med innehåll som du vill dölja i ämnesöversikten (t.ex. spoiler- och dolt-text-BBCodes). Separera flera BBCoder genom att använda tecknet |, t.ex.: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Visa avatarer i ämnesöversikten',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Visa texten “Senaste inlägg” i ämnesöversikten',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'Tecken',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Mallinställningar för ämnesöversikten',

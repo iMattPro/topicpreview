@@ -43,6 +43,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> '列出不想在預覽中出現的BBCode（例如spoiler或是其他隱藏文字的代碼）。請以 | 符號分隔多個BBCode，例如：spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> '於預覽中顯示大頭貼',
 	'TOPIC_PREVIEW_LAST_POST'		=> '於預覽中顯示最後發表貼文的文字',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> '字元',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> '主題預覽樣式',
