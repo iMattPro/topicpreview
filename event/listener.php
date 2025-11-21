@@ -58,14 +58,17 @@ class listener implements EventSubscriberInterface
 
 			// Custom events for integration with Precise Similar Topics
 			'vse.similartopics.get_topic_data'		=> 'modify_sql_array',
+			'vse.similartopics.modify_rowset'		=> 'load_attachments',
 			'vse.similartopics.modify_topicrow'		=> 'display_topic_previews',
 
 			// Custom events for integration with Recent Topics
 			'paybas.recenttopics.sql_pull_topics_data'	=> 'modify_sql_array',
+			'paybas.recenttopics.modify_topics_list'	=> 'load_attachments',
 			'paybas.recenttopics.modify_tpl_ary'		=> 'display_topic_previews',
 
 			// Custom events for integration with Recent Topics NG
 			'imcger.recenttopicsng.sql_pull_topics_data'=> 'modify_sql_array',
+			'imcger.recenttopicsng.modify_topics_list'	=> 'load_attachments',
 			'imcger.recenttopicsng.modify_tpl_ary'		=> 'display_topic_previews',
 
 			// Custom events for integration with Top Five
