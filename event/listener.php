@@ -48,12 +48,12 @@ class listener implements EventSubscriberInterface
 			// viewforum.php events
 			'core.viewforum_get_topic_data'			=> 'modify_sql_array',
 			'core.viewforum_get_shadowtopic_data'	=> 'modify_sql_array',
-			'core.viewforum_modify_topics_data'		=> 'load_attachments_bulk',
+			'core.viewforum_modify_topics_data'		=> 'load_attachments',
 			'core.viewforum_modify_topicrow'		=> 'display_topic_previews',
 
 			// search.php events
 			'core.search_get_topic_data'			=> 'modify_sql_string',
-			'core.search_modify_rowset'				=> 'load_attachments_bulk',
+			'core.search_modify_rowset'				=> 'load_attachments',
 			'core.search_modify_tpl_ary'			=> 'display_topic_previews',
 
 			// Custom events for integration with Precise Similar Topics
@@ -107,11 +107,11 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Load attachments in bulk before processing topics
+	 * Load attachments before processing topics
 	 *
 	 * @param \phpbb\event\data $event The event object
 	 */
-	public function load_attachments_bulk($event)
+	public function load_attachments($event)
 	{
 		if (!$this->preview_data->is_enabled() || !$this->preview_data->attachments_enabled())
 		{

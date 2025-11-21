@@ -55,10 +55,13 @@ class listener_test extends \phpbb_test_case
 			'core.search_modify_rowset',
 			'core.search_modify_tpl_ary',
 			'vse.similartopics.get_topic_data',
+			'vse.similartopics.modify_rowset',
 			'vse.similartopics.modify_topicrow',
 			'paybas.recenttopics.sql_pull_topics_data',
+			'paybas.recenttopics.modify_topics_list',
 			'paybas.recenttopics.modify_tpl_ary',
 			'imcger.recenttopicsng.sql_pull_topics_data',
+			'imcger.recenttopicsng.modify_topics_list',
 			'imcger.recenttopicsng.modify_tpl_ary',
 			'rmcgirr83.topfive.sql_pull_topics_data',
 			'rmcgirr83.topfive.modify_tpl_ary',
@@ -170,7 +173,7 @@ class listener_test extends \phpbb_test_case
 		$this->topic_preview_data->expects(self::never())
 			->method('get_attachments_bulk');
 
-		$this->listener->load_attachments_bulk($data);
+		$this->listener->load_attachments($data);
 	}
 
 	public function test_load_attachments_bulk_with_attachments()
@@ -217,6 +220,6 @@ class listener_test extends \phpbb_test_case
 			->method('set_attachments_cache')
 			->with([1 => [], 2 => []]);
 
-		$this->listener->load_attachments_bulk($data);
+		$this->listener->load_attachments($data);
 	}
 }
