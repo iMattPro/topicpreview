@@ -69,6 +69,9 @@
 				// Fill the topic preview with scrollable content
 				previewContainer.html('<div class="topic_preview_scrollable">' + content + '</div>');
 
+				// Remove postimage class from images to prevent lightbox extension styling
+				previewContainer.find('img.postimage').removeClass('postimage');
+
 				// Pointer offset
 				var pointerOffset = 8;
 
