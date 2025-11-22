@@ -62,6 +62,8 @@ class base extends \phpbb_database_test_case
 			'topic_preview_limit'			=> 150,
 			'topic_preview_avatars'			=> 1,
 			'topic_preview_last_post'		=> 1,
+			'topic_preview_rich_text'		=> 1,
+			'topic_preview_rich_attachments'=> 1,
 			'allow_avatar'					=> 1,
 			'allow_attachments' 			=> 1,
 		));

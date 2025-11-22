@@ -154,71 +154,64 @@ class listener_test extends \phpbb_test_case
 		self::assertEquals(array('BAR'), $data[$block]);
 	}
 
-	public function test_load_attachments_bulk_disabled()
+	public function test_load_attachments_disabled()
 	{
 		// Set up the listener
 		$this->set_listener();
-
-		// Mock topic preview as disabled
-		$this->topic_preview_data->expects(self::once())
-			->method('is_enabled')
-			->willReturn(false);
 
 		// Create event data
 		$data = new \phpbb\event\data([
 			'rowset' => [],
 		]);
 
-		// Should return early without calling other methods
-		$this->topic_preview_data->expects(self::never())
-			->method('get_attachments');
+		// Mock get_attachments_for_topics to return empty array (disabled case)
+		$this->topic_preview_data->expects(self::once())
+			->method('get_attachments_for_topics')
+			->with($data['rowset'])
+			->willReturn([]);
+
+		// Should not call set_attachments_cache when empty
+		$this->topic_preview_display->expects(self::never())
+			->method('set_attachments_cache');
 
 		$this->listener->load_attachments($data);
 	}
 
-	public function test_load_attachments_bulk_with_attachments()
+	public function test_load_attachments_with_attachments()
 	{
 		// Set up the listener
 		$this->set_listener();
 
-		// Mock topic preview as enabled
-		$this->topic_preview_data->expects(self::once())
-			->method('is_enabled')
-			->willReturn(true);
-
-		$this->topic_preview_data->expects(self::once())
-			->method('attachments_enabled')
-			->willReturn(true);
-
-		$this->topic_preview_data->expects(self::once())
-			->method('last_post_enabled')
-			->willReturn(true);
-
 		// Create event data with topics that have attachments
-		$data = new \phpbb\event\data([
-			'rowset' => [
-				[
-					'topic_attachment' => 1,
-					'topic_first_post_id' => 1,
-					'topic_last_post_id' => 2,
-				],
-				[
-					'topic_attachment' => 0, // No attachments
-					'topic_first_post_id' => 3,
-					'topic_last_post_id' => 3,
-				],
+		$rowset = [
+			[
+				'topic_attachment' => 1,
+				'topic_first_post_id' => 1,
+				'topic_last_post_id' => 2,
 			],
+			[
+				'topic_attachment' => 0, // No attachments
+				'topic_first_post_id' => 3,
+				'topic_last_post_id' => 3,
+			],
+		];
+
+		$data = new \phpbb\event\data([
+			'rowset' => $rowset,
 		]);
 
-		// Should call get_attachments with only posts from topics with attachments
-		$this->topic_preview_data->expects(self::once())
-			->method('get_attachments')
-			->with([1, 2])
-			->willReturn([1 => [], 2 => []]);
+		$expected_attachments = [1 => [], 2 => []];
 
+		// Mock get_attachments_for_topics to return attachments
+		$this->topic_preview_data->expects(self::once())
+			->method('get_attachments_for_topics')
+			->with($rowset)
+			->willReturn($expected_attachments);
+
+		// Should call set_attachments_cache with the attachments
 		$this->topic_preview_display->expects(self::once())
 			->method('set_attachments_cache')
-			->with([1 => [], 2 => []]);
+			->with($expected_attachments);
 
 		$this->listener->load_attachments($data);
 	}

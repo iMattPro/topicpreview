@@ -200,12 +200,46 @@ class data extends base
 	}
 
 	/**
+	 * Get attachments for topics from a rowset
+	 *
+	 * @param array $rowset Array of topic rows
+	 * @return array Attachments grouped by post_id
+	 */
+	public function get_attachments_for_topics($rowset)
+	{
+		if (!$this->is_enabled() || !$this->attachments_enabled())
+		{
+			return [];
+		}
+
+		$post_ids = [];
+		foreach ($rowset as $row)
+		{
+			if ($row['topic_attachment'])
+			{
+				$post_ids[] = $row['topic_first_post_id'];
+				if ($this->last_post_enabled() && $row['topic_first_post_id'] !== $row['topic_last_post_id'])
+				{
+					$post_ids[] = $row['topic_last_post_id'];
+				}
+			}
+		}
+
+		if (empty($post_ids))
+		{
+			return [];
+		}
+
+		return $this->get_attachments(array_unique($post_ids));
+	}
+
+	/**
 	 * Get attachments for multiple posts
 	 *
 	 * @param array $post_ids Array of post IDs
 	 * @return array Attachments grouped by post_id
 	 */
-	public function get_attachments($post_ids)
+	protected function get_attachments($post_ids)
 	{
 		if (empty($post_ids))
 		{

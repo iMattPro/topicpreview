@@ -116,27 +116,9 @@ class listener implements EventSubscriberInterface
 	 */
 	public function load_attachments($event)
 	{
-		if (!$this->preview_data->is_enabled() || !$this->preview_data->attachments_enabled())
+		$attachments = $this->preview_data->get_attachments_for_topics($event['rowset']);
+		if (!empty($attachments))
 		{
-			return;
-		}
-
-		$post_ids = [];
-		foreach ($event['rowset'] as $row)
-		{
-			if ($row['topic_attachment'])
-			{
-				$post_ids[] = $row['topic_first_post_id'];
-				if ($this->preview_data->last_post_enabled() && $row['topic_first_post_id'] !== $row['topic_last_post_id'])
-				{
-					$post_ids[] = $row['topic_last_post_id'];
-				}
-			}
-		}
-
-		if (!empty($post_ids))
-		{
-			$attachments = $this->preview_data->get_attachments(array_unique($post_ids));
 			$this->preview_display->set_attachments_cache($attachments);
 		}
 	}
