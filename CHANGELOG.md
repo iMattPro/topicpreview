@@ -7,6 +7,8 @@
 - Character limits now count only the actual text you see, not hidden formatting codes.
 - Fixed display issues with special characters like < and > symbols.
 - Made it easier for theme designers to customize preview appearance.
+- Use our pure CSS "No Avatar" image instead of the no-avatar.gif as a fallback for broken/un-loadable avatar images.
+- Added support for the Recent Topics NG extension.
 - Requires phpBB 3.3+ and PHP 7.2 or newer (older versions are no longer supported).
 
 ## 2.3.3 - 2025-06-01
