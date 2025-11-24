@@ -105,6 +105,12 @@ class renderer_test extends \phpbb_test_case
 				0,
 				'5 &lt; 10 &gt; 1',
 			],
+			'Plain text with quotes' => [
+				'<t>Test "quoted" text</t>',
+				150,
+				0,
+				'Test &quot;quoted&quot; text',
+			],
 			'Text with line breaks - plain mode' =>
 			[
 				"<t>First line\n\nSecond line</t>",
