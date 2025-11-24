@@ -10,8 +10,28 @@
 
 namespace vse\topicpreview\core;
 
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
+use phpbb\user;
+
 class data extends base
 {
+	/** @var driver_interface */
+	protected $db;
+
+	/**
+	 * Constructor
+	 *
+	 * @param config $config Config object
+	 * @param user   $user   User object
+	 * @param driver_interface $db Database driver
+	 */
+	public function __construct(config $config, user $user, driver_interface $db)
+	{
+		$this->db = $db;
+		parent::__construct($config, $user);
+	}
+
 	/**
 	 * Update an SQL SELECT statement to get data needed for topic previews
 	 *
@@ -177,5 +197,79 @@ class data extends base
 		}
 
 		return $sql_stmt;
+	}
+
+	/**
+	 * Get attachments for topics from a rowset
+	 *
+	 * @param array $rowset Array of topic rows
+	 * @return array Attachments grouped by post_id
+	 */
+	public function get_attachments_for_topics($rowset)
+	{
+		if (!$this->is_enabled() || !$this->attachments_enabled())
+		{
+			return [];
+		}
+
+		$post_ids = [];
+		foreach ($rowset as $row)
+		{
+			if ($row['topic_attachment'])
+			{
+				$post_ids[] = $row['topic_first_post_id'];
+				if ($this->last_post_enabled() && $row['topic_first_post_id'] !== $row['topic_last_post_id'])
+				{
+					$post_ids[] = $row['topic_last_post_id'];
+				}
+			}
+		}
+
+		if (empty($post_ids))
+		{
+			return [];
+		}
+
+		return $this->get_attachments(array_unique($post_ids));
+	}
+
+	/**
+	 * Get attachments for multiple posts
+	 *
+	 * @param array $post_ids Array of post IDs
+	 * @return array Attachments grouped by post_id
+	 */
+	protected function get_attachments($post_ids)
+	{
+		if (empty($post_ids))
+		{
+			return [];
+		}
+
+		// Limit to prevent excessive memory usage - process in chunks if needed
+		$chunk_size = 100;
+		$attachments = [];
+
+		foreach (array_chunk($post_ids, $chunk_size) as $chunk)
+		{
+			$sql = 'SELECT *
+				FROM ' . ATTACHMENTS_TABLE . '
+				WHERE ' . $this->db->sql_in_set('post_msg_id', $chunk) . '
+					AND in_message = 0
+				ORDER BY post_msg_id, filetime ASC';
+			$result = $this->db->sql_query_limit($sql, 500);
+
+			while ($row = $this->db->sql_fetchrow($result))
+			{
+				// Limit to 2 attachments per post
+				if (!isset($attachments[$row['post_msg_id']]) || count($attachments[$row['post_msg_id']]) < 2)
+				{
+					$attachments[$row['post_msg_id']][] = $row;
+				}
+			}
+			$this->db->sql_freeresult($result);
+		}
+
+		return $attachments;
 	}
 }

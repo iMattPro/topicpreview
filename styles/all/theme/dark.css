@@ -1,23 +1,11 @@
-/**
-* Topic Preview - Dark Theme
-*
-* Color schema:
-* backgrounds: #1e1e1e
-* borders:     #cecece
-* box shadows: #808080
-* font colors: #cecece
-*/
+/** Topic Preview - Dark Theme */
 @import url("light.css");
 
-.topic_preview_container {
-	background: #1e1e1e;
-	-moz-box-shadow: 1px 1px 3px #808080;
-	-webkit-box-shadow: 1px 1px 3px #808080;
-	box-shadow: 1px 1px 3px #808080;
-	color: #cecece;
-}
-
-.topic_preview_container:before,
-.topic_preview_container.invert:after {
-	background: #1e1e1e;
+:root {
+	--tp-bg: #1e1e1e;
+	--tp-shadow: #808080;
+	--tp-text: #cecece;
+	--tp-scrollbar-track: #2a2a2a;
+	--tp-scrollbar-thumb: #555555;
+	--tp-scrollbar-hover: #777777;
 }

@@ -19,10 +19,10 @@ use phpbb\request\request;
 class settings
 {
 	/** @var string Default no theme value */
-	const NO_THEME = 'no';
+	public const NO_THEME = 'no';
 
 	/** @var string Default theme value */
-	const DEFAULT_THEME = 'light';
+	public const DEFAULT_THEME = 'light';
 
 	/** @var cache_driver */
 	protected $cache;
@@ -81,6 +81,8 @@ class settings
 			'TOPIC_PREVIEW_DRIFT'		=> $this->config['topic_preview_drift'],
 			'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
 			'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
+			'S_TOPIC_PREVIEW_RICH_TEXT'	=> $this->config['topic_preview_rich_text'],
+			'S_TOPIC_PREVIEW_RICH_ATT'	=> $this->config['topic_preview_rich_attachments'],
 			'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
 			'TOPIC_PREVIEW_STYLES'		=> $this->get_styles(),
 			'TOPIC_PREVIEW_THEMES'		=> $this->get_themes(),
@@ -101,6 +103,8 @@ class settings
 		$this->config->set('topic_preview_drift', $this->request->variable('topic_preview_drift', 0));
 		$this->config->set('topic_preview_avatars', $this->request->variable('topic_preview_avatars', 0));
 		$this->config->set('topic_preview_last_post', $this->request->variable('topic_preview_last_post', 0));
+		$this->config->set('topic_preview_rich_text', $this->request->variable('topic_preview_rich_text', 0));
+		$this->config->set('topic_preview_rich_attachments', $this->request->variable('topic_preview_rich_attachments', 0));
 		$this->config->set('topic_preview_strip_bbcodes', $this->request->variable('topic_preview_strip_bbcodes', ''));
 
 		$styles = $this->get_styles();
@@ -161,7 +165,7 @@ class settings
 			->find_from_extension('topicpreview', $this->phpbb_root_path . 'ext/vse/topicpreview/');
 
 		// Get just basenames of array keys
-		$themes = array_map(function ($value) {
+		$themes = array_map(static function ($value) {
 			return basename($value, '.css');
 		}, array_keys($themes));
 

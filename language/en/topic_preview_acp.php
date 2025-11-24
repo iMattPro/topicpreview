@@ -35,7 +35,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Topic Preview',
-	'TOPIC_PREVIEW_EXPLAIN'			=> 'Topic Preview displays a short excerpt of text from the first post in a tooltip while the mouse hovers over a topic’s title.',
+	'TOPIC_PREVIEW_EXPLAIN'			=> 'Topic Preview shows a short excerpt from the first post when hovering over a topic title.',
 	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
 	'TOPIC_PREVIEW_LENGTH'			=> 'Length of topic preview text',
 	'TOPIC_PREVIEW_LENGTH_EXPLAIN'	=> 'Enter the number of characters to display in the topic preview tooltip (default is 150). Setting the value to 0 disables this feature.',
@@ -43,6 +43,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'List BBCodes with content you want removed from the preview (spoiler and hidden text BBCodes, for example). Separate multiple BBCodes using the | character, for example: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Display avatars in topic previews',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Display “Last post” text in topic previews',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'Characters',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Topic preview style settings',

@@ -132,7 +132,7 @@ class ucp_listener_test extends \phpbb_test_case
 
 		$event_data = array('data', 'sql_ary');
 		$event_data_after = $dispatcher->trigger_event('core.ucp_prefs_view_update_data', compact($event_data));
-		extract($event_data_after, EXTR_OVERWRITE);
+		extract($event_data_after);
 
 		self::assertEquals($expected, $sql_ary);
 	}
@@ -273,7 +273,7 @@ class ucp_listener_test extends \phpbb_test_case
 
 		$event_data = array('submit', 'data');
 		$event_data_after = $dispatcher->trigger_event('core.ucp_prefs_view_data', compact($event_data));
-		extract($event_data_after, EXTR_OVERWRITE);
+		extract($event_data_after);
 
 		self::assertEquals($expected, $data);
 	}

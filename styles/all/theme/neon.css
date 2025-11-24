@@ -1,57 +1,43 @@
-/**
-* Topic Preview - Neon
-*
-* Color schema:
-* backgrounds: #000000
-* borders:     #c965eb
-* box shadows: #a200ff
-* font colors: #fff, #b071cd,
-*/
+/** Topic Preview - Neon */
 @import url("light.css");
 
-.topic_preview_container {
-	background-color: #000000;
-	background-color: rgba(0, 0, 0, 0.97);
-	border: 2px solid #c965eb;
-	-moz-box-shadow: 0 0 15px rgba(162, 0, 255, 0.35);
-	-webkit-box-shadow: 0 0 15px rgba(162, 0, 255, 0.35);
-	box-shadow: 0 0 15px rgba(162, 0, 255, 0.35);
-	color: #ffffff;
+:root {
+	--tp-bg: rgba(0, 0, 0, 0.97);
+	--tp-border: #c965eb;
+	--tp-text: #ffffff;
+	--tp-scrollbar-track: rgba(25, 25, 25, 0.8);
+	--tp-scrollbar-thumb: #c965eb;
+	--tp-scrollbar-hover: #a200ff;
 }
 
-.topic_preview_container:before {
-	/* Upper Triangle */
-	background-color: #000000;
-	background-color: rgba(0, 0, 0, 0.97);
-	border-top: 2px solid #c965eb;
-	border-right: 2px solid #c965eb;
+.topic_preview_container {
+	border: 2px solid var(--tp-border);
+	box-shadow: 0 0 15px rgba(162, 0, 255, 0.35);
+}
+
+.topic_preview_container.invert:before {
+	border-top: 2px solid var(--tp-border);
+	border-right: 2px solid var(--tp-border);
 	margin-top: -17px;
 }
 
-.topic_preview_container.invert:after {
-	/* Lower Triangle */
-	background-color: #000000;
-	background-color: rgba(0, 0, 0, 0.97);
-	border-bottom: 2px solid #c965eb;
-	border-left: 2px solid #c965eb;
+.topic_preview_container:after {
+	border-bottom: 2px solid var(--tp-border);
+	border-left: 2px solid var(--tp-border);
 }
 
 .topic_preview_container strong {
 	color: #b071cd;
 }
 
-/* Avatars and Text */
-.topic_preview_avatar {
-	margin: 0 10px 0 0;
-}
-
 .topic_preview_avatar img {
-	border: solid 1px #3080d0;
-	-moz-box-shadow: 0 0 10px rgba(0, 156, 255, 0.6);
-	-webkit-box-shadow: 0 0 10px rgba(0, 156, 255, 0.6);
-	box-shadow: 0 0 10px rgba(0, 156, 255, 0.6);
+	border-color: #3080d0;
 }
 
-.topic_preview_avatar.rtl {
-	margin: 0 0 0 10px;
+.topic_preview_scrollable::-webkit-scrollbar-thumb {
+	box-shadow: 0 0 5px rgba(162, 0, 255, 0.5);
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb:hover {
+	box-shadow: 0 0 8px rgba(162, 0, 255, 0.8);
 }

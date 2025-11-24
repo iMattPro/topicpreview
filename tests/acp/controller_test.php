@@ -96,6 +96,8 @@ class controller_test extends \phpbb_database_test_case
 				'TOPIC_PREVIEW_DRIFT'		=> $this->config['topic_preview_drift'],
 				'S_TOPIC_PREVIEW_AVATARS'	=> $this->config['topic_preview_avatars'],
 				'S_TOPIC_PREVIEW_LAST_POST'	=> $this->config['topic_preview_last_post'],
+				'S_TOPIC_PREVIEW_RICH_TEXT'	=> $this->config['topic_preview_rich_text'],
+				'S_TOPIC_PREVIEW_RICH_ATT'	=> $this->config['topic_preview_rich_attachments'],
 				'TOPIC_PREVIEW_STRIP'		=> $this->config['topic_preview_strip_bbcodes'],
 				'TOPIC_PREVIEW_STYLES'		=> $this->invokeMethod($this->settings, 'get_styles'),
 				'TOPIC_PREVIEW_THEMES'		=> $this->invokeMethod($this->settings, 'get_themes'),
@@ -146,6 +148,8 @@ class controller_test extends \phpbb_database_test_case
 					array('topic_preview_drift', 0, false, \phpbb\request\request_interface::REQUEST, 200),
 					array('topic_preview_avatars', 0, false, \phpbb\request\request_interface::REQUEST, 1),
 					array('topic_preview_last_post', 0, false, \phpbb\request\request_interface::REQUEST, 1),
+					array('topic_preview_rich_text', 0, false, \phpbb\request\request_interface::REQUEST, 1),
+					array('topic_preview_rich_attachments', 0, false, \phpbb\request\request_interface::REQUEST, 1),
 					array('topic_preview_strip_bbcodes', '', false, \phpbb\request\request_interface::REQUEST, 'foo'),
 					array('style_1', '', false, \phpbb\request\request_interface::REQUEST, 'no'),
 				),
@@ -170,7 +174,7 @@ class controller_test extends \phpbb_database_test_case
 	 * @return mixed Method return.
 	 * @throws \ReflectionException
 	 */
-	public function invokeMethod(&$object, $methodName, array $parameters = array())
+	public function invokeMethod($object, $methodName, array $parameters = array())
 	{
 		$reflection = new \ReflectionClass(get_class($object));
 		$method = $reflection->getMethod($methodName);

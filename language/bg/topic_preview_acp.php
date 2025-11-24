@@ -43,6 +43,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Списък на BB-кодове, които трябва да бъдат премахнати от предварителният преглед (например, spoiler или hidden). За указаване на няколко BB-кода исполвайте символ | за разделяне. Например: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Включване на показването на аватари',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Допълнително показване на «Последно съобщение»',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'символи',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Параметри на стила',

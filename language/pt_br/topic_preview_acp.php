@@ -43,6 +43,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Listar BBCodes que devem ser removidos do preview. Separados por | , exemplo: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Exibir Avatares',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Mostrar “Última Postagem”',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'Caracteres',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Estilo',

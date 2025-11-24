@@ -49,14 +49,19 @@ class listener_test extends \phpbb_test_case
 		self::assertEquals(array(
 			'core.viewforum_get_topic_data',
 			'core.viewforum_get_shadowtopic_data',
+			'core.viewforum_modify_topics_data',
 			'core.viewforum_modify_topicrow',
 			'core.search_get_topic_data',
+			'core.search_modify_rowset',
 			'core.search_modify_tpl_ary',
 			'vse.similartopics.get_topic_data',
+			'vse.similartopics.modify_rowset',
 			'vse.similartopics.modify_topicrow',
 			'paybas.recenttopics.sql_pull_topics_data',
+			'paybas.recenttopics.modify_topics_list',
 			'paybas.recenttopics.modify_tpl_ary',
 			'imcger.recenttopicsng.sql_pull_topics_data',
+			'imcger.recenttopicsng.modify_topics_list',
 			'imcger.recenttopicsng.modify_tpl_ary',
 			'rmcgirr83.topfive.sql_pull_topics_data',
 			'rmcgirr83.topfive.modify_tpl_ary',
@@ -157,5 +162,67 @@ class listener_test extends \phpbb_test_case
 
 		// Assert that the event data has been modified
 		self::assertEquals(array('BAR'), $data[$block]);
+	}
+
+	public function test_load_attachments_disabled()
+	{
+		// Set up the listener
+		$this->set_listener();
+
+		// Create event data
+		$data = new \phpbb\event\data([
+			'rowset' => [],
+		]);
+
+		// Mock get_attachments_for_topics to return empty array (disabled case)
+		$this->topic_preview_data->expects(self::once())
+			->method('get_attachments_for_topics')
+			->with($data['rowset'])
+			->willReturn([]);
+
+		// Should not call set_attachments_cache when empty
+		$this->topic_preview_display->expects(self::never())
+			->method('set_attachments_cache');
+
+		$this->listener->load_attachments($data);
+	}
+
+	public function test_load_attachments_with_attachments()
+	{
+		// Set up the listener
+		$this->set_listener();
+
+		// Create event data with topics that have attachments
+		$rowset = [
+			[
+				'topic_attachment' => 1,
+				'topic_first_post_id' => 1,
+				'topic_last_post_id' => 2,
+			],
+			[
+				'topic_attachment' => 0, // No attachments
+				'topic_first_post_id' => 3,
+				'topic_last_post_id' => 3,
+			],
+		];
+
+		$data = new \phpbb\event\data([
+			'rowset' => $rowset,
+		]);
+
+		$expected_attachments = [1 => [], 2 => []];
+
+		// Mock get_attachments_for_topics to return attachments
+		$this->topic_preview_data->expects(self::once())
+			->method('get_attachments_for_topics')
+			->with($rowset)
+			->willReturn($expected_attachments);
+
+		// Should call set_attachments_cache with the attachments
+		$this->topic_preview_display->expects(self::once())
+			->method('set_attachments_cache')
+			->with($expected_attachments);
+
+		$this->listener->load_attachments($data);
 	}
 }

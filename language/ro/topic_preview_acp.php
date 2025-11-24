@@ -44,6 +44,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Afişează codurile BB cu conţinutul pe care-l doreşti înlăturat din previzualizare ( spoiler şi texte cod BB ascunse, spre exemplu ). Separă codurile BB multiple folosind caracterul |, de exemplu: spoiler|ascunde|cod',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Afişează avatars in previzualizarea subiectelor',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Include "Ultimul mesaj", in previzualizare',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'Caractere',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Setări de stil pentru previzualizarea subiectului',

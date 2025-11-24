@@ -1,26 +1,25 @@
-/**
-* Topic Preview - Light Theme
-*
-* Color schema:
-* backgrounds: #ffffff
-* borders:     #cecece
-* box shadows: #cecece
-* font colors: #333333
-*/
+/** Topic Preview - Light Theme */
+
+:root {
+	--tp-bg: #ffffff;
+	--tp-border: #cecece;
+	--tp-shadow: #cecece;
+	--tp-text: #333333;
+	--tp-scrollbar-track: #f1f1f1;
+	--tp-scrollbar-thumb: #cecece;
+	--tp-scrollbar-hover: #999999;
+	--tp-avatar-bg: #b2bec6;
+}
 
 .topic_preview_container {
 	font-size: 11px;
 	font-style: normal;
 	text-decoration: none;
-	background: #ffffff;
-	border: 1px solid #cecece;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	background: var(--tp-bg);
+	border: 1px solid var(--tp-border);
 	border-radius: 3px;
-	-moz-box-shadow: 1px 1px 3px #cecece;
-	-webkit-box-shadow: 1px 1px 3px #cecece;
-	box-shadow: 1px 1px 3px #cecece;
-	color: #333333;
+	box-shadow: 1px 1px 3px var(--tp-shadow);
+	color: var(--tp-text);
 	position: absolute;
 	z-index: 10;
 	display: none;
@@ -29,12 +28,18 @@
 	padding: 10px;
 }
 
-.topic_preview_container:before {
+.topic_preview_container * {
+	max-width: 100%;
+	height: auto;
+	pointer-events: none;
+}
+
+.topic_preview_container.invert:before {
 	/* Upper Triangle */
-	background: #ffffff;
+	background: var(--tp-bg);
 	border: 0;
-	border-top: 1px solid #cecece;
-	border-right: 1px solid #cecece;
+	border-top: 1px solid var(--tp-border);
+	border-right: 1px solid var(--tp-border);
 	position: absolute;
 	display: block;
 	width: 10px;
@@ -42,19 +47,15 @@
 	margin-top: -16px;
 	margin-left: 15px;
 	content: "";
-	-moz-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
-	-webkit-transform: rotate(-45deg);
 	transform: rotate(-45deg);
 }
 
-.topic_preview_container.invert:after {
+.topic_preview_container:after {
 	/* Lower Triangle */
-	background: #ffffff;
+	background: var(--tp-bg);
 	border: 0;
-	border-bottom: 1px solid #cecece;
-	border-left: 1px solid #cecece;
+	border-bottom: 1px solid var(--tp-border);
+	border-left: 1px solid var(--tp-border);
 	position: absolute;
 	top: 100%;
 	display: block;
@@ -63,15 +64,11 @@
 	margin-top: -5px;
 	margin-left: 15px;
 	content: "";
-	-moz-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
-	-webkit-transform: rotate(-45deg);
 	transform: rotate(-45deg);
 }
 
-.topic_preview_container.invert:before {
-	/* Hide upper triangle */
+.topic_preview_container.invert:after {
+	/* Hide lower triangle when inverted */
 	display: none;
 	content: "";
 }
@@ -90,7 +87,7 @@
 }
 
 .topic_preview_avatar img {
-	border: solid 1px #cecece;
+	border: solid 1px var(--tp-border);
 	width: auto;
 	max-width: 60px;
 	height: auto;
@@ -107,7 +104,32 @@
 .topic_preview_last {
 	word-wrap: break-word;
 	overflow: hidden;
-	max-height: 200px;
+}
+
+.topic_preview_scrollable {
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 400px;
+	padding-right: 5px;
+	pointer-events: auto;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar {
+	width: 6px;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-track {
+	background: var(--tp-scrollbar-track);
+	border-radius: 3px;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb {
+	background: var(--tp-scrollbar-thumb);
+	border-radius: 3px;
+}
+
+.topic_preview_scrollable::-webkit-scrollbar-thumb:hover {
+	background: var(--tp-scrollbar-hover);
 }
 
 .topic_preview_break {
@@ -122,8 +144,8 @@
 
 /* Pure CSS no-avatar */
 .topic_preview_no_avatar {
-	background: #b2bec6;
-	box-shadow: 0 0 0 1px #b2bec6;
+	background: var(--tp-avatar-bg);
+	box-shadow: 0 0 0 1px var(--tp-avatar-bg);
 	position: relative;
 	overflow: hidden;
 	width: 60px;
@@ -132,7 +154,7 @@
 
 /* Pure CSS no-avatar body */
 .topic_preview_no_avatar:before {
-	background: #ffffff;
+	background: var(--tp-bg);
 	border-radius: 100%;
 	position: absolute;
 	bottom: 0;
@@ -145,9 +167,9 @@
 
 /* Pure CSS no-avatar head */
 .topic_preview_no_avatar:after {
-	background: #ffffff;
+	background: var(--tp-bg);
 	border-radius: 50%;
-	box-shadow: 0 0 0 3px #b2bec6;
+	box-shadow: 0 0 0 3px var(--tp-avatar-bg);
 	position: absolute;
 	top: 10%;
 	left: 50%;

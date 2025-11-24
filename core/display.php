@@ -16,15 +16,14 @@ use phpbb\event\dispatcher_interface;
 use phpbb\language\language;
 use phpbb\template\template;
 use phpbb\user;
-use vse\topicpreview\core\trim\trim;
 
 class display extends base
 {
 	/** @var int default width of topic preview */
-	const PREVIEW_SIZE = 360;
+	public const PREVIEW_SIZE = 360;
 
 	/** @var string */
-	const NO_AVATAR = 'no-avatar';
+	public const NO_AVATAR = 'no-avatar';
 
 	/** @var avatar_helper*/
 	protected $avatar_helper;
@@ -41,28 +40,34 @@ class display extends base
 	/** @var string phpBB root path */
 	protected $root_path;
 
-	/** @var trim */
-	protected $trim;
+	/** @var renderer */
+	protected $renderer;
+
+	/** @var string|false */
+	protected $topic_preview_theme;
+
+	/** @var array */
+	protected $attachments_cache = [];
 
 	/**
 	 * Constructor
 	 *
 	 * @param avatar_helper        $avatar_helper Avatar helper object
-	 * @param config                $config         Config object
-	 * @param dispatcher_interface $dispatcher    Event dispatcher object
-	 * @param language             $language      Language object
-	 * @param template             $template      Template object
-	 * @param trim                 $trim          Trim text object
-	 * @param user                 $user          User object
+	 * @param config               $config     Config object
+	 * @param dispatcher_interface $dispatcher Event dispatcher object
+	 * @param language             $language   Language object
+	 * @param template             $template   Template object
+	 * @param renderer             $renderer   Text renderer object
+	 * @param user                 $user       User object
 	 * @param string               $root_path
 	 */
-	public function __construct(avatar_helper $avatar_helper, config $config, dispatcher_interface $dispatcher, language $language, template $template, trim $trim, user $user, $root_path)
+	public function __construct(avatar_helper $avatar_helper, config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path)
 	{
 		$this->avatar_helper = $avatar_helper;
 		$this->dispatcher = $dispatcher;
 		$this->language = $language;
 		$this->template = $template;
-		$this->trim = $trim;
+		$this->renderer = $renderer;
 		$this->root_path = $root_path;
 		parent::__construct($config, $user);
 
@@ -80,9 +85,11 @@ class display extends base
 			$this->language->add_lang('topic_preview', 'vse/topicpreview');
 		}
 
+		$this->topic_preview_theme = $this->get_theme();
+
 		$this->template->assign_vars(array(
 			'S_TOPICPREVIEW'		=> $this->is_enabled(),
-			'TOPICPREVIEW_THEME'	=> $this->get_theme(),
+			'TOPICPREVIEW_THEME'	=> $this->topic_preview_theme,
 			'TOPICPREVIEW_DELAY'	=> $this->config['topic_preview_delay'],
 			'TOPICPREVIEW_DRIFT'	=> $this->config['topic_preview_drift'],
 			'TOPICPREVIEW_WIDTH'	=> !empty($this->config['topic_preview_width']) ? $this->config['topic_preview_width'] : self::PREVIEW_SIZE,
@@ -145,7 +152,24 @@ class display extends base
 			return '';
 		}
 
-		return censor_text($this->trim->trim_text($row[$post], $this->config['topic_preview_limit']));
+		$attachments = [];
+		if ($this->attachments_cache)
+		{
+			$post_id = $post === 'first_post_text' ? $row['topic_first_post_id'] : $row['topic_last_post_id'];
+			$attachments = $this->attachments_cache[$post_id] ?? [];
+		}
+
+		return censor_text(
+			$this->renderer->render_text(
+				$row[$post],
+				(int) $this->config['topic_preview_limit'],
+				$this->config['topic_preview_strip_bbcodes'],
+				(bool) $this->config['topic_preview_rich_text'],
+				(bool) $this->topic_preview_theme,
+				$attachments,
+				$row['forum_id']
+			)
+		);
 	}
 
 	/**
@@ -193,5 +217,15 @@ class display extends base
 		}
 
 		return false;
+	}
+
+	/**
+	 * Set attachments cache
+	 *
+	 * @param array $attachments Attachments grouped by post_id
+	 */
+	public function set_attachments_cache($attachments)
+	{
+		$this->attachments_cache = $attachments;
 	}
 }

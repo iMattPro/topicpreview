@@ -30,8 +30,8 @@ class base extends \phpbb_database_test_case
 	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
 	protected $template;
 
-	/** @var \vse\topicpreview\core\trim\trim */
-	protected $trim;
+	/** @var \vse\topicpreview\core\renderer|\PHPUnit\Framework\MockObject\MockObject */
+	protected $renderer;
 
 	/** @var \phpbb\user|\PHPUnit\Framework\MockObject\MockObject */
 	protected $user;
@@ -61,11 +61,14 @@ class base extends \phpbb_database_test_case
 		$cache = new \phpbb_mock_cache;
 
 		$config = $this->config = new \phpbb\config\config(array(
-			'topic_preview_strip_bbcodes'	=> 'quote',
+			'topic_preview_strip_bbcodes'	=> '',
 			'topic_preview_limit'			=> 150,
 			'topic_preview_avatars'			=> 1,
 			'topic_preview_last_post'		=> 1,
+			'topic_preview_rich_text'		=> 1,
+			'topic_preview_rich_attachments'=> 1,
 			'allow_avatar'					=> 1,
+			'allow_attachments' 			=> 1,
 		));
 
 		$phpbb_dispatcher = $this->dispatcher = new \phpbb\event\dispatcher();
@@ -77,14 +80,12 @@ class base extends \phpbb_database_test_case
 		$user = $this->user = $this->getMockBuilder('\phpbb\user')
 			->setConstructorArgs(array($this->language, '\phpbb\datetime'))
 			->getMock();
-		$this->user->method('optionget')
-			->with(self::anything())
-			->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
-		$this->user->style['style_path'] = 'prosilver';
+		$this->user->method('optionget')->willReturnMap(array(array('viewavatars', false, true), array('viewcensors', false, false)));
 		$this->user->data['user_topic_preview'] = 1;
-		$this->trim = tools\helper::trimTools()
-			->setTools($config)
-			->getTrim();
+
+		$this->get_test_case_helpers()->set_s9e_services();
+		$this->renderer = new \vse\topicpreview\core\renderer(new \phpbb\textformatter\s9e\utils());
+
 		$this->template = $this->createMock('\phpbb\template\template');
 	}
 
@@ -92,7 +93,8 @@ class base extends \phpbb_database_test_case
 	{
 		return new \vse\topicpreview\core\data(
 			$this->config,
-			$this->user
+			$this->user,
+			$this->db
 		);
 	}
 
@@ -104,7 +106,7 @@ class base extends \phpbb_database_test_case
 			$this->dispatcher,
 			$this->language,
 			$this->template,
-			$this->trim,
+			$this->renderer,
 			$this->user,
 			$this->root_path
 		);

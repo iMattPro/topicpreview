@@ -44,6 +44,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Ukoliko želiš onemogućiti prikaz [pojedinih] BBkodova, s pripadajućim im sadržajem [npr. <em>spoiler</em> i <em>skriven tekst</em>], u prikaznom balončiću, naniži kodove razdvajajući ih | znakom [npr. spoiler|hide|code].',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Prikaži avatare u prikazima tema',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Prikaži (i) “Zadnji post” u prikazima tema',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'znak(ov)a',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Postavke stila',

@@ -44,6 +44,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'تستطيع اخفاء النص الذي يحتوي على الـ BBCodes من الظهور في نافذة "مُعاينة الموضوع بالماوس" (مثل : أكواد النص spoiler و hidden ). تستطيع إضافة أكثر من كود للـ BBCodes بواسطة استخدام العلامة | بين الأكواد. مثال : spoiler|hide|code.',
 	'TOPIC_PREVIEW_AVATARS'			=> 'إظهار الصور الشخصية ',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'إظهار “آخر مشاركة” ',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'حروف',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'إعدادات التصميم',

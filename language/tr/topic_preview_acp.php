@@ -43,6 +43,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Önzilemeden kaldırlmasını istediğiniz BBCode listesi (spoiler ve hidden text BBCodes, örnek olarak). Birden fazla BBCode için aralarına | karakterini kullanın, örneğin: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Konu önizlemelerde avatarları göster',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Konu önizlemelerde “Son mesaj” metnini göster',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'Karakter',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Konu özizleme stil ayarları',

@@ -30,5 +30,12 @@ class topic_preview_acp_test extends \phpbb_functional_test_case
 		$crawler = self::request('GET', 'adm/index.php?i=\vse\topicpreview\acp\topic_preview_module&amp;mode=settings&sid=' . $this->sid);
 		$this->assertContainsLang('TOPIC_PREVIEW', $crawler->text());
 		$this->assertContainsLang('TOPIC_PREVIEW_EXPLAIN', $crawler->text());
+
+		$theme_options = $crawler->filter('select[name*="style_"] option')->extract(array('value'));
+		$this->assertContains('no', $theme_options);
+		$this->assertContains('light', $theme_options);
+		$this->assertContains('dark', $theme_options);
+		$this->assertContains('macos', $theme_options);
+		$this->assertContains('windows', $theme_options);
 	}
 }

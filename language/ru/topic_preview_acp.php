@@ -43,6 +43,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Перечень BB-кодов, которые надо удалить из предварительного просмотра (например, spoiler или hidden). Для указания нескольких BB-кодов используйте символ | для разделения. Например: spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Включить отображение аватаров',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Дополнительно отображать «Последнее сообщение»',
+	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Enable rich-text previews',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'When enabled, previews will display formatted content with full BBCode rendering. When disabled, previews show plain text only.',
+	'TOPIC_PREVIEW_RICH_ATT'		=> 'Display attachments in rich-text previews',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Show attached files in rich-text previews. Disable this if you want to reduce server load.',
 	'CHARS'							=> 'символов',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Параметры стиля',
