@@ -12,7 +12,7 @@ namespace vse\topicpreview\tests\core;
 
 class attachments_sql_test extends base
 {
-	public function get_attachments_empty_data()
+	public static function get_attachments_empty_data()
 	{
 		return [
 			'disabled' => [
@@ -140,7 +140,7 @@ class attachments_sql_test extends base
 		self::assertArrayNotHasKey(4, $result); // Post 4 has no attachments in fixture
 	}
 
-	public function get_attachments_data()
+	public static function get_attachments_data()
 	{
 		return [
 			'empty' => [
@@ -172,7 +172,6 @@ class attachments_sql_test extends base
 		// Use reflection to access protected method
 		$reflection = new \ReflectionClass($preview_data);
 		$method = $reflection->getMethod('get_attachments');
-		$method->setAccessible(true);
 
 		$result = $method->invokeArgs($preview_data, [$post_ids]);
 

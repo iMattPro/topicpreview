@@ -96,7 +96,7 @@ class topic_preview_test extends \phpbb_functional_test_case
 		// Create and preview a topic with smiley and emoji
 		$this->create_topic(2, 'Test Topic 7', 'This is a seventh test topic with :) and 😀 posted by the testing framework.');
 		$crawler = self::request('GET', "viewforum.php?f=2&sid=$this->sid");
-		self::assertStringContainsString('This is a seventh test topic with <img class="smilies" src="./images/smilies/icon_e_smile.gif" width="15" height="17" alt=":)" title="Smile"> and <img alt="😀" class="emoji smilies" draggable="false" src="//cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f600.svg"> posted by the testing framework.', $crawler->filter('html')->html());
+		self::assertStringContainsString('This is a seventh test topic with <img class="smilies" src="./images/smilies/icon_e_smile.svg" width="15" height="17" alt=":)" title="Smile"> and <span class="emoji">😀</span> posted by the testing framework.', $crawler->filter('html')->html());
 
 		// Create and preview a topic with a bbcode
 		$this->create_topic(2, 'Test Topic 8', 'This is a eighth [b]test topic[/b] with bbcodes posted by the testing framework.');

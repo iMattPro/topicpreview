@@ -32,7 +32,7 @@ class renderer_test extends \phpbb_test_case
 		$this->renderer = new \vse\topicpreview\core\renderer(new \phpbb\textformatter\s9e\utils());
 	}
 
-	public function render_text_data()
+	public static function render_text_data()
 	{
 		return [
 			'Empty text - rich mode' =>
@@ -196,7 +196,6 @@ class renderer_test extends \phpbb_test_case
 
 		$reflection = new \ReflectionClass($this->renderer);
 		$method = $reflection->getMethod('remove_ignored_bbcodes');
-		$method->setAccessible(true);
 
 		$result = $method->invoke($this->renderer, $text, $strip_bbcodes);
 
@@ -213,13 +212,12 @@ class renderer_test extends \phpbb_test_case
 
 		$reflection = new \ReflectionClass($this->renderer);
 		$method = $reflection->getMethod('remove_ignored_bbcodes');
-		$method->setAccessible(true);
 
 		$result = $method->invoke($this->renderer, $text, $strip_bbcodes);
 		$this->assertEquals($text, $result);
 	}
 
-	public function trim_html_content_data()
+	public static function trim_html_content_data()
 	{
 		return [
 			'HTML needs trimming' => [
@@ -252,7 +250,6 @@ class renderer_test extends \phpbb_test_case
 	{
 		$reflection = new \ReflectionClass($this->renderer);
 		$method = $reflection->getMethod('trim_html_content');
-		$method->setAccessible(true);
 
 		$result = $method->invoke($this->renderer, $html, $limit);
 
