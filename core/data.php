@@ -246,29 +246,19 @@ class data extends base
 			return [];
 		}
 
-		// Limit to prevent excessive memory usage - process in chunks if needed
-		$chunk_size = 100;
+		$sql = 'SELECT *
+			FROM ' . ATTACHMENTS_TABLE . '
+			WHERE ' . $this->db->sql_in_set('post_msg_id', $post_ids) . '
+				AND in_message = 0
+			ORDER BY post_msg_id, filetime ASC';
+		$result = $this->db->sql_query($sql);
+
 		$attachments = [];
-
-		foreach (array_chunk($post_ids, $chunk_size) as $chunk)
+		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$sql = 'SELECT *
-				FROM ' . ATTACHMENTS_TABLE . '
-				WHERE ' . $this->db->sql_in_set('post_msg_id', $chunk) . '
-					AND in_message = 0
-				ORDER BY post_msg_id, filetime ASC';
-			$result = $this->db->sql_query_limit($sql, 500);
-
-			while ($row = $this->db->sql_fetchrow($result))
-			{
-				// Limit to 2 attachments per post
-				if (!isset($attachments[$row['post_msg_id']]) || count($attachments[$row['post_msg_id']]) < 2)
-				{
-					$attachments[$row['post_msg_id']][] = $row;
-				}
-			}
-			$this->db->sql_freeresult($result);
+			$attachments[$row['post_msg_id']][] = $row;
 		}
+		$this->db->sql_freeresult($result);
 
 		return $attachments;
 	}
