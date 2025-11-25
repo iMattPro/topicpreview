@@ -101,14 +101,14 @@ class base extends \phpbb_database_test_case
 	protected function get_topic_preview_display()
 	{
 		return new \vse\topicpreview\core\display(
-			$this->avatar_helper,
 			$this->config,
 			$this->dispatcher,
 			$this->language,
 			$this->template,
 			$this->renderer,
 			$this->user,
-			$this->root_path
+			$this->root_path,
+			$this->avatar_helper
 		);
 	}
 }
