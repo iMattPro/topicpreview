@@ -158,18 +158,20 @@ class settings
 	{
 		$finder = $this->ext_manager->get_finder();
 
-		// Find css files in ext/vse/topicpreview/styles/all/theme/
+		// Find CSS files in ext/vse/topicpreview/styles/all/theme/
 		$themes = $finder
 			->extension_suffix('.css')
 			->extension_directory('/styles/all/theme')
 			->find_from_extension('topicpreview', $this->phpbb_root_path . 'ext/vse/topicpreview/');
 
-		// Get just basenames of array keys
+		// Get just base-names of array keys
 		$themes = array_map(static function ($value) {
 			return basename($value, '.css');
 		}, array_keys($themes));
 
-		// Add option for native browser tooltip (aka no theme)
+		sort($themes);
+
+		// Add an option for native browser tooltip (aka no theme)
 		$themes[] = self::NO_THEME;
 
 		return $themes;
