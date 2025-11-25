@@ -25,7 +25,7 @@ class display extends base
 	/** @var string */
 	public const NO_AVATAR = 'no-avatar';
 
-	/** @var avatar_helper*/
+	/** @var avatar_helper|null */
 	protected $avatar_helper;
 
 	/** @var dispatcher_interface */
@@ -52,7 +52,6 @@ class display extends base
 	/**
 	 * Constructor
 	 *
-	 * @param avatar_helper        $avatar_helper Avatar helper object
 	 * @param config               $config     Config object
 	 * @param dispatcher_interface $dispatcher Event dispatcher object
 	 * @param language             $language   Language object
@@ -60,8 +59,9 @@ class display extends base
 	 * @param renderer             $renderer   Text renderer object
 	 * @param user                 $user       User object
 	 * @param string               $root_path
+	 * @param avatar_helper|null   $avatar_helper Avatar helper object (phpBB 4.0.0)
 	 */
-	public function __construct(avatar_helper $avatar_helper, config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path)
+	public function __construct(config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path, avatar_helper $avatar_helper = null)
 	{
 		$this->avatar_helper = $avatar_helper;
 		$this->dispatcher = $dispatcher;
@@ -196,7 +196,15 @@ class display extends base
 				'avatar_width'	=> $row[$poster . '_avatar_width'],
 				'avatar_height'	=> $row[$poster . '_avatar_height'],
 			);
-			$avatar = $this->avatar_helper->get_user_avatar($map, 'USER_AVATAR', false, true)['html'];
+
+			if ($this->avatar_helper !== null)
+			{
+				$avatar = $this->avatar_helper->get_user_avatar($map, 'USER_AVATAR', false, true)['html'];
+			}
+			else if (function_exists('phpbb_get_user_avatar'))
+			{
+				$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+			}
 		}
 
 		// If the avatar string is empty, fall back to no_avatar.gif

@@ -132,6 +132,36 @@ class renderer_test extends \phpbb_test_case
 				0,
 				'',
 			],
+			'Emoji long text' => [
+				'<r>' . str_repeat ('😀', 155) . '</r>',
+				150,
+				0,
+				str_repeat ('😀', 150) . '...',
+			],
+			'Legacy post plain text' => [
+				'Plain text message',
+				150,
+				0,
+				'Plain text message',
+			],
+			'Legacy post plain long text' => [
+				str_repeat ('a', 155),
+				150,
+				0,
+				str_repeat ('a', 150) . '...',
+			],
+			'Legacy post multibyte long text' => [
+				str_repeat ('á', 155),
+				150,
+				0,
+				str_repeat ('á', 150) . '...',
+			],
+			'Legacy post magic urls' => [
+				'Legacy message with <!-- m --><a class="postlink" href="http://google.com">http://google.com</a><!-- m --> magic url and <!-- e --><a href="mailto:test@google.com">test@google.com</a><!-- e --> email',
+				150,
+				0,
+				'Legacy message with magic url and test@google.com email',
+			],
 		];
 	}
 
