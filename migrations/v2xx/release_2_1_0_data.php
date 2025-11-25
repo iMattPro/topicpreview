@@ -57,14 +57,18 @@ class release_2_1_0_data extends \phpbb\db\migration\container_aware_migration
 		);
 	}
 
+	/**
+	 * Added, otherwise uninstalling on phpBB 4 fails to uninstall the TOPIC_PREVIEW module
+	 * This late change does not affect previous installations. Just helps with uninstalling.
+	 *
+	 * {@inheritdoc}
+	 */
 	public function revert_data()
 	{
 		return array(
 			array('config.remove', array('topic_preview_delay')),
 			array('config.remove', array('topic_preview_drift')),
 			array('config.remove', array('topic_preview_width')),
-			array('config.remove', array('topic_preview_avatars')),
-			array('config.remove', array('topic_preview_version')),
 
 			array('module.remove', array('acp', 'TOPIC_PREVIEW')),
 		);
