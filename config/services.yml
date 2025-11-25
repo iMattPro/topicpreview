@@ -24,6 +24,7 @@ services:
             - '@vse.topicpreview.renderer'
             - '@user'
             - '%core.root_path%'
+            - '@?avatar.helper'
 
     vse.topicpreview.renderer:
         class: vse\topicpreview\core\renderer

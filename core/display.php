@@ -10,6 +10,7 @@
 
 namespace vse\topicpreview\core;
 
+use phpbb\avatar\helper as avatar_helper;
 use phpbb\config\config;
 use phpbb\event\dispatcher_interface;
 use phpbb\language\language;
@@ -23,6 +24,9 @@ class display extends base
 
 	/** @var string */
 	public const NO_AVATAR = 'no-avatar';
+
+	/** @var avatar_helper|null */
+	protected $avatar_helper;
 
 	/** @var dispatcher_interface */
 	protected $dispatcher;
@@ -55,9 +59,11 @@ class display extends base
 	 * @param renderer             $renderer   Text renderer object
 	 * @param user                 $user       User object
 	 * @param string               $root_path
+	 * @param avatar_helper|null   $avatar_helper Avatar helper object (phpBB 4.0.0)
 	 */
-	public function __construct(config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path)
+	public function __construct(config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path, avatar_helper $avatar_helper = null)
 	{
+		$this->avatar_helper = $avatar_helper;
 		$this->dispatcher = $dispatcher;
 		$this->language = $language;
 		$this->template = $template;
@@ -182,7 +188,7 @@ class display extends base
 		}
 
 		$avatar = '';
-		if (!empty($row[$poster . '_avatar']) && function_exists('phpbb_get_user_avatar'))
+		if (!empty($row[$poster . '_avatar']))
 		{
 			$map = array(
 				'avatar'		=> $row[$poster . '_avatar'],
@@ -190,7 +196,15 @@ class display extends base
 				'avatar_width'	=> $row[$poster . '_avatar_width'],
 				'avatar_height'	=> $row[$poster . '_avatar_height'],
 			);
-			$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+
+			if ($this->avatar_helper !== null)
+			{
+				$avatar = $this->avatar_helper->get_user_avatar($map, 'USER_AVATAR', false, true)['html'];
+			}
+			else if (function_exists('phpbb_get_user_avatar'))
+			{
+				$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
+			}
 		}
 
 		// If the avatar string is empty, fall back to no_avatar.gif
