@@ -17,7 +17,7 @@
 	text-decoration: none;
 	background: var(--tp-bg);
 	border: 1px solid var(--tp-border);
-	border-radius: 3px;
+	border-radius: 8px;
 	box-shadow: 1px 1px 3px var(--tp-shadow);
 	color: var(--tp-text);
 	position: absolute;
@@ -45,7 +45,7 @@
 	width: 10px;
 	height: 10px;
 	margin-top: -16px;
-	margin-left: 15px;
+	margin-left: 25px;
 	content: "";
 	transform: rotate(-45deg);
 }
@@ -62,7 +62,7 @@
 	width: 10px;
 	height: 10px;
 	margin-top: -5px;
-	margin-left: 15px;
+	margin-left: 25px;
 	content: "";
 	transform: rotate(-45deg);
 }
@@ -71,6 +71,12 @@
 	/* Hide lower triangle when inverted */
 	display: none;
 	content: "";
+}
+
+.rtl .topic_preview_container:after,
+.rtl .topic_preview_container.invert:before {
+	margin-right: 25px;
+	margin-left: auto;
 }
 
 .topic_preview_container hr {
