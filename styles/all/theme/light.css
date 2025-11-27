@@ -2,11 +2,11 @@
 
 :root {
 	--tp-bg: #ffffff;
-	--tp-border: #cecece;
-	--tp-shadow: #cecece;
+	--tp-border: #b9b9b9;
+	--tp-shadow: rgba(0, 0, 0, 0.2);
 	--tp-text: #333333;
 	--tp-scrollbar-track: #f1f1f1;
-	--tp-scrollbar-thumb: #cecece;
+	--tp-scrollbar-thumb: #b9b9b9;
 	--tp-scrollbar-hover: #999999;
 	--tp-avatar-bg: #b2bec6;
 }
@@ -17,8 +17,8 @@
 	text-decoration: none;
 	background: var(--tp-bg);
 	border: 1px solid var(--tp-border);
-	border-radius: 8px;
-	box-shadow: 1px 1px 3px var(--tp-shadow);
+	border-radius: 5px;
+	box-shadow: 1px 3px 5px var(--tp-shadow);
 	color: var(--tp-text);
 	position: absolute;
 	z-index: 10;
@@ -45,7 +45,7 @@
 	width: 10px;
 	height: 10px;
 	margin-top: -16px;
-	margin-left: 25px;
+	margin-left: 10px;
 	content: "";
 	transform: rotate(-45deg);
 }
@@ -62,7 +62,7 @@
 	width: 10px;
 	height: 10px;
 	margin-top: -5px;
-	margin-left: 25px;
+	margin-left: 10px;
 	content: "";
 	transform: rotate(-45deg);
 }
@@ -75,21 +75,16 @@
 
 .rtl .topic_preview_container:after,
 .rtl .topic_preview_container.invert:before {
-	margin-right: 25px;
+	margin-right: 10px;
 	margin-left: auto;
-}
-
-.topic_preview_container hr {
-	margin: 5px 0;
 }
 
 /* Avatars and Text */
 .topic_preview_avatar {
 	position: relative;
-	float: left;
+	flex-shrink: 0;
 	width: 60px;
 	height: 60px;
-	margin: 0 12px 2px 0;
 }
 
 .topic_preview_avatar img {
@@ -100,16 +95,22 @@
 	max-height: 60px;
 }
 
-.topic_preview_avatar.rtl {
-	/* rtl languages */
-	float: right;
-	margin: 0 0 2px 12px;
+.topic_preview_post {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+}
+
+.topic_preview_post.rtl {
+	flex-direction: row-reverse;
 }
 
 .topic_preview_first,
 .topic_preview_last {
 	word-wrap: break-word;
 	overflow: hidden;
+	flex: 1;
+	min-width: 0;
 }
 
 .topic_preview_scrollable {
@@ -138,14 +139,19 @@
 	background: var(--tp-scrollbar-hover);
 }
 
-.topic_preview_break {
-	font-size: 0;
+.topic_preview_section:not(:first-child) {
+	border-top: 1px solid var(--tp-border);
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+.topic_preview_section:last-child {
+	padding-bottom: 2px;
+}
+
+.topic_preview_section_title {
 	display: block;
-	clear: both;
-	width: 100%;
-	height: 0;
-	margin: 0;
-	padding: 5px 0;
+	margin-bottom: 8px;
 }
 
 /* Pure CSS no-avatar */
