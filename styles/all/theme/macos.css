@@ -2,8 +2,8 @@
 @import url("light.css");
 
 :root {
-	--tp-bg: #ffffc2;
-	--tp-border: #989898;
+	--tp-bg: rgba(255, 255, 255, 0.7);
+	--tp-border: #d3d3d3;
 	--tp-shadow: #888888;
 	--tp-text: #000000;
 	--tp-scrollbar-track: #f5f5dc;
@@ -14,4 +14,34 @@
 .topic_preview_container {
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	box-shadow: 0 4px 8px var(--tp-shadow);
+	-webkit-backdrop-filter: blur(12px) saturate(160%);
+	backdrop-filter: blur(12px) saturate(160%);
+}
+
+/* Triangles */
+.topic_preview_container:after,
+.topic_preview_container.invert:before {
+	background: var(--tp-border);
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+	box-shadow: 0 4px 8px var(--tp-shadow);
+	width: 0;
+	height: 0;
+	transform: none;
+	-webkit-backdrop-filter: blur(12px) saturate(160%);
+	backdrop-filter: blur(12px) saturate(160%);
+}
+
+/* Upper Triangle */
+.topic_preview_container.invert:before {
+	border-bottom: 8px solid var(--tp-bg);
+	margin-top: -18px;
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* Lower Triangle */
+.topic_preview_container:after {
+	border-top: 8px solid var(--tp-bg);
+	margin-top: 0;
+	clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
 }
