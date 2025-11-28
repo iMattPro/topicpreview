@@ -2,16 +2,48 @@
 @import url("light.css");
 
 :root {
-	--tp-bg: #ffffc2;
-	--tp-border: #989898;
+	--tp-bg: rgba(255, 255, 255, 0.7);
+	--tp-border: #d3d3d3;
 	--tp-shadow: #888888;
 	--tp-text: #000000;
 	--tp-scrollbar-track: #f5f5dc;
 	--tp-scrollbar-thumb: #989898;
 	--tp-scrollbar-hover: #777777;
+	--tp-backdrop: blur(12px) saturate(160%);
+	--tp-border-style: 8px solid;
 }
 
 .topic_preview_container {
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	box-shadow: 0 4px 8px var(--tp-shadow);
+	-webkit-backdrop-filter: var(--tp-backdrop);
+	backdrop-filter: var(--tp-backdrop);
+}
+
+/* Triangles */
+.topic_preview_container:after,
+.topic_preview_container.invert:before {
+	background: var(--tp-border);
+	border-right: var(--tp-border-style) transparent;
+	border-left: var(--tp-border-style) transparent;
+	box-shadow: 0 4px 8px var(--tp-shadow);
+	width: 0;
+	height: 0;
+	transform: none;
+	-webkit-backdrop-filter: var(--tp-backdrop);
+	backdrop-filter: var(--tp-backdrop);
+}
+
+/* Upper Triangle */
+.topic_preview_container.invert:before {
+	border-bottom: var(--tp-border-style) var(--tp-bg);
+	margin-top: -18px;
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* Lower Triangle */
+.topic_preview_container:after {
+	border-top: var(--tp-border-style) var(--tp-bg);
+	margin-top: 0;
+	clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
 }
