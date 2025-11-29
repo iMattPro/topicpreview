@@ -2,13 +2,13 @@
 
 ## 2.4.0-dev
 
-- Enhanced topic previews now display rich content including images, media, and formatted text for a better preview experience.
+- Topic previews now display rendered post-content including images, media, and formatted text for a better preview experience.
 - Added an option in the ACP to switch back to simple text previews for forums with limited server resources.
-- Character limits now count only the actual text you see, not hidden formatting codes.
 - Fixed display issues with special characters like < and > symbols.
-- Made it easier for theme designers to customize preview appearance.
+- Modernized the look and code of the topic preview themes and made it easier for theme designers to customize preview appearance.
 - Use our pure CSS "No Avatar" image instead of the no-avatar.gif as a fallback for broken/un-loadable avatar images.
 - Added support for the Recent Topics NG extension.
+- Ready for phpBB 4 and already works with phpBB 4.0.0-a1.
 - Requires phpBB 3.3+ and PHP 7.2 or newer (older versions are no longer supported).
 
 ## 2.3.3 - 2025-06-01
