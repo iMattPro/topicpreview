@@ -6,9 +6,6 @@
 	--tp-border: #d3d3d3;
 	--tp-shadow: #888888;
 	--tp-text: #000000;
-	--tp-scrollbar-track: #f5f5dc;
-	--tp-scrollbar-thumb: #989898;
-	--tp-scrollbar-hover: #777777;
 	--tp-backdrop: blur(12px) saturate(160%);
 	--tp-border-style: 8px solid;
 }
