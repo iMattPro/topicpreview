@@ -110,13 +110,13 @@ class renderer
 
 		if (utf8_strlen($plain_text) <= $limit)
 		{
-			return nl2br(htmlspecialchars($plain_text, ENT_COMPAT, 'UTF-8'));
+			return nl2br(utf8_htmlspecialchars($plain_text));
 		}
 
 		// Trim and remove partial words
 		$trimmed = preg_replace('/\s+?(\S+)?$/', '', utf8_substr($plain_text, 0, $limit));
 
-		return nl2br(htmlspecialchars($trimmed, ENT_COMPAT, 'UTF-8')) . '...';
+		return nl2br(utf8_htmlspecialchars($trimmed)) . '...';
 	}
 
 	/**
@@ -203,7 +203,7 @@ class renderer
 		}
 
 		// Fallback: simple text truncation
-		return htmlspecialchars(utf8_substr($text_content, 0, $cut_pos), ENT_COMPAT, 'UTF-8') . '...';
+		return utf8_htmlspecialchars(utf8_substr($text_content, 0, $cut_pos)) . '...';
 	}
 
 	/**
