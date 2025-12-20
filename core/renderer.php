@@ -47,7 +47,7 @@ class renderer
 		}
 
 		// Get all attachment XML indices and those to be excluded
-		$attachment_info = $this->get_attachment_info($text, $strip_bbcodes);
+		$attachment_info = !empty($attachments) ? $this->get_attachment_info($text, $strip_bbcodes) : [];
 
 		$text = $this->remove_ignored_bbcodes($text, $strip_bbcodes);
 
@@ -94,14 +94,17 @@ class renderer
 			}
 		}
 
-		// Build mapping from XML index to new array index after filtering
+		// Build mapping from XML index to new array index only if attachments were excluded
 		$xml_to_array_map = [];
-		$new_array_index = 0;
-		foreach ($all_attachments as $xml_index => $filename)
+		if (!empty($excluded_filenames))
 		{
-			if (!in_array($filename, $excluded_filenames, true))
+			$new_array_index = 0;
+			foreach ($all_attachments as $xml_index => $filename)
 			{
-				$xml_to_array_map[$xml_index] = $new_array_index++;
+				if (!in_array($filename, $excluded_filenames, true))
+				{
+					$xml_to_array_map[$xml_index] = $new_array_index++;
+				}
 			}
 		}
 
