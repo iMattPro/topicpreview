@@ -46,11 +46,95 @@ class renderer
 			return '';
 		}
 
+		// Get all attachment XML indices and those to be excluded
+		$attachment_info = $this->get_attachment_info($text, $strip_bbcodes);
+
 		$text = $this->remove_ignored_bbcodes($text, $strip_bbcodes);
 
 		return $rich_text && $theme
-			? $this->render_rich_text($text, $limit, $attachments, $forum_id)
+			? $this->render_rich_text($text, $limit, $attachments, $forum_id, $attachment_info)
 			: $this->render_plain_text($text, $limit);
+	}
+
+	/**
+	 * Get comprehensive attachment information from text
+	 *
+	 * @param string $text Raw post text
+	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
+	 *
+	 * @return array Array with attachment mapping info
+	 */
+	protected function get_attachment_info($text, $strip_bbcodes)
+	{
+		// Get all attachments in the text with their XML indices and filenames
+		$all_attachments = [];
+		if (preg_match_all('/<ATTACHMENT[^>]+filename="([^"]+)"[^>]+index="(\d+)"[^>]*>/U', $text, $all_matches))
+		{
+			foreach ($all_matches[2] as $idx => $xml_index)
+			{
+				$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
+			}
+		}
+
+		// Get attachments that are inside BBCodes to be stripped
+		$excluded_filenames = [];
+		$excluded_xml_indices = [];
+
+		if (!empty($strip_bbcodes))
+		{
+			$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
+			foreach ($bbcodes as $bbcode)
+			{
+				$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
+				if (preg_match_all('/<ATTACHMENT[^>]+filename="([^"]+)"[^>]+index="(\d+)"[^>]*>/U', $bbcode_content, $matches))
+				{
+					$excluded_filenames = array_merge($excluded_filenames, $matches[1]);
+					$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
+				}
+			}
+		}
+
+		// Build mapping from XML index to new array index after filtering
+		$xml_to_array_map = [];
+		$new_array_index = 0;
+		foreach ($all_attachments as $xml_index => $filename)
+		{
+			if (!in_array($filename, $excluded_filenames, true))
+			{
+				$xml_to_array_map[$xml_index] = $new_array_index++;
+			}
+		}
+
+		return [
+			'excluded_filenames' => array_unique($excluded_filenames),
+			'excluded_xml_indices' => array_unique($excluded_xml_indices),
+			'xml_to_array_map' => $xml_to_array_map,
+		];
+	}
+
+	/**
+	 * Extract content from BBCode tags
+	 *
+	 * @param string $text Raw post text
+	 * @param string $bbcode BBCode name to extract
+	 *
+	 * @return string Concatenated content from all instances of the BBCode
+	 */
+	protected function extract_bbcode_content($text, $bbcode)
+	{
+		$content = '';
+		$bbcode_upper = strtoupper($bbcode);
+
+		// Match opening and closing tags for this BBCode
+		// This regex finds the BBCode start and end tags in the XML structure
+		$pattern = '#<' . preg_quote($bbcode_upper, '#') . '(?:\s[^>]*)?>.*?</' . preg_quote($bbcode_upper, '#') . '>#s';
+
+		if (preg_match_all($pattern, $text, $matches))
+		{
+			$content = implode(' ', $matches[0]);
+		}
+
+		return $content;
 	}
 
 	/**
@@ -126,10 +210,11 @@ class renderer
 	 * @param int    $limit Character limit for preview
 	 * @param array  $attachments Array of attachment data
 	 * @param int    $forum_id Forum ID for attachment parsing
+	 * @param array  $attachment_info Attachment information including mapping
 	 *
 	 * @return string Rich HTML preview
 	 */
-	protected function render_rich_text($text, $limit, $attachments = [], $forum_id = 0)
+	protected function render_rich_text($text, $limit, $attachments = [], $forum_id = 0, $attachment_info = [])
 	{
 		// Get plain text for length checking
 		$plain_text = $this->utils->clean_formatting($text);
@@ -139,7 +224,60 @@ class renderer
 			return '';
 		}
 
+		// Filter out attachments by filename that were inside stripped BBCodes
+		$excluded_filenames = $attachment_info['excluded_filenames'] ?? [];
+		$excluded_xml_indices = $attachment_info['excluded_xml_indices'] ?? [];
+		$xml_to_array_map = $attachment_info['xml_to_array_map'] ?? [];
+
+		if (!empty($excluded_filenames) && !empty($attachments))
+		{
+			$filtered_attachments = [];
+			foreach ($attachments as $attachment)
+			{
+				$filename = $attachment['real_filename'] ?? $attachment['physical_filename'] ?? '';
+				if (!in_array($filename, $excluded_filenames, true))
+				{
+					$filtered_attachments[] = $attachment; // Re-index to avoid gaps
+				}
+			}
+			$attachments = $filtered_attachments;
+		}
+
 		$rendered_text = generate_text_for_display($text, '', '', 7);
+
+		// Remove markers for excluded attachments and renumber remaining markers
+		if (!empty($excluded_xml_indices))
+		{
+			foreach ($excluded_xml_indices as $xml_index)
+			{
+				// Remove inline attachment markers
+				$rendered_text = preg_replace('#<div class="inline-attachment"><!-- ia' . $xml_index . ' -->.*?<!-- ia' . $xml_index . ' --></div>#s', '', $rendered_text);
+			}
+		}
+
+		// Renumber remaining markers to match the re-indexed attachments array
+		if (!empty($xml_to_array_map) && preg_match_all('#<!-- ia(\d+) -->#', $rendered_text, $all_markers, PREG_SET_ORDER))
+		{
+			$replacements = [];
+			foreach ($all_markers as $match)
+			{
+				$xml_index = (int) $match[1];
+				if (isset($xml_to_array_map[$xml_index]))
+				{
+					$new_index = $xml_to_array_map[$xml_index];
+					if ($xml_index !== $new_index)
+					{
+						$replacements['<!-- ia' . $xml_index . ' -->'] = '<!-- ia' . $new_index . ' -->';
+					}
+				}
+			}
+
+			// Apply all replacements
+			if (!empty($replacements))
+			{
+				$rendered_text = str_replace(array_keys($replacements), array_values($replacements), $rendered_text);
+			}
+		}
 
 		// Parse attachments after text rendering
 		if (!empty($attachments))
