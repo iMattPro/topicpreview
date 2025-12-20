@@ -18,6 +18,11 @@ class renderer
 	protected $utils;
 
 	/**
+	 * Regex pattern to match ATTACHMENT XML tags with filename and index
+	 */
+	public const ATTACHMENT_PATTERN = '/<ATTACHMENT[^>]+filename="([^"]+)"[^>]+index="(\d+)"[^>]*>/U';
+
+	/**
 	 * Constructor
 	 *
 	 * @param utils  $utils  Text formatter utils object
@@ -47,7 +52,8 @@ class renderer
 		}
 
 		// Get all attachment XML indices and those to be excluded
-		$attachment_info = !empty($attachments) ? $this->get_attachment_info($text, $strip_bbcodes) : [];
+		// Only process if we have attachments AND BBCodes to strip
+		$attachment_info = !empty($attachments) && !empty($strip_bbcodes) ? $this->get_attachment_info($text, $strip_bbcodes) : [];
 
 		$text = $this->remove_ignored_bbcodes($text, $strip_bbcodes);
 
@@ -66,38 +72,35 @@ class renderer
 	 */
 	protected function get_attachment_info($text, $strip_bbcodes)
 	{
-		// Get all attachments in the text with their XML indices and filenames
-		$all_attachments = [];
-		if (preg_match_all('/<ATTACHMENT[^>]+filename="([^"]+)"[^>]+index="(\d+)"[^>]*>/U', $text, $all_matches))
-		{
-			foreach ($all_matches[2] as $idx => $xml_index)
-			{
-				$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
-			}
-		}
-
 		// Get attachments that are inside BBCodes to be stripped
 		$excluded_filenames = [];
 		$excluded_xml_indices = [];
 
-		if (!empty($strip_bbcodes))
+		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
+		foreach ($bbcodes as $bbcode)
 		{
-			$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
-			foreach ($bbcodes as $bbcode)
+			$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
+			if (preg_match_all(self::ATTACHMENT_PATTERN, $bbcode_content, $matches))
 			{
-				$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
-				if (preg_match_all('/<ATTACHMENT[^>]+filename="([^"]+)"[^>]+index="(\d+)"[^>]*>/U', $bbcode_content, $matches))
-				{
-					$excluded_filenames = array_merge($excluded_filenames, $matches[1]);
-					$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
-				}
+				$excluded_filenames = array_merge($excluded_filenames, $matches[1]);
+				$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
 			}
 		}
 
-		// Build mapping from XML index to new array index only if attachments were excluded
+		// Only build the mapping if we actually found attachments to exclude
 		$xml_to_array_map = [];
 		if (!empty($excluded_filenames))
 		{
+			// Now get all attachments to build the mapping
+			$all_attachments = [];
+			if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
+			{
+				foreach ($all_matches[2] as $idx => $xml_index)
+				{
+					$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
+				}
+			}
+
 			$new_array_index = 0;
 			foreach ($all_attachments as $xml_index => $filename)
 			{
@@ -106,11 +109,15 @@ class renderer
 					$xml_to_array_map[$xml_index] = $new_array_index++;
 				}
 			}
+
+			// array_unique only needed when we have excluded items
+			$excluded_filenames = array_unique($excluded_filenames);
+			$excluded_xml_indices = array_unique($excluded_xml_indices);
 		}
 
 		return [
-			'excluded_filenames' => array_unique($excluded_filenames),
-			'excluded_xml_indices' => array_unique($excluded_xml_indices),
+			'excluded_filenames' => $excluded_filenames,
+			'excluded_xml_indices' => $excluded_xml_indices,
 			'xml_to_array_map' => $xml_to_array_map,
 		];
 	}
