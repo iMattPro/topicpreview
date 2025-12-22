@@ -79,9 +79,10 @@ class display extends base
 	 */
 	public function setup()
 	{
-		// Load our language file (only needed if showing last post-text)
+		// Load language file (needed since we're rendering post-content)
 		if ($this->last_post_enabled())
 		{
+			$this->language->add_lang('viewtopic');
 			$this->language->add_lang('topic_preview', 'vse/topicpreview');
 		}
 

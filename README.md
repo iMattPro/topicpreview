@@ -46,8 +46,6 @@ A phpBB extension that displays a short excerpt of text from the first post in a
 ## Support
 Support is available for Topic Preview in the [phpBB Extension Database](https://www.phpbb.com/customise/db/extension/topicpreview/support).
 
-## Changelog
-
 ## License
 [GNU General Public License v2](https://opensource.org/licenses/GPL-2.0)
 
