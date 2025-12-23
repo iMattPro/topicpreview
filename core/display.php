@@ -192,10 +192,10 @@ class display extends base
 		if (!empty($row[$poster . '_avatar']))
 		{
 			$map = array(
-				'avatar'		=> $row[$poster . '_avatar'],
-				'avatar_type'	=> $row[$poster . '_avatar_type'],
-				'avatar_width'	=> $row[$poster . '_avatar_width'],
-				'avatar_height'	=> $row[$poster . '_avatar_height'],
+				'user_avatar'		=> $row[$poster . '_avatar'],
+				'user_avatar_type'	=> $row[$poster . '_avatar_type'],
+				'user_avatar_width'	=> $row[$poster . '_avatar_width'],
+				'user_avatar_height'=> $row[$poster . '_avatar_height'],
 			);
 
 			if ($this->avatar_helper !== null)
