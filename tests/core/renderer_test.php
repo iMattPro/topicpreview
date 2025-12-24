@@ -285,6 +285,230 @@ class renderer_test extends \phpbb_test_case
 
 		$this->assertEquals($expected, $result);
 	}
+
+	public function get_attachment_info_data()
+	{
+		return [
+			'No attachments' => [
+				'<t>Simple text</t>',
+				'',
+				[
+					'excluded_filenames' => [],
+					'excluded_xml_indices' => [],
+					'xml_to_array_map' => [],
+				],
+			],
+			'Single attachment, no stripping' => [
+				'<t>Text <ATTACHMENT filename="test.jpg" index="0"><s>[attachment=0]</s>test.jpg<e>[/attachment]</e></ATTACHMENT></t>',
+				'',
+				[
+					'excluded_filenames' => [],
+					'excluded_xml_indices' => [],
+					'xml_to_array_map' => [], // Empty when nothing excluded (optimization)
+				],
+			],
+			'Attachment inside quote BBCode' => [
+				'<t><QUOTE><s>[quote]</s>Quote <ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE></t>',
+				'quote',
+				[
+					'excluded_filenames' => ['hidden.jpg'],
+					'excluded_xml_indices' => [0],
+					'xml_to_array_map' => [],
+				],
+			],
+			'Multiple attachments, one inside stripped BBCode' => [
+				'<t><QUOTE><s>[quote]</s><ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <ATTACHMENT filename="visible.jpg" index="1"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>',
+				'quote',
+				[
+					'excluded_filenames' => ['hidden.jpg'],
+					'excluded_xml_indices' => [0],
+					'xml_to_array_map' => [1 => 0],
+				],
+			],
+			'Multiple attachments with non-sequential indices' => [
+				'<t><HIDDEN><s>[hidden]</s><ATTACHMENT filename="file1.jpg" index="3"><s>[attachment=3]</s>file1.jpg<e>[/attachment]</e></ATTACHMENT><ATTACHMENT filename="file2.jpg" index="0"><s>[attachment=0]</s>file2.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN> <ATTACHMENT filename="file3.jpg" index="2"><s>[attachment=2]</s>file3.jpg<e>[/attachment]</e></ATTACHMENT></t>',
+				'hidden',
+				[
+					'excluded_filenames' => ['file1.jpg', 'file2.jpg'],
+					'excluded_xml_indices' => [3, 0],
+					'xml_to_array_map' => [2 => 0],
+				],
+			],
+			'Multiple BBCodes to strip with attachments' => [
+				'<t><QUOTE><s>[quote]</s><ATTACHMENT filename="quote.jpg" index="0"><s>[attachment=0]</s>quote.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <CODE><s>[code]</s><ATTACHMENT filename="code.jpg" index="1"><s>[attachment=1]</s>code.jpg<e>[/attachment]</e></ATTACHMENT><e>[/code]</e></CODE> <ATTACHMENT filename="visible.jpg" index="2"><s>[attachment=2]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>',
+				'quote|code',
+				[
+					'excluded_filenames' => ['quote.jpg', 'code.jpg'],
+					'excluded_xml_indices' => [0, 1],
+					'xml_to_array_map' => [2 => 0],
+				],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider get_attachment_info_data
+	 */
+	public function test_get_attachment_info($text, $strip_bbcodes, $expected)
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('get_attachment_info');
+		$method->setAccessible(true);
+
+		$result = $method->invoke($this->renderer, $text, $strip_bbcodes);
+
+		$this->assertEquals($expected['excluded_filenames'], $result['excluded_filenames']);
+		$this->assertEquals($expected['excluded_xml_indices'], $result['excluded_xml_indices']);
+		$this->assertEquals($expected['xml_to_array_map'], $result['xml_to_array_map']);
+	}
+
+	public function test_render_text_with_attachments_in_stripped_bbcode()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		// Text with attachment inside a QUOTE that should be stripped
+		$text = '<t><QUOTE><s>[quote]</s><ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <ATTACHMENT filename="visible.jpg" index="1"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 1, 'real_filename' => 'hidden.jpg'],
+			1 => ['attach_id' => 2, 'real_filename' => 'visible.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, 'quote', true, true, $attachments, 1);
+
+		// Should NOT contain the hidden attachment
+		$this->assertStringNotContainsString('hidden.jpg', $result);
+		// Should contain the visible attachment
+		$this->assertStringContainsString('visible.jpg', $result);
+	}
+
+	public function test_render_text_with_multiple_attachments_in_different_bbcodes()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		// Multiple attachments in different BBCodes that should be stripped
+		$text = '<t>Content <QUOTE><s>[quote]</s><ATTACHMENT filename="quote.jpg" index="0"><s>[attachment=0]</s>quote.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <CODE><s>[code]</s><ATTACHMENT filename="code.jpg" index="1"><s>[attachment=1]</s>code.jpg<e>[/attachment]</e></ATTACHMENT><e>[/code]</e></CODE> <ATTACHMENT filename="visible.jpg" index="2"><s>[attachment=2]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 1, 'real_filename' => 'quote.jpg'],
+			1 => ['attach_id' => 2, 'real_filename' => 'code.jpg'],
+			2 => ['attach_id' => 3, 'real_filename' => 'visible.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, 'quote|code', true, true, $attachments, 1);
+
+		// Should NOT contain the hidden attachments
+		$this->assertStringNotContainsString('quote.jpg', $result);
+		$this->assertStringNotContainsString('code.jpg', $result);
+		// Should contain the visible attachment
+		$this->assertStringContainsString('visible.jpg', $result);
+		// Should contain the text content
+		$this->assertStringContainsString('Content', $result);
+	}
+
+	public function test_render_text_with_non_sequential_attachment_indices()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		// Attachments with non-sequential indices (0, 3) hidden, (2) visible
+		$text = '<t><HIDDEN><s>[hidden]</s><ATTACHMENT filename="file1.jpg" index="3"><s>[attachment=3]</s>file1.jpg<e>[/attachment]</e></ATTACHMENT><ATTACHMENT filename="file2.jpg" index="0"><s>[attachment=0]</s>file2.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN> <ATTACHMENT filename="file3.jpg" index="2"><s>[attachment=2]</s>file3.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 1, 'real_filename' => 'file1.jpg'],
+			1 => ['attach_id' => 2, 'real_filename' => 'file3.jpg'],
+			2 => ['attach_id' => 3, 'real_filename' => 'file2.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, 'hidden', true, true, $attachments, 1);
+
+		// Should NOT contain the hidden attachments
+		$this->assertStringNotContainsString('file1.jpg', $result);
+		$this->assertStringNotContainsString('file2.jpg', $result);
+		// Should contain the visible attachment
+		$this->assertStringContainsString('file3.jpg', $result);
+	}
+
+	public function test_render_text_all_attachments_in_stripped_bbcode()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		// All attachments inside stripped BBCode
+		$text = '<t><QUOTE><s>[quote]</s><ATTACHMENT filename="file1.jpg" index="0"><s>[attachment=0]</s>file1.jpg<e>[/attachment]</e></ATTACHMENT> <ATTACHMENT filename="file2.jpg" index="1"><s>[attachment=1]</s>file2.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 1, 'real_filename' => 'file1.jpg'],
+			1 => ['attach_id' => 2, 'real_filename' => 'file2.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, 'quote', true, true, $attachments, 1);
+
+		// Should be empty or contain no attachments
+		$this->assertStringNotContainsString('file1.jpg', $result);
+		$this->assertStringNotContainsString('file2.jpg', $result);
+	}
+
+
+	public function test_extract_bbcode_content()
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('extract_bbcode_content');
+		$method->setAccessible(true);
+
+		// Test extracting QUOTE content
+		$text = '<t>Before <QUOTE><s>[quote]</s>Inside quote<e>[/quote]</e></QUOTE> After</t>';
+		$result = $method->invoke($this->renderer, $text, 'quote');
+
+		$this->assertStringContainsString('Inside quote', $result);
+		$this->assertStringNotContainsString('Before', $result);
+		$this->assertStringNotContainsString('After', $result);
+	}
+
+	public function test_extract_bbcode_content_multiple_instances()
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('extract_bbcode_content');
+		$method->setAccessible(true);
+
+		// Test extracting multiple QUOTE instances
+		$text = '<t><QUOTE><s>[quote]</s>First quote<e>[/quote]</e></QUOTE> Text <QUOTE><s>[quote]</s>Second quote<e>[/quote]</e></QUOTE></t>';
+		$result = $method->invoke($this->renderer, $text, 'quote');
+
+		$this->assertStringContainsString('First quote', $result);
+		$this->assertStringContainsString('Second quote', $result);
+	}
+
+	public function test_extract_bbcode_content_no_match()
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('extract_bbcode_content');
+		$method->setAccessible(true);
+
+		// Test extracting non-existent BBCode
+		$text = '<t>Some text without the BBCode</t>';
+		$result = $method->invoke($this->renderer, $text, 'quote');
+
+		$this->assertEquals('', $result);
+	}
 }
 
 // Mock parse_attachments for testing in the vse\topicpreview\core namespace

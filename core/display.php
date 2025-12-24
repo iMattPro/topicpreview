@@ -79,9 +79,10 @@ class display extends base
 	 */
 	public function setup()
 	{
-		// Load our language file (only needed if showing last post-text)
+		// Load language file (needed since we're rendering post-content)
 		if ($this->last_post_enabled())
 		{
+			$this->language->add_lang('viewtopic');
 			$this->language->add_lang('topic_preview', 'vse/topicpreview');
 		}
 
@@ -191,10 +192,10 @@ class display extends base
 		if (!empty($row[$poster . '_avatar']))
 		{
 			$map = array(
-				'avatar'		=> $row[$poster . '_avatar'],
-				'avatar_type'	=> $row[$poster . '_avatar_type'],
-				'avatar_width'	=> $row[$poster . '_avatar_width'],
-				'avatar_height'	=> $row[$poster . '_avatar_height'],
+				'user_avatar'		=> $row[$poster . '_avatar'],
+				'user_avatar_type'	=> $row[$poster . '_avatar_type'],
+				'user_avatar_width'	=> $row[$poster . '_avatar_width'],
+				'user_avatar_height'=> $row[$poster . '_avatar_height'],
 			);
 
 			if ($this->avatar_helper !== null)
