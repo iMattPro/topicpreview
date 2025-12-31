@@ -100,15 +100,15 @@ class modify_sql_test extends base
 		{
 			$rowset[$row['topic_id']] = array(
 				$row['first_post_text'],
-				$row['fp_avatar'],
-				$row['fp_avatar_type'],
-				$row['fp_avatar_width'],
-				$row['fp_avatar_height'],
+				$row['fp_user_avatar'],
+				$row['fp_user_avatar_type'],
+				$row['fp_user_avatar_width'],
+				$row['fp_user_avatar_height'],
 				$row['last_post_text'],
-				$row['lp_avatar'],
-				$row['lp_avatar_type'],
-				$row['lp_avatar_width'],
-				$row['lp_avatar_height'],
+				$row['lp_user_avatar'],
+				$row['lp_user_avatar_type'],
+				$row['lp_user_avatar_width'],
+				$row['lp_user_avatar_height'],
 			);
 		}
 		$this->db->sql_freeresult($result);

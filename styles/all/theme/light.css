@@ -95,6 +95,10 @@
 	max-height: 60px;
 }
 
+.topic_preview_avatar .avatar-placeholder {
+	height: 100%;
+}
+
 .topic_preview_post {
 	display: flex;
 	align-items: flex-start;
