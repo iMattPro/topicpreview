@@ -38,7 +38,33 @@ class display_topic_preview_test extends base
 		$this->avatar_driver->method('get_data')
 			->willReturn(self::$avatar_data);
 		$this->avatar_helper->method('get_user_avatar')
-			->willReturn(['html' => '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="' . self::$avatar_data['src'] . '" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />']);
+			->willReturnCallback(function($row) use ($phpbb_root_path) {
+				// Return avatar data array matching the structure from helper.php get_user_avatar()
+				// Handle empty string values from display.php line 203 where ?? '' is used
+				$data = [
+					'id'		=> !empty($row['user_id']) ? $row['user_id'] : 0,
+					'username'	=> $row['username'] ?? '',
+					'lazy'		=> true,
+					'src'		=> '',
+					'title'		=> 'USER_AVATAR',
+					'type'		=> '',
+					'width'		=> 0,
+					'height'	=> 0,
+					'html'		=> '',
+				];
+
+				// If user has an avatar, populate the data
+				if (!empty($row['user_avatar']) && !empty($row['user_avatar_type']))
+				{
+					$data['src'] = $row['user_avatar'];
+					$data['type'] = $row['user_avatar_type'];
+					$data['width'] = (int) self::$avatar_data['width'];
+					$data['height'] = (int) self::$avatar_data['height'];
+					$data['html'] = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="' . $row['user_avatar'] . '" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />';
+				}
+
+				return $data;
+			});
 
 		/** @var \phpbb\request\request|\PHPUnit\Framework\MockObject\MockObject $request */
 		$request = $this->createMock('\phpbb\request\request');
@@ -65,6 +91,21 @@ class display_topic_preview_test extends base
 		global $phpbb_root_path;
 		$lazy_avatar = '<img class="avatar" src="' . $phpbb_root_path . 'styles/prosilver/theme/images/no_avatar.gif" data-src="%s" width="' . self::$avatar_data['width'] . '" height="' . self::$avatar_data['height'] . '" alt="USER_AVATAR" />';
 
+		// Helper function to create avatar data array
+		$make_avatar_data = function($has_avatar, $avatar_src = '') use ($lazy_avatar) {
+			return [
+				'id'		=> 0,
+				'username'	=> '',
+				'lazy'		=> true,
+				'src'		=> $has_avatar ? $avatar_src : '',
+				'title'		=> 'USER_AVATAR',
+				'type'		=> $has_avatar ? 'avatar.driver.local' : '',
+				'width'		=> $has_avatar ? (int) self::$avatar_data['width'] : 0,
+				'height'	=> $has_avatar ? (int) self::$avatar_data['height'] : 0,
+				'html'		=> $has_avatar ? sprintf($lazy_avatar, $avatar_src) : '',
+			];
+		};
+
 		return array(
 			array(
 				array(
@@ -81,9 +122,9 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'First message',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $make_avatar_data(true, self::$avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_LAST_AVATAR' => $make_avatar_data(false),
 				),
 			),
 			array(
@@ -103,9 +144,9 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Second message with bold text :) and smiley',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $make_avatar_data(true, self::$avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
+					'TOPIC_PREVIEW_LAST_AVATAR' => $make_avatar_data(true, self::$avatar_data['src']),
 				),
 			),
 			array(
@@ -125,9 +166,9 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $make_avatar_data(false),
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
-					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
+					'TOPIC_PREVIEW_LAST_AVATAR' => $make_avatar_data(true, self::$avatar_data['src']),
 				),
 			),
 			array(
@@ -147,9 +188,9 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => '',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => $make_avatar_data(false),
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_LAST_AVATAR' => $make_avatar_data(false),
 				),
 			),
 			array(

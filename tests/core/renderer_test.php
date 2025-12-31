@@ -286,7 +286,7 @@ class renderer_test extends \phpbb_test_case
 		$this->assertEquals($expected, $result);
 	}
 
-	public function get_attachment_info_data()
+	public static function get_attachment_info_data()
 	{
 		return [
 			'No attachments' => [
