@@ -133,10 +133,10 @@ class data extends base
 
 	/**
 	 * Build select statement for user avatar fields, e.g.:
-	 * ', fpu.user_avatar AS fp_avatar
-	 *  , fpu.user_avatar_type AS fp_avatar_type
-	 *  , fpu.user_avatar_width AS fp_avatar_width
-	 *  , fpu.user_avatar_height AS fp_avatar_height'
+	 * ', fpu.user_avatar AS fp_user_avatar
+	 *  , fpu.user_avatar_type AS fp_user_avatar_type
+	 *  , fpu.user_avatar_width AS fp_user_avatar_width
+	 *  , fpu.user_avatar_height AS fp_user_avatar_height'
 	 *
 	 * @param string $prefix First or last post (fp|lp)
 	 *
@@ -147,15 +147,17 @@ class data extends base
 		$sql = '';
 
 		$avatar_ary = array(
-			'user_avatar'        => 'avatar',
-			'user_avatar_type'   => 'avatar_type',
-			'user_avatar_width'  => 'avatar_width',
-			'user_avatar_height' => 'avatar_height',
+			'user_avatar',
+			'user_avatar_type',
+			'user_avatar_width',
+			'user_avatar_height',
+			'username',
+			'user_id'
 		);
 
-		foreach ($avatar_ary as $key => $var)
+		foreach ($avatar_ary as $var)
 		{
-			$sql .= ", {$prefix}u.$key AS {$prefix}_$var";
+			$sql .= ", {$prefix}u.$var AS {$prefix}_$var";
 		}
 
 		return $sql;
