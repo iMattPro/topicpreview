@@ -69,36 +69,36 @@ class display_topic_preview_test extends base
 			array(
 				array(
 					'first_post_text' => 'First message',
-					'fp_avatar' => self::$avatar_data['src'],
-					'fp_avatar_type' => 'avatar.driver.local',
-					'fp_avatar_width' => '',
-					'fp_avatar_height' => '',
+					'fp_user_avatar' => self::$avatar_data['src'],
+					'fp_user_avatar_type' => 'avatar.driver.local',
+					'fp_user_avatar_width' => '',
+					'fp_user_avatar_height' => '',
 					'topic_first_post_id' => 1,
 					'last_post_text' => '',
-					'lp_avatar' => '',
-					'lp_avatar_type' => 0,
+					'lp_user_avatar' => '',
+					'lp_user_avatar_type' => 0,
 					'topic_last_post_id' => 1,
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'First message',
 					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
 				),
 			),
 			array(
 				array(
 					'first_post_text' => '<r>Second message <B><s>[b]</s>with bold text<e>[/b]</e></B> <E>:)</E> and smiley</r>',
-					'fp_avatar' => self::$avatar_data['src'],
-					'fp_avatar_type' => 'avatar.driver.local',
-					'fp_avatar_width' => '',
-					'fp_avatar_height' => '',
+					'fp_user_avatar' => self::$avatar_data['src'],
+					'fp_user_avatar_type' => 'avatar.driver.local',
+					'fp_user_avatar_width' => '',
+					'fp_user_avatar_height' => '',
 					'topic_first_post_id' => 2,
 					'last_post_text' => str_repeat ('a', 155),
-					'lp_avatar' => self::$avatar_data['src'],
-					'lp_avatar_type' => 'avatar.driver.local',
-					'lp_avatar_width' => '',
-					'lp_avatar_height' => '',
+					'lp_user_avatar' => self::$avatar_data['src'],
+					'lp_user_avatar_type' => 'avatar.driver.local',
+					'lp_user_avatar_width' => '',
+					'lp_user_avatar_height' => '',
 					'topic_last_post_id' => 3,
 				),
 				array(
@@ -111,21 +111,21 @@ class display_topic_preview_test extends base
 			array(
 				array(
 					'first_post_text' => '<r>Third message with <URL url="http://google.com">http://google.com</URL> magic url and <EMAIL email="test@google.com">test@google.com</EMAIL> email</r>',
-					'fp_avatar' => '',
-					'fp_avatar_type' => 0,
-					'fp_avatar_width' => '',
-					'fp_avatar_height' => '',
+					'fp_user_avatar' => '',
+					'fp_user_avatar_type' => 0,
+					'fp_user_avatar_width' => '',
+					'fp_user_avatar_height' => '',
 					'topic_first_post_id' => 4,
 					'last_post_text' => str_repeat ('a', 155),
-					'lp_avatar' => self::$avatar_data['src'],
-					'lp_avatar_type' => 'avatar.driver.local',
-					'lp_avatar_width' => '',
-					'lp_avatar_height' => '',
+					'lp_user_avatar' => self::$avatar_data['src'],
+					'lp_user_avatar_type' => 'avatar.driver.local',
+					'lp_user_avatar_width' => '',
+					'lp_user_avatar_height' => '',
 					'topic_last_post_id' => 5,
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
 					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 				),
@@ -133,38 +133,38 @@ class display_topic_preview_test extends base
 			array(
 				array(
 					'first_post_text' => '',
-					'fp_avatar' => '',
-					'fp_avatar_type' => 0,
-					'fp_avatar_width' => '',
-					'fp_avatar_height' => '',
+					'fp_user_avatar' => '',
+					'fp_user_avatar_type' => 0,
+					'fp_user_avatar_width' => '',
+					'fp_user_avatar_height' => '',
 					'topic_first_post_id' => 6,
 					'last_post_text' => '',
-					'lp_avatar' => '',
-					'lp_avatar_type' => 0,
-					'lp_avatar_width' => '',
-					'lp_avatar_height' => '',
+					'lp_user_avatar' => '',
+					'lp_user_avatar_type' => 0,
+					'lp_user_avatar_width' => '',
+					'lp_user_avatar_height' => '',
 					'topic_last_post_id' => 7,
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => '',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
+					'TOPIC_PREVIEW_LAST_AVATAR' => '',
 				),
 			),
 			array(
 				array(
 					'first_post_text' => '<r>Fourth message <QUOTE><s>[quote]</s>' . str_repeat('aaa ', 60) . '<e>[/quote]</e></QUOTE></r>',
-					'fp_avatar' => null,
-					'fp_avatar_type' => 0,
-					'fp_avatar_width' => '',
-					'fp_avatar_height' => '',
+					'fp_user_avatar' => null,
+					'fp_user_avatar_type' => 0,
+					'fp_user_avatar_width' => '',
+					'fp_user_avatar_height' => '',
 					'topic_first_post_id' => 8,
 					'last_post_text' =>'',
-					'lp_avatar' => null,
-					'lp_avatar_type' => 0,
-					'lp_avatar_width' => '',
-					'lp_avatar_height' => '',
+					'lp_user_avatar' => null,
+					'lp_user_avatar_type' => 0,
+					'lp_user_avatar_width' => '',
+					'lp_user_avatar_height' => '',
 					'topic_last_post_id' => 8,
 				),
 				array(
@@ -186,7 +186,7 @@ class display_topic_preview_test extends base
 		$data['forum_id'] = 1;
 
 		// Disable topic preview avatars
-		if ($data['fp_avatar'] === null || $data['lp_avatar'] === null)
+		if ($data['fp_user_avatar'] === null || $data['lp_user_avatar'] === null)
 		{
 			$this->config['topic_preview_avatars'] = 0;
 		}
@@ -225,16 +225,16 @@ class display_topic_preview_test extends base
 			array(
 				array(
 					'first_post_text' => '<r>Fourth message <QUOTE><s>[quote]</s>' . str_repeat('aaa ', 60) . '<e>[/quote]</e></QUOTE></r>',
-					'fp_avatar' => null,
-					'fp_avatar_type' => 0,
-					'fp_avatar_width' => '',
-					'fp_avatar_height' => '',
+					'fp_user_avatar' => null,
+					'fp_user_avatar_type' => 0,
+					'fp_user_avatar_width' => '',
+					'fp_user_avatar_height' => '',
 					'topic_first_post_id' => 8,
 					'last_post_text' =>'',
-					'lp_avatar' => null,
-					'lp_avatar_type' => 0,
-					'lp_avatar_width' => '',
-					'lp_avatar_height' => '',
+					'lp_user_avatar' => null,
+					'lp_user_avatar_type' => 0,
+					'lp_user_avatar_width' => '',
+					'lp_user_avatar_height' => '',
 					'topic_last_post_id' => 8,
 				),
 				array(
@@ -259,7 +259,7 @@ class display_topic_preview_test extends base
 		$data['forum_id'] = 1;
 
 		// Disable topic preview avatars
-		if ($data['fp_avatar'] === null || $data['lp_avatar'] === null)
+		if ($data['fp_user_avatar'] === null || $data['lp_user_avatar'] === null)
 		{
 			$this->config['topic_preview_avatars'] = 0;
 		}
