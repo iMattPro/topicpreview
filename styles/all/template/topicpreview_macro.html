@@ -14,15 +14,17 @@
 			<strong class="topic_preview_section_title">{{ title }}</strong>
 		{% endif %}
 		<div class="topic_preview_post">
-			<div class="topic_preview_avatar">
-				{%- if avatar is iterable -%}{# iterable array is for phpBB4 #}
-					{% include 'avatar.html' with {avatar_data: avatar} only %}
-				{%- elseif avatar -%}{# string value is for phpBB3 #}
-					{{ avatar }}
-				{%- else -%}
-					<div class="topic_preview_no_avatar"></div>
-				{%- endif -%}
-			</div>
+			{% if avatar %}
+				<div class="topic_preview_avatar">
+					{%- if avatar is iterable -%}{# iterable array is for phpBB4 #}
+						{% include 'avatar.html' with {avatar_data: avatar} only %}
+					{%- elseif avatar != constant('\\vse\\topicpreview\\core\\display::NO_AVATAR') -%}{# phpBB3 avatar fallback #}
+						{{ avatar }}
+					{%- else -%}{# phpBB3 fallback no avatar #}
+						<div class="topic_preview_no_avatar"></div>
+					{%- endif -%}
+				</div>
+			{% endif %}
 			<div class="topic_preview_{{ post_class }}">{{ post_text }}</div>
 		</div>
 	</div>

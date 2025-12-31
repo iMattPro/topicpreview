@@ -22,6 +22,9 @@ class display extends base
 	/** @var int default width of topic preview */
 	public const PREVIEW_SIZE = 360;
 
+	/** @var string */
+	public const NO_AVATAR = 'no-avatar';
+
 	/** @var avatar_helper|null */
 	protected $avatar_helper;
 
@@ -176,7 +179,7 @@ class display extends base
 	 * @param array  $row    User row data
 	 * @param string $poster Type of poster, fp or lp
 	 *
-	 * @return string Avatar image
+	 * @return string|array Avatar image
 	 */
 	protected function get_user_avatar_helper($row, $poster)
 	{
@@ -185,16 +188,22 @@ class display extends base
 			return '';
 		}
 
-		$avatar = '';
-		$map = array(
-			'user_avatar'		=> $row[$poster . '_user_avatar'],
-			'user_avatar_type'	=> $row[$poster . '_user_avatar_type'],
-			'user_avatar_width'	=> $row[$poster . '_user_avatar_width'],
-			'user_avatar_height'=> $row[$poster . '_user_avatar_height'],
-			'username'			=> $row[$poster . '_username'],
-			'user_id'			=> $row[$poster . '_user_id']
-		);
+		$fields = [
+			'user_avatar',
+			'user_avatar_type',
+			'user_avatar_width',
+			'user_avatar_height',
+			'username',
+			'user_id',
+		];
 
+		$map = [];
+		foreach ($fields as $field)
+		{
+			$map[$field] = $row[$poster . '_' . $field] ?? '';
+		}
+
+		$avatar = '';
 		if ($this->avatar_helper !== null)
 		{
 			$avatar = $this->avatar_helper->get_user_avatar($map, 'USER_AVATAR', false, true);
@@ -204,7 +213,8 @@ class display extends base
 			$avatar = phpbb_get_user_avatar($map, 'USER_AVATAR', false, true);
 		}
 
-		return $avatar;
+		// If the avatar string is empty, fall back to no_avatar.gif
+		return $avatar ?: self::NO_AVATAR;
 	}
 
 	/**

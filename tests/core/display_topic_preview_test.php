@@ -83,7 +83,7 @@ class display_topic_preview_test extends base
 					'TOPIC_PREVIEW_FIRST_POST' => 'First message',
 					'TOPIC_PREVIEW_FIRST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
 				),
 			),
 			array(
@@ -125,7 +125,7 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => 'Third message with magic url and test@google.com email',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
 					'TOPIC_PREVIEW_LAST_POST' => str_repeat ('a', 150) . '...',
 					'TOPIC_PREVIEW_LAST_AVATAR' => sprintf($lazy_avatar, self::$avatar_data['src']),
 				),
@@ -147,9 +147,9 @@ class display_topic_preview_test extends base
 				),
 				array(
 					'TOPIC_PREVIEW_FIRST_POST' => '',
-					'TOPIC_PREVIEW_FIRST_AVATAR' => '',
+					'TOPIC_PREVIEW_FIRST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
 					'TOPIC_PREVIEW_LAST_POST' => '',
-					'TOPIC_PREVIEW_LAST_AVATAR' => '',
+					'TOPIC_PREVIEW_LAST_AVATAR' => \vse\topicpreview\core\display::NO_AVATAR,
 				),
 			),
 			array(
