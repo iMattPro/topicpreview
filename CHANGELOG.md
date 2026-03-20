@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.4.0-dev
+## 2.4.0 - 2025-12-16
 
 - Topic previews now display rendered post-content including images, media, and formatted text for a better preview experience.
 - Added an option in the ACP to switch back to simple text previews for forums with limited server resources.
