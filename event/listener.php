@@ -71,6 +71,11 @@ class listener implements EventSubscriberInterface
 			'imcger.recenttopicsng.modify_topics_list'	=> 'load_attachments',
 			'imcger.recenttopicsng.modify_tpl_ary'		=> 'display_topic_previews',
 
+			// Custom events for integration with Recent Topics avathar
+			'avathar.recenttopicsav.sql_pull_topics_data'=> 'modify_sql_array',
+			'avathar.recenttopicsav.modify_topics_list'	=> 'load_attachments',
+			'avathar.recenttopicsav.modify_tpl_ary'		=> 'display_topic_previews',
+
 			// Custom events for integration with Top Five
 			'rmcgirr83.topfive.sql_pull_topics_data'	=> 'modify_sql_array',
 			'rmcgirr83.topfive.modify_tpl_ary'			=> 'display_topic_previews',
