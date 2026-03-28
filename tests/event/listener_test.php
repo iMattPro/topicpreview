@@ -63,6 +63,9 @@ class listener_test extends \phpbb_test_case
 			'imcger.recenttopicsng.sql_pull_topics_data',
 			'imcger.recenttopicsng.modify_topics_list',
 			'imcger.recenttopicsng.modify_tpl_ary',
+			'avathar.recenttopicsav.sql_pull_topics_data',
+			'avathar.recenttopicsav.modify_topics_list',
+			'avathar.recenttopicsav.modify_tpl_ary',
 			'rmcgirr83.topfive.sql_pull_topics_data',
 			'rmcgirr83.topfive.modify_tpl_ary',
 		), array_keys(\vse\topicpreview\event\listener::getSubscribedEvents()));
