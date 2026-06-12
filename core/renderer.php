@@ -52,8 +52,7 @@ class renderer
 		}
 
 		// Get all attachment XML indices and those to be excluded
-		// Only process if we have attachments AND BBCodes to strip
-		$attachment_info = !empty($attachments) && !empty($strip_bbcodes) ? $this->get_attachment_info($text, $strip_bbcodes) : [];
+		$attachment_info = !empty($attachments) ? $this->get_attachment_info($text, $strip_bbcodes) : [];
 
 		$text = $this->remove_ignored_bbcodes($text, $strip_bbcodes);
 
@@ -72,6 +71,16 @@ class renderer
 	 */
 	protected function get_attachment_info($text, $strip_bbcodes)
 	{
+		// Get all inline attachments to build the mapping
+		$all_attachments = [];
+		if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
+		{
+			foreach ($all_matches[2] as $idx => $xml_index)
+			{
+				$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
+			}
+		}
+
 		// Get attachments that are inside BBCodes to be stripped
 		$excluded_filenames = [];
 		$excluded_xml_indices = [];
@@ -88,19 +97,9 @@ class renderer
 		}
 
 		// Only build the mapping if we actually found attachments to exclude
-		$all_attachments = [];
 		$xml_to_array_map = [];
 		if (!empty($excluded_filenames))
 		{
-			// Now get all attachments to build the mapping
-			if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
-			{
-				foreach ($all_matches[2] as $idx => $xml_index)
-				{
-					$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
-				}
-			}
-
 			$new_array_index = 0;
 			foreach ($all_attachments as $xml_index => $filename)
 			{
@@ -238,9 +237,43 @@ class renderer
 		// Filter out attachments by filename that were inside stripped BBCodes
 		$excluded_filenames = $attachment_info['excluded_filenames'] ?? [];
 		$excluded_xml_indices = $attachment_info['excluded_xml_indices'] ?? [];
+		$all_attachments = $attachment_info['all_attachments'] ?? [];
 		$xml_to_array_map = $attachment_info['xml_to_array_map'] ?? [];
 
-		if (!empty($excluded_filenames) && !empty($attachments))
+		$rendered_text = generate_text_for_display($text, '', '', 7);
+
+		if (!empty($all_attachments))
+		{
+			$rendered_xml_indices = [];
+			if (preg_match_all('#<!-- ia(\d+) -->#', $rendered_text, $matches))
+			{
+				$rendered_xml_indices = array_unique(array_map('intval', $matches[1]));
+			}
+
+			foreach ($all_attachments as $xml_index => $filename)
+			{
+				if (!in_array($xml_index, $rendered_xml_indices, true))
+				{
+					$excluded_filenames[] = $filename;
+					$excluded_xml_indices[] = $xml_index;
+				}
+			}
+
+			$excluded_filenames = array_unique($excluded_filenames);
+			$excluded_xml_indices = array_unique($excluded_xml_indices);
+
+			$new_array_index = 0;
+			$xml_to_array_map = [];
+			foreach ($all_attachments as $xml_index => $filename)
+			{
+				if (!in_array($xml_index, $excluded_xml_indices, true))
+				{
+					$xml_to_array_map[$xml_index] = $new_array_index++;
+				}
+			}
+		}
+
+		if (!empty($all_attachments) && !empty($attachments))
 		{
 			$filtered_attachments = [];
 			$ordered_inline_attachments = [];
@@ -275,8 +308,6 @@ class renderer
 				}
 			}
 		}
-
-		$rendered_text = generate_text_for_display($text, '', '', 7);
 
 		// Remove markers for excluded attachments and renumber remaining markers
 		if (!empty($excluded_xml_indices))

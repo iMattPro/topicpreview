@@ -415,6 +415,58 @@ class renderer_test extends \phpbb_test_case
 		$this->assertLessThan(strpos($result, 'non-inline.pdf'), strpos($result, 'visible.jpg'));
 	}
 
+	public function test_render_text_keeps_inline_attachments_before_non_inline_attachments()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t><ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT> <ATTACHMENT filename="visible.jpg" index="1"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 3, 'real_filename' => 'non-inline.pdf'],
+			1 => ['attach_id' => 2, 'real_filename' => 'visible.jpg'],
+			2 => ['attach_id' => 1, 'real_filename' => 'hidden.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, '', true, true, $attachments, 1);
+
+		$this->assertStringContainsString('hidden.jpg', $result);
+		$this->assertStringContainsString('visible.jpg', $result);
+		$this->assertStringContainsString('non-inline.pdf', $result);
+		$this->assertLessThan(strpos($result, 'visible.jpg'), strpos($result, 'hidden.jpg'));
+		$this->assertLessThan(strpos($result, 'non-inline.pdf'), strpos($result, 'visible.jpg'));
+	}
+
+	public function test_render_text_keeps_guest_hidden_inline_attachment_hidden()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t><HIDDEN><s>[hidden]</s><ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN> <ATTACHMENT filename="visible.jpg" index="1"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 3, 'real_filename' => 'non-inline.pdf'],
+			1 => ['attach_id' => 2, 'real_filename' => 'visible.jpg'],
+			2 => ['attach_id' => 1, 'real_filename' => 'hidden.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, '', true, true, $attachments, 1);
+
+		$this->assertStringContainsString('hc-box', $result);
+		$this->assertStringNotContainsString('hidden.jpg', $result);
+		$this->assertStringContainsString('visible.jpg', $result);
+		$this->assertStringContainsString('non-inline.pdf', $result);
+		$this->assertLessThan(strpos($result, 'non-inline.pdf'), strpos($result, 'visible.jpg'));
+	}
+
 	public function test_render_text_with_multiple_attachments_in_different_bbcodes()
 	{
 		global $config, $phpbb_root_path, $phpEx, $extensions;
@@ -568,6 +620,15 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 
 	function generate_text_for_display($text, $uid, $bitfield, $flags)
 	{
+		if (strpos($text, '<HIDDEN') !== false)
+		{
+			$text = preg_replace('#<HIDDEN[^>]*>.*?</HIDDEN>#s', '<div class="hc-box">Hidden content</div>', $text);
+			$text = preg_replace_callback('#<ATTACHMENT filename="([^"]+)" index="(\d+)">.*?</ATTACHMENT>#s', static function ($matches) {
+				return '<div class="inline-attachment"><!-- ia' . $matches[2] . ' -->' . $matches[1] . '<!-- ia' . $matches[2] . ' --></div>';
+			}, $text);
+			return $text;
+		}
+
 		return \generate_text_for_display($text, $uid, $bitfield, $flags);
 	}
 }
