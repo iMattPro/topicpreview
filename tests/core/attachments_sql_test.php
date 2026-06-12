@@ -104,8 +104,8 @@ class attachments_sql_test extends base
 		self::assertCount(2, $result[1]); // Post 1 has 2 attachments
 		self::assertCount(1, $result[2]); // Post 2 has 1 attachment
 		// Verify actual attachment data is returned correctly
-		self::assertEquals('test1.jpg', $result[1][0]['real_filename']);
-		self::assertEquals('test2.pdf', $result[1][1]['real_filename']);
+		self::assertEquals('test2.pdf', $result[1][0]['real_filename']);
+		self::assertEquals('test1.jpg', $result[1][1]['real_filename']);
 		self::assertEquals('test3.png', $result[2][0]['real_filename']);
 	}
 
@@ -151,8 +151,8 @@ class attachments_sql_test extends base
 				[1, 2],
 				[
 					1 => [
-						['real_filename' => 'test1.jpg'],
 						['real_filename' => 'test2.pdf'],
+						['real_filename' => 'test1.jpg'],
 					],
 					2 => [
 						['real_filename' => 'test3.png'],
@@ -186,8 +186,8 @@ class attachments_sql_test extends base
 			self::assertArrayHasKey(2, $result);
 			self::assertCount(2, $result[1]); // Post 1 has 2 attachments
 			self::assertCount(1, $result[2]); // Post 2 has 1 attachment
-			self::assertEquals('test1.jpg', $result[1][0]['real_filename']);
-			self::assertEquals('test2.pdf', $result[1][1]['real_filename']);
+			self::assertEquals('test2.pdf', $result[1][0]['real_filename']);
+			self::assertEquals('test1.jpg', $result[1][1]['real_filename']);
 			self::assertEquals('test3.png', $result[2][0]['real_filename']);
 		}
 	}

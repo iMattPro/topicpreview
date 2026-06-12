@@ -390,6 +390,31 @@ class renderer_test extends \phpbb_test_case
 		$this->assertStringContainsString('visible.jpg', $result);
 	}
 
+	public function test_render_text_with_stripped_inline_and_non_inline_attachments()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t><HIDDEN><s>[hidden]</s><ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN> <ATTACHMENT filename="visible.jpg" index="1"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 3, 'real_filename' => 'non-inline.pdf'],
+			1 => ['attach_id' => 2, 'real_filename' => 'visible.jpg'],
+			2 => ['attach_id' => 1, 'real_filename' => 'hidden.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, 'hidden', true, true, $attachments, 1);
+
+		$this->assertStringNotContainsString('hidden.jpg', $result);
+		$this->assertStringContainsString('visible.jpg', $result);
+		$this->assertStringContainsString('non-inline.pdf', $result);
+		$this->assertLessThan(strpos($result, 'non-inline.pdf'), strpos($result, 'visible.jpg'));
+	}
+
 	public function test_render_text_with_multiple_attachments_in_different_bbcodes()
 	{
 		global $config, $phpbb_root_path, $phpEx, $extensions;

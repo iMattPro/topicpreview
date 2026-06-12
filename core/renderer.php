@@ -88,11 +88,11 @@ class renderer
 		}
 
 		// Only build the mapping if we actually found attachments to exclude
+		$all_attachments = [];
 		$xml_to_array_map = [];
 		if (!empty($excluded_filenames))
 		{
 			// Now get all attachments to build the mapping
-			$all_attachments = [];
 			if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
 			{
 				foreach ($all_matches[2] as $idx => $xml_index)
@@ -118,6 +118,7 @@ class renderer
 		return [
 			'excluded_filenames' => $excluded_filenames,
 			'excluded_xml_indices' => $excluded_xml_indices,
+			'all_attachments' => $all_attachments,
 			'xml_to_array_map' => $xml_to_array_map,
 		];
 	}
@@ -242,15 +243,37 @@ class renderer
 		if (!empty($excluded_filenames) && !empty($attachments))
 		{
 			$filtered_attachments = [];
+			$ordered_inline_attachments = [];
 			foreach ($attachments as $attachment)
 			{
 				$filename = $attachment['real_filename'] ?? $attachment['physical_filename'] ?? '';
 				if (!in_array($filename, $excluded_filenames, true))
 				{
-					$filtered_attachments[] = $attachment; // Re-index to avoid gaps
+					$filtered_attachments[$filename][] = $attachment;
 				}
 			}
-			$attachments = $filtered_attachments;
+
+			foreach ($xml_to_array_map as $xml_index => $new_index)
+			{
+				if (!empty($attachment_info['all_attachments'][$xml_index]))
+				{
+					$filename = $attachment_info['all_attachments'][$xml_index];
+					if (!empty($filtered_attachments[$filename]))
+					{
+						$ordered_inline_attachments[$new_index] = array_shift($filtered_attachments[$filename]);
+					}
+				}
+			}
+
+			ksort($ordered_inline_attachments);
+			$attachments = $ordered_inline_attachments;
+			foreach ($filtered_attachments as $attachment_group)
+			{
+				foreach ($attachment_group as $attachment)
+				{
+					$attachments[] = $attachment;
+				}
+			}
 		}
 
 		$rendered_text = generate_text_for_display($text, '', '', 7);
