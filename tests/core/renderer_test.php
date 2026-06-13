@@ -296,7 +296,6 @@ class renderer_test extends \phpbb_test_case
 				'<t>Simple text</t>',
 				'',
 				[
-					'excluded_filenames' => [],
 					'excluded_xml_indices' => [],
 					'xml_to_array_map' => [],
 				],
@@ -305,7 +304,6 @@ class renderer_test extends \phpbb_test_case
 				'<t>Text <ATTACHMENT filename="test.jpg" index="0"><s>[attachment=0]</s>test.jpg<e>[/attachment]</e></ATTACHMENT></t>',
 				'',
 				[
-					'excluded_filenames' => [],
 					'excluded_xml_indices' => [],
 					'xml_to_array_map' => [], // Empty when nothing excluded (optimization)
 				],
@@ -314,7 +312,6 @@ class renderer_test extends \phpbb_test_case
 				'<t><QUOTE><s>[quote]</s>Quote <ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE></t>',
 				'quote',
 				[
-					'excluded_filenames' => ['hidden.jpg'],
 					'excluded_xml_indices' => [0],
 					'xml_to_array_map' => [],
 				],
@@ -323,7 +320,6 @@ class renderer_test extends \phpbb_test_case
 				'<t><QUOTE><s>[quote]</s><ATTACHMENT filename="hidden.jpg" index="0"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <ATTACHMENT filename="visible.jpg" index="1"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>',
 				'quote',
 				[
-					'excluded_filenames' => ['hidden.jpg'],
 					'excluded_xml_indices' => [0],
 					'xml_to_array_map' => [1 => 0],
 				],
@@ -332,7 +328,6 @@ class renderer_test extends \phpbb_test_case
 				'<t><HIDDEN><s>[hidden]</s><ATTACHMENT filename="file1.jpg" index="3"><s>[attachment=3]</s>file1.jpg<e>[/attachment]</e></ATTACHMENT><ATTACHMENT filename="file2.jpg" index="0"><s>[attachment=0]</s>file2.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN> <ATTACHMENT filename="file3.jpg" index="2"><s>[attachment=2]</s>file3.jpg<e>[/attachment]</e></ATTACHMENT></t>',
 				'hidden',
 				[
-					'excluded_filenames' => ['file1.jpg', 'file2.jpg'],
 					'excluded_xml_indices' => [3, 0],
 					'xml_to_array_map' => [2 => 0],
 				],
@@ -341,7 +336,6 @@ class renderer_test extends \phpbb_test_case
 				'<t><QUOTE><s>[quote]</s><ATTACHMENT filename="quote.jpg" index="0"><s>[attachment=0]</s>quote.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <CODE><s>[code]</s><ATTACHMENT filename="code.jpg" index="1"><s>[attachment=1]</s>code.jpg<e>[/attachment]</e></ATTACHMENT><e>[/code]</e></CODE> <ATTACHMENT filename="visible.jpg" index="2"><s>[attachment=2]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>',
 				'quote|code',
 				[
-					'excluded_filenames' => ['quote.jpg', 'code.jpg'],
 					'excluded_xml_indices' => [0, 1],
 					'xml_to_array_map' => [2 => 0],
 				],
@@ -360,9 +354,21 @@ class renderer_test extends \phpbb_test_case
 
 		$result = $method->invoke($this->renderer, $text, $strip_bbcodes);
 
-		$this->assertEquals($expected['excluded_filenames'], $result['excluded_filenames']);
 		$this->assertEquals($expected['excluded_xml_indices'], $result['excluded_xml_indices']);
 		$this->assertEquals($expected['xml_to_array_map'], $result['xml_to_array_map']);
+	}
+
+	public function test_get_attachment_info_handles_attachment_attribute_order()
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('get_attachment_info');
+		$method->setAccessible(true);
+
+		$text = '<t><QUOTE><s>[quote]</s><ATTACHMENT index="0" filename="hidden.jpg"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <ATTACHMENT index="1" filename="visible.jpg"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+		$result = $method->invoke($this->renderer, $text, 'quote');
+
+		$this->assertEquals([0], $result['excluded_xml_indices']);
+		$this->assertEquals([1 => 0], $result['xml_to_array_map']);
 	}
 
 	public function test_render_text_with_attachments_in_stripped_bbcode()
@@ -468,6 +474,51 @@ class renderer_test extends \phpbb_test_case
 		$this->assertSame(1, substr_count($result, '26fa1f455b67040e5aa4270c7f693a31.jpg'));
 		$this->assertLessThan(strpos($result, 'catfail.gif'), strpos($result, 'avatar2.PNG'));
 		$this->assertLessThan(strpos($result, '26fa1f455b67040e5aa4270c7f693a31.jpg'), strpos($result, 'catfail.gif'));
+	}
+
+	public function test_render_text_maps_duplicate_filenames_by_index()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t><HIDDEN member="1"><s>[hidden]</s><ATTACHMENT filename="image.jpg" index="1"><s>[attachment=1]</s>image.jpg<e>[/attachment]</e></ATTACHMENT> <ATTACHMENT filename="image.jpg" index="0"><s>[attachment=0]</s>image.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 11, 'real_filename' => 'image.jpg'],
+			1 => ['attach_id' => 10, 'real_filename' => 'image.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, '', true, true, $attachments, 1);
+
+		$this->assertStringContainsString('image.jpg#10', $result);
+		$this->assertStringContainsString('image.jpg#11', $result);
+		$this->assertLessThan(strpos($result, 'image.jpg#11'), strpos($result, 'image.jpg#10'));
+	}
+
+	public function test_render_text_excludes_duplicate_filename_by_index()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t><HIDDEN><s>[hidden]</s><ATTACHMENT filename="image.jpg" index="0"><s>[attachment=0]</s>image.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN> <ATTACHMENT filename="image.jpg" index="1"><s>[attachment=1]</s>image.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 11, 'real_filename' => 'image.jpg'],
+			1 => ['attach_id' => 10, 'real_filename' => 'image.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, '', true, true, $attachments, 1);
+
+		$this->assertStringNotContainsString('image.jpg#11', $result);
+		$this->assertStringContainsString('image.jpg#10', $result);
 	}
 
 	public function test_render_text_keeps_guest_hidden_inline_attachment_hidden()
@@ -634,16 +685,16 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 		{
 			if ($attachment['real_filename'] === 'non-inline.pdf')
 			{
-				$compiled_attachments[] = $attachment['real_filename'];
+				$compiled_attachments[] = $attachment['real_filename'] . '#' . $attachment['attach_id'];
 			}
 			else if (is_array($attachment) && isset($attachment['attach_id']))
 			{
 				// Mock inline attachment - replace placeholder
 				$replace_count = 0;
-				$message = preg_replace('#<!-- ia' . $key . ' -->.*?<!-- ia' . $key . ' -->#', '<div class="inline-attachment">' . $attachment['real_filename'] . '</div>', $message, -1, $replace_count);
+				$message = preg_replace('#<!-- ia' . $key . ' -->.*?<!-- ia' . $key . ' -->#', '<div class="inline-attachment">' . $attachment['real_filename'] . '#' . $attachment['attach_id'] . '</div>', $message, -1, $replace_count);
 				if (!$replace_count)
 				{
-					$message = str_replace('<!-- ia' . $key . ' -->', '<div class="inline-attachment">' . $attachment['real_filename'] . '</div>', $message);
+					$message = str_replace('<!-- ia' . $key . ' -->', '<div class="inline-attachment">' . $attachment['real_filename'] . '#' . $attachment['attach_id'] . '</div>', $message);
 				}
 			}
 		}

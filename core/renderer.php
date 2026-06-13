@@ -20,7 +20,7 @@ class renderer
 	/**
 	 * Regex pattern to match ATTACHMENT XML tags with filename and index
 	 */
-	public const ATTACHMENT_PATTERN = '/<ATTACHMENT[^>]+filename="([^"]+)"[^>]+index="(\d+)"[^>]*>/U';
+	public const ATTACHMENT_PATTERN = '/<ATTACHMENT\b(?=[^>]*\bfilename="([^"]+)")(?=[^>]*\bindex="(\d+)")[^>]*>/';
 
 	/**
 	 * Constructor
@@ -82,7 +82,6 @@ class renderer
 		}
 
 		// Get attachments that are inside BBCodes to be stripped
-		$excluded_filenames = [];
 		$excluded_xml_indices = [];
 
 		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
@@ -91,31 +90,28 @@ class renderer
 			$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
 			if (preg_match_all(self::ATTACHMENT_PATTERN, $bbcode_content, $matches))
 			{
-				$excluded_filenames = array_merge($excluded_filenames, $matches[1]);
 				$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
 			}
 		}
 
 		// Only build the mapping if we actually found attachments to exclude
 		$xml_to_array_map = [];
-		if (!empty($excluded_filenames))
+		if (!empty($excluded_xml_indices))
 		{
 			$new_array_index = 0;
 			foreach ($all_attachments as $xml_index => $filename)
 			{
-				if (!in_array($filename, $excluded_filenames, true))
+				if (!in_array($xml_index, $excluded_xml_indices, true))
 				{
 					$xml_to_array_map[$xml_index] = $new_array_index++;
 				}
 			}
 
 			// array_unique only needed when we have excluded items
-			$excluded_filenames = array_unique($excluded_filenames);
 			$excluded_xml_indices = array_unique($excluded_xml_indices);
 		}
 
 		return [
-			'excluded_filenames' => $excluded_filenames,
 			'excluded_xml_indices' => $excluded_xml_indices,
 			'all_attachments' => $all_attachments,
 			'xml_to_array_map' => $xml_to_array_map,
@@ -234,8 +230,7 @@ class renderer
 			return '';
 		}
 
-		// Filter out attachments by filename that were inside stripped BBCodes
-		$excluded_filenames = $attachment_info['excluded_filenames'] ?? [];
+		// Filter out attachments that were inside stripped or hidden BBCodes
 		$excluded_xml_indices = $attachment_info['excluded_xml_indices'] ?? [];
 		$all_attachments = $attachment_info['all_attachments'] ?? [];
 		$xml_to_array_map = $attachment_info['xml_to_array_map'] ?? [];
@@ -254,12 +249,10 @@ class renderer
 			{
 				if (!in_array($xml_index, $rendered_xml_indices, true))
 				{
-					$excluded_filenames[] = $filename;
 					$excluded_xml_indices[] = $xml_index;
 				}
 			}
 
-			$excluded_filenames = array_unique($excluded_filenames);
 			$excluded_xml_indices = array_unique($excluded_xml_indices);
 
 			$new_array_index = 0;
@@ -275,34 +268,35 @@ class renderer
 
 		if (!empty($all_attachments) && !empty($attachments))
 		{
-			$filtered_attachments = [];
+			$source_attachments = $attachments;
 			$ordered_inline_attachments = [];
-			foreach ($attachments as $attachment)
+			$used_attachment_indexes = [];
+			$excluded_attachment_indexes = [];
+
+			foreach ($excluded_xml_indices as $xml_index)
 			{
-				$filename = $attachment['real_filename'] ?? $attachment['physical_filename'] ?? '';
-				if (!in_array($filename, $excluded_filenames, true))
+				$attachment_index = $this->find_attachment_index($xml_index, $all_attachments[$xml_index] ?? '', $source_attachments, $excluded_attachment_indexes);
+				if ($attachment_index !== null)
 				{
-					$filtered_attachments[$filename][] = $attachment;
+					$excluded_attachment_indexes[] = $attachment_index;
 				}
 			}
 
 			foreach ($xml_to_array_map as $xml_index => $new_index)
 			{
-				if (!empty($attachment_info['all_attachments'][$xml_index]))
+				$attachment_index = $this->find_attachment_index($xml_index, $all_attachments[$xml_index] ?? '', $source_attachments, array_merge($used_attachment_indexes, $excluded_attachment_indexes));
+				if ($attachment_index !== null)
 				{
-					$filename = $attachment_info['all_attachments'][$xml_index];
-					if (!empty($filtered_attachments[$filename]))
-					{
-						$ordered_inline_attachments[$new_index] = array_shift($filtered_attachments[$filename]);
-					}
+					$ordered_inline_attachments[$new_index] = $source_attachments[$attachment_index];
+					$used_attachment_indexes[] = $attachment_index;
 				}
 			}
 
 			ksort($ordered_inline_attachments);
 			$attachments = $ordered_inline_attachments;
-			foreach ($filtered_attachments as $attachment_group)
+			foreach ($source_attachments as $index => $attachment)
 			{
-				foreach ($attachment_group as $attachment)
+				if (!in_array($index, $used_attachment_indexes, true) && !in_array($index, $excluded_attachment_indexes, true))
 				{
 					$attachments[] = $attachment;
 				}
@@ -352,6 +346,50 @@ class renderer
 
 		// Render and trim
 		return $this->trim_html_content($rendered_text, $limit);
+	}
+
+	/**
+	 * Find an attachment array index for an inline attachment XML index.
+	 *
+	 * @param int    $xml_index    Attachment index from the parsed post XML
+	 * @param string $filename     Filename from the parsed post XML
+	 * @param array  $attachments  Attachment rows passed to parse_attachments()
+	 * @param array  $used_indexes Attachment array indexes already claimed
+	 *
+	 * @return int|null Matching attachment array index, or null when not found
+	 */
+	protected function find_attachment_index($xml_index, $filename, array $attachments, array $used_indexes = [])
+	{
+		if (array_key_exists($xml_index, $attachments) && !in_array($xml_index, $used_indexes, true) && $this->attachment_matches_filename($attachments[$xml_index], $filename))
+		{
+			return $xml_index;
+		}
+
+		foreach ($attachments as $index => $attachment)
+		{
+			if (!in_array($index, $used_indexes, true) && $this->attachment_matches_filename($attachment, $filename))
+			{
+				return $index;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Check whether an attachment row matches an XML attachment filename.
+	 *
+	 * @param array  $attachment Attachment row
+	 * @param string $filename   Filename from parsed post XML
+	 *
+	 * @return bool True when filename matches
+	 */
+	protected function attachment_matches_filename(array $attachment, $filename)
+	{
+		return $filename !== '' && (
+			($attachment['real_filename'] ?? '') === $filename ||
+			($attachment['physical_filename'] ?? '') === $filename
+		);
 	}
 
 	/**
