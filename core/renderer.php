@@ -320,27 +320,13 @@ class renderer
 		}
 
 		// Renumber remaining markers to match the re-indexed attachments array
-		if (!empty($xml_to_array_map) && preg_match_all('#<!-- ia(\d+) -->#', $rendered_text, $all_markers, PREG_SET_ORDER))
+		if (!empty($xml_to_array_map) && preg_match('#<!-- ia(\d+) -->#', $rendered_text))
 		{
-			$replacements = [];
-			foreach ($all_markers as $match)
-			{
+			$rendered_text = preg_replace_callback('#<!-- ia(\d+) -->#', static function ($match) use ($xml_to_array_map) {
 				$xml_index = (int) $match[1];
-				if (isset($xml_to_array_map[$xml_index]))
-				{
-					$new_index = $xml_to_array_map[$xml_index];
-					if ($xml_index !== $new_index)
-					{
-						$replacements['<!-- ia' . $xml_index . ' -->'] = '<!-- ia' . $new_index . ' -->';
-					}
-				}
-			}
 
-			// Apply all replacements
-			if (!empty($replacements))
-			{
-				$rendered_text = str_replace(array_keys($replacements), array_values($replacements), $rendered_text);
-			}
+				return isset($xml_to_array_map[$xml_index]) ? '<!-- ia' . $xml_to_array_map[$xml_index] . ' -->' : $match[0];
+			}, $rendered_text);
 		}
 
 		// Parse attachments after text rendering

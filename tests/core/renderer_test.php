@@ -441,6 +441,35 @@ class renderer_test extends \phpbb_test_case
 		$this->assertLessThan(strpos($result, 'non-inline.pdf'), strpos($result, 'visible.jpg'));
 	}
 
+	public function test_render_text_renumbers_descending_inline_attachment_indexes()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t><HIDDEN member="1"><s>[hidden]</s><ATTACHMENT filename="avatar2.PNG" index="2"><s>[attachment=2]</s>avatar2.PNG<e>[/attachment]</e></ATTACHMENT><ATTACHMENT filename="catfail.gif" index="1"><s>[attachment=1]</s>catfail.gif<e>[/attachment]</e></ATTACHMENT><ATTACHMENT filename="26fa1f455b67040e5aa4270c7f693a31.jpg" index="0"><s>[attachment=0]</s>26fa1f455b67040e5aa4270c7f693a31.jpg<e>[/attachment]</e></ATTACHMENT><e>[/hidden]</e></HIDDEN></t>';
+
+		$attachments = [
+			0 => ['attach_id' => 74, 'real_filename' => '26fa1f455b67040e5aa4270c7f693a31.jpg'],
+			1 => ['attach_id' => 73, 'real_filename' => 'catfail.gif'],
+			2 => ['attach_id' => 72, 'real_filename' => 'avatar2.PNG'],
+		];
+
+		$result = $this->renderer->render_text($text, 150, '', true, true, $attachments, 1);
+
+		$this->assertStringContainsString('avatar2.PNG', $result);
+		$this->assertStringContainsString('catfail.gif', $result);
+		$this->assertStringContainsString('26fa1f455b67040e5aa4270c7f693a31.jpg', $result);
+		$this->assertSame(1, substr_count($result, 'avatar2.PNG'));
+		$this->assertSame(1, substr_count($result, 'catfail.gif'));
+		$this->assertSame(1, substr_count($result, '26fa1f455b67040e5aa4270c7f693a31.jpg'));
+		$this->assertLessThan(strpos($result, 'catfail.gif'), strpos($result, 'avatar2.PNG'));
+		$this->assertLessThan(strpos($result, '26fa1f455b67040e5aa4270c7f693a31.jpg'), strpos($result, 'catfail.gif'));
+	}
+
 	public function test_render_text_keeps_guest_hidden_inline_attachment_hidden()
 	{
 		global $config, $phpbb_root_path, $phpEx, $extensions;
@@ -605,14 +634,17 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 		{
 			if ($attachment['real_filename'] === 'non-inline.pdf')
 			{
-				// Already rendered HTML - append to message
-				$message .= $attachment['real_filename'];
 				$compiled_attachments[] = $attachment['real_filename'];
 			}
 			else if (is_array($attachment) && isset($attachment['attach_id']))
 			{
 				// Mock inline attachment - replace placeholder
-				$message = str_replace('<!-- ia' . $key . ' -->', '<div class="inline-attachment">' . $attachment['real_filename'] . '</div>', $message);
+				$replace_count = 0;
+				$message = preg_replace('#<!-- ia' . $key . ' -->.*?<!-- ia' . $key . ' -->#', '<div class="inline-attachment">' . $attachment['real_filename'] . '</div>', $message, -1, $replace_count);
+				if (!$replace_count)
+				{
+					$message = str_replace('<!-- ia' . $key . ' -->', '<div class="inline-attachment">' . $attachment['real_filename'] . '</div>', $message);
+				}
 			}
 		}
 		$attachments = $compiled_attachments;
@@ -622,7 +654,15 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 	{
 		if (strpos($text, '<HIDDEN') !== false)
 		{
-			$text = preg_replace('#<HIDDEN[^>]*>.*?</HIDDEN>#s', '<div class="hc-box">Hidden content</div>', $text);
+			if (strpos($text, 'member="1"') !== false)
+			{
+				$text = preg_replace('#<HIDDEN[^>]*>#', '<div class="hc-box hc-box--member"><div class="hc-content">', $text);
+				$text = str_replace('</HIDDEN>', '</div></div>', $text);
+			}
+			else
+			{
+				$text = preg_replace('#<HIDDEN[^>]*>.*?</HIDDEN>#s', '<div class="hc-box">Hidden content</div>', $text);
+			}
 			$text = preg_replace_callback('#<ATTACHMENT filename="([^"]+)" index="(\d+)">.*?</ATTACHMENT>#s', static function ($matches) {
 				return '<div class="inline-attachment"><!-- ia' . $matches[2] . ' -->' . $matches[1] . '<!-- ia' . $matches[2] . ' --></div>';
 			}, $text);
