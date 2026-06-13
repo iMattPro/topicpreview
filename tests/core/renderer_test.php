@@ -286,6 +286,28 @@ class renderer_test extends \phpbb_test_case
 		$this->assertEquals($expected, $result);
 	}
 
+	public function test_trim_html_content_falls_back_without_libxml()
+	{
+		global $topic_preview_force_missing_libxml;
+
+		$topic_preview_force_missing_libxml = true;
+
+		try
+		{
+			$reflection = new \ReflectionClass($this->renderer);
+			$method = $reflection->getMethod('trim_html_content');
+			$method->setAccessible(true);
+
+			$result = $method->invoke($this->renderer, '<p>This is long text</p>', 7);
+
+			$this->assertEquals('This is...', $result);
+		}
+		finally
+		{
+			$topic_preview_force_missing_libxml = false;
+		}
+	}
+
 	public static function get_attachment_info_data()
 	{
 		return [
@@ -366,6 +388,20 @@ class renderer_test extends \phpbb_test_case
 
 		$this->assertEquals([0], $result['excluded_xml_indices']);
 		$this->assertEquals([1 => 0], $result['xml_to_array_map']);
+	}
+
+	public function test_find_attachment_index_returns_null_for_missing_attachment()
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('find_attachment_index');
+		$method->setAccessible(true);
+
+		$result = $method->invoke($this->renderer, 2, 'missing.jpg', [
+			0 => ['attach_id' => 1, 'real_filename' => 'visible.jpg'],
+			1 => ['attach_id' => 2, 'real_filename' => 'other.jpg'],
+		]);
+
+		$this->assertNull($result);
 	}
 
 	public function test_render_text_with_attachments_in_stripped_bbcode()
@@ -671,6 +707,16 @@ class renderer_test extends \phpbb_test_case
 // Mock parse_attachments for testing in the vse\topicpreview\core namespace
 // This will be called by renderer.php instead of the global parse_attachments
 namespace vse\topicpreview\core;
+
+if (!function_exists('vse\topicpreview\core\extension_loaded'))
+{
+	function extension_loaded($extension)
+	{
+		global $topic_preview_force_missing_libxml;
+
+		return $topic_preview_force_missing_libxml && $extension === 'libxml' ? false : \extension_loaded($extension);
+	}
+}
 
 if (!function_exists('vse\topicpreview\core\parse_attachments'))
 {
