@@ -252,7 +252,7 @@ class data extends base
 			FROM ' . ATTACHMENTS_TABLE . '
 			WHERE ' . $this->db->sql_in_set('post_msg_id', $post_ids) . '
 				AND in_message = 0
-			ORDER BY post_msg_id, filetime ASC';
+			ORDER BY attach_id DESC, post_msg_id ASC';
 		$result = $this->db->sql_query($sql);
 
 		$attachments = [];
