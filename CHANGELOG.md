@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.1 - 2026-06-15
+
+- Fixed an issue so that attachments will be sorted in the correct order in the topic preview.
+- Fixed an issue so that attachments removed from the post will stay hidden, for example, by any BBCode/template that removes, conditionally hides, or fails to render attachment markers: hidden, permission-based BBCodes, custom spoiler/hide BBCodes, etc.
+- Add support for Avathar's Recent Topics extension
+
 ## 2.4.0 - 2025-12-16
 
 - Topic previews now display rendered post-content including images, media, and formatted text for a better preview experience.
@@ -19,7 +25,7 @@
 
 ## 2.3.2 - 2020-01-10
 
-- Fixed potential javascript issues in phpBB 3.3.x by removing deprecated code.
+- Fixed potential JavaScript issues in phpBB 3.3.x by removing deprecated code.
 - Miscellaneous minor code improvements.
 
 ## 2.3.1 - 2019-03-30
@@ -37,7 +43,7 @@
 
 - Refactored themes to inherit from a parent theme for easier theming
 - Added Neon theme originally by PayBas
-- Added fixes for we_universal and we_clearblue styles
+- Added fixes for We_Universal and We_Clearblue styles
 - Internal code improvements
 
 ## 2.2.3 - 2016-05-01
