@@ -15,6 +15,9 @@ class base extends \phpbb_database_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var \phpbb\auth\auth|\PHPUnit\Framework\MockObject\MockObject */
+	protected $auth;
+
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -56,6 +59,10 @@ class base extends \phpbb_database_test_case
 
 		$this->db = $this->new_dbal();
 		$cache = new \phpbb_mock_cache;
+		$this->auth = $this->getMockBuilder('\phpbb\auth\auth')
+			->setMethods(array('acl_get'))
+			->getMock();
+		$this->auth->method('acl_get')->willReturn(true);
 
 		$config = $this->config = new \phpbb\config\config(array(
 			'topic_preview_strip_bbcodes'	=> '',
@@ -93,9 +100,10 @@ class base extends \phpbb_database_test_case
 		);
 	}
 
-	protected function get_topic_preview_display()
+	protected function get_topic_preview_display($auth = null)
 	{
 		return new \vse\topicpreview\core\display(
+			$auth ?: $this->auth,
 			$this->config,
 			$this->dispatcher,
 			$this->language,

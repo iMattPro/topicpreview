@@ -217,6 +217,29 @@ class display_topic_preview_test extends base
 		self::assertEquals($block, $preview_display->display_topic_preview($data, $block));
 	}
 
+	public function test_display_topic_preview_without_read_permission()
+	{
+		$forum_id = 42;
+		$auth = $this->getMockBuilder('\phpbb\auth\auth')
+			->setMethods(array('acl_get'))
+			->getMock();
+		$auth->expects(self::once())
+			->method('acl_get')
+			->with('f_read', $forum_id)
+			->willReturn(false);
+
+		$block = array('TOPIC_TITLE' => 'Visible topic title');
+		$data = array(
+			'forum_id' => $forum_id,
+			'first_post_text' => 'Private post text',
+			'last_post_text' => 'Private reply text',
+		);
+
+		$preview_display = $this->get_topic_preview_display($auth);
+
+		self::assertSame($block, $preview_display->display_topic_preview($data, $block));
+	}
+
 	public function topic_preview_display_with_attachments_data()
 	{
 		return array(
