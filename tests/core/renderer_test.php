@@ -318,6 +318,29 @@ class renderer_test extends \phpbb_test_case
 		}
 	}
 
+	public function test_dom_trim_html_restores_libxml_error_setting()
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('dom_trim_html');
+		$method->setAccessible(true);
+
+		try
+		{
+			foreach ([false, true] as $use_internal_errors)
+			{
+				libxml_use_internal_errors($use_internal_errors);
+				$method->invoke($this->renderer, '<strong>Malformed', 5);
+
+				self::assertSame($use_internal_errors, libxml_use_internal_errors());
+			}
+		}
+		finally
+		{
+			libxml_clear_errors();
+			libxml_use_internal_errors(false);
+		}
+	}
+
 	public function get_attachment_info_data()
 	{
 		return [

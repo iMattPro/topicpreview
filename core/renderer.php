@@ -447,9 +447,16 @@ class renderer
 		$dom->encoding = 'UTF-8';
 
 		// Suppress warnings for malformed HTML and load with UTF-8 encoding
-		libxml_use_internal_errors(true);
-		$dom->loadHTML('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-		libxml_clear_errors();
+		$use_internal_errors = libxml_use_internal_errors(true);
+		try
+		{
+			$dom->loadHTML('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		}
+		finally
+		{
+			libxml_clear_errors();
+			libxml_use_internal_errors($use_internal_errors);
+		}
 
 		$trimmed = $html;
 		$body = $dom->getElementsByTagName('body')->item(0);
