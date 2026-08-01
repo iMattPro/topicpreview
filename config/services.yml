@@ -10,6 +10,7 @@ services:
     vse.topicpreview.data:
         class: vse\topicpreview\core\data
         arguments:
+            - '@auth'
             - '@config'
             - '@user'
             - '@dbal.conn'

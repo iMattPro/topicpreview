@@ -91,9 +91,10 @@ class base extends \phpbb_database_test_case
 		$this->template = $this->createMock('\phpbb\template\template');
 	}
 
-	protected function get_topic_preview_data()
+	protected function get_topic_preview_data($auth = null)
 	{
 		return new \vse\topicpreview\core\data(
+			$auth ?: $this->auth,
 			$this->config,
 			$this->user,
 			$this->db
