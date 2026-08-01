@@ -166,16 +166,14 @@ class display extends base
 			$attachments = $this->attachments_cache[$post_id] ?? [];
 		}
 
-		return censor_text(
-			$this->renderer->render_text(
-				$row[$post],
-				(int) $this->config['topic_preview_limit'],
-				$this->config['topic_preview_strip_bbcodes'],
-				(bool) $this->config['topic_preview_rich_text'],
-				(bool) $this->topic_preview_theme,
-				$attachments,
-				$row['forum_id']
-			)
+		return $this->renderer->render_text(
+			$row[$post],
+			(int) $this->config['topic_preview_limit'],
+			$this->config['topic_preview_strip_bbcodes'],
+			(bool) $this->config['topic_preview_rich_text'],
+			(bool) $this->topic_preview_theme,
+			$attachments,
+			$row['forum_id']
 		);
 	}
 

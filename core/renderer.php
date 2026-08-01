@@ -189,6 +189,7 @@ class renderer
 			'#[ \t]{2,}#' // Multiple spaces
 		];
 		$plain_text = trim(preg_replace($patterns, ' ', $plain_text));
+		$plain_text = censor_text($plain_text);
 
 		if (empty($plain_text))
 		{

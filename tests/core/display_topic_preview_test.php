@@ -217,6 +217,28 @@ class display_topic_preview_test extends base
 		self::assertEquals($block, $preview_display->display_topic_preview($data, $block));
 	}
 
+	public function test_display_topic_preview_does_not_censor_rendered_markup()
+	{
+		$this->config['topic_preview_avatars'] = 0;
+		$this->user->style['topic_preview_theme'] = 'light';
+		$rendered_text = '<div class="badword4">replacement4</div>';
+		$this->renderer = $this->createMock('\vse\topicpreview\core\renderer');
+		$this->renderer->expects(self::once())
+			->method('render_text')
+			->willReturn($rendered_text);
+
+		$data = array(
+			'forum_id' => 1,
+			'first_post_text' => 'badword4',
+			'topic_first_post_id' => 1,
+			'topic_last_post_id' => 1,
+		);
+
+		$block = $this->get_topic_preview_display()->display_topic_preview($data, array());
+
+		self::assertSame($rendered_text, $block['TOPIC_PREVIEW_FIRST_POST']);
+	}
+
 	public function test_display_topic_preview_without_read_permission()
 	{
 		$forum_id = 42;

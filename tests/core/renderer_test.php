@@ -63,6 +63,13 @@ class renderer_test extends \phpbb_test_case
 				0,
 				'Hello world',
 			],
+			'Censored text - plain mode' =>
+			[
+				'<t>badword4</t>',
+				150,
+				0,
+				'replacement4',
+			],
 			'BBCode text - rich mode' =>
 			[
 				'<t><B><s>[b]</s>Bold text<e>[/b]</e></B> normal text</t>',
