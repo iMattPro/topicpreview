@@ -14,6 +14,9 @@ use phpbb\textformatter\s9e\utils;
 
 class renderer
 {
+	/** Regex matching ATTACHMENT XML tags with filename and index */
+	protected const ATTACHMENT_PATTERN = '/<ATTACHMENT\b(?=[^>]*\bfilename="([^"]+)")(?=[^>]*\bindex="(\d+)")[^>]*>/';
+
 	/** @var string[] Parsed tags rendered as a single visual unit */
 	protected const VISUAL_TAGS = ['ATTACHMENT', 'E', 'EMOJI', 'FLASH', 'IMG', 'MEDIA'];
 
@@ -22,11 +25,6 @@ class renderer
 
 	/** @var utils */
 	protected $utils;
-
-	/**
-	 * Regex pattern to match ATTACHMENT XML tags with filename and index
-	 */
-	public const ATTACHMENT_PATTERN = '/<ATTACHMENT\b(?=[^>]*\bfilename="([^"]+)")(?=[^>]*\bindex="(\d+)")[^>]*>/';
 
 	/**
 	 * Constructor
@@ -65,112 +63,6 @@ class renderer
 		return $rich_text && $theme
 			? $this->render_rich_text($text, $limit, $attachments, $forum_id, $attachment_info)
 			: $this->render_plain_text($text, $limit);
-	}
-
-	/**
-	 * Get comprehensive attachment information from text
-	 *
-	 * @param string $text Raw post text
-	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
-	 *
-	 * @return array Array with attachment mapping info
-	 */
-	protected function get_attachment_info($text, $strip_bbcodes)
-	{
-		// Get all inline attachments to build the mapping
-		$all_attachments = [];
-		if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
-		{
-			foreach ($all_matches[2] as $idx => $xml_index)
-			{
-				$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
-			}
-		}
-
-		// Get attachments that are inside BBCodes to be stripped
-		$excluded_xml_indices = [];
-
-		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
-		foreach ($bbcodes as $bbcode)
-		{
-			$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
-			if (preg_match_all(self::ATTACHMENT_PATTERN, $bbcode_content, $matches))
-			{
-				$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
-			}
-		}
-
-		// Only build the mapping if we actually found attachments to exclude
-		$xml_to_array_map = [];
-		if (!empty($excluded_xml_indices))
-		{
-			$new_array_index = 0;
-			foreach ($all_attachments as $xml_index => $filename)
-			{
-				if (!in_array($xml_index, $excluded_xml_indices, true))
-				{
-					$xml_to_array_map[$xml_index] = $new_array_index++;
-				}
-			}
-
-			// array_unique only needed when we have excluded items
-			$excluded_xml_indices = array_unique($excluded_xml_indices);
-		}
-
-		return [
-			'excluded_xml_indices' => $excluded_xml_indices,
-			'all_attachments' => $all_attachments,
-			'xml_to_array_map' => $xml_to_array_map,
-		];
-	}
-
-	/**
-	 * Extract content from BBCode tags
-	 *
-	 * @param string $text Raw post text
-	 * @param string $bbcode BBCode name to extract
-	 *
-	 * @return string Concatenated content from all instances of the BBCode
-	 */
-	protected function extract_bbcode_content($text, $bbcode)
-	{
-		$content = '';
-		$bbcode_upper = strtoupper($bbcode);
-
-		// Match opening and closing tags for this BBCode
-		// This regex finds the BBCode start and end tags in the XML structure
-		$pattern = '#<' . preg_quote($bbcode_upper, '#') . '(?:\s[^>]*)?>.*?</' . preg_quote($bbcode_upper, '#') . '>#s';
-
-		if (preg_match_all($pattern, $text, $matches))
-		{
-			$content = implode(' ', $matches[0]);
-		}
-
-		return $content;
-	}
-
-	/**
-	 * Remove BBCode tags and their content that should be ignored in previews
-	 *
-	 * @param string $text Raw post text
-	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
-	 *
-	 * @return string Text with ignored BBCodes removed
-	 */
-	protected function remove_ignored_bbcodes($text, $strip_bbcodes)
-	{
-		if (empty($strip_bbcodes))
-		{
-			return $text;
-		}
-
-		$stripped_text = $text;
-		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
-		foreach ($bbcodes as $bbcode)
-		{
-			$stripped_text = $this->utils->remove_bbcode($stripped_text, $bbcode);
-		}
-		return $stripped_text !== $text ? preg_replace('/\s+/', ' ', $stripped_text) : $text;
 	}
 
 	/**
@@ -366,38 +258,27 @@ class renderer
 	}
 
 	/**
-	 * Update attachment mappings after parsed content has been trimmed
+	 * Remove BBCode tags and their content that should be ignored in previews
 	 *
-	 * @param string $text Parsed post text after trimming
-	 * @param array  $attachment_info Original attachment mapping
+	 * @param string $text Raw post text
+	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
 	 *
-	 * @return array Updated attachment mapping
+	 * @return string Text with ignored BBCodes removed
 	 */
-	protected function update_attachment_info_after_trim($text, array $attachment_info)
+	protected function remove_ignored_bbcodes($text, $strip_bbcodes)
 	{
-		$remaining = $this->get_attachment_info($text, '')['all_attachments'];
-		$excluded = $attachment_info['excluded_xml_indices'];
-
-		foreach ($attachment_info['all_attachments'] as $xml_index => $filename)
+		if (empty($strip_bbcodes))
 		{
-			if (!array_key_exists($xml_index, $remaining))
-			{
-				$excluded[] = $xml_index;
-			}
+			return $text;
 		}
 
-		$attachment_info['excluded_xml_indices'] = array_unique(array_map('intval', $excluded));
-		$attachment_info['xml_to_array_map'] = [];
-		$new_index = 0;
-		foreach ($attachment_info['all_attachments'] as $xml_index => $filename)
+		$stripped_text = $text;
+		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
+		foreach ($bbcodes as $bbcode)
 		{
-			if (!in_array($xml_index, $attachment_info['excluded_xml_indices'], true))
-			{
-				$attachment_info['xml_to_array_map'][$xml_index] = $new_index++;
-			}
+			$stripped_text = $this->utils->remove_bbcode($stripped_text, $bbcode);
 		}
-
-		return $attachment_info;
+		return $stripped_text !== $text ? preg_replace('/\s+/', ' ', $stripped_text) : $text;
 	}
 
 	/**
@@ -647,6 +528,123 @@ class renderer
 	}
 
 	/**
+	 * Get comprehensive attachment information from text
+	 *
+	 * @param string $text Raw post text
+	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
+	 *
+	 * @return array Array with attachment mapping info
+	 */
+	protected function get_attachment_info($text, $strip_bbcodes)
+	{
+		// Get all inline attachments to build the mapping
+		$all_attachments = [];
+		if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
+		{
+			foreach ($all_matches[2] as $idx => $xml_index)
+			{
+				$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
+			}
+		}
+
+		// Get attachments that are inside BBCodes to be stripped
+		$excluded_xml_indices = [];
+
+		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
+		foreach ($bbcodes as $bbcode)
+		{
+			$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
+			if (preg_match_all(self::ATTACHMENT_PATTERN, $bbcode_content, $matches))
+			{
+				$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
+			}
+		}
+
+		// Only build the mapping if we actually found attachments to exclude
+		$xml_to_array_map = [];
+		if (!empty($excluded_xml_indices))
+		{
+			$new_array_index = 0;
+			foreach ($all_attachments as $xml_index => $filename)
+			{
+				if (!in_array($xml_index, $excluded_xml_indices, true))
+				{
+					$xml_to_array_map[$xml_index] = $new_array_index++;
+				}
+			}
+
+			// array_unique only needed when we have excluded items
+			$excluded_xml_indices = array_unique($excluded_xml_indices);
+		}
+
+		return [
+			'excluded_xml_indices' => $excluded_xml_indices,
+			'all_attachments' => $all_attachments,
+			'xml_to_array_map' => $xml_to_array_map,
+		];
+	}
+
+	/**
+	 * Extract content from BBCode tags
+	 *
+	 * @param string $text Raw post text
+	 * @param string $bbcode BBCode name to extract
+	 *
+	 * @return string Concatenated content from all instances of the BBCode
+	 */
+	protected function extract_bbcode_content($text, $bbcode)
+	{
+		$content = '';
+		$bbcode_upper = strtoupper($bbcode);
+
+		// Match opening and closing tags for this BBCode
+		// This regex finds the BBCode start and end tags in the XML structure
+		$pattern = '#<' . preg_quote($bbcode_upper, '#') . '(?:\s[^>]*)?>.*?</' . preg_quote($bbcode_upper, '#') . '>#s';
+
+		if (preg_match_all($pattern, $text, $matches))
+		{
+			$content = implode(' ', $matches[0]);
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Update attachment mappings after parsed content has been trimmed
+	 *
+	 * @param string $text Parsed post text after trimming
+	 * @param array  $attachment_info Original attachment mapping
+	 *
+	 * @return array Updated attachment mapping
+	 */
+	protected function update_attachment_info_after_trim($text, array $attachment_info)
+	{
+		$remaining = $this->get_attachment_info($text, '')['all_attachments'];
+		$excluded = $attachment_info['excluded_xml_indices'];
+
+		foreach ($attachment_info['all_attachments'] as $xml_index => $filename)
+		{
+			if (!array_key_exists($xml_index, $remaining))
+			{
+				$excluded[] = $xml_index;
+			}
+		}
+
+		$attachment_info['excluded_xml_indices'] = array_unique(array_map('intval', $excluded));
+		$attachment_info['xml_to_array_map'] = [];
+		$new_index = 0;
+		foreach ($attachment_info['all_attachments'] as $xml_index => $filename)
+		{
+			if (!in_array($xml_index, $attachment_info['excluded_xml_indices'], true))
+			{
+				$attachment_info['xml_to_array_map'][$xml_index] = $new_index++;
+			}
+		}
+
+		return $attachment_info;
+	}
+
+	/**
 	 * Find an attachment array index for an inline attachment XML index.
 	 *
 	 * @param int    $xml_index    Attachment index from the parsed post XML
@@ -689,5 +687,4 @@ class renderer
 			($attachment['physical_filename'] ?? '') === $filename
 		);
 	}
-
 }
