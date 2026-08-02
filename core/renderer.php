@@ -15,7 +15,7 @@ use phpbb\textformatter\s9e\utils;
 class renderer
 {
 	/** Regex matching ATTACHMENT XML tags with filename and index */
-	protected const ATTACHMENT_PATTERN = '/<ATTACHMENT\b(?=[^>]*\bfilename="([^"]+)")(?=[^>]*\bindex="(\d+)")[^>]*>/';
+	public const ATTACHMENT_PATTERN = '/<ATTACHMENT\b(?=[^>]*\bfilename="([^"]+)")(?=[^>]*\bindex="(\d+)")[^>]*>/';
 
 	/** @var string[] Parsed tags rendered as a single visual unit */
 	protected const VISUAL_TAGS = ['ATTACHMENT', 'E', 'EMOJI', 'FLASH', 'IMG', 'MEDIA'];
