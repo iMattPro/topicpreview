@@ -10,6 +10,7 @@ services:
     vse.topicpreview.data:
         class: vse\topicpreview\core\data
         arguments:
+            - '@auth'
             - '@config'
             - '@user'
             - '@dbal.conn'
@@ -17,6 +18,7 @@ services:
     vse.topicpreview.display:
         class: vse\topicpreview\core\display
         arguments:
+            - '@auth'
             - '@config'
             - '@dispatcher'
             - '@language'

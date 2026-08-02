@@ -10,24 +10,30 @@
 
 namespace vse\topicpreview\core;
 
+use phpbb\auth\auth;
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\user;
 
 class data extends base
 {
+	/** @var auth */
+	protected $auth;
+
 	/** @var driver_interface */
 	protected $db;
 
 	/**
 	 * Constructor
 	 *
+	 * @param auth   $auth   Auth object
 	 * @param config $config Config object
 	 * @param user   $user   User object
 	 * @param driver_interface $db Database driver
 	 */
-	public function __construct(config $config, user $user, driver_interface $db)
+	public function __construct(auth $auth, config $config, user $user, driver_interface $db)
 	{
+		$this->auth = $auth;
 		$this->db = $db;
 		parent::__construct($config, $user);
 	}
@@ -209,7 +215,7 @@ class data extends base
 	 */
 	public function get_attachments_for_topics($rowset)
 	{
-		if (!$this->is_enabled() || !$this->attachments_enabled())
+		if (!$this->is_enabled() || !$this->attachments_enabled() || !$this->auth->acl_get('u_download'))
 		{
 			return [];
 		}
@@ -217,7 +223,7 @@ class data extends base
 		$post_ids = [];
 		foreach ($rowset as $row)
 		{
-			if ($row['topic_attachment'])
+			if ($row['topic_attachment'] && $this->auth->acl_get('f_download', (int) $row['forum_id']))
 			{
 				$post_ids[] = $row['topic_first_post_id'];
 				if ($this->last_post_enabled() && $row['topic_first_post_id'] !== $row['topic_last_post_id'])

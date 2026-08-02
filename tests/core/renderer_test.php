@@ -15,6 +15,9 @@ class renderer_test extends \phpbb_test_case
 	/** @var \vse\topicpreview\core\renderer */
 	protected $renderer;
 
+	/** @var \phpbb\textformatter\parser_interface */
+	protected $parser;
+
 	protected function setUp(): void
 	{
 		parent::setUp();
@@ -23,7 +26,9 @@ class renderer_test extends \phpbb_test_case
 
 		$cache = new \phpbb_mock_cache();
 		$phpbb_container = new \phpbb_mock_container_builder();
-		$renderer = $this->get_test_case_helpers()->set_s9e_services()->get('text_formatter.renderer');
+		$text_formatter = $this->get_test_case_helpers()->set_s9e_services();
+		$renderer = $text_formatter->get('text_formatter.renderer');
+		$this->parser = $text_formatter->get('text_formatter.parser');
 		$phpbb_container->set('text_formatter.renderer', $renderer);
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 		$user = new \phpbb_mock_user();
@@ -62,6 +67,20 @@ class renderer_test extends \phpbb_test_case
 				150,
 				0,
 				'Hello world',
+			],
+			'Censored text - plain mode' =>
+			[
+				'<t>badword4</t>',
+				150,
+				0,
+				'replacement4',
+			],
+			'Censored text - rich mode' =>
+			[
+				'<t>apple</t>',
+				150,
+				1,
+				'banana',
 			],
 			'BBCode text - rich mode' =>
 			[
@@ -201,6 +220,48 @@ class renderer_test extends \phpbb_test_case
 		$this->assertStringContainsString('and more text', $result);
 	}
 
+	public function test_rich_trimming_excludes_inline_attachments_after_limit()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t><ATTACHMENT filename="visible.jpg" index="0"><s>[attachment=0]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT>12345<ATTACHMENT filename="trimmed.jpg" index="1"><s>[attachment=1]</s>trimmed.jpg<e>[/attachment]</e></ATTACHMENT></t>';
+		$attachments = [
+			0 => ['attach_id' => 1, 'real_filename' => 'visible.jpg'],
+			1 => ['attach_id' => 2, 'real_filename' => 'trimmed.jpg'],
+		];
+
+		$result = $this->renderer->render_text($text, 6, '', true, true, $attachments, 1);
+
+		$this->assertStringContainsString('visible.jpg', $result);
+		$this->assertStringNotContainsString('trimmed.jpg', $result);
+		$this->assertStringContainsString('12345', $result);
+	}
+
+	public function test_rich_trimming_excludes_detached_attachments_after_limit()
+	{
+		global $config, $phpbb_root_path, $phpEx, $extensions;
+
+		$config = new \phpbb\config\config([]);
+		$phpbb_root_path = '';
+		$phpEx = 'php';
+		$extensions = [];
+
+		$text = '<t>' . str_repeat('a', 20) . '</t>';
+		$attachments = [
+			['attach_id' => 1, 'real_filename' => 'non-inline.pdf'],
+		];
+
+		$result = $this->renderer->render_text($text, 10, '', true, true, $attachments, 1);
+
+		$this->assertSame(str_repeat('a', 10) . '...', $result);
+		$this->assertStringNotContainsString('non-inline.pdf', $result);
+	}
+
 	public function test_render_text_plain_mode_ignores_attachments()
 	{
 		$text = '<t>Plain text</t>';
@@ -249,66 +310,216 @@ class renderer_test extends \phpbb_test_case
 		$this->assertEquals($text, $result);
 	}
 
-	public function trim_html_content_data()
+	public function trim_parsed_content_data()
 	{
 		return [
-			'HTML needs trimming' => [
-				25,
-				'<p>This is a <strong>test</strong> message with <em>formatting</em></p>',
-				'<p>This is a <strong>test</strong> message...</p>',
+			'formatting markers do not count' => [
+				10,
+				'<r><B><s>[b]</s>12345<e>[/b]</e></B><I><s>[i]</s>67890<e>[/i]</e></I>extra</r>',
+				'1234567890',
+				true,
 			],
-			'HTML no trimming' => [
+			'exact limit is not trimmed' => [
+				10,
+				'<r><B><s>[b]</s>12345<e>[/b]</e></B>67890</r>',
+				'1234567890',
+				false,
+			],
+			'lists retain content up to limit' => [
 				150,
-				'<p>This is a <strong>test</strong> message with <em>formatting</em></p>',
-				'<p>This is a <strong>test</strong> message with <em>formatting</em></p>',
+				'<r>' . str_repeat('test ', 28) . "\n\n" . '<LIST><s>[list]</s><LI><s>[*]</s>sdasd</LI><LI><s>[*]</s>asdads</LI><LI><s>[*]</s>sdasd</LI><LI><s>[*]</s>asdsa</LI><e>[/list]</e></LIST></r>',
+				str_repeat('test ', 28) . "\n\n" . 'sdasdasd',
+				true,
 			],
-			'HTML with emoji needs trimming' => [
-				5,
-				str_repeat('<img alt="😇">', 10),
-				str_repeat('<img alt="😇">', 5) . '...',
+			'nested code and lists share one content budget' => [
+				70,
+				'<r><CODE><s>[code]</s>function welcome($name) {' . "\n\t" . 'return &quot;Welcome, &quot; . $name;' . "\n" . '}<e>[/code]</e></CODE>' . "\n\n" . '<LIST><s>[list]</s><LI><s>[*]</s>First item</LI><LI><s>[*]</s>Second item</LI><LIST><s>[list=a]</s><LI><s>[*]</s>First alphabetical item</LI><LI><s>[*]</s>Second alphabetical item</LI><e>[/list]</e></LIST><e>[/list]</e></LIST></r>',
+				'function welcome($name) {' . "\n\t" . 'return "Welcome, " . $name;' . "\n}\n\n" . 'First itemSe',
+				true,
 			],
-			'HTML with text and image exceeding limit' => [
+			'Unicode characters are counted, not bytes' => [
 				5,
-				'<p>Text<img alt="1"><img alt="2"></p>',
-				'<p>Text<img alt="1"></p>...',
+				'<r>' . str_repeat('😀', 6) . '</r>',
+				str_repeat('😀', 5),
+				true,
+			],
+			'visual elements count as one unit' => [
+				5,
+				'<r>Text<IMG src="https://example.com/image.png"><s>[img]</s>https://example.com/image.png<e>[/img]</e></IMG>extra</r>',
+				'Text#',
+				true,
 			],
 		];
 	}
 
 	/**
-	 * @dataProvider trim_html_content_data
+	 * @dataProvider trim_parsed_content_data
 	 */
-	public function test_trim_html_content($limit, $html, $expected)
+	public function test_trim_parsed_content($limit, $input, $expected_text, $expected_trimmed)
 	{
-		$reflection = new \ReflectionClass($this->renderer);
-		$method = $reflection->getMethod('trim_html_content');
-		$method->setAccessible(true);
+		$was_trimmed = false;
+		$is_parsed = false;
+		$result = $this->invoke_trim_parsed_content($input, $limit, $was_trimmed, $is_parsed);
 
-		$result = $method->invoke($this->renderer, $html, $limit);
-
-		$this->assertEquals($expected, $result);
+		$this->assertTrue($is_parsed);
+		$this->assertSame($expected_trimmed, $was_trimmed);
+		$this->assertSame($expected_text . ($expected_trimmed ? '...' : ''), $this->parsed_content_text($result));
+		$this->assertLessThanOrEqual($limit, utf8_strlen($expected_text));
 	}
 
-	public function test_trim_html_content_falls_back_without_libxml()
+	public function test_trim_parsed_content_preserves_structure()
 	{
-		global $topic_preview_force_missing_libxml;
+		$input = '<r><CODE><s>[code]</s>12345<e>[/code]</e></CODE><LIST><s>[list]</s><LI><s>[*]</s>67890</LI><LI><s>[*]</s>extra</LI><e>[/list]</e></LIST></r>';
+		$was_trimmed = false;
+		$is_parsed = false;
 
-		$topic_preview_force_missing_libxml = true;
+		$result = $this->invoke_trim_parsed_content($input, 10, $was_trimmed, $is_parsed);
 
+		$this->assertStringContainsString('<CODE>', $result);
+		$this->assertStringContainsString('<LIST>', $result);
+		$this->assertStringContainsString('<LI>', $result);
+		$this->assertStringNotContainsString('extra', $result);
+		$this->assertStringContainsString('<LI><s>[*]</s>67890...</LI>', $result);
+		$this->assertStringNotContainsString('</LIST>...</r>', $result);
+	}
+
+	public function test_trim_parsed_content_places_ellipsis_inside_active_bbcode_at_exact_boundary()
+	{
+		$input = '<r><B><s>[b]</s>12345<e>[/b]</e></B>extra</r>';
+		$was_trimmed = false;
+		$is_parsed = false;
+
+		$result = $this->invoke_trim_parsed_content($input, 5, $was_trimmed, $is_parsed);
+
+		$this->assertStringContainsString('<B><s>[b]</s>12345...<e>[/b]</e></B>', $result);
+		$this->assertStringNotContainsString('extra', $result);
+	}
+
+	public function test_rich_trimming_uses_post_content_from_real_parser()
+	{
+		$post = <<<'POST'
+[code]function welcome($name) {
+	return "Welcome, " . $name;
+}[/code]
+
+[list]
+[*]First item
+[*]Second item
+[list=a]
+[*]First alphabetical item
+[*]Second alphabetical item
+[/list]
+[/list]
+
+[list=1]
+[*]First numbered item
+[*]Second numbered item
+[/list]
+POST;
+		$parsed = $this->parser->parse($post);
+		$was_trimmed = false;
+		$is_parsed = false;
+
+		$trimmed = $this->invoke_trim_parsed_content($parsed, 150, $was_trimmed, $is_parsed);
+		$original_content = $this->parsed_content_text($parsed);
+		$trimmed_content = $this->parsed_content_text($trimmed);
+
+		$this->assertTrue($is_parsed);
+		$this->assertTrue($was_trimmed);
+		$this->assertSame(utf8_substr($original_content, 0, 150) . '...', $trimmed_content);
+		$this->assertSame(150, utf8_strlen(substr($trimmed_content, 0, -3)));
+
+		$rendered = $this->renderer->render_text($parsed, 150, '', true, true);
+		$this->assertStringContainsString('function welcome($name)', $rendered);
+		$this->assertStringContainsString('First numbered', $rendered);
+	}
+
+	public function test_rich_trimming_uses_shortened_link_text()
+	{
+		$url = 'https://example.com/' . str_repeat('abcdefghij', 10);
+		$parsed = $this->parser->parse('Before ' . $url . ' After');
+
+		$result = $this->renderer->render_text($parsed, 30, '', true, true);
+		$visible_text = html_entity_decode(strip_tags($result), ENT_QUOTES, 'UTF-8');
+
+		$this->assertStringEndsWith('...', $visible_text);
+		$this->assertSame(30, utf8_strlen(substr($visible_text, 0, -3)));
+		$this->assertStringNotContainsString(' After', $visible_text);
+		$this->assertStringContainsString('href="' . $url . '"', $result);
+	}
+
+	public function test_rich_trimming_counts_expanding_censor_replacements()
+	{
+		$result = $this->renderer->render_text('<t>badword4 1234567890</t>', 10, '', true, true);
+
+		$this->assertSame('replacemen...', $result);
+		$this->assertSame(10, utf8_strlen(substr($result, 0, -3)));
+	}
+
+	public function test_plain_trimming_never_exceeds_limit()
+	{
+		foreach ([1, 10, 20, 21, 149, 150] as $limit)
+		{
+			$result = $this->renderer->render_text('<t>' . str_repeat('á', 200) . '</t>', $limit, '', false, false);
+			$content = substr($result, 0, -3);
+
+			$this->assertSame($limit, utf8_strlen($content));
+		}
+	}
+
+	public function test_rich_text_falls_back_to_limited_plain_text_for_legacy_content()
+	{
+		$result = $this->renderer->render_text(str_repeat('a', 20), 10, '', true, true);
+
+		$this->assertSame(str_repeat('a', 10) . '...', $result);
+	}
+
+	public function test_trim_parsed_content_restores_libxml_error_setting()
+	{
 		try
 		{
-			$reflection = new \ReflectionClass($this->renderer);
-			$method = $reflection->getMethod('trim_html_content');
-			$method->setAccessible(true);
+			foreach ([false, true] as $use_internal_errors)
+			{
+				libxml_use_internal_errors($use_internal_errors);
+				$was_trimmed = false;
+				$is_parsed = false;
+				$this->invoke_trim_parsed_content('<r>123456</r>', 5, $was_trimmed, $is_parsed);
 
-			$result = $method->invoke($this->renderer, '<p>This is long text</p>', 7);
-
-			$this->assertEquals('This is...', $result);
+				self::assertSame($use_internal_errors, libxml_use_internal_errors());
+			}
 		}
 		finally
 		{
-			$topic_preview_force_missing_libxml = false;
+			libxml_clear_errors();
+			libxml_use_internal_errors(false);
 		}
+	}
+
+	protected function invoke_trim_parsed_content($text, $limit, &$was_trimmed, &$is_parsed)
+	{
+		$reflection = new \ReflectionClass($this->renderer);
+		$method = $reflection->getMethod('trim_parsed_content');
+		$method->setAccessible(true);
+		$args = [$text, $limit, &$was_trimmed, &$is_parsed];
+
+		return $method->invokeArgs($this->renderer, $args);
+	}
+
+	protected function parsed_content_text($text)
+	{
+		$dom = new \DOMDocument('1.0', 'UTF-8');
+		$dom->loadXML($text);
+		$xpath = new \DOMXPath($dom);
+		foreach ($xpath->query('//ATTACHMENT|//E|//EMOJI|//FLASH|//IMG|//MEDIA') as $visual)
+		{
+			$visual->parentNode->replaceChild($dom->createTextNode('#'), $visual);
+		}
+		foreach ($xpath->query('//s|//e') as $marker)
+		{
+			$marker->parentNode->removeChild($marker);
+		}
+
+		return $dom->documentElement->textContent;
 	}
 
 	public function get_attachment_info_data()
@@ -747,7 +958,7 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 		$attachments = $compiled_attachments;
 	}
 
-	function generate_text_for_display($text, $uid, $bitfield, $flags)
+	function generate_text_for_display($text, $uid, $bitfield, $flags, $censor_text = true)
 	{
 		if (strpos($text, '<HIDDEN') !== false)
 		{
@@ -766,6 +977,6 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 			return $text;
 		}
 
-		return \generate_text_for_display($text, $uid, $bitfield, $flags);
+		return \generate_text_for_display($text, $uid, $bitfield, $flags, $censor_text);
 	}
 }

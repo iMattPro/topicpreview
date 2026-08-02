@@ -11,6 +11,7 @@
 namespace vse\topicpreview\core;
 
 use phpbb\avatar\helper as avatar_helper;
+use phpbb\auth\auth;
 use phpbb\config\config;
 use phpbb\event\dispatcher_interface;
 use phpbb\language\language;
@@ -27,6 +28,9 @@ class display extends base
 
 	/** @var avatar_helper|null */
 	protected $avatar_helper;
+
+	/** @var auth */
+	protected $auth;
 
 	/** @var dispatcher_interface */
 	protected $dispatcher;
@@ -52,6 +56,7 @@ class display extends base
 	/**
 	 * Constructor
 	 *
+	 * @param auth                 $auth       Auth object
 	 * @param config               $config     Config object
 	 * @param dispatcher_interface $dispatcher Event dispatcher object
 	 * @param language             $language   Language object
@@ -61,9 +66,10 @@ class display extends base
 	 * @param string               $root_path
 	 * @param avatar_helper|null   $avatar_helper Avatar helper object (phpBB 4.0.0)
 	 */
-	public function __construct(config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path, avatar_helper $avatar_helper = null)
+	public function __construct(auth $auth, config $config, dispatcher_interface $dispatcher, language $language, template $template, renderer $renderer, user $user, $root_path, avatar_helper $avatar_helper = null)
 	{
 		$this->avatar_helper = $avatar_helper;
+		$this->auth = $auth;
 		$this->dispatcher = $dispatcher;
 		$this->language = $language;
 		$this->template = $template;
@@ -107,7 +113,7 @@ class display extends base
 	 */
 	public function display_topic_preview($row, $block)
 	{
-		if (!$this->is_enabled())
+		if (!$this->is_enabled() || !$this->auth->acl_get('f_read', (int) $row['forum_id']))
 		{
 			return $block;
 		}
@@ -160,16 +166,14 @@ class display extends base
 			$attachments = $this->attachments_cache[$post_id] ?? [];
 		}
 
-		return censor_text(
-			$this->renderer->render_text(
-				$row[$post],
-				(int) $this->config['topic_preview_limit'],
-				$this->config['topic_preview_strip_bbcodes'],
-				(bool) $this->config['topic_preview_rich_text'],
-				(bool) $this->topic_preview_theme,
-				$attachments,
-				$row['forum_id']
-			)
+		return $this->renderer->render_text(
+			$row[$post],
+			(int) $this->config['topic_preview_limit'],
+			$this->config['topic_preview_strip_bbcodes'],
+			(bool) $this->config['topic_preview_rich_text'],
+			(bool) $this->topic_preview_theme,
+			$attachments,
+			$row['forum_id']
 		);
 	}
 

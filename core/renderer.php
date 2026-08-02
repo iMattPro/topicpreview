@@ -14,13 +14,17 @@ use phpbb\textformatter\s9e\utils;
 
 class renderer
 {
+	/** Regex matching ATTACHMENT XML tags with filename and index */
+	protected const ATTACHMENT_PATTERN = '/<ATTACHMENT\b(?=[^>]*\bfilename="([^"]+)")(?=[^>]*\bindex="(\d+)")[^>]*>/';
+
+	/** @var string[] Parsed tags rendered as a single visual unit */
+	protected const VISUAL_TAGS = ['ATTACHMENT', 'E', 'EMOJI', 'FLASH', 'IMG', 'MEDIA'];
+
+	/** @var string[] Parsed tags whose rendered text comes from an attribute */
+	protected const TEXT_ATTRIBUTES = ['LINK_TEXT' => 'text'];
+
 	/** @var utils */
 	protected $utils;
-
-	/**
-	 * Regex pattern to match ATTACHMENT XML tags with filename and index
-	 */
-	public const ATTACHMENT_PATTERN = '/<ATTACHMENT\b(?=[^>]*\bfilename="([^"]+)")(?=[^>]*\bindex="(\d+)")[^>]*>/';
 
 	/**
 	 * Constructor
@@ -62,112 +66,6 @@ class renderer
 	}
 
 	/**
-	 * Get comprehensive attachment information from text
-	 *
-	 * @param string $text Raw post text
-	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
-	 *
-	 * @return array Array with attachment mapping info
-	 */
-	protected function get_attachment_info($text, $strip_bbcodes)
-	{
-		// Get all inline attachments to build the mapping
-		$all_attachments = [];
-		if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
-		{
-			foreach ($all_matches[2] as $idx => $xml_index)
-			{
-				$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
-			}
-		}
-
-		// Get attachments that are inside BBCodes to be stripped
-		$excluded_xml_indices = [];
-
-		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
-		foreach ($bbcodes as $bbcode)
-		{
-			$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
-			if (preg_match_all(self::ATTACHMENT_PATTERN, $bbcode_content, $matches))
-			{
-				$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
-			}
-		}
-
-		// Only build the mapping if we actually found attachments to exclude
-		$xml_to_array_map = [];
-		if (!empty($excluded_xml_indices))
-		{
-			$new_array_index = 0;
-			foreach ($all_attachments as $xml_index => $filename)
-			{
-				if (!in_array($xml_index, $excluded_xml_indices, true))
-				{
-					$xml_to_array_map[$xml_index] = $new_array_index++;
-				}
-			}
-
-			// array_unique only needed when we have excluded items
-			$excluded_xml_indices = array_unique($excluded_xml_indices);
-		}
-
-		return [
-			'excluded_xml_indices' => $excluded_xml_indices,
-			'all_attachments' => $all_attachments,
-			'xml_to_array_map' => $xml_to_array_map,
-		];
-	}
-
-	/**
-	 * Extract content from BBCode tags
-	 *
-	 * @param string $text Raw post text
-	 * @param string $bbcode BBCode name to extract
-	 *
-	 * @return string Concatenated content from all instances of the BBCode
-	 */
-	protected function extract_bbcode_content($text, $bbcode)
-	{
-		$content = '';
-		$bbcode_upper = strtoupper($bbcode);
-
-		// Match opening and closing tags for this BBCode
-		// This regex finds the BBCode start and end tags in the XML structure
-		$pattern = '#<' . preg_quote($bbcode_upper, '#') . '(?:\s[^>]*)?>.*?</' . preg_quote($bbcode_upper, '#') . '>#s';
-
-		if (preg_match_all($pattern, $text, $matches))
-		{
-			$content = implode(' ', $matches[0]);
-		}
-
-		return $content;
-	}
-
-	/**
-	 * Remove BBCode tags and their content that should be ignored in previews
-	 *
-	 * @param string $text Raw post text
-	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
-	 *
-	 * @return string Text with ignored BBCodes removed
-	 */
-	protected function remove_ignored_bbcodes($text, $strip_bbcodes)
-	{
-		if (empty($strip_bbcodes))
-		{
-			return $text;
-		}
-
-		$stripped_text = $text;
-		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
-		foreach ($bbcodes as $bbcode)
-		{
-			$stripped_text = $this->utils->remove_bbcode($stripped_text, $bbcode);
-		}
-		return $stripped_text !== $text ? preg_replace('/\s+/', ' ', $stripped_text) : $text;
-	}
-
-	/**
 	 * Render plain text preview (no HTML formatting)
 	 *
 	 * @param string $text  Raw post text from database
@@ -189,6 +87,7 @@ class renderer
 			'#[ \t]{2,}#' // Multiple spaces
 		];
 		$plain_text = trim(preg_replace($patterns, ' ', $plain_text));
+		$plain_text = censor_text($plain_text);
 
 		if (empty($plain_text))
 		{
@@ -222,12 +121,24 @@ class renderer
 	 */
 	protected function render_rich_text($text, $limit, $attachments = [], $forum_id = 0, $attachment_info = [])
 	{
-		// Get plain text for length checking
-		$plain_text = $this->utils->clean_formatting($text);
+		$was_trimmed = false;
+		$is_parsed = false;
+		$was_censored = false;
+		$text = $this->trim_parsed_content($text, $limit, $was_trimmed, $is_parsed, $was_censored);
+		if (!$is_parsed)
+		{
+			// Legacy or malformed stored text cannot be trimmed safely as rich markup.
+			return $this->render_plain_text($text, $limit);
+		}
 
-		if (empty(trim($plain_text)))
+		if (empty(trim($this->utils->clean_formatting($text))))
 		{
 			return '';
+		}
+
+		if (!empty($attachment_info['all_attachments']))
+		{
+			$attachment_info = $this->update_attachment_info_after_trim($text, $attachment_info);
 		}
 
 		// Filter out attachments that were inside stripped or hidden BBCodes
@@ -235,7 +146,7 @@ class renderer
 		$all_attachments = $attachment_info['all_attachments'] ?? [];
 		$xml_to_array_map = $attachment_info['xml_to_array_map'] ?? [];
 
-		$rendered_text = generate_text_for_display($text, '', '', 7);
+		$rendered_text = generate_text_for_display($text, '', '', 7, !$was_censored);
 
 		if (!empty($all_attachments))
 		{
@@ -329,23 +240,408 @@ class renderer
 			$update_count = [];
 			parse_attachments($forum_id, $rendered_text, $attachments, $update_count);
 
-			// Append any remaining non-inline attachments
-			foreach ($attachments as $attachment)
+			// Detached attachments appear at the end of a post, after the preview
+			// cutoff. Keep them only when the post text was not truncated.
+			if (!$was_trimmed)
 			{
-				if (!empty($attachment))
+				foreach ($attachments as $attachment)
 				{
-					$rendered_text .= $attachment;
+					if (!empty($attachment))
+					{
+						$rendered_text .= $attachment;
+					}
 				}
 			}
 		}
 
-		if (utf8_strlen($plain_text) <= $limit)
+		return $rendered_text;
+	}
+
+	/**
+	 * Remove BBCode tags and their content that should be ignored in previews
+	 *
+	 * @param string $text Raw post text
+	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
+	 *
+	 * @return string Text with ignored BBCodes removed
+	 */
+	protected function remove_ignored_bbcodes($text, $strip_bbcodes)
+	{
+		if (empty($strip_bbcodes))
 		{
-			return $rendered_text;
+			return $text;
 		}
 
-		// Render and trim
-		return $this->trim_html_content($rendered_text, $limit);
+		$stripped_text = $text;
+		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
+		foreach ($bbcodes as $bbcode)
+		{
+			$stripped_text = $this->utils->remove_bbcode($stripped_text, $bbcode);
+		}
+		return $stripped_text !== $text ? preg_replace('/\s+/', ' ', $stripped_text) : $text;
+	}
+
+	/**
+	 * Trim parsed post content before phpBB renders it as HTML
+	 *
+	 * @param string $text Parsed post text
+	 * @param int    $limit Character limit
+	 * @param bool   $was_trimmed Whether content was removed
+	 * @param bool   $is_parsed Whether text was valid parsed XML
+	 * @param bool   $was_censored Whether post content was censored before trimming
+	 *
+	 * @return string Trimmed parsed post text
+	 */
+	protected function trim_parsed_content($text, $limit, &$was_trimmed, &$is_parsed, &$was_censored = false)
+	{
+		$was_trimmed = false;
+		$was_censored = false;
+		$is_parsed = preg_match('#^<[rt][ >]#', $text) === 1;
+		if (!$is_parsed)
+		{
+			return $text;
+		}
+
+		$limit = max(0, (int) $limit);
+		// Parsed XML includes content plus its markup, so content cannot exceed this
+		// length. Avoid building a DOM for short posts that cannot need trimming.
+		if (utf8_strlen($text) <= $limit && censor_text($text) === $text)
+		{
+			return $text;
+		}
+
+		$dom = new \DOMDocument('1.0', 'UTF-8');
+		$use_internal_errors = libxml_use_internal_errors(true);
+		try
+		{
+			$is_parsed = $dom->loadXML($text, LIBXML_COMPACT | LIBXML_PARSEHUGE) !== false;
+		}
+		finally
+		{
+			libxml_clear_errors();
+			libxml_use_internal_errors($use_internal_errors);
+		}
+
+		$root = $dom->documentElement;
+		if (!$is_parsed || !($root instanceof \DOMElement))
+		{
+			$is_parsed = false;
+			return $text;
+		}
+
+		$this->censor_parsed_content($root, $was_censored);
+		$content = $this->get_parsed_content_text($root);
+		if (utf8_strlen($content) <= $limit)
+		{
+			// Nothing is being trimmed, so let phpBB apply its normal complete
+			// censoring pass during rendering.
+			$was_censored = false;
+			return $text;
+		}
+
+		$last_content_node = null;
+		$this->trim_parsed_node($root, $limit, 0, $was_trimmed, $last_content_node);
+		$was_trimmed = true;
+		if ($last_content_node instanceof \DOMText)
+		{
+			$last_content_node->nodeValue .= '...';
+		}
+		else if ($last_content_node instanceof \DOMNode && $last_content_node->parentNode)
+		{
+			$last_content_node->parentNode->insertBefore($dom->createTextNode('...'), $last_content_node->nextSibling);
+		}
+		else
+		{
+			$root->insertBefore($dom->createTextNode('...'), $root->firstChild);
+		}
+
+		return $dom->saveXML($root);
+	}
+
+	/**
+	 * Censor semantic post content before applying the character budget
+	 *
+	 * @param \DOMNode $node Current parsed node
+	 * @param bool     $was_censored Whether any content was replaced
+	 */
+	protected function censor_parsed_content(\DOMNode $node, &$was_censored)
+	{
+		foreach ($node->childNodes as $child)
+		{
+			if ($child instanceof \DOMText)
+			{
+				$censored = censor_text($child->nodeValue);
+				if ($censored !== $child->nodeValue)
+				{
+					$child->nodeValue = $censored;
+					$was_censored = true;
+				}
+			}
+			else if ($child instanceof \DOMElement && $child->nodeName !== 's' && $child->nodeName !== 'e' && !in_array($child->nodeName, self::VISUAL_TAGS, true))
+			{
+				foreach ($child->attributes as $attribute)
+				{
+					$censored = censor_text($attribute->nodeValue);
+					if ($censored !== $attribute->nodeValue)
+					{
+						$attribute->nodeValue = $censored;
+						$was_censored = true;
+					}
+				}
+
+				if (isset(self::TEXT_ATTRIBUTES[$child->nodeName]))
+				{
+					continue;
+				}
+
+				$this->censor_parsed_content($child, $was_censored);
+			}
+		}
+	}
+
+	/**
+	 * Get semantic post content without parser markers or rendered HTML labels
+	 *
+	 * @param \DOMNode $node Current parsed node
+	 *
+	 * @return string Semantic post content
+	 */
+	protected function get_parsed_content_text(\DOMNode $node)
+	{
+		$content = '';
+		foreach ($node->childNodes as $child)
+		{
+			if ($child instanceof \DOMText)
+			{
+				$content .= $child->nodeValue;
+			}
+			else if ($child instanceof \DOMElement && $child->nodeName !== 's' && $child->nodeName !== 'e')
+			{
+				if (isset(self::TEXT_ATTRIBUTES[$child->nodeName]))
+				{
+					$content .= $child->getAttribute(self::TEXT_ATTRIBUTES[$child->nodeName]);
+				}
+				else
+				{
+					$content .= in_array($child->nodeName, self::VISUAL_TAGS, true)
+						? '#'
+						: $this->get_parsed_content_text($child);
+				}
+			}
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Recursively apply a content-character budget to parsed post XML
+	 *
+	 * @param \DOMNode $node Current parsed node
+	 * @param int      $limit Character limit
+	 * @param int      $count Current content count
+	 * @param bool     $was_trimmed Whether content was removed
+	 * @param \DOMNode|null $last_content_node Last retained content node
+	 *
+	 * @return int Updated content count
+	 */
+	protected function trim_parsed_node(\DOMNode $node, $limit, $count, &$was_trimmed, &$last_content_node)
+	{
+		$nodes_to_remove = [];
+
+		foreach ($node->childNodes as $child)
+		{
+			// phpBB parser source markers are formatting metadata, not content.
+			if ($child instanceof \DOMElement && ($child->nodeName === 's' || $child->nodeName === 'e'))
+			{
+				continue;
+			}
+
+			if ($count >= $limit)
+			{
+				$nodes_to_remove[] = $child;
+				$was_trimmed = true;
+				continue;
+			}
+
+			if ($child instanceof \DOMText)
+			{
+				$text = $child->nodeValue;
+				$text_length = utf8_strlen($text);
+				if ($count + $text_length > $limit)
+				{
+					$remaining = $limit - $count;
+					$child->nodeValue = utf8_substr($text, 0, $remaining);
+					$count = $limit;
+					$was_trimmed = true;
+				}
+				else
+				{
+					$count += $text_length;
+				}
+
+				if ($text_length > 0)
+				{
+					$last_content_node = $child;
+				}
+			}
+			else if ($child instanceof \DOMElement)
+			{
+				if (isset(self::TEXT_ATTRIBUTES[$child->nodeName]))
+				{
+					$attribute = self::TEXT_ATTRIBUTES[$child->nodeName];
+					$text = $child->getAttribute($attribute);
+					$text_length = utf8_strlen($text);
+					if ($count + $text_length > $limit)
+					{
+						$child->setAttribute($attribute, utf8_substr($text, 0, $limit - $count));
+						$count = $limit;
+						$was_trimmed = true;
+					}
+					else
+					{
+						$count += $text_length;
+					}
+
+					if ($text_length > 0)
+					{
+						$last_content_node = $child;
+					}
+				}
+				else if (in_array($child->nodeName, self::VISUAL_TAGS, true))
+				{
+					++$count;
+					$last_content_node = $child;
+				}
+				else
+				{
+					$count = $this->trim_parsed_node($child, $limit, $count, $was_trimmed, $last_content_node);
+				}
+			}
+		}
+
+		foreach ($nodes_to_remove as $node_to_remove)
+		{
+			$node->removeChild($node_to_remove);
+		}
+
+		return $count;
+	}
+
+	/**
+	 * Get comprehensive attachment information from text
+	 *
+	 * @param string $text Raw post text
+	 * @param string $strip_bbcodes String of BBCodes to remove, pipe delimited
+	 *
+	 * @return array Array with attachment mapping info
+	 */
+	protected function get_attachment_info($text, $strip_bbcodes)
+	{
+		// Get all inline attachments to build the mapping
+		$all_attachments = [];
+		if (preg_match_all(self::ATTACHMENT_PATTERN, $text, $all_matches))
+		{
+			foreach ($all_matches[2] as $idx => $xml_index)
+			{
+				$all_attachments[(int) $xml_index] = $all_matches[1][$idx];
+			}
+		}
+
+		// Get attachments that are inside BBCodes to be stripped
+		$excluded_xml_indices = [];
+
+		$bbcodes = array_filter(array_map('trim', explode('|', $strip_bbcodes)));
+		foreach ($bbcodes as $bbcode)
+		{
+			$bbcode_content = $this->extract_bbcode_content($text, $bbcode);
+			if (preg_match_all(self::ATTACHMENT_PATTERN, $bbcode_content, $matches))
+			{
+				$excluded_xml_indices = array_merge($excluded_xml_indices, array_map('intval', $matches[2]));
+			}
+		}
+
+		// Only build the mapping if we actually found attachments to exclude
+		$xml_to_array_map = [];
+		if (!empty($excluded_xml_indices))
+		{
+			$new_array_index = 0;
+			foreach ($all_attachments as $xml_index => $filename)
+			{
+				if (!in_array($xml_index, $excluded_xml_indices, true))
+				{
+					$xml_to_array_map[$xml_index] = $new_array_index++;
+				}
+			}
+
+			// array_unique only needed when we have excluded items
+			$excluded_xml_indices = array_unique($excluded_xml_indices);
+		}
+
+		return [
+			'excluded_xml_indices' => $excluded_xml_indices,
+			'all_attachments' => $all_attachments,
+			'xml_to_array_map' => $xml_to_array_map,
+		];
+	}
+
+	/**
+	 * Extract content from BBCode tags
+	 *
+	 * @param string $text Raw post text
+	 * @param string $bbcode BBCode name to extract
+	 *
+	 * @return string Concatenated content from all instances of the BBCode
+	 */
+	protected function extract_bbcode_content($text, $bbcode)
+	{
+		$content = '';
+		$bbcode_upper = strtoupper($bbcode);
+
+		// Match opening and closing tags for this BBCode
+		// This regex finds the BBCode start and end tags in the XML structure
+		$pattern = '#<' . preg_quote($bbcode_upper, '#') . '(?:\s[^>]*)?>.*?</' . preg_quote($bbcode_upper, '#') . '>#s';
+
+		if (preg_match_all($pattern, $text, $matches))
+		{
+			$content = implode(' ', $matches[0]);
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Update attachment mappings after parsed content has been trimmed
+	 *
+	 * @param string $text Parsed post text after trimming
+	 * @param array  $attachment_info Original attachment mapping
+	 *
+	 * @return array Updated attachment mapping
+	 */
+	protected function update_attachment_info_after_trim($text, array $attachment_info)
+	{
+		$remaining = $this->get_attachment_info($text, '')['all_attachments'];
+		$excluded = $attachment_info['excluded_xml_indices'];
+
+		foreach ($attachment_info['all_attachments'] as $xml_index => $filename)
+		{
+			if (!array_key_exists($xml_index, $remaining))
+			{
+				$excluded[] = $xml_index;
+			}
+		}
+
+		$attachment_info['excluded_xml_indices'] = array_unique(array_map('intval', $excluded));
+		$attachment_info['xml_to_array_map'] = [];
+		$new_index = 0;
+		foreach ($attachment_info['all_attachments'] as $xml_index => $filename)
+		{
+			if (!in_array($xml_index, $attachment_info['excluded_xml_indices'], true))
+			{
+				$attachment_info['xml_to_array_map'][$xml_index] = $new_index++;
+			}
+		}
+
+		return $attachment_info;
 	}
 
 	/**
@@ -390,143 +686,5 @@ class renderer
 			($attachment['real_filename'] ?? '') === $filename ||
 			($attachment['physical_filename'] ?? '') === $filename
 		);
-	}
-
-	/**
-	 * Trim HTML content while preserving basic formatting
-	 *
-	 * @param string $html  Rendered HTML content
-	 * @param int    $limit Character limit
-	 *
-	 * @return string Trimmed HTML
-	 */
-	protected function trim_html_content($html, $limit)
-	{
-		// Count text + images for proper length calculation
-		$text_content = strip_tags($html);
-		$total_length = utf8_strlen($text_content) + substr_count($html, '<img');
-
-		if ($total_length <= $limit)
-		{
-			return $html;
-		}
-
-		// Find where to cut in the plain text
-		$cut_pos = $limit;
-		if ($limit > 20)
-		{
-			$last_space = utf8_strrpos(utf8_substr($text_content, 0, $limit), ' ');
-			if ($last_space !== false && $last_space > $limit * 0.7)
-			{
-				$cut_pos = $last_space;
-			}
-		}
-
-		// Use DOM to safely trim HTML
-		if (class_exists('DOMDocument') && extension_loaded('libxml'))
-		{
-			return $this->dom_trim_html($html, $cut_pos);
-		}
-
-		// Fallback: simple text truncation
-		return utf8_htmlspecialchars(utf8_substr($text_content, 0, $cut_pos)) . '...';
-	}
-
-	/**
-	 * Use DOM to safely trim HTML content
-	 *
-	 * @param string $html  HTML content
-	 * @param int    $limit Character limit
-	 *
-	 * @return string Trimmed HTML
-	 */
-	protected function dom_trim_html($html, $limit)
-	{
-		$dom = new \DOMDocument('1.0', 'UTF-8');
-		$dom->encoding = 'UTF-8';
-
-		// Suppress warnings for malformed HTML and load with UTF-8 encoding
-		libxml_use_internal_errors(true);
-		$dom->loadHTML('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-		libxml_clear_errors();
-
-		$trimmed = $html;
-		$body = $dom->getElementsByTagName('body')->item(0);
-		if ($body)
-		{
-			$count = $this->trim_dom_text($body, $limit);
-
-			$trimmed = '';
-			foreach ($body->childNodes as $child)
-			{
-				$trimmed .= $dom->saveHTML($child);
-			}
-
-			if ($count >= $limit && strpos($trimmed, '...') === false)
-			{
-				$trimmed .= '...';
-			}
-		}
-
-		return $trimmed;
-	}
-
-	/**
-	 * Trim DOM text content to the limit
-	 *
-	 * @param \DOMNode $node  DOM node
-	 * @param int      $limit Character limit
-	 * @param int      $count Current character count
-	 *
-	 * @return int Updated character count
-	 */
-	protected function trim_dom_text(\DOMNode $node, $limit, $count = 0)
-	{
-		$nodes_to_remove = [];
-
-		foreach ($node->childNodes as $child)
-		{
-			if ($count >= $limit)
-			{
-				$nodes_to_remove[] = $child;
-				continue;
-			}
-
-			if ($child->nodeType === XML_TEXT_NODE)
-			{
-				$text = $child->nodeValue;
-				$text_len = utf8_strlen($text);
-
-				if ($count + $text_len > $limit)
-				{
-					$remaining = $limit - $count;
-					$child->nodeValue = utf8_substr($text, 0, $remaining) . '...';
-					$count = $limit;
-				}
-				else
-				{
-					$count += $text_len;
-				}
-			}
-			else if ($child->nodeType === XML_ELEMENT_NODE)
-			{
-				// Count img tags (emojis/smilies) as 1 character each
-				if ($child->nodeName === 'img')
-				{
-					++$count;
-				}
-				else
-				{
-					$count = $this->trim_dom_text($child, $limit, $count);
-				}
-			}
-		}
-
-		foreach ($nodes_to_remove as $node_to_remove)
-		{
-			$node->removeChild($node_to_remove);
-		}
-
-		return $count;
 	}
 }
