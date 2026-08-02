@@ -586,6 +586,14 @@ POST;
 					'xml_to_array_map' => [2 => 0],
 				],
 			],
+			'Nested stripped BBCodes with trailing attachment' => [
+				'<t><QUOTE><s>[quote]</s><ATTACHMENT filename="outer.jpg" index="0"><s>[attachment=0]</s>outer.jpg<e>[/attachment]</e></ATTACHMENT><QUOTE><s>[quote]</s><ATTACHMENT filename="inner.jpg" index="1"><s>[attachment=1]</s>inner.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE><ATTACHMENT filename="trailing.jpg" index="2"><s>[attachment=2]</s>trailing.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE><ATTACHMENT filename="visible.jpg" index="3"><s>[attachment=3]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>',
+				'quote',
+				[
+					'excluded_xml_indices' => [0, 1, 2],
+					'xml_to_array_map' => [3 => 0],
+				],
+			],
 		];
 	}
 
@@ -598,7 +606,12 @@ POST;
 		$method = $reflection->getMethod('get_attachment_info');
 		$method->setAccessible(true);
 
-		$result = $method->invoke($this->renderer, $text, $strip_bbcodes);
+		$filtered_text = $text;
+		foreach (array_filter(array_map('trim', explode('|', $strip_bbcodes))) as $bbcode)
+		{
+			$filtered_text = \s9e\TextFormatter\Utils::removeTag($filtered_text, strtoupper($bbcode));
+		}
+		$result = $method->invoke($this->renderer, $text, $filtered_text);
 
 		$this->assertEquals($expected['excluded_xml_indices'], $result['excluded_xml_indices']);
 		$this->assertEquals($expected['xml_to_array_map'], $result['xml_to_array_map']);
@@ -611,7 +624,8 @@ POST;
 		$method->setAccessible(true);
 
 		$text = '<t><QUOTE><s>[quote]</s><ATTACHMENT index="0" filename="hidden.jpg"><s>[attachment=0]</s>hidden.jpg<e>[/attachment]</e></ATTACHMENT><e>[/quote]</e></QUOTE> <ATTACHMENT index="1" filename="visible.jpg"><s>[attachment=1]</s>visible.jpg<e>[/attachment]</e></ATTACHMENT></t>';
-		$result = $method->invoke($this->renderer, $text, 'quote');
+		$filtered_text = \s9e\TextFormatter\Utils::removeTag($text, 'QUOTE');
+		$result = $method->invoke($this->renderer, $text, $filtered_text);
 
 		$this->assertEquals([0], $result['excluded_xml_indices']);
 		$this->assertEquals([1 => 0], $result['xml_to_array_map']);
@@ -885,49 +899,6 @@ POST;
 		// Should be empty or contain no attachments
 		$this->assertStringNotContainsString('file1.jpg', $result);
 		$this->assertStringNotContainsString('file2.jpg', $result);
-	}
-
-
-	public function test_extract_bbcode_content()
-	{
-		$reflection = new \ReflectionClass($this->renderer);
-		$method = $reflection->getMethod('extract_bbcode_content');
-		$method->setAccessible(true);
-
-		// Test extracting QUOTE content
-		$text = '<t>Before <QUOTE><s>[quote]</s>Inside quote<e>[/quote]</e></QUOTE> After</t>';
-		$result = $method->invoke($this->renderer, $text, 'quote');
-
-		$this->assertStringContainsString('Inside quote', $result);
-		$this->assertStringNotContainsString('Before', $result);
-		$this->assertStringNotContainsString('After', $result);
-	}
-
-	public function test_extract_bbcode_content_multiple_instances()
-	{
-		$reflection = new \ReflectionClass($this->renderer);
-		$method = $reflection->getMethod('extract_bbcode_content');
-		$method->setAccessible(true);
-
-		// Test extracting multiple QUOTE instances
-		$text = '<t><QUOTE><s>[quote]</s>First quote<e>[/quote]</e></QUOTE> Text <QUOTE><s>[quote]</s>Second quote<e>[/quote]</e></QUOTE></t>';
-		$result = $method->invoke($this->renderer, $text, 'quote');
-
-		$this->assertStringContainsString('First quote', $result);
-		$this->assertStringContainsString('Second quote', $result);
-	}
-
-	public function test_extract_bbcode_content_no_match()
-	{
-		$reflection = new \ReflectionClass($this->renderer);
-		$method = $reflection->getMethod('extract_bbcode_content');
-		$method->setAccessible(true);
-
-		// Test extracting non-existent BBCode
-		$text = '<t>Some text without the BBCode</t>';
-		$result = $method->invoke($this->renderer, $text, 'quote');
-
-		$this->assertEquals('', $result);
 	}
 }
 
