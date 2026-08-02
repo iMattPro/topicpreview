@@ -75,6 +75,13 @@ class renderer_test extends \phpbb_test_case
 				0,
 				'replacement4',
 			],
+			'Censored text - rich mode' =>
+			[
+				'<t>apple</t>',
+				150,
+				1,
+				'banana',
+			],
 			'BBCode text - rich mode' =>
 			[
 				'<t><B><s>[b]</s>Bold text<e>[/b]</e></B> normal text</t>',
@@ -425,6 +432,28 @@ POST;
 		$rendered = $this->renderer->render_text($parsed, 150, '', true, true);
 		$this->assertStringContainsString('function welcome($name)', $rendered);
 		$this->assertStringContainsString('First numbered', $rendered);
+	}
+
+	public function test_rich_trimming_uses_shortened_link_text()
+	{
+		$url = 'https://example.com/' . str_repeat('abcdefghij', 10);
+		$parsed = $this->parser->parse('Before ' . $url . ' After');
+
+		$result = $this->renderer->render_text($parsed, 30, '', true, true);
+		$visible_text = html_entity_decode(strip_tags($result), ENT_QUOTES, 'UTF-8');
+
+		$this->assertStringEndsWith('...', $visible_text);
+		$this->assertSame(30, utf8_strlen(substr($visible_text, 0, -3)));
+		$this->assertStringNotContainsString(' After', $visible_text);
+		$this->assertStringContainsString('href="' . $url . '"', $result);
+	}
+
+	public function test_rich_trimming_counts_expanding_censor_replacements()
+	{
+		$result = $this->renderer->render_text('<t>badword4 1234567890</t>', 10, '', true, true);
+
+		$this->assertSame('replacemen...', $result);
+		$this->assertSame(10, utf8_strlen(substr($result, 0, -3)));
 	}
 
 	public function test_plain_trimming_never_exceeds_limit()
@@ -929,7 +958,7 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 		$attachments = $compiled_attachments;
 	}
 
-	function generate_text_for_display($text, $uid, $bitfield, $flags)
+	function generate_text_for_display($text, $uid, $bitfield, $flags, $censor_text = true)
 	{
 		if (strpos($text, '<HIDDEN') !== false)
 		{
@@ -948,6 +977,6 @@ if (!function_exists('vse\topicpreview\core\parse_attachments'))
 			return $text;
 		}
 
-		return \generate_text_for_display($text, $uid, $bitfield, $flags);
+		return \generate_text_for_display($text, $uid, $bitfield, $flags, $censor_text);
 	}
 }

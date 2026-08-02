@@ -17,6 +17,9 @@ class renderer
 	/** @var string[] Parsed tags rendered as a single visual unit */
 	protected const VISUAL_TAGS = ['ATTACHMENT', 'E', 'EMOJI', 'FLASH', 'IMG', 'MEDIA'];
 
+	/** @var string[] Parsed tags whose rendered text comes from an attribute */
+	protected const TEXT_ATTRIBUTES = ['LINK_TEXT' => 'text'];
+
 	/** @var utils */
 	protected $utils;
 
@@ -228,7 +231,8 @@ class renderer
 	{
 		$was_trimmed = false;
 		$is_parsed = false;
-		$text = $this->trim_parsed_content($text, $limit, $was_trimmed, $is_parsed);
+		$was_censored = false;
+		$text = $this->trim_parsed_content($text, $limit, $was_trimmed, $is_parsed, $was_censored);
 		if (!$is_parsed)
 		{
 			// Legacy or malformed stored text cannot be trimmed safely as rich markup.
@@ -250,7 +254,7 @@ class renderer
 		$all_attachments = $attachment_info['all_attachments'] ?? [];
 		$xml_to_array_map = $attachment_info['xml_to_array_map'] ?? [];
 
-		$rendered_text = generate_text_for_display($text, '', '', 7);
+		$rendered_text = generate_text_for_display($text, '', '', 7, !$was_censored);
 
 		if (!empty($all_attachments))
 		{
@@ -403,12 +407,14 @@ class renderer
 	 * @param int    $limit Character limit
 	 * @param bool   $was_trimmed Whether content was removed
 	 * @param bool   $is_parsed Whether text was valid parsed XML
+	 * @param bool   $was_censored Whether post content was censored before trimming
 	 *
 	 * @return string Trimmed parsed post text
 	 */
-	protected function trim_parsed_content($text, $limit, &$was_trimmed, &$is_parsed)
+	protected function trim_parsed_content($text, $limit, &$was_trimmed, &$is_parsed, &$was_censored = false)
 	{
 		$was_trimmed = false;
+		$was_censored = false;
 		$is_parsed = preg_match('#^<[rt][ >]#', $text) === 1;
 		if (!$is_parsed)
 		{
@@ -418,7 +424,7 @@ class renderer
 		$limit = max(0, (int) $limit);
 		// Parsed XML includes content plus its markup, so content cannot exceed this
 		// length. Avoid building a DOM for short posts that cannot need trimming.
-		if (utf8_strlen($text) <= $limit)
+		if (utf8_strlen($text) <= $limit && censor_text($text) === $text)
 		{
 			return $text;
 		}
@@ -442,9 +448,13 @@ class renderer
 			return $text;
 		}
 
+		$this->censor_parsed_content($root, $was_censored);
 		$content = $this->get_parsed_content_text($root);
 		if (utf8_strlen($content) <= $limit)
 		{
+			// Nothing is being trimmed, so let phpBB apply its normal complete
+			// censoring pass during rendering.
+			$was_censored = false;
 			return $text;
 		}
 
@@ -468,6 +478,47 @@ class renderer
 	}
 
 	/**
+	 * Censor semantic post content before applying the character budget
+	 *
+	 * @param \DOMNode $node Current parsed node
+	 * @param bool     $was_censored Whether any content was replaced
+	 */
+	protected function censor_parsed_content(\DOMNode $node, &$was_censored)
+	{
+		foreach ($node->childNodes as $child)
+		{
+			if ($child instanceof \DOMText)
+			{
+				$censored = censor_text($child->nodeValue);
+				if ($censored !== $child->nodeValue)
+				{
+					$child->nodeValue = $censored;
+					$was_censored = true;
+				}
+			}
+			else if ($child instanceof \DOMElement && $child->nodeName !== 's' && $child->nodeName !== 'e' && !in_array($child->nodeName, self::VISUAL_TAGS, true))
+			{
+				foreach ($child->attributes as $attribute)
+				{
+					$censored = censor_text($attribute->nodeValue);
+					if ($censored !== $attribute->nodeValue)
+					{
+						$attribute->nodeValue = $censored;
+						$was_censored = true;
+					}
+				}
+
+				if (isset(self::TEXT_ATTRIBUTES[$child->nodeName]))
+				{
+					continue;
+				}
+
+				$this->censor_parsed_content($child, $was_censored);
+			}
+		}
+	}
+
+	/**
 	 * Get semantic post content without parser markers or rendered HTML labels
 	 *
 	 * @param \DOMNode $node Current parsed node
@@ -485,9 +536,16 @@ class renderer
 			}
 			else if ($child instanceof \DOMElement && $child->nodeName !== 's' && $child->nodeName !== 'e')
 			{
-				$content .= in_array($child->nodeName, self::VISUAL_TAGS, true)
-					? '#'
-					: $this->get_parsed_content_text($child);
+				if (isset(self::TEXT_ATTRIBUTES[$child->nodeName]))
+				{
+					$content .= $child->getAttribute(self::TEXT_ATTRIBUTES[$child->nodeName]);
+				}
+				else
+				{
+					$content .= in_array($child->nodeName, self::VISUAL_TAGS, true)
+						? '#'
+						: $this->get_parsed_content_text($child);
+				}
 			}
 		}
 
@@ -547,7 +605,28 @@ class renderer
 			}
 			else if ($child instanceof \DOMElement)
 			{
-				if (in_array($child->nodeName, self::VISUAL_TAGS, true))
+				if (isset(self::TEXT_ATTRIBUTES[$child->nodeName]))
+				{
+					$attribute = self::TEXT_ATTRIBUTES[$child->nodeName];
+					$text = $child->getAttribute($attribute);
+					$text_length = utf8_strlen($text);
+					if ($count + $text_length > $limit)
+					{
+						$child->setAttribute($attribute, utf8_substr($text, 0, $limit - $count));
+						$count = $limit;
+						$was_trimmed = true;
+					}
+					else
+					{
+						$count += $text_length;
+					}
+
+					if ($text_length > 0)
+					{
+						$last_content_node = $child;
+					}
+				}
+				else if (in_array($child->nodeName, self::VISUAL_TAGS, true))
 				{
 					++$count;
 					$last_content_node = $child;
