@@ -339,6 +339,7 @@ class renderer
 			return $text;
 		}
 
+		$limit = $this->get_word_boundary_limit($root, $content, $limit);
 		$last_content_node = null;
 		$this->trim_parsed_node($root, $limit, 0, $was_trimmed, $last_content_node);
 		$was_trimmed = true;
@@ -431,6 +432,85 @@ class renderer
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Move a cutoff to a nearby word boundary
+	 *
+	 * @param \DOMNode $root Parsed post root
+	 * @param string   $content Semantic post content
+	 * @param int      $limit Maximum character count
+	 *
+	 * @return int Character count at which content should be cut
+	 */
+	protected function get_word_boundary_limit(\DOMNode $root, $content, $limit)
+	{
+		if ($limit <= 20)
+		{
+			return $limit;
+		}
+
+		// If omitted content starts with whitespace, limit already ends a word.
+		if (preg_match('/^\s/u', utf8_substr($content, $limit, 1)))
+		{
+			return $limit;
+		}
+
+		$boundary = -1;
+		$prefix = utf8_substr($content, 0, $limit);
+		if (preg_match('/\s+\S*$/u', $prefix, $match, PREG_OFFSET_CAPTURE))
+		{
+			$boundary = utf8_strlen(substr($prefix, 0, $match[0][1]));
+		}
+
+		$offset = 0;
+		$this->get_structural_word_boundary($root, $offset, $limit, $boundary);
+
+		return $boundary > $limit * 0.7 ? $boundary : $limit;
+	}
+
+	/**
+	 * Find latest zero-width word boundary created by list-item structure
+	 *
+	 * @param \DOMNode $node Current parsed node
+	 * @param int      $offset Current semantic-content offset
+	 * @param int      $limit Maximum character count
+	 * @param int      $boundary Latest boundary at or before limit
+	 */
+	protected function get_structural_word_boundary(\DOMNode $node, &$offset, $limit, &$boundary)
+	{
+		foreach ($node->childNodes as $child)
+		{
+			if ($child instanceof \DOMText)
+			{
+				$offset += utf8_strlen($child->nodeValue);
+			}
+			else if ($child instanceof \DOMElement && $child->nodeName !== 's' && $child->nodeName !== 'e')
+			{
+				if ($child->nodeName === 'LI' && $offset <= $limit)
+				{
+					$boundary = max($boundary, $offset);
+				}
+
+				if (isset(self::TEXT_ATTRIBUTES[$child->nodeName]))
+				{
+					$offset += utf8_strlen($child->getAttribute(self::TEXT_ATTRIBUTES[$child->nodeName]));
+				}
+				else if (in_array($child->nodeName, self::VISUAL_TAGS, true))
+				{
+					++$offset;
+				}
+				else
+				{
+					$this->get_structural_word_boundary($child, $offset, $limit, $boundary);
+				}
+
+				if ($child->nodeName === 'LI' && $offset <= $limit)
+				{
+					$boundary = max($boundary, $offset);
+				}
+			}
+		}
 	}
 
 	/**

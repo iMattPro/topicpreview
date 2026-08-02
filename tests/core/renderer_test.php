@@ -328,13 +328,13 @@ class renderer_test extends \phpbb_test_case
 			'lists retain content up to limit' => [
 				150,
 				'<r>' . str_repeat('test ', 28) . "\n\n" . '<LIST><s>[list]</s><LI><s>[*]</s>sdasd</LI><LI><s>[*]</s>asdads</LI><LI><s>[*]</s>sdasd</LI><LI><s>[*]</s>asdsa</LI><e>[/list]</e></LIST></r>',
-				str_repeat('test ', 28) . "\n\n" . 'sdasdasd',
+				str_repeat('test ', 28) . "\n\n" . 'sdasd',
 				true,
 			],
 			'nested code and lists share one content budget' => [
 				70,
 				'<r><CODE><s>[code]</s>function welcome($name) {' . "\n\t" . 'return &quot;Welcome, &quot; . $name;' . "\n" . '}<e>[/code]</e></CODE>' . "\n\n" . '<LIST><s>[list]</s><LI><s>[*]</s>First item</LI><LI><s>[*]</s>Second item</LI><LIST><s>[list=a]</s><LI><s>[*]</s>First alphabetical item</LI><LI><s>[*]</s>Second alphabetical item</LI><e>[/list]</e></LIST><e>[/list]</e></LIST></r>',
-				'function welcome($name) {' . "\n\t" . 'return "Welcome, " . $name;' . "\n}\n\n" . 'First itemSe',
+				'function welcome($name) {' . "\n\t" . 'return "Welcome, " . $name;' . "\n}\n\n" . 'First item',
 				true,
 			],
 			'Unicode characters are counted, not bytes' => [
@@ -393,6 +393,19 @@ class renderer_test extends \phpbb_test_case
 
 		$this->assertStringContainsString('<B><s>[b]</s>12345...<e>[/b]</e></B>', $result);
 		$this->assertStringNotContainsString('extra', $result);
+	}
+
+	public function test_trim_parsed_content_respects_word_boundary()
+	{
+		$input = '<r>This preview contains an image file after words</r>';
+		$was_trimmed = false;
+		$is_parsed = false;
+
+		$result = $this->invoke_trim_parsed_content($input, 33, $was_trimmed, $is_parsed);
+
+		$this->assertTrue($is_parsed);
+		$this->assertTrue($was_trimmed);
+		$this->assertSame('This preview contains an image...', $this->parsed_content_text($result));
 	}
 
 	public function test_rich_trimming_uses_post_content_from_real_parser()
