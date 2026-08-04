@@ -30,6 +30,9 @@ class controller_test extends \phpbb_database_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
 	/** @var \vse\topicpreview\controller\acp_controller */
 	protected $controller;
 
@@ -56,7 +59,7 @@ class controller_test extends \phpbb_database_test_case
 
 		$cache = new \phpbb_mock_cache;
 		$config = $this->config = new \phpbb\config\config(array());
-		$db = $this->new_dbal();
+		$db = $this->db = $this->new_dbal();
 		$phpbb_extension_manager = new \phpbb_mock_extension_manager($phpbb_root_path);
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 		$request = $this->request = $this->createMock('\phpbb\request\request');
@@ -162,6 +165,33 @@ class controller_test extends \phpbb_database_test_case
 				'FORM_INVALID',
 			),
 		);
+	}
+
+	public function test_set_settings_rejects_unknown_theme()
+	{
+		$this->request->method('variable')->willReturnMap(array(
+			array('topic_preview_limit', 0, false, \phpbb\request\request_interface::REQUEST, 500),
+			array('topic_preview_width', 0, false, \phpbb\request\request_interface::REQUEST, 400),
+			array('topic_preview_delay', 0, false, \phpbb\request\request_interface::REQUEST, 300),
+			array('topic_preview_drift', 0, false, \phpbb\request\request_interface::REQUEST, 200),
+			array('topic_preview_avatars', 0, false, \phpbb\request\request_interface::REQUEST, 1),
+			array('topic_preview_last_post', 0, false, \phpbb\request\request_interface::REQUEST, 1),
+			array('topic_preview_rich_text', 0, false, \phpbb\request\request_interface::REQUEST, 1),
+			array('topic_preview_rich_attachments', 0, false, \phpbb\request\request_interface::REQUEST, 1),
+			array('topic_preview_strip_bbcodes', '', false, \phpbb\request\request_interface::REQUEST, 'foo'),
+			array('style_1', '', false, \phpbb\request\request_interface::REQUEST, '../../../../styles/prosilver/theme/stylesheet'),
+		));
+
+		$this->settings->set_settings();
+
+		$sql = 'SELECT topic_preview_theme
+			FROM ' . STYLES_TABLE . '
+			WHERE style_id = 1';
+		$result = $this->db->sql_query($sql);
+		$style = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+		self::assertSame(\vse\topicpreview\core\settings::DEFAULT_THEME, $style['topic_preview_theme']);
 	}
 
 	/**

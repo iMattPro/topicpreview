@@ -117,6 +117,27 @@
 	min-width: 0;
 }
 
+/* Restore post-content list indentation removed by phpBB's base reset. */
+.topic_preview_first ul,
+.topic_preview_first ol,
+.topic_preview_last ul,
+.topic_preview_last ol {
+	margin: 0.8em 0 0.9em 3em;
+}
+
+.topic_preview_first li,
+.topic_preview_last li {
+	display: list-item;
+	list-style-type: inherit;
+}
+
+.rtl .topic_preview_first ul,
+.rtl .topic_preview_first ol,
+.rtl .topic_preview_last ul,
+.rtl .topic_preview_last ol {
+	margin: 0.8em 3em 0.9em 0;
+}
+
 .topic_preview_scrollable {
 	overflow-x: hidden;
 	overflow-y: auto;

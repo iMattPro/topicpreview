@@ -18,6 +18,7 @@ class attachments_sql_test extends base
 			'disabled' => [
 				['topic_preview_limit' => 0],
 				[[
+					'forum_id' => 1,
 					'topic_attachment' => 1,
 					'topic_first_post_id' => 1,
 					'topic_last_post_id' => 1,
@@ -26,6 +27,7 @@ class attachments_sql_test extends base
 			'attachments_disabled' => [
 				['allow_attachments' => 0],
 				[[
+					'forum_id' => 1,
 					'topic_attachment' => 1,
 					'topic_first_post_id' => 1,
 					'topic_last_post_id' => 1,
@@ -38,6 +40,7 @@ class attachments_sql_test extends base
 			'no_attachments_flag' => [
 				[],
 				[[
+					'forum_id' => 1,
 					'topic_attachment' => 0,
 					'topic_first_post_id' => 1,
 					'topic_last_post_id' => 1,
@@ -64,6 +67,61 @@ class attachments_sql_test extends base
 		self::assertEquals([], $result);
 	}
 
+	public function test_get_attachments_for_topics_without_user_download_permission()
+	{
+		$auth = $this->getMockBuilder('\phpbb\auth\auth')
+			->setMethods(array('acl_get'))
+			->getMock();
+		$auth->expects(self::once())
+			->method('acl_get')
+			->with('u_download')
+			->willReturn(false);
+
+		$rowset = [[
+			'forum_id' => 1,
+			'topic_attachment' => 1,
+			'topic_first_post_id' => 1,
+			'topic_last_post_id' => 1,
+		]];
+
+		self::assertSame([], $this->get_topic_preview_data($auth)->get_attachments_for_topics($rowset));
+	}
+
+	public function test_get_attachments_for_topics_filters_forum_download_permission()
+	{
+		$auth = $this->getMockBuilder('\phpbb\auth\auth')
+			->setMethods(array('acl_get'))
+			->getMock();
+		$auth->expects(self::exactly(3))
+			->method('acl_get')
+			->withConsecutive(
+				['u_download'],
+				['f_download', 1],
+				['f_download', 2]
+			)
+			->willReturnOnConsecutiveCalls(true, true, false);
+
+		$rowset = [
+			[
+				'forum_id' => 1,
+				'topic_attachment' => 1,
+				'topic_first_post_id' => 1,
+				'topic_last_post_id' => 1,
+			],
+			[
+				'forum_id' => 2,
+				'topic_attachment' => 1,
+				'topic_first_post_id' => 2,
+				'topic_last_post_id' => 2,
+			],
+		];
+
+		$result = $this->get_topic_preview_data($auth)->get_attachments_for_topics($rowset);
+
+		self::assertArrayHasKey(1, $result);
+		self::assertArrayNotHasKey(2, $result);
+	}
+
 	public function test_get_attachments_for_topics_with_first_post()
 	{
 		$preview_data = $this->get_topic_preview_data();
@@ -73,6 +131,7 @@ class attachments_sql_test extends base
 
 		$rowset = [
 			[
+				'forum_id' => 1,
 				'topic_attachment' => 1,
 				'topic_first_post_id' => 1,
 				'topic_last_post_id' => 1,
@@ -91,6 +150,7 @@ class attachments_sql_test extends base
 
 		$rowset = [
 			[
+				'forum_id' => 1,
 				'topic_attachment' => 1,
 				'topic_first_post_id' => 1,
 				'topic_last_post_id' => 2,
@@ -115,16 +175,19 @@ class attachments_sql_test extends base
 
 		$rowset = [
 			[
+				'forum_id' => 1,
 				'topic_attachment' => 1,
 				'topic_first_post_id' => 1,
 				'topic_last_post_id' => 2,
 			],
 			[
+				'forum_id' => 1,
 				'topic_attachment' => 0, // No attachments
 				'topic_first_post_id' => 3,
 				'topic_last_post_id' => 3,
 			],
 			[
+				'forum_id' => 1,
 				'topic_attachment' => 1,
 				'topic_first_post_id' => 4,
 				'topic_last_post_id' => 4,

@@ -108,9 +108,11 @@ class settings
 		$this->config->set('topic_preview_strip_bbcodes', $this->request->variable('topic_preview_strip_bbcodes', ''));
 
 		$styles = $this->get_styles();
+		$themes = $this->get_themes();
 		foreach ($styles as $row)
 		{
-			$this->set_style_theme($row['style_id'], $this->request->variable('style_' . $row['style_id'], ''));
+			$theme = $this->request->variable('style_' . $row['style_id'], '');
+			$this->set_style_theme($row['style_id'], in_array($theme, $themes, true) ? $theme : self::DEFAULT_THEME);
 		}
 	}
 
