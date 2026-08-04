@@ -286,7 +286,7 @@ class display_topic_preview_test extends base
 	{
 		$forum_id = 42;
 		$auth = $this->getMockBuilder('\phpbb\auth\auth')
-			->setMethods(array('acl_get'))
+			->onlyMethods(array('acl_get'))
 			->getMock();
 		$auth->expects(self::once())
 			->method('acl_get')

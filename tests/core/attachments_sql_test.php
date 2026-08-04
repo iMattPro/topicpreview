@@ -70,7 +70,7 @@ class attachments_sql_test extends base
 	public function test_get_attachments_for_topics_without_user_download_permission()
 	{
 		$auth = $this->getMockBuilder('\phpbb\auth\auth')
-			->setMethods(array('acl_get'))
+			->onlyMethods(array('acl_get'))
 			->getMock();
 		$auth->expects(self::once())
 			->method('acl_get')
@@ -90,16 +90,22 @@ class attachments_sql_test extends base
 	public function test_get_attachments_for_topics_filters_forum_download_permission()
 	{
 		$auth = $this->getMockBuilder('\phpbb\auth\auth')
-			->setMethods(array('acl_get'))
+			->onlyMethods(array('acl_get'))
 			->getMock();
+		$expected_calls = [
+			['u_download', 0],
+			['f_download', 1],
+			['f_download', 2],
+		];
+		$return_values = [true, true, false];
+		$call_index = 0;
 		$auth->expects(self::exactly(3))
 			->method('acl_get')
-			->withConsecutive(
-				['u_download'],
-				['f_download', 1],
-				['f_download', 2]
-			)
-			->willReturnOnConsecutiveCalls(true, true, false);
+			->willReturnCallback(static function (...$arguments) use (&$call_index, $expected_calls, $return_values) {
+				self::assertSame($expected_calls[$call_index], $arguments);
+
+				return $return_values[$call_index++];
+			});
 
 		$rowset = [
 			[

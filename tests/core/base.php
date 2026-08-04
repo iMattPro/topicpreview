@@ -63,7 +63,7 @@ class base extends \phpbb_database_test_case
 		$this->db = $this->new_dbal();
 		$cache = new \phpbb_mock_cache;
 		$this->auth = $this->getMockBuilder('\phpbb\auth\auth')
-			->setMethods(array('acl_get'))
+			->onlyMethods(array('acl_get'))
 			->getMock();
 		$this->auth->method('acl_get')->willReturn(true);
 
