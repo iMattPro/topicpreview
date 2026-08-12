@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.5.0 - 2026-08-01
+
+- Improved rich-text preview truncation so the ACP character limit applies consistently to visible post content while preserving valid formatting and placing the ellipsis at the actual cutoff, including within formatted text, code blocks, lists, links, Unicode text, and censored text.
+- Fixed attachments appearing beyond the preview cutoff. Inline attachments after the cutoff and detached attachments on truncated posts are now hidden, while visible inline attachments retain their correct order.
+- Prevented post previews from being shown to users who may list topics but do not have permission to read the forum.
+- Prevented attachment details from being loaded or displayed without the required global and per-forum download permissions.
+- Validated submitted ACP theme names against available themes, with a safe fallback when an invalid theme is submitted.
+- Fixed word censoring so rendered HTML attributes, classes, and attachment URLs are not corrupted.
+- Prevented preview processing from changing libxml error handling for the remainder of the request.
+
 ## 2.4.1 - 2026-06-15
 
 - Fixed an issue so that attachments will be sorted in the correct order in the topic preview.
