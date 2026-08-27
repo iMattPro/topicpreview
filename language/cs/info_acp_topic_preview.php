@@ -36,5 +36,5 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW'					=> 'Úryvek z tématu',
-	'TOPIC_PREVIEW_SETTINGS'		=> 'Topic preview settings',
+	'TOPIC_PREVIEW_SETTINGS'		=> 'Nastavení náhledu tématu',
 ));
