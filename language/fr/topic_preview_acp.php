@@ -2,7 +2,7 @@
 /**
 *
 * Topic Preview [French]
-* Translated by darky (http://www.foruminfopc.fr/) & Galixte (http://www.galixte.com)
+* Translated by darky (http://www.foruminfopc.fr/), Galixte (http://www.galixte.com) & Fred Rimbert (https://caforum.fr)
 *
 * @copyright (c) 2013 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -44,10 +44,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_PREVIEW_STRIP_EXPLAIN'	=> 'Liste des BBCodes à supprimer de l’aperçu (les BBCodes de texte caché et de texte dévoilé par exemple). Listez les différents BBCodes séparés par le caractère « | ». Exemples : spoiler|hide|code',
 	'TOPIC_PREVIEW_AVATARS'			=> 'Afficher l’avatar des utilisateurs',
 	'TOPIC_PREVIEW_LAST_POST'		=> 'Afficher le texte du « dernier message »',
-	'TOPIC_PREVIEW_RICH_TEXT'		=> 'Afficher les aperçus en texte enrichi',
-	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN'=> 'Les aperçus afficheront du contenu mis en forme avec un rendu BBCode complet. Si cette option est désactivée, les aperçus afficheront uniquement du texte brut.',
-	'TOPIC_PREVIEW_RICH_ATT'		=> 'Afficher les pièces jointes dans les aperçus en texte enrichi',
-	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Afficher les fichiers joints dans les aperçus en texte enrichi. Désactivez cette option pour réduire la charge du serveur.',
+	'TOPIC_PREVIEW_RICH_TEXT'       => 'Afficher les aperçus en texte enrichi',
+	'TOPIC_PREVIEW_RICH_TEXT_EXPLAIN' => 'Les aperçus afficheront le contenu mis en forme avec le rendu complet des BBCodes. Lorsqu’ils sont désactivés, les aperçus affichent uniquement du texte brut.',
+	'TOPIC_PREVIEW_RICH_ATT'        => 'Afficher les pièces jointes dans les aperçus en texte enrichi',
+	'TOPIC_PREVIEW_RICH_ATT_EXPLAIN'=> 'Afficher les fichiers joints dans les aperçus en texte enrichi. Désactivez cette option si vous souhaitez réduire la charge du serveur.',
 	'CHARS'							=> 'Caractères',
 
 	'TOPIC_PREVIEW_STYLE_SETTINGS'	=> 'Paramètres de style de l’aperçu des sujets',

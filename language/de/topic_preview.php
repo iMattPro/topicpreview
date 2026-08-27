@@ -2,7 +2,7 @@
 /**
 *
 * Topic Preview [German]
-* Translated by AmigoJack
+* Translated by AmigoJack and Outi / RasPiFun.de
 *
 * @copyright (c) 2013 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
